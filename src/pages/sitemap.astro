@@ -1,0 +1,171 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getUrlCategories, postUrl } from "../lib/blog";
+import { SITE_URL } from "../config/site";
+
+/* HTML sitemap (human-readable) — distinct from /sitemap-index.xml (crawlers).
+   Pages are listed explicitly; blog posts are pulled live from the collection
+   so this stays accurate as posts change. */
+
+const mainPages = [
+  { label: "Home", href: "/" },
+  { label: "About Phil", href: "/about/" },
+  { label: "What Is A CBI?", href: "/what-is-a-cbi/" },
+  { label: "For Sellers", href: "/business-sellers/" },
+  { label: "For Buyers", href: "/business-buyers/" },
+  { label: "Listings", href: "/listings/" },
+  { label: "Testimonials", href: "/testimonials/" },
+  { label: "Awards & Track Record", href: "/awards/" },
+  { label: "FAQ", href: "/faq/" },
+  { label: "Blog", href: "/blog/" },
+  { label: "Contact", href: "/contact/" },
+  { label: "SiteMap", href: "/sitemap/" },
+];
+
+const serviceAreas = [
+  { label: "Phoenix Business Broker", href: "/phoenix-business-broker/" },
+  { label: "Scottsdale Business Broker", href: "/scottsdale-business-broker/" },
+  { label: "Tempe Business Broker", href: "/tempe-business-broker/" },
+  { label: "Mesa Business Broker", href: "/mesa-business-broker/" },
+  { label: "Chandler Business Broker", href: "/chandler-business-broker/" },
+  { label: "Gilbert Business Broker", href: "/gilbert-business-broker/" },
+  { label: "Peoria Business Broker", href: "/peoria-business-broker/" },
+  { label: "Glendale Business Broker", href: "/glendale-business-broker/" },
+  { label: "Queen Creek Business Broker", href: "/queen-creek-business-broker/" },
+  { label: "Sun City Business Broker", href: "/sun-city-business-broker/" },
+  { label: "Fountain Hills Business Broker", href: "/fountain-hills-business-broker/" },
+  { label: "Paradise Valley Business Broker", href: "/paradise-valley-business-broker/" },
+  { label: "Landscaping Business Broker", href: "/landscaping-business-broker/" },
+];
+
+const categories = await getUrlCategories();
+
+const title = "Visit The Sitemap Page At Phil Reese, AZ Business Broker";
+const description =
+  "Visit our Sitemap page and gain access to valuable information about buying or selling a business. Phil Reese is your partner during your business journey.";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "SiteMap",
+  url: `${SITE_URL}/sitemap/`,
+  description,
+};
+---
+
+<Layout title={title} description={description} canonical="/sitemap/" structuredData={structuredData}>
+  <section class="section title-bar">
+    <div class="section-wrap">
+      <h1 class="maintitle h1-style">SiteMap</h1>
+    </div>
+  </section>
+
+  <section class="section sitemap-sctn">
+    <div class="section-wrap">
+      <div class="sm-top">
+        <div class="sm-col">
+          <h2>Pages</h2>
+          <ul>
+            {mainPages.map((p) => (
+              <li><a href={p.href}>{p.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="sm-col">
+          <h2>Service Areas</h2>
+          <ul>
+            {serviceAreas.map((p) => (
+              <li><a href={p.href}>{p.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <h2 class="sm-blog-h">Blog Posts</h2>
+      <div class="sm-cats">
+        {categories.map((cat) => (
+          <div class="sm-cat">
+            <h3><a href={`/${cat.slug}/`}>{cat.name}</a></h3>
+            <ul>
+              {cat.posts.map((post) => (
+                <li><a href={postUrl(post)}>{post.data.title}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .section.title-bar {
+    padding-top: 52px;
+    padding-bottom: 52px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.25);
+    position: relative;
+    z-index: 2;
+  }
+  .title-bar .maintitle {
+    margin: 0;
+    color: var(--red);
+    text-align: center;
+  }
+
+  .sitemap-sctn {
+    padding-top: 60px;
+    padding-bottom: 80px;
+  }
+  .sm-top {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 48px;
+  }
+  .sitemap-sctn h2 {
+    color: var(--primary);
+    margin: 0 0 16px;
+    border-bottom: 2px solid var(--red);
+    padding-bottom: 8px;
+  }
+  .sm-blog-h {
+    margin-top: 8px;
+  }
+  .sitemap-sctn h3 {
+    color: var(--red);
+    margin: 0 0 8px;
+    font-size: 20px;
+  }
+  .sitemap-sctn ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .sitemap-sctn li {
+    margin: 0 0 8px;
+    line-height: 1.4;
+  }
+  .sitemap-sctn a {
+    color: var(--secondary);
+    text-decoration: none;
+  }
+  .sitemap-sctn a:hover {
+    color: var(--red);
+    text-decoration: underline;
+  }
+  .sm-cats {
+    columns: 2;
+    column-gap: 40px;
+  }
+  .sm-cat {
+    break-inside: avoid;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 700px) {
+    .sm-cats {
+      columns: 1;
+    }
+  }
+</style>
