@@ -1,0 +1,107 @@
+---
+/**
+ * Category archive — /category/<slug>/ + /category/<slug>/page/N/.
+ *
+ * WordPress's default category URL shape is /category/<slug>/. Most sites
+ * keep it. If a client used Yoast's category-base rewriter (e.g. /topic/
+ * instead of /category/), update reference/seo-map.csv and add a 301 in
+ * public/_redirects — DO NOT change the file path here without also updating
+ * the import script's link rewriting.
+ */
+
+import type { GetStaticPaths, GetStaticPathsOptions, Page } from "astro";
+import Layout from "../../../layouts/Layout.astro";
+import BlogPostCard from "../../../components/primitives/BlogPostCard.astro";
+import Pagination from "../../../components/primitives/Pagination.astro";
+import { getAllCategories, type BlogPost } from "../../../lib/blog";
+import { SITE_URL, SITE_NAME } from "../../../config/site";
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }: GetStaticPathsOptions) => {
+  const POSTS_PER_PAGE = 10;
+  const categories = await getAllCategories();
+  return categories.flatMap((cat) =>
+    paginate(cat.posts, {
+      pageSize: POSTS_PER_PAGE,
+      params: { slug: cat.slug },
+      props:  { name: cat.name },
+    })
+  );
+};
+
+interface Props {
+  page: Page<BlogPost>;
+  name: string;
+}
+
+const { page, name } = Astro.props;
+const { slug } = Astro.params;
+
+const base = `/category/${slug}`;
+const isPaged = page.currentPage > 1;
+const title = isPaged
+  ? `${name} — Page ${page.currentPage} | ${SITE_NAME}`
+  : `${name} | ${SITE_NAME}`;
+const description = `Posts in the ${name} category — page ${page.currentPage} of ${page.lastPage}.`;
+const canonical = isPaged ? `${base}/page/${page.currentPage}/` : `${base}/`;
+
+const prevPageUrl = page.url.prev ? `${SITE_URL}${page.url.prev}` : undefined;
+const nextPageUrl = page.url.next ? `${SITE_URL}${page.url.next}` : undefined;
+---
+
+<Layout title={title} description={description} canonical={canonical} ogType="website">
+  <Fragment slot="head">
+    {prevPageUrl && <link rel="prev" href={prevPageUrl} />}
+    {nextPageUrl && <link rel="next" href={nextPageUrl} />}
+  </Fragment>
+
+  <div class="site-term-archive">
+    <header class="site-term-archive__header">
+      <p class="site-term-archive__eyebrow">Category</p>
+      <h1>{name}</h1>
+      {isPaged && <p>Page {page.currentPage} of {page.lastPage}</p>}
+    </header>
+
+    <ul class="site-term-archive__items">
+      {page.data.map((post) => (
+        <li><BlogPostCard post={post} /></li>
+      ))}
+    </ul>
+
+    <Pagination
+      currentPage={page.currentPage}
+      totalPages={page.lastPage}
+      prevUrl={page.url.prev}
+      nextUrl={page.url.next}
+      basePath={base}
+    />
+  </div>
+</Layout>
+
+<style>
+  .site-term-archive {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .site-term-archive__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-muted-text, #6b6b6b);
+    font-size: 0.875rem;
+    margin: 0 0 0.25rem;
+  }
+  .site-term-archive__header h1 {
+    font-size: 2.25rem;
+    margin: 0;
+  }
+  .site-term-archive__header {
+    margin-bottom: 2rem;
+  }
+  .site-term-archive__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 2rem;
+  }
+</style>

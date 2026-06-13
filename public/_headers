@@ -1,0 +1,22 @@
+# Cloudflare Pages headers file.
+# Format: indent-sensitive — each rule is "path" on one line, then 2-space-indented headers.
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+
+# Long-cache hashed build assets (Astro outputs hashed filenames to /_astro/*)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Long-cache fonts
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Long-cache images (override per-image if you change source files often)
+/images/*
+  Cache-Control: public, max-age=2592000
+
+# Sensible security headers for every page
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()

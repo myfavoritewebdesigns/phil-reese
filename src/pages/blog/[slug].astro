@@ -1,0 +1,282 @@
+---
+/**
+ * Single blog post — /blog/<slug>/.
+ *
+ * Renders the post body (MDX), injects full Article JSON-LD, and adds
+ * newer/older post navigation at the bottom.
+ *
+ * Author profile fields (avatar, bio, URL) become the JSON-LD `author`
+ * Person — make sure src/content/blog/*.mdx frontmatter is filled in
+ * before relying on the schema for E-E-A-T signals.
+ */
+
+import type { GetStaticPaths } from "astro";
+import { render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { getPublishedPosts, getAdjacentPosts, formatDate } from "../../lib/blog";
+import type { BlogPost } from "../../lib/blog";
+import { SITE_URL, SITE_NAME } from "../../config/site";
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post, allPosts: posts },
+  }));
+};
+
+interface Props {
+  post: BlogPost;
+  allPosts: BlogPost[];
+}
+
+const { post, allPosts } = Astro.props;
+const { Content } = await render(post);
+
+const {
+  title, description, pubDate, modifiedDate,
+  author, categories, tags, featuredImage,
+  seoTitle, seoDescription, canonical, noindex,
+  ogImage, ogImageAlt,
+} = post.data;
+
+const postUrl = `/blog/${post.id}/`;
+const fullPostUrl = `${SITE_URL}${postUrl}`;
+
+const { newer, older } = getAdjacentPosts(allPosts, post);
+
+// Article JSON-LD — Google's E-E-A-T signal source. Skipping author/dateModified
+// here is the #1 reason "Article rich results not eligible" warnings appear in
+// Search Console after a WP→Astro migration.
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": `${fullPostUrl}#article`,
+  headline: title,
+  description,
+  mainEntityOfPage: { "@type": "WebPage", "@id": fullPostUrl },
+  url: fullPostUrl,
+  datePublished: pubDate.toISOString(),
+  dateModified: (modifiedDate ?? pubDate).toISOString(),
+  author: {
+    "@type": "Person",
+    name: author.name,
+    url: author.url ?? `${SITE_URL}/author/${author.slug}/`,
+    ...(author.avatar ? { image: author.avatar.startsWith("http") ? author.avatar : `${SITE_URL}${author.avatar}` } : {}),
+  },
+  publisher: { "@id": `${SITE_URL}/` },
+  image: featuredImage?.src
+    ? (featuredImage.src.startsWith("http") ? featuredImage.src : `${SITE_URL}${featuredImage.src}`)
+    : `${SITE_URL}/images/og-default.jpg`,
+  articleSection: categories,
+  keywords: tags.join(", "),
+};
+---
+
+<Layout
+  title={seoTitle ?? `${title} | ${SITE_NAME}`}
+  description={seoDescription ?? description}
+  canonical={canonical ?? postUrl}
+  ogImage={ogImage ?? featuredImage?.src}
+  ogImageAlt={ogImageAlt ?? featuredImage?.alt ?? title}
+  ogType="article"
+  noIndex={noindex}
+  publishedTime={pubDate.toISOString()}
+  modifiedTime={(modifiedDate ?? pubDate).toISOString()}
+  structuredData={articleSchema}
+>
+  <article class="site-post">
+    <header class="site-post__header">
+      <p class="site-post__categories">
+        {categories.map((c, i) => (
+          <>
+            {i > 0 && ", "}
+            <a href={`/category/${c.toLowerCase().replace(/[^a-z0-9]+/g, "-")}/`}>{c}</a>
+          </>
+        ))}
+      </p>
+
+      <h1 class="site-post__title">{title}</h1>
+
+      <p class="site-post__meta">
+        By <a href={`/author/${author.slug}/`} rel="author">{author.name}</a>
+        {" · "}
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        {modifiedDate && modifiedDate.getTime() !== pubDate.getTime() && (
+          <>
+            {" · "}
+            <span>Updated <time datetime={modifiedDate.toISOString()}>{formatDate(modifiedDate)}</time></span>
+          </>
+        )}
+      </p>
+    </header>
+
+    {featuredImage && (
+      <figure class="site-post__hero">
+        <img
+          src={featuredImage.src}
+          alt={featuredImage.alt}
+          width={featuredImage.width ?? 1200}
+          height={featuredImage.height ?? 675}
+          fetchpriority="high"
+        />
+        {featuredImage.caption && (
+          <figcaption>{featuredImage.caption}{featuredImage.credit && ` — ${featuredImage.credit}`}</figcaption>
+        )}
+      </figure>
+    )}
+
+    <div class="site-post__body">
+      <Content />
+    </div>
+
+    {tags.length > 0 && (
+      <p class="site-post__tags">
+        Tagged:{" "}
+        {tags.map((t, i) => (
+          <>
+            {i > 0 && " "}
+            <a href={`/tag/${t.toLowerCase().replace(/[^a-z0-9]+/g, "-")}/`} class="site-post__tag">#{t}</a>
+          </>
+        ))}
+      </p>
+    )}
+
+    <nav class="site-post__adjacent" aria-label="More posts">
+      {newer ? (
+        <a href={`/blog/${newer.id}/`} class="site-post__adjacent-link site-post__adjacent-link--newer">
+          <span class="site-post__adjacent-label">← Newer post</span>
+          <span class="site-post__adjacent-title">{newer.data.title}</span>
+        </a>
+      ) : <div />}
+      {older && (
+        <a href={`/blog/${older.id}/`} class="site-post__adjacent-link site-post__adjacent-link--older">
+          <span class="site-post__adjacent-label">Older post →</span>
+          <span class="site-post__adjacent-title">{older.data.title}</span>
+        </a>
+      )}
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .site-post {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .site-post__categories {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8125rem;
+    color: var(--color-muted-text, #6b6b6b);
+    margin: 0 0 0.5rem;
+  }
+  .site-post__categories a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .site-post__categories a:hover { text-decoration: underline; }
+  .site-post__title {
+    font-size: 2.5rem;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+  }
+  @media (min-width: 768px) {
+    .site-post__title { font-size: 3rem; }
+  }
+  .site-post__meta {
+    color: var(--color-muted-text, #6b6b6b);
+    font-size: 0.9375rem;
+    margin: 0 0 2rem;
+  }
+  .site-post__meta a { color: inherit; }
+  .site-post__hero {
+    margin: 0 0 2rem;
+  }
+  .site-post__hero img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+  }
+  .site-post__hero figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-muted-text, #6b6b6b);
+    font-style: italic;
+    text-align: center;
+  }
+  .site-post__body {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+  .site-post__body :global(h2) { font-size: 1.875rem; margin: 2.5rem 0 1rem; }
+  .site-post__body :global(h3) { font-size: 1.375rem; margin: 2rem 0 0.75rem; }
+  .site-post__body :global(p)  { margin: 0 0 1.25rem; }
+  .site-post__body :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+  }
+  .site-post__body :global(blockquote) {
+    border-left: 4px solid var(--color-brand-primary, #682412);
+    padding: 0.5rem 1.25rem;
+    margin: 1.5rem 0;
+    color: var(--color-muted-text, #6b6b6b);
+    font-style: italic;
+  }
+  .site-post__body :global(pre) {
+    background: #1e1e1e;
+    color: #f0f0f0;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.875rem;
+  }
+  .site-post__tags {
+    margin: 2.5rem 0 0;
+    color: var(--color-muted-text, #6b6b6b);
+    font-size: 0.9375rem;
+  }
+  .site-post__tag {
+    color: var(--color-brand-primary, #682412);
+    text-decoration: none;
+  }
+  .site-post__tag:hover { text-decoration: underline; }
+
+  .site-post__adjacent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 3rem 0 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border, #e5e5e5);
+  }
+  @media (max-width: 640px) {
+    .site-post__adjacent { grid-template-columns: 1fr; }
+  }
+  .site-post__adjacent-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--color-border, #e5e5e5);
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+  .site-post__adjacent-link:hover { background: var(--color-muted, #f4f4f4); }
+  .site-post__adjacent-link--older { text-align: right; }
+  .site-post__adjacent-label {
+    font-size: 0.8125rem;
+    color: var(--color-muted-text, #6b6b6b);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .site-post__adjacent-title {
+    font-weight: 600;
+  }
+</style>

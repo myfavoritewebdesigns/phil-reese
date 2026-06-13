@@ -1,0 +1,144 @@
+---
+/**
+ * Hero block for non-homepage conversion pages (about, contact, service pages, etc.).
+ *
+ * IMPORTANT: bgImage MUST be dark across the top ~120px. The site Header is
+ * position:absolute with white text. Bright photos (reflections, sky at top)
+ * fail this even with the default vignette — use those as ogImage only.
+ * The safe default is a dim interior/shop photo with no bright highlights up top.
+ *
+ * CSS class prefix: site-hero  (search-replace with your project prefix)
+ */
+interface Props {
+  eyebrow?:     string;
+  title:        string;
+  subhead?:     string;
+  subheadTag?:  "h2" | "p";
+  titleHtml?:   boolean;
+  subheadHtml?: boolean;
+  bgImage?:     string;
+  bgColor?:     string;
+  vignette?:    boolean;
+  textColor?:   string;
+  align?:       "center" | "left";
+  size?:        "md" | "lg";
+}
+
+const {
+  eyebrow,
+  title,
+  subhead,
+  subheadTag = "h2",
+  titleHtml = false,
+  subheadHtml = false,
+  bgImage,
+  bgColor = "var(--color-brand-primary-dark)",
+  vignette = !!bgImage,
+  textColor = "#fff",
+  align = "center",
+  size = "md",
+} = Astro.props;
+
+const SubheadTag = subheadTag;
+const hasCta = Astro.slots.has("cta");
+---
+
+<section
+  class:list={["site-hero", `site-hero--${align}`, `site-hero--${size}`]}
+  style={`background-color:${bgColor};${bgImage ? `background-image:url('${bgImage}');` : ""}color:${textColor};`}
+>
+  {vignette && <div class="site-hero__vignette" aria-hidden="true"></div>}
+
+  <div class="site-hero__inner">
+    <slot name="breadcrumbs" />
+    {eyebrow && <span class="site-hero__eyebrow">{eyebrow}</span>}
+
+    {titleHtml
+      ? <h1 class="site-hero__title" set:html={title} />
+      : <h1 class="site-hero__title">{title}</h1>}
+
+    {subhead && (subheadHtml
+      ? <SubheadTag class="site-hero__subhead" set:html={subhead} />
+      : <SubheadTag class="site-hero__subhead">{subhead}</SubheadTag>
+    )}
+
+    {hasCta && (
+      <div class="site-hero__cta">
+        <slot name="cta" />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .site-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .site-hero--md { padding: clamp(140px, 14vw, 200px) 16px clamp(40px, 6vw, 70px); }
+  .site-hero--lg { padding: clamp(160px, 18vw, 280px) 16px clamp(40px, 6vw, 80px); }
+
+  .site-hero__vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      linear-gradient(to top,   rgba(0,0,0,0.7), rgba(0,0,0,0.3) 40%),
+      linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.3) 40%);
+    pointer-events: none;
+  }
+
+  .site-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-site, 1100px);
+    margin: 0 auto;
+    color: inherit;
+  }
+  .site-hero--center .site-hero__inner { text-align: center; }
+  .site-hero--left   .site-hero__inner { text-align: left; }
+
+  .site-hero__eyebrow {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-brand-surface, #eedfc0);
+    margin-bottom: 14px;
+  }
+  .site-hero__title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 52px);
+    line-height: 1.2;
+    margin: 0;
+    text-wrap: balance;
+    color: inherit;
+  }
+  .site-hero__subhead {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(19px, 2.4vw, 28px);
+    line-height: 1.3;
+    margin: 18px auto 0;
+    color: var(--color-brand-surface-alt, rgba(255,255,255,0.85));
+    max-width: 900px;
+    text-wrap: balance;
+  }
+  .site-hero--left .site-hero__subhead { margin-left: 0; margin-right: 0; }
+
+  .site-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    margin-top: 32px;
+  }
+  .site-hero--center .site-hero__cta { justify-content: center; }
+  .site-hero--left   .site-hero__cta { justify-content: flex-start; }
+</style>

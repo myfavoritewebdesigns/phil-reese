@@ -1,0 +1,76 @@
+---
+/**
+ * Generic CTA Button primitive. Variants:
+ *   primary        — filled primary-color bg, white text. Main CTA on light bgs.
+ *   surface        — filled surface bg, dark text. Light CTAs on dark/photo bgs.
+ *   outline-surface — transparent w/ surface border. Ghost CTAs on dark bgs.
+ *
+ * Renders as <a> when `href` is given, otherwise <button>. Discriminated union
+ * enforces that `type=submit` and `href` cannot be used together.
+ *
+ * CSS class prefix: site-btn  (search-replace with your project prefix)
+ */
+import type { HTMLAttributes } from "astro/types";
+
+type ButtonVariant = "primary" | "surface" | "outline-surface";
+type ButtonSize = "sm" | "md" | "lg";
+
+type SharedProps = {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  pill?: boolean;
+};
+
+type AnchorProps      = HTMLAttributes<"a">      & SharedProps & { href: string;  type?: never; };
+type NativeButtonProps = HTMLAttributes<"button"> & SharedProps & { href?: never; type?: "button" | "submit" | "reset"; };
+type Props = AnchorProps | NativeButtonProps;
+
+const { variant = "primary", size = "md", pill = false, href, type, class: className, ...rest } = Astro.props;
+const Tag = href ? "a" : "button";
+const classes = ["site-btn", `site-btn--${variant}`, `site-btn--${size}`, pill ? "site-btn--pill" : null, className]
+  .filter(Boolean).join(" ");
+---
+
+<Tag class={classes} href={href} type={!href ? (type ?? "button") : undefined} {...rest}>
+  <slot />
+</Tag>
+
+<style>
+  .site-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    min-height: 44px; /* a11y tap target floor */
+  }
+  .site-btn:focus-visible {
+    outline: 3px solid var(--color-brand-gold);
+    outline-offset: 2px;
+  }
+
+  /* Sizes */
+  .site-btn--sm { padding: 8px 18px;  font-size: 13px; }
+  .site-btn--md { padding: 12px 28px; font-size: 15px; }
+  .site-btn--lg { padding: 16px 36px; font-size: clamp(18px, 2.2vw, 22px); letter-spacing: 0.04em; }
+  .site-btn--pill { width: 100%; max-width: 320px; }
+
+  /* Variant: primary */
+  .site-btn--primary { background-color: var(--color-brand-primary); color: #fff; }
+  .site-btn--primary:hover { background-color: var(--color-brand-primary-dark); }
+
+  /* Variant: surface (over dark bg) */
+  .site-btn--surface { background-color: var(--color-brand-surface); color: var(--color-brand-heading); }
+  .site-btn--surface:hover { background-color: var(--color-brand-primary-dark); color: #fff; }
+
+  /* Variant: outline-surface (ghost on dark bg) */
+  .site-btn--outline-surface { background-color: transparent; color: var(--color-brand-surface); border-color: var(--color-brand-surface); }
+  .site-btn--outline-surface:hover { background-color: var(--color-brand-surface); color: var(--color-brand-primary-dark); }
+</style>

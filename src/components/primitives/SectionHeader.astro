@@ -1,0 +1,76 @@
+---
+/**
+ * Standard section heading pattern:
+ *   eyebrow  — small uppercase accent label
+ *   H2/H3    — display font, bold
+ *   subhead  — supporting text
+ *   rule     — optional short accent rule beneath
+ *
+ * CSS class prefix: site-sh  (search-replace with your project prefix)
+ */
+interface Props {
+  eyebrow?:  string;
+  title:     string;
+  level?:    2 | 3;
+  subhead?:  string;
+  id?:       string;
+  rule?:     boolean;
+  maxWidth?: string;
+  align?:    "center" | "left";
+}
+
+const { eyebrow, title, level = 2, subhead, id, rule = false, maxWidth, align = "center" } = Astro.props;
+const HeadingTag = level === 3 ? "h3" : "h2";
+---
+
+<header
+  class:list={["site-sh", `site-sh--${align}`]}
+  style={maxWidth ? `max-width:${maxWidth};margin-left:auto;margin-right:auto;` : undefined}
+>
+  {eyebrow && <span class="site-sh__eyebrow">{eyebrow}</span>}
+  <HeadingTag id={id} class="site-sh__title" set:html={title} />
+  {subhead && <p class="site-sh__subhead" set:html={subhead} />}
+  {rule && <div class="site-sh__rule" aria-hidden="true"></div>}
+</header>
+
+<style>
+  .site-sh { margin-bottom: 32px; }
+  .site-sh--center { text-align: center; }
+  .site-sh--left   { text-align: left; }
+
+  .site-sh__eyebrow {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-primary);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .site-sh__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 44px);
+    color: var(--color-brand-heading);
+    line-height: 1.15;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .site-sh__subhead {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--color-brand-muted);
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+  .site-sh__rule {
+    width: 80px;
+    height: 3px;
+    background: var(--color-brand-primary);
+    margin: 16px auto 0;
+  }
+  .site-sh--left .site-sh__rule { margin-left: 0; }
+</style>

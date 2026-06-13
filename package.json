@@ -1,0 +1,51 @@
+{
+  "name": "phil-reese",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "npm@10.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "check:site": "node scripts/check-site-config.mjs",
+    "check:todos": "node scripts/check-todos.mjs",
+    "validate": "npm run check:site && npm run check:todos && npm run check && npm run build",
+    "cf:preview": "wrangler pages dev dist",
+    "audit:live-diff": "node scripts/audit-live-diff.mjs",
+    "audit:section-crops": "node scripts/audit-section-crops.mjs",
+    "audit:hero-luminance": "node scripts/check-hero-luminance.mjs",
+    "audit:a11y": "node scripts/audit-a11y.mjs",
+    "audit:pre-launch": "node scripts/audit-pre-launch.mjs",
+    "setup:prefix": "node scripts/setup-prefix.mjs",
+    "import:wp-blog": "node scripts/import-wp-blog.mjs",
+    "extract:html-first": "node scripts/extract-html-first.mjs",
+    "astro": "astro"
+  },
+  "//overrides_note": "Vite pinned to 7.x because @tailwindcss/vite@4.3.0 is incompatible with Vite 8's rolldown backend. Delete this and the overrides block when @tailwindcss/vite adds Vite 8 support.",
+  "overrides": {
+    "vite": "^7.3.0"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^5.0.6",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "6.3.2",
+    "tailwindcss": "^4.3.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@axe-core/playwright": "^4.11.3",
+    "@cloudflare/workers-types": "^4.20260525.1",
+    "cheerio": "^1.2.0",
+    "odiff-bin": "^4.3.8",
+    "playwright": "^1.60.0",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.94.0"
+  }
+}

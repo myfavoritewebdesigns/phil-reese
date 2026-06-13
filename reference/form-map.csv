@@ -1,0 +1,10 @@
+legacy_form_id,legacy_field_name,new_payload_key,type,required,notes
+contact-form-7-123,your-name,name,text,true,Standard CF7 name field
+contact-form-7-123,your-email,email,email,true,Standard CF7 email field
+contact-form-7-123,your-phone,phone,tel,false,Standard CF7 phone
+contact-form-7-123,your-message,message,textarea,true,Body of the inquiry
+contact-form-7-123,acceptance-456,_consent,checkbox,true,GDPR consent — drop on migration if not needed
+gravity-form-7,input_1,name,text,true,Gravity Forms field IDs are numeric; map carefully
+gravity-form-7,input_3,email,email,true,
+gravity-form-7,input_5,subject,text,false,
+gravity-form-7,input_7,message,textarea,true,

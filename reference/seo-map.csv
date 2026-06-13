@@ -1,0 +1,2 @@
+old_url,new_url,status,title,meta_description,h1,canonical,schema_type,notes
+/example-old-slug/,/example-new-slug/,301,Page Title | Site Name,Meta description preserved from WP,Main H1 heading text,https://example.com/example-new-slug/,WebPage,Example row — replace with real URLs from WP sitemap

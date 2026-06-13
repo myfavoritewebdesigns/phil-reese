@@ -1,0 +1,147 @@
+---
+/**
+ * Author archive — /author/<slug>/ + /author/<slug>/page/N/.
+ *
+ * In addition to the post listing, the header section renders the author's
+ * bio + avatar + URL (from src/content/blog/*.mdx frontmatter). This is
+ * E-E-A-T signal for Google — author pages with thin "12 posts by Joe"
+ * content are recognized as low-quality and de-prioritized.
+ */
+
+import type { GetStaticPaths, GetStaticPathsOptions, Page } from "astro";
+import Layout from "../../../layouts/Layout.astro";
+import BlogPostCard from "../../../components/primitives/BlogPostCard.astro";
+import Pagination from "../../../components/primitives/Pagination.astro";
+import { getAllAuthors, type BlogPost } from "../../../lib/blog";
+import { SITE_URL, SITE_NAME } from "../../../config/site";
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }: GetStaticPathsOptions) => {
+  const POSTS_PER_PAGE = 10;
+  const authors = await getAllAuthors();
+  return authors.flatMap((a) =>
+    paginate(a.posts, {
+      pageSize: POSTS_PER_PAGE,
+      params: { slug: a.slug },
+      props:  { name: a.name, bio: a.bio, avatar: a.avatar, url: a.url },
+    })
+  );
+};
+
+interface Props {
+  page: Page<BlogPost>;
+  name: string;
+  bio?: string;
+  avatar?: string;
+  url?: string;
+}
+
+const { page, name, bio, avatar, url } = Astro.props;
+const { slug } = Astro.params;
+
+const base = `/author/${slug}`;
+const isPaged = page.currentPage > 1;
+const title = isPaged
+  ? `${name} — Page ${page.currentPage} | ${SITE_NAME}`
+  : `Posts by ${name} | ${SITE_NAME}`;
+const description = bio ?? `Posts by ${name} — page ${page.currentPage} of ${page.lastPage}.`;
+const canonical = isPaged ? `${base}/page/${page.currentPage}/` : `${base}/`;
+
+const prevPageUrl = page.url.prev ? `${SITE_URL}${page.url.prev}` : undefined;
+const nextPageUrl = page.url.next ? `${SITE_URL}${page.url.next}` : undefined;
+
+// Person schema — additional E-E-A-T signal beyond the body content.
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${SITE_URL}${base}/#person`,
+  name,
+  ...(bio    ? { description: bio } : {}),
+  ...(url    ? { sameAs: [url] }     : {}),
+  ...(avatar ? { image: avatar.startsWith("http") ? avatar : `${SITE_URL}${avatar}` } : {}),
+  url: `${SITE_URL}${base}/`,
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogType="profile"
+  structuredData={personSchema}
+>
+  <Fragment slot="head">
+    {prevPageUrl && <link rel="prev" href={prevPageUrl} />}
+    {nextPageUrl && <link rel="next" href={nextPageUrl} />}
+  </Fragment>
+
+  <div class="site-author-archive">
+    <header class="site-author-archive__header">
+      {avatar && (
+        <img
+          src={avatar}
+          alt={name}
+          width="120"
+          height="120"
+          class="site-author-archive__avatar"
+        />
+      )}
+      <div>
+        <p class="site-author-archive__eyebrow">Author</p>
+        <h1>{name}</h1>
+        {bio && <p class="site-author-archive__bio">{bio}</p>}
+        {url && (
+          <p class="site-author-archive__url">
+            <a href={url} rel="me noopener" target="_blank">{url.replace(/^https?:\/\//, "")}</a>
+          </p>
+        )}
+      </div>
+    </header>
+
+    <ul class="site-author-archive__items">
+      {page.data.map((post) => (
+        <li><BlogPostCard post={post} /></li>
+      ))}
+    </ul>
+
+    <Pagination
+      currentPage={page.currentPage}
+      totalPages={page.lastPage}
+      prevUrl={page.url.prev}
+      nextUrl={page.url.next}
+      basePath={base}
+    />
+  </div>
+</Layout>
+
+<style>
+  .site-author-archive { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem; }
+  .site-author-archive__header {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+  }
+  .site-author-archive__avatar {
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .site-author-archive__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-muted-text, #6b6b6b);
+    font-size: 0.875rem;
+    margin: 0 0 0.25rem;
+  }
+  .site-author-archive__header h1 { font-size: 2.25rem; margin: 0 0 0.5rem; }
+  .site-author-archive__bio {
+    margin: 0 0 0.5rem;
+    color: var(--color-body, #333);
+    line-height: 1.55;
+  }
+  .site-author-archive__url a {
+    color: var(--color-brand-primary, #682412);
+  }
+  .site-author-archive__items {
+    list-style: none; padding: 0; margin: 0; display: grid; gap: 2rem;
+  }
+</style>

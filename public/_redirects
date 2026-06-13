@@ -1,0 +1,37 @@
+# Cloudflare Pages redirects file.
+# Format: <source>  <destination>  <status>
+# Status codes: 301 (permanent), 302 (temporary), 200 (rewrite/proxy)
+#
+# Populate from reference/seo-map.csv before launch.
+# WordPress migrations should map every indexed URL to its new home (301).
+#
+# Examples:
+# /about-us/        /about/           301
+# /old-blog-slug/   /blog/new-slug/   301
+#
+# Preserve WordPress feed URL for aggregators / email tools / directories:
+/feed/            /rss.xml          301
+#
+# Preserve legacy sitemap path. @astrojs/sitemap outputs `sitemap-index.xml`,
+# but WP exposed `sitemap.xml`. Crawlers expecting the WP path get a 404
+# unless we redirect:
+/sitemap.xml      /sitemap-index.xml    301
+#
+# IMPORTANT: `_redirects` strips query parameters during matching + forwarding.
+# For sites with heavy UTM / gclid / ad-tracking traffic, query-bearing URLs
+# (e.g. `/old-page/?utm_source=email`) will redirect to the new path but DROP
+# the query string — destroying attribution. For those cases use Cloudflare
+# Transform Rules or Bulk Redirects (account-level) which preserve params.
+# Docs: https://developers.cloudflare.com/rules/transform/url-rewrite/
+#
+# WP /wp-content/uploads/ assets accumulate backlinks too — map them, not just
+# HTML pages. Keeping original filenames preserves the backlink graph:
+# /wp-content/uploads/2023/*.jpg  /images/legacy/2023/:splat.jpg  301
+# /wp-content/uploads/2024/*.pdf  /documents/:splat.pdf            301
+# /wp-content/uploads/*           /images/legacy/:splat            301
+#
+# Cloudflare Pages limits: 2,100 lines. For larger maps, use Bulk Redirects
+# at the Cloudflare account level instead.
+# Docs: https://developers.cloudflare.com/pages/configuration/redirects/
+
+# --- Add WP→Astro redirects below this line ---
