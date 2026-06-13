@@ -1,6 +1,6 @@
 ---
 import type { BlogPost } from "../../lib/blog";
-import { formatDate } from "../../lib/blog";
+import { formatDate, postUrl } from "../../lib/blog";
 
 interface Props {
   post: BlogPost;
@@ -10,7 +10,7 @@ interface Props {
 
 const { post, headingLevel = 2 } = Astro.props;
 const { title, description, pubDate, featuredImage, author } = post.data;
-const href = `/blog/${post.id}/`;
+const href = postUrl(post);   // PRESERVED permalink /<category>/<slug>/
 const Heading = `h${headingLevel}` as "h2" | "h3";
 ---
 
@@ -38,7 +38,7 @@ const Heading = `h${headingLevel}` as "h2" | "h3";
       {author?.name && (
         <>
           {" "}by{" "}
-          <a href={`/author/${author.slug}/`} rel="author">{author.name}</a>
+          <span class="pr-blogcard__author">{author.name}</span>
         </>
       )}
     </p>

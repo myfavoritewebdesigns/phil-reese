@@ -70,7 +70,15 @@ const blog = defineCollection({
     draft:        z.boolean().default(false),
 
     author:     wpAuthor,
-    categories: z.array(z.string()).default([]),
+
+    // URL-prefix category slug — the single category that forms this post's
+    // permalink `/<category>/<slug>/`. Derived from the live WP permalink, NOT
+    // from the term list (WP posts can have multiple categories, but only one
+    // appears in the URL). This is the routing key for src/pages/[category]/.
+    category:     z.string(),
+    categoryName: z.string().optional(),  // human-readable display name for the URL category
+
+    categories: z.array(z.string()).default([]),  // all human-readable category names (for display/schema articleSection)
     tags:       z.array(z.string()).default([]),
 
     featuredImage: wpFeaturedImage.optional(),

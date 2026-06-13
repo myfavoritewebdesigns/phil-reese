@@ -11,7 +11,7 @@
 
 import rss from "@astrojs/rss";
 import { SITE_URL, SITE_NAME } from "../config/site";
-import { getPublishedPosts } from "../lib/blog";
+import { getPublishedPosts, postUrl } from "../lib/blog";
 
 export async function GET() {
   const posts = await getPublishedPosts();
@@ -23,11 +23,11 @@ export async function GET() {
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
-      link: `/blog/${post.id}/`,
+      // PRESERVED permalink: /<category>/<slug>/ (not /blog/<slug>/).
+      link: postUrl(post),
       author: post.data.author.name,
-      categories: post.data.categories,
+      categories: post.data.categories.length ? post.data.categories : [post.data.categoryName ?? post.data.category],
     })),
     customData: "<language>en-us</language>",
-    stylesheet: "/rss-styles.xsl", // optional — remove if you don't ship a stylesheet
   });
 }

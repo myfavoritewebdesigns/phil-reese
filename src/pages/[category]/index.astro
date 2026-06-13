@@ -1,0 +1,100 @@
+---
+/**
+ * Category archive — PRESERVED at /<category>/ (e.g. /buying-or-selling/).
+ *
+ * Lists every post whose URL-prefix category (frontmatter `category`) matches.
+ * One page per category — the live WP site exposed these category roots, and
+ * they're strong internal-linking hubs that point at every post beneath them.
+ *
+ * NOT paginated: the largest category is 13 posts, well under any page-size
+ * threshold, so a single page keeps all internal links on one hub.
+ */
+
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro";
+import BlogPostCard from "../../components/primitives/BlogPostCard.astro";
+import { getUrlCategories } from "../../lib/blog";
+import type { BlogPost } from "../../lib/blog";
+import { SITE_NAME } from "../../config/site";
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const categories = await getUrlCategories();
+  return categories.map((cat) => ({
+    params: { category: cat.slug },
+    props: { name: cat.name, slug: cat.slug, posts: cat.posts },
+  }));
+};
+
+interface Props {
+  name: string;
+  slug: string;
+  posts: BlogPost[];
+}
+
+const { name, posts } = Astro.props;
+const canonical = `/${Astro.params.category}/`;
+---
+
+<Layout
+  title={`${name} | ${SITE_NAME}`}
+  description={`Articles about ${name.toLowerCase()} from ${SITE_NAME}.`}
+  canonical={canonical}
+  ogType="website"
+>
+  <div class="pr-cat-archive">
+    <header class="pr-cat-archive__header">
+      <p class="pr-cat-archive__crumb"><a href="/blog/">Blog</a></p>
+      <h1>{name}</h1>
+      <p class="pr-cat-archive__count">{posts.length} article{posts.length === 1 ? "" : "s"}</p>
+    </header>
+
+    <ul class="pr-cat-archive__items">
+      {posts.map((post) => (
+        <li><BlogPostCard post={post} /></li>
+      ))}
+    </ul>
+  </div>
+</Layout>
+
+<style>
+  .pr-cat-archive {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .pr-cat-archive__header {
+    margin-bottom: 2.5rem;
+  }
+  .pr-cat-archive__crumb {
+    margin: 0 0 0.5rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .pr-cat-archive__crumb a {
+    color: var(--color-muted-text, #6b6b6b);
+    text-decoration: none;
+  }
+  .pr-cat-archive__crumb a:hover { text-decoration: underline; }
+  .pr-cat-archive__header h1 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem;
+  }
+  .pr-cat-archive__count {
+    color: var(--color-muted-text, #6b6b6b);
+    margin: 0;
+  }
+  .pr-cat-archive__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .pr-cat-archive__items {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

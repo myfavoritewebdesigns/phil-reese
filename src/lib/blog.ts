@@ -2,12 +2,15 @@
    BLOG HELPERS — taxonomy aggregation, slugify, and post sorting.
 
    Used by:
-     - src/pages/blog/[...page].astro
-     - src/pages/blog/[slug].astro
-     - src/pages/category/[slug]/[...page].astro
-     - src/pages/tag/[slug]/[...page].astro
-     - src/pages/author/[slug]/[...page].astro
+     - src/pages/blog/[...page].astro      (paginated index at /blog/)
+     - src/pages/[category]/[slug].astro   (single post, PRESERVED /<category>/<slug>/)
+     - src/pages/[category]/index.astro    (category archive at /<category>/)
      - src/pages/rss.xml.ts
+
+   NOTE (Phil Reese): permalinks are preserved at /<category>/<slug>/ — NOT the
+   template default /blog/<slug>/. Canonical post URLs come from postUrl(). The
+   site is single-author with no tags, so the template's /tag/ and /author/
+   routes were removed; getAllTags/getAllAuthors remain as unused helpers.
    ----------------------------------------------------------------------- */
 
 import { getCollection, type CollectionEntry } from "astro:content";
@@ -86,6 +89,31 @@ export async function getAllCategories(): Promise<TermBucket[]> {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
+/**
+ * Buckets posts by their URL-prefix category slug (`data.category`) — the
+ * routing taxonomy for `/<category>/` archives and `/<category>/<slug>/` posts.
+ * Unlike getAllCategories (which buckets by the multi-value `categories[]` name
+ * list), this assigns each post to exactly ONE bucket: the category in its URL.
+ * `name` is the human-readable display name (frontmatter `categoryName`).
+ */
+export async function getUrlCategories(): Promise<TermBucket[]> {
+  const posts = await getPublishedPosts();
+  const buckets = new Map<string, TermBucket>();
+  for (const post of posts) {
+    const slug = post.data.category;
+    let bucket = buckets.get(slug);
+    if (!bucket) {
+      const name = post.data.categoryName
+        ?? slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+      bucket = { name, slug, count: 0, posts: [] };
+      buckets.set(slug, bucket);
+    }
+    bucket.count++;
+    bucket.posts.push(post);
+  }
+  return [...buckets.values()].sort((a, b) => a.name.localeCompare(b.name));
+}
+
 export async function getAllTags(): Promise<TermBucket[]> {
   const posts = await getPublishedPosts();
   return [...bucketByTaxonomy(posts, "tags").values()]
@@ -116,6 +144,31 @@ export async function getAllAuthors(): Promise<AuthorBucket[]> {
     bucket.posts.push(post);
   }
   return [...map.values()].sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/**
+ * Canonical post URL — PRESERVES the live WordPress permalink shape
+ * `/<category>/<slug>/` (NOT the template default `/blog/<slug>/`). The
+ * category is the URL-prefix slug stored in frontmatter (`data.category`),
+ * derived at import time from the live permalink. Every link to a post — cards,
+ * RSS, adjacent nav, archives — must go through this so the 32 indexed URLs are
+ * reproduced exactly.
+ */
+export function postUrl(post: BlogPost): string {
+  return `/${post.data.category}/${post.id}/`;
+}
+
+/**
+ * Related posts for a single post — same URL-category first, then padded with
+ * the most-recent other posts, excluding the current one. Mirrors the live WP
+ * "Related posts:" block at the bottom of each article (internal-linking + the
+ * heading/section the live-diff audit expects).
+ */
+export function getRelatedPosts(all: BlogPost[], current: BlogPost, limit = 4): BlogPost[] {
+  const others = all.filter((p) => p.id !== current.id);
+  const sameCat = others.filter((p) => p.data.category === current.data.category);
+  const rest = others.filter((p) => p.data.category !== current.data.category);
+  return [...sameCat, ...rest].slice(0, limit);
 }
 
 /**
