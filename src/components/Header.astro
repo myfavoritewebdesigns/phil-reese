@@ -1,0 +1,239 @@
+---
+/* -----------------------------------------------------------------------
+   Header — faithful clone of the live philsellsbiz.com header.
+   Structure verbatim from reference/home-raw.html:
+     <section.top-hdr>  mobile-only contact bar (email + phone/text)
+     <header.hdr-main.sticky>
+       .hdr-wrp  > .hdr-col1 (logo) + .hdr-col2 (certification badges + phone CTA)
+       .hdr-col3 > <details.hamb-bars> nav (hamburger on mobile, open on desktop)
+   All contact info / nav / URLs come from src/config/site.ts (rule #1).
+   CSS copied from the live WP-Rocket used-CSS (reference/_css-wpr-usedcss.css);
+   it relies on the live-theme var aliases defined in global.css.
+   ----------------------------------------------------------------------- */
+import { contact, hrefs, primaryNav } from "../config/site";
+import ibbaBadgeSvg from "../../reference/ibba-badge-html.html?raw";
+
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.replace(/\/?$/, "/") === href;
+---
+
+<section class="top-hdr">
+  <div class="ctc-btn">
+    <a href={hrefs.mailto}>
+      <svg width="16" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+      <span>{contact.email}</span>
+    </a>
+  </div>
+  <div class="phn-btn">
+    <a href={hrefs.tel}>
+      <svg id="phone" viewBox="0 0 32 32" width="16" data-name="Layer 3"><path d="m30.035 22.6c-.082-.065-6.035-4.356-7.669-4.048-.78.138-1.226.67-2.121 1.735-.144.172-.49.584-.759.877a12.517 12.517 0 0 1 -1.651-.672 13.7 13.7 0 0 1 -6.321-6.321 12.458 12.458 0 0 1 -.672-1.651c.294-.27.706-.616.882-.764 1.06-.89 1.593-1.336 1.731-2.118.283-1.62-4.005-7.614-4.05-7.668a2.289 2.289 0 0 0 -1.705-.97c-1.738 0-6.7 6.437-6.7 7.521 0 .063.091 6.467 7.988 14.5 8.025 7.888 14.428 7.979 14.491 7.979 1.085 0 7.521-4.962 7.521-6.7a2.283 2.283 0 0 0 -.965-1.7z"></path></svg>
+      <span>{contact.phoneDashed} <span>Call | Text</span></span>
+    </a>
+  </div>
+</section>
+
+<header class="hdr-main sticky">
+  <div class="hdr-wrp">
+    <div class="hdr-col1">
+      <a href="/">
+        <img src="/images/logo-phil-reese-mcbi.svg" alt="Phil Reese Logo" width="1022" height="204" class="alignnone size-full" role="img" />
+      </a>
+    </div>
+    <div class="hdr-col2">
+      <div class="certified-badges">
+        <div class="wth-svg" set:html={ibbaBadgeSvg} />
+        <div><img src="/images/badge-azbba.png" width="74" height="73" alt="AZBBA logo" /></div>
+        <div><img src="/images/badge-cbi.png" alt="CBI Badge" width="164" height="162" class="alignnone size-full" /></div>
+        <div><img src="/images/badge-top1percent-2025.png" alt="" width="70" height="88" class="alignnone size-full" /></div>
+        <div><img src="/images/badge-multimillion-2025.png" alt="" width="80" height="80" class="alignnone size-full" /></div>
+        <div class="west-usa"><img src="/images/badge-west-usa.png" alt="" width="537" height="329" class="alignnone size-full" /></div>
+      </div>
+      <div class="hdr-btns">
+        <div class="phn-btn">
+          <a href={hrefs.tel}><span>{contact.phoneDashed}</span></a>
+          <span class="blw-txt"><a href={hrefs.tel}>Call</a> | <a href={hrefs.sms}>Text</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hdr-col3">
+    <details class="hamb-bars" id="hamb-bars">
+      <summary></summary>
+      <div class="hamb-menu">
+        <div class="menu-container">
+          <ul class="menu">
+            {primaryNav.map((item) => (
+              <li class={`menu-item${isCurrent(item.href) ? " current-menu-item" : ""}`}>
+                <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>
+
+<!-- Live theme behavior: keep the <details> nav open above 1024px (det-mobile inline script) -->
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    function updateHambBars() {
+      const hambBars = document.getElementById("hamb-bars");
+      if (!hambBars) return;
+      if (window.innerWidth > 1024) {
+        hambBars.setAttribute("open", "");
+      } else {
+        hambBars.removeAttribute("open");
+      }
+    }
+    updateHambBars();
+    window.addEventListener("resize", updateHambBars);
+  });
+</script>
+
+<!-- Live theme sticky-header.js: toggle .scrolled on the sticky header -->
+<script is:inline>
+  (function () {
+    const header = document.querySelector("header.sticky");
+    if (!header) return;
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 0) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    });
+  })();
+</script>
+
+<!-- Header CSS — copied from the live used-CSS blob; is:global because the
+     IBBA badge arrives via set:html (no Astro scope hash on its nodes). -->
+<style is:global>
+  details summary::-webkit-details-marker { display: none; }
+  details summary { list-style: none !important; counter-increment: none !important; list-style-type: none !important; }
+  summary:hover { cursor: pointer; }
+  .hamb-bars summary::marker { content: "☰"; }
+  .hamb-bars[open] summary::marker { content: "✕"; }
+
+  .hdr-main { width: 100%; display: flex; justify-content: center; z-index: 1000; flex-wrap: wrap; }
+  .hdr-wrp { width: 100%; display: flex; align-items: center; flex-wrap: wrap; max-width: 1440px; padding: 20px; }
+  .menu { list-style: none; margin: 0; }
+  .menu li a { color: #fff; font-family: var(--font-family--h4); padding: 10px; display: flex; }
+  .menu li { position: relative; }
+  .sub-menu li a { color: var(--secondary); font-size: 14px; font-weight: 400; }
+  .sub-menu li a:hover { color: var(--primary); }
+  .sub-menu > li { border-bottom: 2px solid var(--primary); padding: 4px 15px; }
+  header .menu { align-items: center; margin-left: auto; justify-content: flex-end; column-gap: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; padding: 0; }
+  .hdr-col1 { display: flex; gap: 14px; align-items: center; width: 30%; justify-content: center; }
+  ul.sub-menu { overflow: visible; }
+  .menu .sub-menu .sub-menu { left: 100%; top: 0; }
+  .menu .sub-menu li:hover .sub-menu, .menu li:hover .sub-menu > li { display: block; }
+  .menu .sub-menu li .sub-menu, .sub-menu > li { display: none; }
+  header .menu li a { font-size: 22px; }
+  header .blw-txt { display: block; text-align: center; width: 100%; font-weight: 700; font-weight: 100; letter-spacing: 1px; }
+  header .hdr-btns > div > a { display: flex; flex-wrap: wrap; justify-content: center; }
+  header .hdr-btns > div > a { background: 0 0; padding: 0; }
+  header .hdr-btns > div > a > span:first-child { background: var(--primary); padding: 8px 20px; }
+  header .blw-txt { color: var(--primary); margin-top: 4px; }
+  .certified-badges div { max-width: 76px; }
+  .certified-badges div svg { width: 176px; fill: #ec4c3e; }
+  .certified-badges .wth-svg { max-width: none; }
+  .certified-badges { padding-right: 6px; }
+  .certified-badges { display: flex; align-items: center; gap: 10px; padding-right: 20px; }
+  .hdr-col1 { max-width: 380px; }
+  .certified-badges .west-usa { max-width: 100px; }
+
+  /* Live: header is fixed at every viewport; page content clears it.
+     (live #content padding-top ≡ our main#main-content) */
+  header.hdr-main { position: fixed; background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); }
+  main#main-content { padding-top: 170px; }
+
+  @media (min-width: 1025px) {
+    .top-hdr { display: none; }
+    .sub-menu { opacity: 0; position: absolute; margin-left: 0; width: auto; list-style: none; display: flex; flex-direction: column; width: 100%; z-index: 1; transition: all .3s ease-out; height: 0; overflow: hidden; min-width: 150px; }
+    .menu li:hover .sub-menu { opacity: 1; background-color: var(--white); transition: all .3s ease-out; height: auto; }
+    .menu-item-has-children::after { content: "›"; color: var(--primary); transform: rotate(90deg); position: absolute; font-size: 20px; line-height: 15px; text-align: center; right: 0; top: 5px; }
+    .menu-item-has-children { padding-right: 17px; }
+    .hamb-bars summary { display: none; }
+    .hdr-col2 { flex-grow: 1; display: flex; justify-content: flex-end; align-items: center; }
+    .hdr-col2 .hamb-bars { transform: skewX(-27deg); }
+    .hdr-col3 { background: var(--primary); width: 100%; display: flex; justify-content: center; padding: 0 14px; }
+    .hdr-col1 > a { max-width: 100%; }
+    .hdr-btns > div > a { background: var(--primary); color: #fff; padding: 10px 20px; }
+    .hdr-col3 #hamb-bars { max-width: 1500px; }
+    .top-hdr > div > a span span { color: #b7b7b7; font-style: italic; font-size: 10px; }
+    header .blw-txt { color: #b7b7b7; font-size: 13px; font-style: italic; }
+    header .blw-txt a { color: #393939; }
+  }
+  @media (max-width: 1200px) {
+    header .menu li a { font-size: 19px; }
+  }
+  @media (max-width: 1024px) {
+    .hdr-col1 { max-width: 400px; }
+    header.hdr-main { position: fixed; background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); top: 0; }
+    section.top-hdr { position: fixed; width: 100%; z-index: 999; top: 0; }
+    main#main-content { padding-top: 150px; }
+    .top-hdr { display: flex; justify-content: space-between; }
+    .top-hdr > div { flex-grow: 1; }
+    .top-hdr > div > a { display: flex; padding: 12px 20px; justify-content: center; align-items: center; gap: 5px; line-height: 1; font-family: var(--font-family--h4); background-color: var(--primary); color: #fff; }
+    .top-hdr > div > a svg { position: relative; fill: white; }
+    .top-hdr .ctc-btn > a { background-color: var(--secondary); color: var(--white); }
+    .top-hdr .ctc-btn > a > svg { fill: var(--white); }
+    .hdr-wrp { align-items: center; }
+    .hdr-main { padding-bottom: 15px; padding-top: 15px; position: relative; box-shadow: 0 10px 11px 0 rgba(0, 0, 0, .12); padding-left: 3%; padding-right: 3%; z-index: 10000; overflow: visible; align-items: center; }
+    .menu summary { display: flex; justify-content: space-between; align-items: center; }
+    .menu ul.sub-menu { margin-left: 0; list-style: none; margin-bottom: 3px; }
+    details[open] > summary:after { content: '-'; }
+    .hdr-col2 { flex-grow: 1; }
+    .hdr-col1 { padding-top: 0; width: auto; }
+    .hamb-bars summary { font-size: 32px; }
+    .hamb-menu { position: absolute; background-color: var(--white); box-shadow: 0 1px 15px 5px rgba(0, 0, 0, .25); left: 0; width: 100%; top: 100%; max-height: 60vh; overflow: scroll; }
+    header .menu { flex-direction: column; text-align: left; align-items: flex-start; }
+    header .menu > li { border-bottom: 2px solid var(--secondary); width: 100%; padding: 7px 12px; }
+    .hamb-bars > summary::marker { content: ''; }
+    header .hamb-bars[open] > summary::marker { content: ''; }
+    .hamb-bars > summary::-webkit-details-marker { display: none; }
+    .hamb-bars > summary { list-style: none !important; counter-increment: none !important; list-style-type: none !important; }
+    .hamb-bars summary { position: relative; }
+    header .hamb-bars > summary::after { content: '☰'; }
+    header .hamb-bars[open] > summary::after { content: '✕'; }
+    .hdr-wrp { padding: 0; width: 80%; flex-grow: 1; }
+    header .menu li a { font-size: 17px; color: var(--primary); padding: 0; font-weight: 900; }
+    .hamb-menu { background: #212121; padding: 10px 0; }
+    header .menu > li { border: 0; padding: 0; }
+    header .menu li a { color: #fff; padding: 8px 17px; }
+    .hdr-col2 .hdr-btns { display: none; }
+    .certified-badges { display: flex; align-items: center; padding-right: 0; }
+    .hdr-col2 { display: none; }
+    .sticky.scrolled .hdr-col2 { opacity: 0; transition: all .3s ease-out; }
+    .sticky.scrolled .hdr-col2 { transition: all .3s ease-out; pointer-events: none; }
+    .top-hdr > div > a span span { display: block; font-size: 12px; text-align: center; }
+    .top-hdr > div > a { align-items: flex-start; padding: 10px 20px; }
+    .top-hdr .ctc-btn > a { height: 100%; align-items: center; }
+    header.hdr-main { margin-top: 44px; }
+    section.top-hdr a { font-size: 13px; }
+    .top-hdr > div > a span span { color: #b7b7b7; font-style: italic; font-size: 10px; }
+  }
+  @media (max-width: 800px) {
+    main#main-content { padding-top: 130px; }
+    .hdr-col1 { padding-right: 16px; }
+  }
+  @media (max-width: 600px) {
+    .hdr-col2 { left: 20px; max-width: calc(100% - 40px); }
+    .hdr-col1 { max-width: 300px; }
+  }
+  @media (max-width: 500px) {
+    .certified-badges { justify-content: space-between; gap: 5px; }
+    .certified-badges .wth-svg { max-width: 30%; display: flex; }
+    .certified-badges div svg { width: 100%; }
+    .certified-badges div { max-width: 47px; }
+  }
+  @media (max-width: 400px) {
+    .hdr-col2 { left: 10px; max-width: calc(100% - 20px); top: calc(100% + 10px); }
+    main#main-content { padding-top: 133px; }
+  }
+  @media (max-width: 345px) {
+    section.top-hdr a { font-size: 14px; }
+  }
+</style>

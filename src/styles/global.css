@@ -1,67 +1,219 @@
 @import "tailwindcss";
 
 /* -----------------------------------------------------------------------
-   FONTS
-   Place woff2 files in public/fonts/ and add @font-face blocks here.
-   Preload the primary display font in Layout.astro's <head>.
+   FONTS — extracted from the live site's WP-Rocket used-CSS blob
+   (reference/_css-wpr-usedcss.css). The live theme loads CrimsonText at
+   three weights; note the live mapping: Bold file = weight 800.
+   Files downloaded from
+   https://www.philsellsbiz.com/wp-content/themes/newtheme/remodel/fonts/
    ----------------------------------------------------------------------- */
 @font-face {
-  font-family: "DisplayFont";
-  src: url("/fonts/DisplayFont.woff2") format("woff2");
+  font-family: "CrimsonText";
+  src: url("/fonts/CrimsonText-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "CrimsonText";
+  src: url("/fonts/CrimsonText-SemiBold.woff2") format("woff2");
   font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "CrimsonText";
+  src: url("/fonts/CrimsonText-Bold.woff2") format("woff2");
+  font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 
 /* -----------------------------------------------------------------------
    DESIGN TOKENS  (Tailwind v4 @theme)
-   Extract real values from the live site's CSS — do NOT eyeball colors.
-   Replace every TODO below with the actual hex value from the site.
+   Real values extracted from https://www.philsellsbiz.com/ rendered CSS
+   (WP-Rocket used-CSS — saved at reference/_css-wpr-usedcss.css).
+   Live theme :root vars:  --primary:#310407  --secondary:#353535
+   --red:#9F2E1E  --white:#fff  --black:#000  --light-gray:#cecece
    ----------------------------------------------------------------------- */
 @theme {
   /* ----- Primary palette ----- */
-  --color-brand-primary:        #TODO;   /* main CTA / accent color */
-  --color-brand-primary-dark:   #TODO;   /* hover / deep variant */
-  --color-brand-primary-light:  #TODO;   /* light variant / hover states */
+  --color-brand-primary:        #310407;  /* live --primary (deep maroon): nav band, buttons, links */
+  --color-brand-primary-dark:   #310407;  /* live theme has NO darker hover variant — hovers keep the same color */
+  --color-brand-primary-light:  #9f2e1e;  /* live --red: accent red used for section titles / submit buttons */
 
   /* ----- Secondary / surface colors ----- */
-  --color-brand-surface:        #TODO;   /* main light background surface */
-  --color-brand-surface-alt:    #TODO;   /* alternate section background */
+  --color-brand-surface:        #ffffff;  /* live body background (--white) */
+  --color-brand-surface-alt:    #f9f9f9;  /* live .banner-sctn light-gray section background */
 
   /* ----- Text ----- */
-  --color-brand-heading:        #TODO;   /* primary heading color */
-  --color-brand-body:           #TODO;   /* body text */
-  --color-brand-muted:          #TODO;   /* secondary / caption text */
+  --color-brand-heading:        #000000;  /* live headings inherit body black; sections override w/ red/primary/secondary */
+  --color-brand-body:           #000000;  /* live body sets no color → UA black */
+  --color-brand-muted:          #b7b7b7;  /* live header .blw-txt italic caption gray */
 
   /* ----- Utility ----- */
-  --color-brand-charcoal:       #2a2d33; /* footer / copyright bar */
-  --color-brand-gold:           #c8983a; /* star ratings / focus ring */
+  --color-brand-charcoal:       #353535;  /* live --secondary: footer bg, dark sections */
+  --color-brand-gold:           #ffb300;  /* live .strs star color */
 
   /* ----- Fonts ----- */
-  --font-display: "DisplayFont", "Helvetica Neue", system-ui, sans-serif;
-  --font-sans:    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-display: "CrimsonText", "Crimson Text", Georgia, serif;  /* live --font-family--h1..h6: "CrimsonText" */
+  --font-sans:    sans-serif;                                     /* live --font-family--body: sans-serif (verbatim) */
 
   /* ----- Container ----- */
-  --container-site: 1100px;
+  --container-site: 1250px;  /* live .section-wrap max-width */
 }
 
 /* -----------------------------------------------------------------------
-   BASE STYLES
+   LIVE-THEME VARIABLE ALIASES
+   The live `newtheme/remodel` CSS is written against these :root custom
+   properties. Keeping them (aliased to the @theme tokens above) lets any
+   CSS copied verbatim from reference/_css-wpr-usedcss.css work unchanged
+   in Header/Footer/section styles.
+   ----------------------------------------------------------------------- */
+:root {
+  --primary:    var(--color-brand-primary);
+  --secondary:  var(--color-brand-charcoal);
+  --red:        var(--color-brand-primary-light);
+  --white:      #fff;
+  --black:      #000;
+  --light-gray: #cecece;
+
+  /* Live responsive type scale (verbatim from live :root) */
+  --font-size--h1: clamp(24px, 2.8vw, 31px);
+  --font-size--h2: clamp(18px, 2.5vw, 28px);
+  --font-size--h3: clamp(23px, 3vw, 36px);
+  --font-size--h4: clamp(20px, 2.5vw, 26px);
+  --font-size--h5: clamp(18px, 2.2vw, 24px);
+  --font-size--h6: clamp(18px, 1.9vw, 21px);
+  --font-size--big: clamp(30px, 4.5vw, 62px);
+  --font-size--body: 16px;
+  --font-size--button: 18px;
+  --font-size--little-text: 12px;
+
+  --font-weight--h1: 600;
+  --font-weight--h2: 600;
+  --font-weight--h3: 600;
+  --font-weight--h4: 600;
+  --font-weight--h5: 600;
+  --font-weight--h6: 600;
+  --font-weight--button: 600;
+
+  --font-family--h1: var(--font-display);
+  --font-family--h2: var(--font-display);
+  --font-family--h3: var(--font-display);
+  --font-family--h4: var(--font-display);
+  --font-family--h5: var(--font-display);
+  --font-family--h6: var(--font-display);
+  --font-family--button: var(--font-sans);
+  --font-family--body: var(--font-sans);
+
+  --margin-bottom--title: 32px;
+  --margin-top--title: 0;
+  --margin-bottom--p: 16px;
+}
+
+/* -----------------------------------------------------------------------
+   BASE STYLES — mirrors the live theme's base rules
    ----------------------------------------------------------------------- */
 @layer base {
   html {
     scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) transparent;
   }
   body {
-    font-family: var(--font-sans);
-    color: var(--color-brand-charcoal);
+    margin: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family--body);
+    font-size: var(--font-size--body);
+    color: var(--color-brand-body);
+    background-color: var(--color-brand-surface);
     -webkit-font-smoothing: antialiased;
-    background: #fff;
   }
   h1, h2, h3, h4 {
-    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: var(--margin-bottom--title);
+    margin-top: var(--margin-top--title);
+    text-wrap: balance;
+    font-family: var(--font-display);
+    font-weight: 600;
   }
+  h1 { font-size: var(--font-size--h1); }
+  h2 { font-size: var(--font-size--h2); }
+  h3 { font-size: var(--font-size--h3); }
+  h4 { font-size: var(--font-size--h4); }
+  h5 { font-size: var(--font-size--h5); font-family: var(--font-display); font-weight: 600; }
+  h6 { font-size: var(--font-size--h6); font-family: var(--font-display); font-weight: 600; }
+  a {
+    color: var(--color-brand-primary);
+    transition: .3s ease;
+    text-decoration: none;
+  }
+  img { max-width: 100%; height: auto; }
 }
+
+/* Live theme's shared section scaffolding (used by every page section) */
+.section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-size: cover;
+  position: relative;
+}
+@media (min-width: 1025px) {
+  .section { padding-right: 40px; padding-left: 40px; }
+}
+@media (max-width: 1024px) {
+  .section { padding-right: 16px; padding-left: 16px; }
+}
+.section-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--container-site);
+  flex-wrap: wrap;
+}
+.one-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+/* Live type-scale helper classes (live HTML uses these on headings) */
+.h1-style { font-size: var(--font-size--h1); font-weight: var(--font-weight--h1); font-family: var(--font-family--h1); }
+.h3-style { font-size: var(--font-size--h3); font-weight: var(--font-weight--h3); font-family: var(--font-family--h3); }
+.h4-style { font-size: var(--font-size--h4); font-weight: var(--font-weight--h4); font-family: var(--font-family--h4); }
+.h5-style { font-size: var(--font-size--h5); font-weight: var(--font-weight--h5); font-family: var(--font-family--h5); }
+
+/* Live shared button block (.btns / .btns-alt) */
+.btns {
+  width: 100%;
+  max-width: 182px;
+  text-align: center;
+}
+.btns a {
+  background: #fff;
+  color: var(--red);
+  padding: 10px;
+  display: flex;
+  border-radius: 8px;
+  font-family: var(--font-family--h3);
+  font-size: 18px;
+  font-weight: 700;
+  width: 100%;
+  justify-content: center;
+}
+.btns.btns-alt { max-width: 249px; }
+.btns.btns-alt > a {
+  background: var(--primary);
+  color: #fff;
+  border-radius: 5px;
+}
+
+/* Live star-rating color */
+.strs { color: var(--color-brand-gold); }
 
 /* WCAG 2.3.3 — honor the OS-level reduced-motion preference. */
 @media (prefers-reduced-motion: reduce) {
@@ -141,7 +293,7 @@
 .pr-cap {
   font-size: 14px;
   font-style: italic;
-  color: var(--color-brand-muted, #7a6a54);
+  color: var(--color-brand-muted, #b7b7b7);
   text-align: center;
   margin-top: 8px;
   line-height: 1.4;

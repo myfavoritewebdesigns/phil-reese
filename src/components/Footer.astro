@@ -1,0 +1,126 @@
+---
+/* -----------------------------------------------------------------------
+   Footer — faithful clone of the live philsellsbiz.com footer.
+   Structure verbatim from reference/home-raw.html:
+     <footer.main-footer>
+       .menu-footer  (maroon band, same 10-item menu as the header)
+       .ftr-wrp      (charcoal area)
+         .ftr-col1   full logo + 5 social icons + BBB accreditation badge
+         .addresses ×4  (Scottsdale HQ, Phoenix–Chandler Blvd, Mesa, Phoenix–Utopia)
+         .copyright
+   All data comes from src/config/site.ts (rule #1 — nothing hard-coded).
+   CSS copied from the live WP-Rocket used-CSS (reference/_css-wpr-usedcss.css).
+   ----------------------------------------------------------------------- */
+import {
+  COPYRIGHT_NAME,
+  bbbProfileUrl,
+  contact,
+  footerLegal,
+  footerMainMenu,
+  footerSocials,
+  hrefs,
+  offices,
+} from "../config/site";
+
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.replace(/\/?$/, "/") === href;
+---
+
+<footer class="main-footer">
+  <div class="menu-footer">
+    <div class="menu-container">
+      <ul class="menu">
+        {footerMainMenu.map((item) => (
+          <li class={`menu-item${isCurrent(item.href) ? " current-menu-item" : ""}`}>
+            <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  <div class="ftr-wrp">
+    <div class="ftr-col1">
+      <a href="/">
+        <img src="/images/logo-phil-reese-mcbi-full.svg" alt="Phil Reese, Arizona Business Broker" width="1621" height="329" class="alignnone size-full" role="img" />
+      </a>
+      <div class="social-links">
+        {footerSocials.map((s) =>
+          s.useImg ? (
+            <div class="icon-item"><a href={s.href} target="_blank" rel="noopener" aria-label={s.label}><img src={s.imgSrc} alt={s.label} /></a></div>
+          ) : (
+            <div class="icon-item">
+              <a href={s.href} target="_blank" rel="noopener" aria-label={s.label}>
+                <svg height="64" width="64" viewBox={s.viewBox ?? "0 0 24 24"} xmlns="http://www.w3.org/2000/svg"><path d={s.path}></path></svg>
+              </a>
+            </div>
+          )
+        )}
+      </div>
+      <a href={bbbProfileUrl} target="_blank" rel="noopener" class="bbb-logo">
+        <img src="/images/bbb-accredited.png" alt="BBB Accredited Business A+" width="187" height="47" class="alignnone size-full" />
+      </a>
+    </div>
+
+    {offices.map((office) => (
+      <div class="addresses">
+        <h3 class="adr-title"><a href={office.href}>{office.title}</a></h3>
+        <div class="contactinfo">
+          <span>{office.phone}</span><br />
+          <a href={hrefs.mailto}><span>{contact.email}</span></a>
+        </div>
+        {office.street} <br />{office.cityLine}
+        <br />
+        <div>
+          <a href={office.viewMapUrl} target="_blank" rel="noopener">View Map</a> | <a href={office.directionsUrl} target="_blank" rel="noopener">Get Directions</a>
+        </div>
+      </div>
+    ))}
+
+    <div class="copyright">
+      ©{footerLegal.copyrightYear}&nbsp; {COPYRIGHT_NAME} | All Rights Reserved
+      {footerLegal.links.map((l) => (
+        <> | <a href={l.href} target={l.external ? "_blank" : undefined} rel={l.external ? "noopener" : undefined}>{l.label}</a></>
+      ))}
+    </div>
+  </div>
+</footer>
+
+<!-- Footer CSS — copied verbatim from the live used-CSS blob. -->
+<style is:global>
+  footer .menu { padding: 0; display: flex; justify-content: center; gap: 20px; list-style: none; margin: 0; }
+  .menu-footer { background: var(--primary); width: 100%; }
+  footer .menu li a { font-size: 22px; color: #fff; font-family: var(--font-family--h4); padding: 10px; display: flex; }
+  footer .ftr-wrp { color: #fff; padding: 39px 20px 20px; max-width: 1700px; width: 100%; display: flex; flex-wrap: wrap; }
+  footer.main-footer { background: var(--secondary); display: flex; flex-wrap: wrap; justify-content: center; width: 100%; }
+  .ftr-col1 { display: flex; flex-direction: column; width: 24%; justify-content: center; text-align: center; }
+  .ftr-col1 .social-links { display: flex; gap: 10px; justify-content: space-around; margin-top: 13px; }
+  .ftr-col1 .social-links svg { fill: white; width: 45px; height: auto; }
+  .ftr-col1 .social-links a { display: flex; }
+  .addresses { text-align: center; width: 18%; padding: 0 10px; }
+  .copyright a { color: #fff; }
+  .copyright { width: 100%; text-align: center; padding: 22px 20px 0; border-top: 2px solid #fff; margin-top: 30px; }
+  footer .adr-title { margin-bottom: 7px; color: #fff; }
+  footer .adr-title a { color: #fff; }
+  .contactinfo > span { font-size: 22px; padding-top: 10px; font-weight: 700; }
+  .contactinfo > a { color: #fff; display: flex; justify-content: center; padding: 10px; }
+  .addresses a { color: #fff; }
+  .addresses > div:last-child { padding: 10px; }
+  .bbb-logo { display: flex; justify-content: center; padding: 20px; }
+  .addresses { padding-top: 30px; }
+  @media (max-width: 1024px) {
+    footer .menu { flex-wrap: wrap; gap: 0; }
+    .ftr-col1 { width: 100%; }
+    .ftr-col1 .social-links { margin-bottom: 37px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .addresses { width: 25%; }
+  }
+  @media (max-width: 800px) {
+    .addresses { width: 50%; margin-bottom: 20px; }
+    footer .menu li a { padding: 10px; }
+    footer .menu { flex-direction: column; justify-content: center; align-items: center; padding: 20px 8px; }
+    footer .bbb-logo { filter: saturate(.4); }
+  }
+  @media (max-width: 500px) {
+    .addresses { width: 100%; }
+  }
+</style>

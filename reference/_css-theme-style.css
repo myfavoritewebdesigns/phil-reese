@@ -1,0 +1,685 @@
+/*
+Theme Name: Phil Sells Biz
+Theme URI: http://www.philsellsbiz.com/
+Description: A Wordpress Theme For An Arizona Business Broker
+Author: Joshua Jacoby
+*/
+
+body  {
+	font-family: "Times New Roman", Times, serif;
+	color:white;
+	background-color:#000;
+	background:url(edited/bg.jpg.webp)
+}
+
+a {
+	text-decoration:none;
+	color:#B90B17;
+}
+
+
+img {
+max-width: 100%;
+height: auto;
+}
+
+a img:hover { opacity:none }
+
+#header  {
+	width:1213px;
+	position:relative;
+}
+@media(min-width:621px){
+#headerimage {background-image:url(edited/header-bg.jpg.webp); height:130px; border-radius:5px 5px 0px 0px;background-size: cover; }}
+
+#mainwrapper {
+	width:1213px; border-radius:10px; background:white; box-shadow:1px 1px 3px #333; margin:30px auto;
+}
+
+.home #mainwrapper {  padding-top:15px;  }
+	
+#navbar  {
+	height:56px;
+	width: 1211px;
+	margin:0px 1px;
+	background:#420409;
+	
+}
+
+#warning { text-align:center; color:black; margin:30px auto; font-size:24px; }
+#warning h3 { font-size:36px; margin-bottom:20px; color:red; }
+.button { border-radius: 4px; box-shadow:1px 1px 3px #333;background:#420409;color:white;display:block;font-size:18px; padding:11px 8px; clear:both; width:187px; height:19px; margin:35px auto; }
+
+.phil-reese  { color:#73180c;clear:both; font-size:38px;  }
+.contactinfo { color:#73180c;clear:both; font-size:20px;   }
+.addresses { color:#666;clear:both; font-size:14px; margin:5px 0px;   }
+.copyright {
+	color:#666;
+	font-size:14px;
+	margin:auto;
+    gap: 8px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.threecolumn { width:330px; float:left; margin:25px; }
+
+#navbar ul  {
+	padding-left:0px;
+	list-style-type:none;
+}
+
+#navbar ul li  {
+	text-align:center;
+	float:left;
+	color: #FFF;
+	font-size: 20px;
+	letter-spacing:1px;
+	overflow: visible;
+	cursor:pointer;
+}
+
+#navbar ul li a {
+	color:white;
+	text-decoration:none;
+	padding: 20px 47px 16px 47px;
+	display:block;
+	font-family:Times New Roman;
+	border-right:1px solid white;
+	
+}
+
+#navbar ul li a:hover {
+	color:black;
+	background:#ccc;
+}
+
+#leftcolumn {
+	width:900px;
+	float:left;
+	margin-top:15px;
+	padding-left:50px;
+	line-height:1.4;
+}
+
+
+#rightcolumn {
+	width:200px;
+	float:left;
+	/*overflow-x:hidden;*/
+	margin-top:15px;
+	margin-left:20px;
+	padding-bottom:30px;
+	}
+	
+#footerouter {
+	background-image:url(edited/footer-bg.jpg);
+	min-width: 1213px;
+	overflow:auto;
+}
+
+#footer {
+	text-align:center;
+	width:1193px;
+	padding:10px;
+	margin:auto
+}
+	.single-post ul{
+    margin-bottom: 20px
+}
+.single-post a{
+    font-weight: 600
+}
+body h3{padding-bottom: 10px!important;}
+
+p {
+	padding-bottom:12px;
+	text-align:left;
+	color:black;
+}
+
+
+
+
+/*heading section*/
+h3, h4, h5, h6  {
+	padding-bottom:3px; font-family:times "Times New Roman", Times, serif;font-weight:bold
+}
+	
+h1 {
+	font-size:24px;
+	font-family:times "Times New Roman", Times, serif;
+	line-height:28px;
+	text-transform:uppercase;
+	color:#000;
+	text-align:left;
+	padding-bottom:10px;font-weight:bold;
+	padding-bottom: 40px;
+}
+h2 {
+	font-size: 22px;
+font-family: times "Times New Roman", Times, serif;
+line-height: 24px;
+color: #000;
+text-align:left;
+padding-bottom:25px;
+font-weight:bold;
+
+}
+h3 {
+	font-size: 20px;
+font-family: times "Times New Roman", Times, serif;
+line-height: 22px;
+color: #000;
+text-align:center;
+padding-bottom:25px;font-weight:bold
+}
+/*End of heading section*/
+
+.alignleft { float:left; margin-right:40px;box-shadow:1px 1px 3px #333;}
+.alignright { float:right; margin-left:20px;}
+
+#content {
+	clear:both;
+	padding-bottom:20px;
+	min-height:600px;
+	color:black;
+	overflow:auto;
+}
+
+.blogpost { padding:30px; width:500px; float:left;height: 200px; }
+.blog .blogpost img, .category .blogpost img, .archive .blogpost img {
+float: left;
+max-width: 150px;
+height: auto;
+margin-right: 20px;
+}
+
+.frontpageheader { padding:30px; text-transform:none;}
+
+#mainmiddle ul li  {list-style:disc !important;margin-left:30px}
+
+#footer ul li {list-style:none}
+#footer li {list-style:none}
+
+.dtreviewed {display:none}
+.fn {font-size: 14px;}
+
+.h3listings {text-align: left;
+font-size: 20px;
+font-weight: bold;
+padding-bottom: 10px;}
+.h4listings {text-align:left;color:red}
+
+#contactbox h3 {color:white;margin-top:0px;font-size:24px; font-family:"Times New Roman", Gadget, sans-serif;
+	text-align:center; margin:10px;}
+.submittal {font-weight:bold;font-family:"Times New Roman", Gadget, sans-serif;
+	font-size:16px !important;margin-left:297px;text-transform:uppercase;
+	padding:7px 20px;color:#2b0a02;border: none;box-shadow:none;
+	border-radius: 5px;background-color:white;margin-top: 20px;position: relative; top: -30px;}
+
+.submittal:hover {opacity:.8}
+
+.texty {border-radius:3px; width:200px;margin:4px 10px;padding: 3px}
+
+.textareanew  {
+font-family: arial;
+border-radius: 3px;
+width: 202px;
+height: 83px;
+margin: -10px 10px;
+padding: 3px;
+border: 1px solid #ccc;
+margin-top: 4px;
+}
+
+#wpcf7-f40-p241-o1, #wpcf7-f40-p1078-o1, #wpcf7-f40-p1113-o1 {border-radius:5px;box-shadow:1px 1px 3px #666; width:475px; padding:15px;margin:auto;margin-top:8px;background-color:#2b0a02;height:auto}
+
+#wpcf7-f40-p41-o1 {border-radius:5px;box-shadow:1px 1px 3px #666; width:475px; padding:15px;margin:auto;margin-top:8px;background-color:#2b0a02;height:auto}
+
+#wpcf7-f40-p273-o1 {border-radius:5px;box-shadow:1px 1px 3px #666; width:475px; padding:15px;margin:auto;margin-top:8px;background-color:#2b0a02;height:auto}
+
+
+#wpcf7-f40-p306-o1 {border-radius:5px;box-shadow:1px 1px 3px #666; width:475px; padding:15px;margin:auto;margin-top:8px;background-color:#2b0a02;height:auto}
+#wpcf7-f40-p307-o1 {border-radius:5px;box-shadow:1px 1px 3px #666; width:475px; padding:15px;margin:auto;margin-top:8px;background-color:#2b0a02;height:auto}
+
+
+.contact-us {color:white !important;text-transform:uppercase;margin-top:15px}
+
+.average {display:none;}
+
+.base {display:none !important; }
+
+#sprating {display:none;}
+
+.listing {margin-bottom:20px;
+}
+
+.listing h3 {text-align:left;
+}
+
+.listing h4 {color:red;
+}
+
+.listing p {
+}
+
+.listing img {float:left;width:150px;height:150px;margin-right:20px;box-shadow:1px 1px 3px #666;
+}
+
+.button:hover  { opacity:.7 }
+
+.call { font-weight:bold; width:532px; margin-left:135px; }
+
+.call a {font-size:18px;
+}
+
+.wpcr_fl.wpcr_rname span, .wpcr_fl.wpcr_sc { display:none; }
+.wpcr_fl.wpcr_rname span.reviewer, .wpcr_fl.wpcr_rname span.fn { display:block; font-weight:bold; }
+blockquote.description { font-style:italic; font-size:14px; color:#333; }
+hr { color:#420409 !important }
+
+#wpcr_respond_1 blockquote.description p {font-size: 16px; }
+
+.fn {
+font-size: 16px;
+}
+
+.description  p::before { 
+    content: '"';
+}
+.description  p::after { 
+    content: '"';
+}
+
+.description  p br { display:none; }
+
+.wpcf7 { position:relative }
+
+.wpcf7-response-output  { position:absolute;top: 229px;}
+
+.caption img {margin-bottom:5px;border:	none;}
+.caption p { margin:0px; padding:0px;  }
+.caption br { display:none; }
+
+.caption a img { border:none }
+.caption a  { border:0px }
+
+.alignleftnew {float:left;margin-top:5px;margin-right:10px;box-shadow:1px 1px 3px #333;border:1px solid #ccc;padding-right:0px;min-width:100px;}
+.alignleftnew div { padding-left:10px; padding-right:10px; }
+.alignrightnew {float:right;margin-top:5px;margin-left:10px;box-shadow:1px 1px 3px #333;border:1px solid #ccc;padding-left:0px;min-width:100px;}
+.alignrightnew div { padding-left:10px; padding-right:10px; }
+
+.picname {padding-bottom:5px;font-weight:bolder;text-align:center;font-size: 15px;}
+.picdescription {padding-bottom:5px;text-align:center;font-style:italic; letter-spacing:1px;font-size: 14px;}
+.piclocation {padding-bottom:5px;text-align:center; font-weight:bold;font-size: 14px;}
+
+/* .listing h3 {padding-bottom: 8px;padding-top:25px;} */
+
+#sidenav { float:left;width:200px; height:200px; }
+#logoimg {width: 328px;height: auto;margin-top: 18px;margin-left: 38px;}
+.contactpage { float: left; width: 395px; padding-left: 60px; padding-top: 17px; }
+.headingthree { padding-top: 30px; width: 748px; }
+.iframeblog {float: left; width: 200px; height: 200px; margin-right: 30px;}
+
+.socialmedia img {max-height:36px;width:auto}
+
+#content ul li  {list-style:disc !important;margin-left:30px}
+
+.arizona-navigation a {color:white;}
+.arizonah3 {text-align: center;text-transform:none;padding-bottom: 10px;color:white}
+
+.arizona-navigation {
+box-shadow: 1px 1px 1px #666;
+border-radius: 4px;
+border: 1px solid white;
+padding: 10px;
+width: 215px;
+float: left;
+margin-right: 10px;
+margin-top: 5px;
+color:white;
+background-color:#2b0a02;
+}
+
+
+#phoenix-business-broker { width:1100px; margin:auto; color:white; margin-top:30px; }
+#phoenix-business-broker p { color:white; }
+
+.blog .blogpost img, .category .entry-summary img, .archive .entry-summary img {
+    float: left;
+    max-width: 150px;
+    height: auto;
+    margin-right: 20px;}
+	
+	li.cat-item a {
+    display: block;
+    border-radius: 5px;
+    background-color: #1e3e74;
+    color: white;
+    padding: 8px 12px;
+    margin: 10px 10px;
+    text-align: center;
+    width:175px;
+}
+
+#categories-3 .widget-title {display:none}
+
+.mainlpdiv {float: left; width: 920px; padding-bottom: 25px;}
+.firstlpdiv {float: left; width: 485px; padding-top: 10px;}
+.secondlpdiv {float: left; width: 390px; padding-top: 15px; margin-left: 45px;}
+
+.clearfix {clear:both;}
+.tc {text-align:center;}
+.stars {color:gold;font-size:26px;line-height:26px;}
+.column {width:100%;margin:0 2%;}
+.one-half {width:46%;float:left;}
+.one-third {width:29.333333%;float:left;}
+
+.footer-right {
+	width:480px;
+	display:flex;
+	flex-wrap:wrap; 
+}
+
+@media screen and (max-width:1100px) {
+	.footer-right {width:100%;}
+}
+
+@media screen and (max-width: 620px){
+	.one-half {width:96% !important;}
+	.one-half {width:96% !important;}
+	#phoenix-business-broker iframe {  margin-bottom:40px;  }
+#phoenix-business-broker p { color:black; margin-top:10px;  }
+#mainwrapper { width: 320px; min-width:0px; margin:auto; box-shadow:none }
+#contactnumbers { font-size:38px; }
+#logo, #logo img { padding:0px; padding-left:0px; margin-left:0px !important }
+body { background:none;min-width:0px; }
+#navbar { position:relative; left:0px; top:0px; padding:0px; overflow: auto; height:auto;max-width: 325px;}
+#navbar ul { margin-left:0px; padding-left:0px; background:none;  }
+img, div, iframe, ul { max-width:340px; height:auto;min-width:0px; }
+#navbar ul li{font-size:13px; margin:0px; border-radius:5px;  float:left; width:150px;}
+#navbar ul li a { font-size:14px; border:none; padding:20px 3px; }
+#socialmedia {width:300px; position:relative; left:0px;top:0px;clear:both; display:none }
+#contactinfo {width:300px; position:relative; right:0px; top:0px; text-align:center;clear:both; margin-top:30px; }
+#sliderarea { display:none }
+#header {background:none;}
+.home #content div { max-width:255px !important; margin:0px; padding:0px; }
+#mainmiddle {  height:auto;min-width:0px; background:none;max-width: 340px;  }
+#mainmiddle div, #mainmiddle ul, #mainmiddle li, #mainmiddle img, #mainmiddle iframe { max-width:260px !important; height:auto !important; margin-left:0px; }
+#rightcolumn { padding-left:0px; }
+#text-2 { width:220px !important; }
+#menu-new-menu { width: 340px; }
+#menu-new-menu ul { display:none; }
+#slideshowone { display:none; }
+h1, h2, h3 { text-align:left }
+#mainbottom { display:none; }
+#footer { background:none;max-width: 340px;  }
+#footer div { color:black !important; max-width: 340px !important; }
+#footer h2, #footer h3 { text-align:center !important; }
+#leftcolumn, #rightcolumn { padding:0px; margin:auto; }
+#rightcolumn { margin-left:0px;width:340px; }
+#footerouter { min-width: 340px; max-width:340px;margin: auto; }
+#footer .threecolumn { margin:0px; padding:0px; width:315px !important }
+#sidenav { width:340px; height:160px; }
+#logoimg { width:340px; margin-left:0px; }
+#rightcolumn img { margin:auto; padding:0px;margin-left: 70px;margin-bottom: 30px; }
+.copyright a:first-of-type { clear:left; display:inline-block; width:305px; }
+.threecolumn img, .threecolumn  { padding:0px !important; margin:0px !important}
+.call { margin-left:0px !important; }
+.home #mainwrapper {
+padding-top: 15px;
+overflow: auto;
+padding-bottom: 121px;
+}
+body { padding-bottom:100px; }
+#warning h3 { text-align:center !important; }
+#warning br { display:none; }
+.submittal { margin-left:50px;clear: left;
+float: none;
+display: block; }
+#wpcf7-f40-p41-o1 { height:350px; }
+#contactbox { width:230px; margin:auto; }
+#contactbox div { overflow: auto; }
+#contactbox div:nth-of-type(2) { overflow: auto; margin-bottom:30px; }
+.contactpage { margin-left:0px !important; padding-left:0px !important }
+.page-id-41 #leftcolumn div:nth-of-type(2) { margin-bottom:30px; }
+h3 { width: auto !important; }
+.headingthree { padding-top: 30px; width: auto; }
+.headingthree br { display:none; }
+.wpcr_fl.wpcr_rname { line-height:30px; }
+#wpcr_respond_1 .vcard {
+font-size: 12px !important;
+line-height: 20px !important;}
+.listing { text-align:left; }
+.iframeblog { clear:both; float:none }
+.single-post .alignleft { clear:both; float:none }
+.mobileimages img { max-width:100px !important; height:auto; margin:11px !important }
+iframe { max-width:100% !important; }
+#wpcf7-f40-p241-o1, .wpcf7, #mainwrapper .wpcf7 {
+min-height: 329px !important;
+}
+}
+
+
+@media print {
+	#content::before {font-size:30px;content:"Phil Reese, CBI. Your Arizona Business Broker";text-align:center; display:block;margin:auto;}
+	#header, #headerimage, .yarpp-related, iframe, .mainlpdiv {display:none;}
+	#mainwrapper {box-shadow:none;width:100%;}
+	#header, #content {width:100% !important;}
+	#rightcolumn, #navbar {display:none;}
+	#leftcolumn {width:100%;padding-left:0;}
+	#footerouter, #footer{width:100% !important;}
+	#footerouter {min-width:80% !important;}
+	#footer {padding: 10px 0;}
+	#footer >div {width:100% !important;}
+
+}
+
+@media(min-width:801px){body {background: url(/edited/bg.jpg)!important;}}
+@media(max-width:800px){body {background: linear-gradient(180deg, rgba(31,3,0,1) 0%, rgba(58,11,5,1) 100%)!important;}}
+#wpcf7-f40-p1696-o2 {
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px #666;
+    width: 475px;
+    padding: 15px;
+    margin: auto;
+    margin-top: 8px;
+    background-color: #2b0a02;
+    height: 220px;}
+
+#wpcf7-f40-p1637-o1  {
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px #666;
+    width: 475px;
+    padding: 15px;
+    margin: auto;
+    margin-top: 8px;
+    background-color: #2b0a02;
+    height: 220px;}
+
+.pt-cv-2-col .pt-cv-title {
+    clear: none!important;
+    display: inline;
+}
+
+.pt-cv-wrapper a {
+    color: #2b0a02;
+}
+
+
+
+.pt-cv-wrapper .btn-success {
+    color: white !important;
+    background-color: #2b0a02 !important;
+    border-color: #2b0a02 !important;
+}
+
+.pt-cv-wrapper  {    padding-top: 20px !important;
+    padding-bottom: 30px !important;}
+
+.pt-cv-thumbnail.pull-left {
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
+    box-shadow: 1px 1px 3px #333;
+    border: 1px solid #ccc;
+    padding-right: 0;
+}
+
+
+.arizona-navigation {width:262px !important}
+
+.submittal {margin-top:0px !important}
+
+.threecolumnreviews {
+    overflow: auto;
+    clear: both;
+	margin-left:20px;
+margin-top: 45px;
+    margin-bottom: 35px;
+}
+
+.threecolumnreviews div {
+    width: 385px;
+    float: left;
+           text-align: center !important;
+	    margin-right: 30px;
+    padding-bottom: 20px;
+}
+
+.threecolumnreviews h3 {font-weight:bold;text-align: center !important;padding-bottom:0px}
+
+.starcenter {    margin-top: 15px;}
+
+.video {text-align:center;margin-top:30px;margin-bottom:30px}
+.aligncenternew { text-align:center;margin-top:30px;margin-bottom:30px;  box-shadow:1px 1px 3px #333;border:1px solid #ccc;padding-right:0px;min-width:100px;}
+
+.blog .blogpost { height:auto !important;padding:15px 0px !important; }
+
+.wpcr3_respond_3 { display:none; }
+
+.wpcr3_item_name, body .wpcr3_review_datePublished { display:none !important; }
+
+
+
+
+
+.autorepairmaindiv {width:920px;margin:auto;overflow:auto;clear:both;    padding-top: 35px;}
+.autorepairdiv1 {width:275px;padding-right:30px;float:left}
+.autorepairdiv2 {width:275px;padding-right:30px;float:left}
+.autorepairdiv3 {width:275px;float:left}
+
+
+.leftrightdiv {width:300px;overflow:auto;clear:both}
+.leftdiv1 {width:70px;float:left}
+.rightdiv1 {width:220px;float:left}
+
+
+.three-check-container {padding-left: 60px;}
+.rightdiv1 h3 {font-size:18px;text-align:center !important;color:#072948}
+.rightdiv1 h4 {font-style:italic;text-align:center !important;color:#072948}
+.videoP1 {width:55%;float:left;}
+.videoP2 {width:40%;float:left;padding-top:10px;}
+.about-sold-businesses {
+	columns: 3;
+	-webkit-columns: 3;
+	-moz-columns: 3;
+}
+.two-locations {width:50%;float:left;text-align:center;}
+#footer .threecolumn-left {width:265px !important;margin-top:0px;margin-left: 46px;}
+@media(max-width: 1100px){
+	#footer .threecolumn {width:100% !important;}
+}
+@media screen and (min-width:621px) and (max-width:1100px) {
+	#headerimage {background-position: right 740px bottom;}
+	#navbar {display:none;}
+	#mainwrapper {width:740px !important;min-height:660px;}
+	#sidenav {display:none;}
+	#rightcolumn {width:700px!important;}
+	#rightcolumn img {min-width:86px;width:86px !important;}
+	#leftcolumn {width:660px !important;padding:0 40px !important;}
+	#leftcolumn div {max-width:660px;}
+	#leftcolumn p iframe {width:100%;}
+#footer .threecolumn-left {width:100% !important;margin-left: 0;}
+	.video {text-align:left;}
+	div.video iframe {width:640px;height: 370px;}
+	.call{width: 450px !important;}
+	.two-locations {float:left;width:48%;}
+	.two-locations div{text-align:center;}
+	.contactpage {width:380px !important;margin:0 auto;float:none !important;}
+	.directorydiv p a img {width: 60px; margin-right: 10px;}
+	.threecolumnreviews {width: 440px; margin: 0 20%;}
+	.autorepairmaindiv .leftdiv1 {width:60px;}
+	.autorepairmaindiv .rightdiv1 {width:140px;}
+	.autorepairmaindiv .leftrightdiv {width:200px;}
+	.autorepairdiv1 {width:200px;}
+	.autorepairdiv2 {width:200px;}
+	.autorepairdiv3 {width:200px;}
+	.videoP2 p {padding: 30px 0px 0 20px !important;}
+	.videoP1 .video iframe {height:330px;}
+	.three-check-container {padding-left: 10px;}
+	.pt-cv-content {text-align:justify;}
+	.yarpp-related ol {text-align:justify;}
+	#footerouter { min-width: 740px !important;}
+	#footer {width:660px !important;padding:10px 40px;}
+	/*#footer .threecolumn-left {width:100%;margin-top:0px;margin-left: 0;}*/
+	#footer .socialmedia {padding-left: 170px; width: 220px!important;}
+	#phoenix-business-broker {width:740px!important;}
+}
+@media screen and (max-width:620px) {
+	#homebanner {
+		display: none;
+	}
+	.about-sold-businesses {
+		columns: 1;
+		-webkit-columns: 1;
+		-moz-columns: 1;
+	}
+	#footerleft {width:100% !important;}
+#mainwrapper .wpcf7 {max-width: 270px!important;}
+#navbar, #sidenav {display:none;}
+#leftcolumn {width:300px!important;padding:0 20px !important;}
+#leftcolumn div {max-width:300px!important;}
+#leftcolumn p img {width:295px;}
+#leftcolumn img {max-width:340px!important;}
+#headerimage {background-position: right 350px top 0px;}
+
+
+.call{width: 280px !important;}
+.directorydiv p a img {width: 60px !important; margin-right: 10px;}
+.threecolumnreviews div { width: 230px;}
+.autorepairdiv1, .autorepairdiv2 {padding-right:0px;width:300px;}
+.autorepairdiv3 {width:300px;}
+.mobileimages {float:left;margin-left:0px !important;}
+.mobileimages img {width:120px;}
+.ctadiv2 {margin-left:-45px !important;}
+.videoP1 {width:100%;float:left;}
+.videoP2 {width:100%;float:left;padding-top:10px;}
+.videoP2 p {padding:0!important;}
+.secondlpdiv {width:250px !important;}
+.two-locations {float:left;width:100%;}
+.threecolumnreviews {width:80%;margin-left:35px;}
+.three-check-container {width:100%;padding-left: 10px;}
+.listing-item {padding:0 !important;}
+.pt-cv-colsys {margin:auto;}
+.display-posts-listing {text-align:justify;}
+.yarpp-related ol {text-align:left;}
+#footer{max-width:320px !important;}
+#footer .threecolumn {width:320px;}
+#footer div.socialmedia {padding-left: 50px!important;width: 220px!important;margin-top:10px !important;}
+#phoenix-business-broker p {color:#fff !important;}
+}
+.listing img {object-fit: cover;}
+.smallericons img { max-height:34px !important;width:auto !important;margin-top: 54px; }
+.socialmedia img {max-height:30px;}
+
+.single-post ul{
+    margin-bottom: 20px
+}
+.single-post a{
+    font-weight: 600
+}

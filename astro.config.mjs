@@ -10,7 +10,7 @@ import tailwindcss from '@tailwindcss/vite';
 // `trailingSlash: "always"` matches WordPress's default URL shape. Changing this
 // after launch breaks every inbound link, so commit to it before you ship.
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://www.philsellsbiz.com',
   trailingSlash: 'always',
   devToolbar: { enabled: false },
   integrations: [mdx(), sitemap()],
