@@ -16,10 +16,14 @@
      7. faq-sctn           — 7 FAQ <details> (dark rounded panel, FAQPage schema)
      8. lctn-sctn          — 5 neighborhood location cards
      9. contact-sctn       — form + "Schedule A Consultation" info column
-   NOTE: this WP page was cloned from the Queen Creek page; several image
-   filenames/alts still say "Queen Creek" on live — kept VERBATIM per the
-   project's fidelity policy. The contact column also carries the Phoenix
-   office number (480-428-8010) and "Serving Queen Creek" line verbatim.
+   NOTE: this WP page was cloned from the Queen Creek page. The live site left
+   several Queen-Creek leftovers (img alts, badge alts, location-card alts, the
+   "Serving Queen Creek" line, and the cloned 480-428-8010 office number).
+   Josh approved correcting these to Sun City (2026-06-13): all visible/alt text
+   now reads Sun City and the phone is the main line 480-707-7721. The image
+   `src` FILENAMES (location-Queen-Creek-N.jpg, Is-Now-...-Queen-Creek-...jpg)
+   are kept as-is — those are the real on-disk filenames; only the alt TEXT was
+   corrected.
    JSON-LD = live Yoast @graph (Layout) + FinancialService + FAQPage + Reviews
    (verbatim) + a city Service node per task spec.
    ----------------------------------------------------------------------- */
@@ -107,13 +111,13 @@ const reviews = [
   { text: "We worked with Phil in selling our business and from day one we could tell he was a no nonsense and very detail oriented broker. He made sure we only dealt with pre-screened, qualified buyers and assisted with our questions at each step of the arduous and sometimes confusing process. I would recommend Phil to anyone looking to buy/sell a business.", name: "Joe Mangum", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURVdjgtbVhREAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDUv8-mXQ%7CCgwIupnb6wUQgML3yAI%7C?hl=en-US" },
 ];
 
-/* ---------- Directory badges (what-is-sctn .badge-col), verbatim (Queen Creek alts kept) ---------- */
+/* ---------- Directory badges (what-is-sctn .badge-col), alts corrected Queen Creek → Sun City ---------- */
 const directories = [
-  { img: "google-maps.png", alt: "Find Phil Reese Business Broker In Queen Creek On Google", href: "https://www.google.com/maps/place/Phil+Reese,+Arizona+Business+Broker/@33.6204098,-111.9286278,15z/data=!4m5!3m4!1s0x0:0x777d85f1a062a70!8m2!3d33.6204098!4d-111.9286278" },
-  { img: "yelp.png", alt: "Find Phil Reese Business Broker In Queen Creek On Yelp", href: "https://www.yelp.com/biz/phil-reese-arizona-business-broker-scottsdale-7" },
-  { img: "bing.png", alt: "Find Phil Reese Business Broker In Queen Creek On Bing", href: "https://www.bing.com/maps?q=Phil+Reese+Scottsdale&qs=n&form=QBLH&sp=-1&pq=phil+reese+scottsdale&sc=0-21&sk=&cvid=0A5BEE29D0DF4A4893F688B5083CC69A" },
-  { img: "hotfrog-az.png", alt: "Find Phil Reese Business Broker In Queen Creek On Hotfrog", href: "https://www.hotfrog.com/company/1099478479065088/phil-reese-arizona-business-broker/scottsdale/business-financial-services" },
-  { img: "manta.png", alt: "Find Phil Reese Business Broker In Queen Creek On Manta", href: "http://www.manta.com/c/mx61w9v/phil-reese-arizona-business-broker" },
+  { img: "google-maps.png", alt: "Find Phil Reese Business Broker In Sun City On Google", href: "https://www.google.com/maps/place/Phil+Reese,+Arizona+Business+Broker/@33.6204098,-111.9286278,15z/data=!4m5!3m4!1s0x0:0x777d85f1a062a70!8m2!3d33.6204098!4d-111.9286278" },
+  { img: "yelp.png", alt: "Find Phil Reese Business Broker In Sun City On Yelp", href: "https://www.yelp.com/biz/phil-reese-arizona-business-broker-scottsdale-7" },
+  { img: "bing.png", alt: "Find Phil Reese Business Broker In Sun City On Bing", href: "https://www.bing.com/maps?q=Phil+Reese+Scottsdale&qs=n&form=QBLH&sp=-1&pq=phil+reese+scottsdale&sc=0-21&sk=&cvid=0A5BEE29D0DF4A4893F688B5083CC69A" },
+  { img: "hotfrog-az.png", alt: "Find Phil Reese Business Broker In Sun City On Hotfrog", href: "https://www.hotfrog.com/company/1099478479065088/phil-reese-arizona-business-broker/scottsdale/business-financial-services" },
+  { img: "manta.png", alt: "Find Phil Reese Business Broker In Sun City On Manta", href: "http://www.manta.com/c/mx61w9v/phil-reese-arizona-business-broker" },
 ];
 
 /* ---------- "Why Choose Phil" check list (video-sctn), verbatim ---------- */
@@ -138,13 +142,13 @@ const faqs = [
   { q: "How Much Time And Effort Is Involved In The Selling Process?", a: "Selling requires consistent effort in gathering documents, meeting with potential buyers, and managing negotiations. With a broker’s guidance, much of the workload is handled professionally, reducing stress for the seller. On average, expect several months of preparation, communication, and review before reaching the closing table." },
 ];
 
-/* ---------- Neighborhood location cards (lctn-sctn), verbatim ---------- */
+/* ---------- Neighborhood location cards (lctn-sctn); alts corrected to match each card's Sun City neighborhood ---------- */
 const lctnCards = [
-  { img: "location-Queen-Creek-1.jpg", alt: "Business Broker For Companies in Hasting Farms", pre: "Sell Your Company In Sun", sub: "City Grand", body: "Phil Reese helps owners in Sun City Grand prepare, market, and sell their companies with strategies designed to maximize value and attract serious buyers." },
-  { img: "location-Queen-Creek-2.jpg", alt: "Business Broker For Companies in Montelena", pre: "Exit Your Business In Sun", sub: "City West", body: "When it’s time to step away, we guide Sun City West business owners through valuations, negotiations, and sales to achieve a stress-free exit." },
-  { img: "location-Queen-Creek-3.jpg", alt: "Business Broker For Companies in Cortina", pre: "Confidential Sales In", sub: "Ventana Lakes", body: "We specialize in confidential business sales in Ventana Lakes, ensuring your privacy while discreetly connecting you with qualified buyers." },
-  { img: "location-Queen-Creek-4.jpg", alt: "Business Broker For Companies in Emperor Estates", pre: "List Your Business In", sub: "Arizona Traditions", body: "Business owners in Arizona Traditions can trust Phil’s proven expertise to list, market, and sell their companies effectively and confidentially." },
-  { img: "location-Queen-Creek-5.jpg", alt: "Business Broker For Companies in Villages", pre: "Buy A Business In Sun", sub: "City Festival", body: "Looking to invest? Phil connects buyers with opportunities in Sun City Festival, guiding them through evaluation and purchase with professionalism." },
+  { img: "location-Queen-Creek-1.jpg", alt: "Business Broker For Companies in Sun City Grand", pre: "Sell Your Company In Sun", sub: "City Grand", body: "Phil Reese helps owners in Sun City Grand prepare, market, and sell their companies with strategies designed to maximize value and attract serious buyers." },
+  { img: "location-Queen-Creek-2.jpg", alt: "Business Broker For Companies in Sun City West", pre: "Exit Your Business In Sun", sub: "City West", body: "When it’s time to step away, we guide Sun City West business owners through valuations, negotiations, and sales to achieve a stress-free exit." },
+  { img: "location-Queen-Creek-3.jpg", alt: "Business Broker For Companies in Ventana Lakes", pre: "Confidential Sales In", sub: "Ventana Lakes", body: "We specialize in confidential business sales in Ventana Lakes, ensuring your privacy while discreetly connecting you with qualified buyers." },
+  { img: "location-Queen-Creek-4.jpg", alt: "Business Broker For Companies in Arizona Traditions", pre: "List Your Business In", sub: "Arizona Traditions", body: "Business owners in Arizona Traditions can trust Phil’s proven expertise to list, market, and sell their companies effectively and confidentially." },
+  { img: "location-Queen-Creek-5.jpg", alt: "Business Broker For Companies in Sun City Festival", pre: "Buy A Business In Sun", sub: "City Festival", body: "Looking to invest? Phil connects buyers with opportunities in Sun City Festival, guiding them through evaluation and purchase with professionalism." },
 ];
 ---
 
@@ -176,7 +180,7 @@ const lctnCards = [
         <hr />
       </div>
       <div class="img-col">
-        <img src={`${IMG}/Sun-City.jpg`} alt="Phil Reese, CBI Queen Creek Business Broker" width="400" height="250" class="alignnone size-full" loading="lazy" />
+        <img src={`${IMG}/Sun-City.jpg`} alt="Phil Reese, CBI Sun City Business Broker" width="400" height="250" class="alignnone size-full" loading="lazy" />
       </div>
       <div class="text-col-1">
         <p>Selling a business is one of the biggest decisions an owner can make, and having the right broker by your side can make all the difference. For more than 24 years, Phil Reese has been helping business owners in Sun City successfully navigate the selling process with confidence and peace of mind.</p>
@@ -229,7 +233,7 @@ const lctnCards = [
         <p>Phil Reese is a proud CBI, which gives Sun City business owners peace of mind knowing their sale is handled by a proven expert. From accurately pricing your business to marketing it discreetly and securing qualified buyers, Phil’s CBI training ensures every step of the process is handled with professionalism and integrity.</p>
       </div>
       <div class="img-col">
-        <img src={`${IMG}/What-Is-A-Certified-Business-Intermediary.jpg`} alt="Queen Creek Certified Business Intermediary" width="393" height="224" class="alignnone size-full" loading="lazy" />
+        <img src={`${IMG}/What-Is-A-Certified-Business-Intermediary.jpg`} alt="Sun City Certified Business Intermediary" width="393" height="224" class="alignnone size-full" loading="lazy" />
       </div>
       <div class="badge-col">
         {directories.map((d) => (
@@ -277,7 +281,7 @@ const lctnCards = [
         <p>Deciding when to sell your business is a major choice, and timing plays a big role in the outcome. Market conditions, industry trends, and the financial performance of your company all influence the value of your business. In Sun City, many business owners look to retirement or lifestyle changes as key motivators to sell. Phil Reese can help you evaluate these factors and determine whether now is the right moment to take the next step.</p>
       </div>
       <div class="img-col">
-        <img src={`${IMG}/Is-Now-The-Right-Time-To-Sell-Your-Queen-Creek-Business.jpg`} alt="Business Broker Explaining Right Time To Sell A Business in Queen Creek" width="410" height="373" class="alignnone size-full" loading="lazy" />
+        <img src={`${IMG}/Is-Now-The-Right-Time-To-Sell-Your-Queen-Creek-Business.jpg`} alt="Business Broker Explaining Right Time To Sell A Business in Sun City" width="410" height="373" class="alignnone size-full" loading="lazy" />
       </div>
     </div>
   </section>
@@ -386,8 +390,8 @@ const lctnCards = [
         <h4 class="subtitle">Get Expert Help From A Sun City Business Broker Today</h4>
         <div class="info-inn">
           <p>Phil Reese, CBI – Arizona Business Broker West USA Realty</p>
-          <p>Phone:<a href="tel:+14804288010">(480) 428-8010</a><br />Email: <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
-          <p>Serving Queen Creek and surrounding areas. Office Hours:<br /><time>Daily: 8:00 am – 8:00 pm</time></p>
+          <p>Phone:<a href="tel:+14807077721">(480) 707-7721</a><br />Email: <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+          <p>Serving Sun City and surrounding areas. Office Hours:<br /><time>Daily: 8:00 am – 8:00 pm</time></p>
           <p>Your privacy is always important. Your information will not be shared, sold or exchanged with anyone else.</p>
         </div>
       </div>

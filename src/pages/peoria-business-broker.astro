@@ -20,8 +20,11 @@
    - Live lazy-loads the video via wp-youtube-lyte; rebuilt with the same
      lite-youtube web component the homepage uses (videoid 75l7CluKwIg).
    - Form reuses the homepage CF7 field names → /api/contact handler.
-   - "Fountain Hills" in the FAQ heading + the duplicated "Serving: Tempe,
-     ArizonaTempe, Arizona" line are live copy quirks, replicated verbatim.
+   - Live copy quirks (cloned from other city pages) CORRECTED to Peoria per
+     Josh's approval 2026-06-13: FAQ heading "Fountain Hills" → "Peoria";
+     garbled "Servicing: Serving: Tempe, ArizonaTempe, Arizona" → "Serving:
+     Peoria, Arizona". FLAGGED, left as-is: the map iframe `mapEmbed` is still
+     centered on Fountain Hills, AZ (no trivially-correct Peoria embed URL).
    - JSON-LD @types match live: WebPage/ImageObject/BreadcrumbList +
      FinancialService + FAQPage + Review graph (verbatim from live).
    ----------------------------------------------------------------------- */
@@ -191,7 +194,7 @@ const mapEmbed = "https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d150406.5
         Fax : <a href="tel:+14806074435">480-607-4435</a><br />
         Email: <a href="mailto:phil@philsellsbiz.com">phil@philsellsbiz.com</a><br />
         Website: <a href="/">https://philsellsbiz.com</a><br />
-        <p>Servicing: Serving: Tempe, ArizonaTempe, Arizona</p>
+        <p>Serving: Peoria, Arizona</p>
       </div>
     </div>
   </section>
@@ -297,7 +300,7 @@ const mapEmbed = "https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d150406.5
   <section class="section faq-sctn">
     <div class="section-wrap">
       <div class="one-col">
-        <h3 class="tc h3-style">FAQs About Our Fountain Hills Business Broker</h3>
+        <h3 class="tc h3-style">FAQs About Our Peoria Business Broker</h3>
         {faqs.map((f) => (
           <details open>
             <summary><h3 class="h5-style faq-title">{f.q}</h3></summary>
