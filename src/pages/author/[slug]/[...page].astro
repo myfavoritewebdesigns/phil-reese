@@ -74,30 +74,30 @@ const personSchema = {
     {nextPageUrl && <link rel="next" href={nextPageUrl} />}
   </Fragment>
 
-  <div class="site-author-archive">
-    <header class="site-author-archive__header">
+  <div class="pr-author-archive">
+    <header class="pr-author-archive__header">
       {avatar && (
         <img
           src={avatar}
           alt={name}
           width="120"
           height="120"
-          class="site-author-archive__avatar"
+          class="pr-author-archive__avatar"
         />
       )}
       <div>
-        <p class="site-author-archive__eyebrow">Author</p>
+        <p class="pr-author-archive__eyebrow">Author</p>
         <h1>{name}</h1>
-        {bio && <p class="site-author-archive__bio">{bio}</p>}
+        {bio && <p class="pr-author-archive__bio">{bio}</p>}
         {url && (
-          <p class="site-author-archive__url">
+          <p class="pr-author-archive__url">
             <a href={url} rel="me noopener" target="_blank">{url.replace(/^https?:\/\//, "")}</a>
           </p>
         )}
       </div>
     </header>
 
-    <ul class="site-author-archive__items">
+    <ul class="pr-author-archive__items">
       {page.data.map((post) => (
         <li><BlogPostCard post={post} /></li>
       ))}
@@ -114,34 +114,34 @@ const personSchema = {
 </Layout>
 
 <style>
-  .site-author-archive { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem; }
-  .site-author-archive__header {
+  .pr-author-archive { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem; }
+  .pr-author-archive__header {
     display: flex;
     gap: 1.5rem;
     align-items: flex-start;
     margin-bottom: 2.5rem;
   }
-  .site-author-archive__avatar {
+  .pr-author-archive__avatar {
     border-radius: 50%;
     flex-shrink: 0;
   }
-  .site-author-archive__eyebrow {
+  .pr-author-archive__eyebrow {
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--color-muted-text, #6b6b6b);
     font-size: 0.875rem;
     margin: 0 0 0.25rem;
   }
-  .site-author-archive__header h1 { font-size: 2.25rem; margin: 0 0 0.5rem; }
-  .site-author-archive__bio {
+  .pr-author-archive__header h1 { font-size: 2.25rem; margin: 0 0 0.5rem; }
+  .pr-author-archive__bio {
     margin: 0 0 0.5rem;
     color: var(--color-body, #333);
     line-height: 1.55;
   }
-  .site-author-archive__url a {
+  .pr-author-archive__url a {
     color: var(--color-brand-primary, #682412);
   }
-  .site-author-archive__items {
+  .pr-author-archive__items {
     list-style: none; padding: 0; margin: 0; display: grid; gap: 2rem;
   }
 </style>

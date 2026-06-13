@@ -85,9 +85,9 @@ const articleSchema = {
   modifiedTime={(modifiedDate ?? pubDate).toISOString()}
   structuredData={articleSchema}
 >
-  <article class="site-post">
-    <header class="site-post__header">
-      <p class="site-post__categories">
+  <article class="pr-post">
+    <header class="pr-post__header">
+      <p class="pr-post__categories">
         {categories.map((c, i) => (
           <>
             {i > 0 && ", "}
@@ -96,9 +96,9 @@ const articleSchema = {
         ))}
       </p>
 
-      <h1 class="site-post__title">{title}</h1>
+      <h1 class="pr-post__title">{title}</h1>
 
-      <p class="site-post__meta">
+      <p class="pr-post__meta">
         By <a href={`/author/${author.slug}/`} rel="author">{author.name}</a>
         {" · "}
         <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
@@ -112,7 +112,7 @@ const articleSchema = {
     </header>
 
     {featuredImage && (
-      <figure class="site-post__hero">
+      <figure class="pr-post__hero">
         <img
           src={featuredImage.src}
           alt={featuredImage.alt}
@@ -126,33 +126,33 @@ const articleSchema = {
       </figure>
     )}
 
-    <div class="site-post__body">
+    <div class="pr-post__body">
       <Content />
     </div>
 
     {tags.length > 0 && (
-      <p class="site-post__tags">
+      <p class="pr-post__tags">
         Tagged:{" "}
         {tags.map((t, i) => (
           <>
             {i > 0 && " "}
-            <a href={`/tag/${t.toLowerCase().replace(/[^a-z0-9]+/g, "-")}/`} class="site-post__tag">#{t}</a>
+            <a href={`/tag/${t.toLowerCase().replace(/[^a-z0-9]+/g, "-")}/`} class="pr-post__tag">#{t}</a>
           </>
         ))}
       </p>
     )}
 
-    <nav class="site-post__adjacent" aria-label="More posts">
+    <nav class="pr-post__adjacent" aria-label="More posts">
       {newer ? (
-        <a href={`/blog/${newer.id}/`} class="site-post__adjacent-link site-post__adjacent-link--newer">
-          <span class="site-post__adjacent-label">← Newer post</span>
-          <span class="site-post__adjacent-title">{newer.data.title}</span>
+        <a href={`/blog/${newer.id}/`} class="pr-post__adjacent-link pr-post__adjacent-link--newer">
+          <span class="pr-post__adjacent-label">← Newer post</span>
+          <span class="pr-post__adjacent-title">{newer.data.title}</span>
         </a>
       ) : <div />}
       {older && (
-        <a href={`/blog/${older.id}/`} class="site-post__adjacent-link site-post__adjacent-link--older">
-          <span class="site-post__adjacent-label">Older post →</span>
-          <span class="site-post__adjacent-title">{older.data.title}</span>
+        <a href={`/blog/${older.id}/`} class="pr-post__adjacent-link pr-post__adjacent-link--older">
+          <span class="pr-post__adjacent-label">Older post →</span>
+          <span class="pr-post__adjacent-title">{older.data.title}</span>
         </a>
       )}
     </nav>
@@ -160,74 +160,74 @@ const articleSchema = {
 </Layout>
 
 <style>
-  .site-post {
+  .pr-post {
     max-width: 760px;
     margin: 0 auto;
     padding: 3rem 1.5rem;
   }
-  .site-post__categories {
+  .pr-post__categories {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-size: 0.8125rem;
     color: var(--color-muted-text, #6b6b6b);
     margin: 0 0 0.5rem;
   }
-  .site-post__categories a {
+  .pr-post__categories a {
     color: inherit;
     text-decoration: none;
   }
-  .site-post__categories a:hover { text-decoration: underline; }
-  .site-post__title {
+  .pr-post__categories a:hover { text-decoration: underline; }
+  .pr-post__title {
     font-size: 2.5rem;
     line-height: 1.15;
     margin: 0 0 1rem;
   }
   @media (min-width: 768px) {
-    .site-post__title { font-size: 3rem; }
+    .pr-post__title { font-size: 3rem; }
   }
-  .site-post__meta {
+  .pr-post__meta {
     color: var(--color-muted-text, #6b6b6b);
     font-size: 0.9375rem;
     margin: 0 0 2rem;
   }
-  .site-post__meta a { color: inherit; }
-  .site-post__hero {
+  .pr-post__meta a { color: inherit; }
+  .pr-post__hero {
     margin: 0 0 2rem;
   }
-  .site-post__hero img {
+  .pr-post__hero img {
     width: 100%;
     height: auto;
     border-radius: 8px;
     display: block;
   }
-  .site-post__hero figcaption {
+  .pr-post__hero figcaption {
     margin-top: 0.5rem;
     font-size: 0.875rem;
     color: var(--color-muted-text, #6b6b6b);
     font-style: italic;
     text-align: center;
   }
-  .site-post__body {
+  .pr-post__body {
     font-size: 1.0625rem;
     line-height: 1.7;
   }
-  .site-post__body :global(h2) { font-size: 1.875rem; margin: 2.5rem 0 1rem; }
-  .site-post__body :global(h3) { font-size: 1.375rem; margin: 2rem 0 0.75rem; }
-  .site-post__body :global(p)  { margin: 0 0 1.25rem; }
-  .site-post__body :global(img) {
+  .pr-post__body :global(h2) { font-size: 1.875rem; margin: 2.5rem 0 1rem; }
+  .pr-post__body :global(h3) { font-size: 1.375rem; margin: 2rem 0 0.75rem; }
+  .pr-post__body :global(p)  { margin: 0 0 1.25rem; }
+  .pr-post__body :global(img) {
     max-width: 100%;
     height: auto;
     border-radius: 6px;
     margin: 1.5rem 0;
   }
-  .site-post__body :global(blockquote) {
+  .pr-post__body :global(blockquote) {
     border-left: 4px solid var(--color-brand-primary, #682412);
     padding: 0.5rem 1.25rem;
     margin: 1.5rem 0;
     color: var(--color-muted-text, #6b6b6b);
     font-style: italic;
   }
-  .site-post__body :global(pre) {
+  .pr-post__body :global(pre) {
     background: #1e1e1e;
     color: #f0f0f0;
     padding: 1rem;
@@ -235,18 +235,18 @@ const articleSchema = {
     overflow-x: auto;
     font-size: 0.875rem;
   }
-  .site-post__tags {
+  .pr-post__tags {
     margin: 2.5rem 0 0;
     color: var(--color-muted-text, #6b6b6b);
     font-size: 0.9375rem;
   }
-  .site-post__tag {
+  .pr-post__tag {
     color: var(--color-brand-primary, #682412);
     text-decoration: none;
   }
-  .site-post__tag:hover { text-decoration: underline; }
+  .pr-post__tag:hover { text-decoration: underline; }
 
-  .site-post__adjacent {
+  .pr-post__adjacent {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
@@ -255,9 +255,9 @@ const articleSchema = {
     border-top: 1px solid var(--color-border, #e5e5e5);
   }
   @media (max-width: 640px) {
-    .site-post__adjacent { grid-template-columns: 1fr; }
+    .pr-post__adjacent { grid-template-columns: 1fr; }
   }
-  .site-post__adjacent-link {
+  .pr-post__adjacent-link {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -268,15 +268,15 @@ const articleSchema = {
     color: inherit;
     transition: background 0.15s;
   }
-  .site-post__adjacent-link:hover { background: var(--color-muted, #f4f4f4); }
-  .site-post__adjacent-link--older { text-align: right; }
-  .site-post__adjacent-label {
+  .pr-post__adjacent-link:hover { background: var(--color-muted, #f4f4f4); }
+  .pr-post__adjacent-link--older { text-align: right; }
+  .pr-post__adjacent-label {
     font-size: 0.8125rem;
     color: var(--color-muted-text, #6b6b6b);
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
-  .site-post__adjacent-title {
+  .pr-post__adjacent-title {
     font-weight: 600;
   }
 </style>

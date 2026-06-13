@@ -1,7 +1,7 @@
 /**
  * Shared submit handler for all contact forms.
  *
- * Tag any <form> with `data-site-contact-form` and set `data-form-id="<source>"`.
+ * Tag any <form> with `data-pr-contact-form` and set `data-form-id="<source>"`.
  * POSTs to /api/contact (Cloudflare Pages Function — wire up Mailgun there).
  * Gracefully stubs to a 404 no-op during development.
  */
@@ -15,10 +15,10 @@ function setState(form: HTMLFormElement, state: FormState, message?: string) {
   const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
   if (submit) submit.disabled = state === "submitting";
 
-  let banner = form.querySelector<HTMLDivElement>(".site-form-banner");
+  let banner = form.querySelector<HTMLDivElement>(".pr-form-banner");
   if (!banner && state !== "idle") {
     banner = document.createElement("div");
-    banner.className = "site-form-banner";
+    banner.className = "pr-form-banner";
     banner.setAttribute("role", "status");
     banner.setAttribute("aria-live", "polite");
     form.appendChild(banner);
@@ -70,7 +70,7 @@ async function handleSubmit(e: SubmitEvent) {
 }
 
 function init() {
-  const forms = document.querySelectorAll<HTMLFormElement>("form[data-site-contact-form]");
+  const forms = document.querySelectorAll<HTMLFormElement>("form[data-pr-contact-form]");
   forms.forEach((form) => {
     if (form.dataset.bound === "1") return;
     form.dataset.bound = "1";

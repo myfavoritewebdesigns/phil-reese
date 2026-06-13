@@ -6,7 +6,7 @@
  *   subhead  — supporting text
  *   rule     — optional short accent rule beneath
  *
- * CSS class prefix: site-sh  (search-replace with your project prefix)
+ * CSS class prefix: pr-sh  (search-replace with your project prefix)
  */
 interface Props {
   eyebrow?:  string;
@@ -24,21 +24,21 @@ const HeadingTag = level === 3 ? "h3" : "h2";
 ---
 
 <header
-  class:list={["site-sh", `site-sh--${align}`]}
+  class:list={["pr-sh", `pr-sh--${align}`]}
   style={maxWidth ? `max-width:${maxWidth};margin-left:auto;margin-right:auto;` : undefined}
 >
-  {eyebrow && <span class="site-sh__eyebrow">{eyebrow}</span>}
-  <HeadingTag id={id} class="site-sh__title" set:html={title} />
-  {subhead && <p class="site-sh__subhead" set:html={subhead} />}
-  {rule && <div class="site-sh__rule" aria-hidden="true"></div>}
+  {eyebrow && <span class="pr-sh__eyebrow">{eyebrow}</span>}
+  <HeadingTag id={id} class="pr-sh__title" set:html={title} />
+  {subhead && <p class="pr-sh__subhead" set:html={subhead} />}
+  {rule && <div class="pr-sh__rule" aria-hidden="true"></div>}
 </header>
 
 <style>
-  .site-sh { margin-bottom: 32px; }
-  .site-sh--center { text-align: center; }
-  .site-sh--left   { text-align: left; }
+  .pr-sh { margin-bottom: 32px; }
+  .pr-sh--center { text-align: center; }
+  .pr-sh--left   { text-align: left; }
 
-  .site-sh__eyebrow {
+  .pr-sh__eyebrow {
     font-family: var(--font-display);
     font-weight: 500;
     font-size: 13px;
@@ -48,7 +48,7 @@ const HeadingTag = level === 3 ? "h3" : "h2";
     margin-bottom: 10px;
     display: block;
   }
-  .site-sh__title {
+  .pr-sh__title {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: clamp(28px, 4vw, 44px);
@@ -58,7 +58,7 @@ const HeadingTag = level === 3 ? "h3" : "h2";
     text-transform: uppercase;
     letter-spacing: 0.02em;
   }
-  .site-sh__subhead {
+  .pr-sh__subhead {
     font-family: var(--font-display);
     font-weight: 400;
     font-size: 18px;
@@ -66,11 +66,11 @@ const HeadingTag = level === 3 ? "h3" : "h2";
     letter-spacing: 0.05em;
     margin: 0;
   }
-  .site-sh__rule {
+  .pr-sh__rule {
     width: 80px;
     height: 3px;
     background: var(--color-brand-primary);
     margin: 16px auto 0;
   }
-  .site-sh--left .site-sh__rule { margin-left: 0; }
+  .pr-sh--left .pr-sh__rule { margin-left: 0; }
 </style>

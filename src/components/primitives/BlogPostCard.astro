@@ -14,9 +14,9 @@ const href = `/blog/${post.id}/`;
 const Heading = `h${headingLevel}` as "h2" | "h3";
 ---
 
-<article class="site-blogcard">
+<article class="pr-blogcard">
   {featuredImage && (
-    <a href={href} class="site-blogcard__thumb" aria-hidden="true" tabindex="-1">
+    <a href={href} class="pr-blogcard__thumb" aria-hidden="true" tabindex="-1">
       <img
         src={featuredImage.src}
         alt={featuredImage.alt}
@@ -28,12 +28,12 @@ const Heading = `h${headingLevel}` as "h2" | "h3";
     </a>
   )}
 
-  <div class="site-blogcard__body">
-    <Heading class="site-blogcard__title">
+  <div class="pr-blogcard__body">
+    <Heading class="pr-blogcard__title">
       <a href={href}>{title}</a>
     </Heading>
 
-    <p class="site-blogcard__meta">
+    <p class="pr-blogcard__meta">
       <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
       {author?.name && (
         <>
@@ -43,16 +43,16 @@ const Heading = `h${headingLevel}` as "h2" | "h3";
       )}
     </p>
 
-    <p class="site-blogcard__desc">{description}</p>
+    <p class="pr-blogcard__desc">{description}</p>
 
-    <a href={href} class="site-blogcard__more">
+    <a href={href} class="pr-blogcard__more">
       Read more <span aria-hidden="true">→</span>
     </a>
   </div>
 </article>
 
 <style>
-  .site-blogcard {
+  .pr-blogcard {
     display: grid;
     grid-template-columns: 1fr;
     gap: 0;
@@ -62,50 +62,50 @@ const Heading = `h${headingLevel}` as "h2" | "h3";
     overflow: hidden;
     transition: box-shadow 0.2s, transform 0.2s;
   }
-  .site-blogcard:hover {
+  .pr-blogcard:hover {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     transform: translateY(-2px);
   }
-  .site-blogcard__thumb {
+  .pr-blogcard__thumb {
     display: block;
     aspect-ratio: 16 / 9;
     overflow: hidden;
     background: var(--color-muted, #f4f4f4);
   }
-  .site-blogcard__thumb img {
+  .pr-blogcard__thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
-  .site-blogcard__body {
+  .pr-blogcard__body {
     padding: 1.25rem 1.5rem 1.5rem;
   }
-  .site-blogcard__title {
+  .pr-blogcard__title {
     margin: 0 0 0.5rem;
     font-size: 1.375rem;
     line-height: 1.25;
   }
-  .site-blogcard__title a {
+  .pr-blogcard__title a {
     color: inherit;
     text-decoration: none;
   }
-  .site-blogcard__title a:hover { text-decoration: underline; }
-  .site-blogcard__meta {
+  .pr-blogcard__title a:hover { text-decoration: underline; }
+  .pr-blogcard__meta {
     color: var(--color-muted-text, #6b6b6b);
     font-size: 0.875rem;
     margin: 0 0 0.75rem;
   }
-  .site-blogcard__meta a { color: inherit; }
-  .site-blogcard__desc {
+  .pr-blogcard__meta a { color: inherit; }
+  .pr-blogcard__desc {
     margin: 0 0 1rem;
     color: var(--color-body, #333);
     line-height: 1.55;
   }
-  .site-blogcard__more {
+  .pr-blogcard__more {
     font-weight: 600;
     text-decoration: none;
     color: var(--color-brand-primary, #682412);
   }
-  .site-blogcard__more:hover { text-decoration: underline; }
+  .pr-blogcard__more:hover { text-decoration: underline; }
 </style>

@@ -7,7 +7,7 @@
  * fail this even with the default vignette — use those as ogImage only.
  * The safe default is a dim interior/shop photo with no bright highlights up top.
  *
- * CSS class prefix: site-hero  (search-replace with your project prefix)
+ * CSS class prefix: pr-hero  (search-replace with your project prefix)
  */
 interface Props {
   eyebrow?:     string;
@@ -44,26 +44,26 @@ const hasCta = Astro.slots.has("cta");
 ---
 
 <section
-  class:list={["site-hero", `site-hero--${align}`, `site-hero--${size}`]}
+  class:list={["pr-hero", `pr-hero--${align}`, `pr-hero--${size}`]}
   style={`background-color:${bgColor};${bgImage ? `background-image:url('${bgImage}');` : ""}color:${textColor};`}
 >
-  {vignette && <div class="site-hero__vignette" aria-hidden="true"></div>}
+  {vignette && <div class="pr-hero__vignette" aria-hidden="true"></div>}
 
-  <div class="site-hero__inner">
+  <div class="pr-hero__inner">
     <slot name="breadcrumbs" />
-    {eyebrow && <span class="site-hero__eyebrow">{eyebrow}</span>}
+    {eyebrow && <span class="pr-hero__eyebrow">{eyebrow}</span>}
 
     {titleHtml
-      ? <h1 class="site-hero__title" set:html={title} />
-      : <h1 class="site-hero__title">{title}</h1>}
+      ? <h1 class="pr-hero__title" set:html={title} />
+      : <h1 class="pr-hero__title">{title}</h1>}
 
     {subhead && (subheadHtml
-      ? <SubheadTag class="site-hero__subhead" set:html={subhead} />
-      : <SubheadTag class="site-hero__subhead">{subhead}</SubheadTag>
+      ? <SubheadTag class="pr-hero__subhead" set:html={subhead} />
+      : <SubheadTag class="pr-hero__subhead">{subhead}</SubheadTag>
     )}
 
     {hasCta && (
-      <div class="site-hero__cta">
+      <div class="pr-hero__cta">
         <slot name="cta" />
       </div>
     )}
@@ -71,7 +71,7 @@ const hasCta = Astro.slots.has("cta");
 </section>
 
 <style>
-  .site-hero {
+  .pr-hero {
     position: relative;
     isolation: isolate;
     overflow: hidden;
@@ -79,10 +79,10 @@ const hasCta = Astro.slots.has("cta");
     background-position: center;
     background-repeat: no-repeat;
   }
-  .site-hero--md { padding: clamp(140px, 14vw, 200px) 16px clamp(40px, 6vw, 70px); }
-  .site-hero--lg { padding: clamp(160px, 18vw, 280px) 16px clamp(40px, 6vw, 80px); }
+  .pr-hero--md { padding: clamp(140px, 14vw, 200px) 16px clamp(40px, 6vw, 70px); }
+  .pr-hero--lg { padding: clamp(160px, 18vw, 280px) 16px clamp(40px, 6vw, 80px); }
 
-  .site-hero__vignette {
+  .pr-hero__vignette {
     position: absolute;
     inset: 0;
     z-index: 0;
@@ -92,17 +92,17 @@ const hasCta = Astro.slots.has("cta");
     pointer-events: none;
   }
 
-  .site-hero__inner {
+  .pr-hero__inner {
     position: relative;
     z-index: 1;
     max-width: var(--container-site, 1100px);
     margin: 0 auto;
     color: inherit;
   }
-  .site-hero--center .site-hero__inner { text-align: center; }
-  .site-hero--left   .site-hero__inner { text-align: left; }
+  .pr-hero--center .pr-hero__inner { text-align: center; }
+  .pr-hero--left   .pr-hero__inner { text-align: left; }
 
-  .site-hero__eyebrow {
+  .pr-hero__eyebrow {
     display: inline-block;
     font-family: var(--font-display);
     font-weight: 600;
@@ -112,7 +112,7 @@ const hasCta = Astro.slots.has("cta");
     color: var(--color-brand-surface, #eedfc0);
     margin-bottom: 14px;
   }
-  .site-hero__title {
+  .pr-hero__title {
     font-family: var(--font-sans);
     font-weight: 700;
     font-size: clamp(28px, 4vw, 52px);
@@ -121,7 +121,7 @@ const hasCta = Astro.slots.has("cta");
     text-wrap: balance;
     color: inherit;
   }
-  .site-hero__subhead {
+  .pr-hero__subhead {
     font-family: var(--font-display);
     font-weight: 500;
     font-size: clamp(19px, 2.4vw, 28px);
@@ -131,14 +131,14 @@ const hasCta = Astro.slots.has("cta");
     max-width: 900px;
     text-wrap: balance;
   }
-  .site-hero--left .site-hero__subhead { margin-left: 0; margin-right: 0; }
+  .pr-hero--left .pr-hero__subhead { margin-left: 0; margin-right: 0; }
 
-  .site-hero__cta {
+  .pr-hero__cta {
     display: flex;
     flex-wrap: wrap;
     gap: 16px 24px;
     margin-top: 32px;
   }
-  .site-hero--center .site-hero__cta { justify-content: center; }
-  .site-hero--left   .site-hero__cta { justify-content: flex-start; }
+  .pr-hero--center .pr-hero__cta { justify-content: center; }
+  .pr-hero--left   .pr-hero__cta { justify-content: flex-start; }
 </style>

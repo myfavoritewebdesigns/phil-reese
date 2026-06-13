@@ -83,62 +83,62 @@
    shipped as vertical stacks before the bug surfaced visually.
 
    Usage:
-     <div class="site-img2 site-img--uniform">
-       <figure class="site-imgwc">
+     <div class="pr-img2 pr-img--uniform">
+       <figure class="pr-imgwc">
          <img src="..." alt="..." width="..." height="...">
-         <figcaption class="site-cap">Caption</figcaption>
+         <figcaption class="pr-cap">Caption</figcaption>
        </figure>
-       <figure class="site-imgwc">...</figure>
+       <figure class="pr-imgwc">...</figure>
      </div>
 
    Variants:
-     .site-img2 — 2-column grid
-     .site-img3 — 3-column grid (collapses to 2 at <950px, 1 at <600px)
-     .site-img--uniform — modifier on the wrapper: forces consistent 220px
+     .pr-img2 — 2-column grid
+     .pr-img3 — 3-column grid (collapses to 2 at <950px, 1 at <600px)
+     .pr-img--uniform — modifier on the wrapper: forces consistent 220px
                          image height + object-fit: cover. Use when comparing
                          like-for-like (serial-number prefix examples, headstock
                          variations, etc.) so eye can scan across without
                          size noise.
 
-   For runs of 4-6 figures: use .site-img2 (2x2 / 2x3) or .site-img3 (3+rest).
+   For runs of 4-6 figures: use .pr-img2 (2x2 / 2x3) or .pr-img3 (3+rest).
    For >6: split into multiple galleries with subheadings.
 
    See "Image gallery primitive" section in CLAUDE.md for the detection rule.
    ----------------------------------------------------------------------- */
-.site-img2,
-.site-img3 {
+.pr-img2,
+.pr-img3 {
   display: grid;
   gap: 18px;
   margin: 24px 0;
   align-items: start;
 }
-.site-img2 { grid-template-columns: repeat(2, 1fr); }
-.site-img3 { grid-template-columns: repeat(3, 1fr); }
+.pr-img2 { grid-template-columns: repeat(2, 1fr); }
+.pr-img3 { grid-template-columns: repeat(3, 1fr); }
 
 @media (max-width: 950px) {
-  .site-img3 { grid-template-columns: repeat(2, 1fr); }
+  .pr-img3 { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 600px) {
-  .site-img2,
-  .site-img3 { grid-template-columns: 1fr; }
+  .pr-img2,
+  .pr-img3 { grid-template-columns: 1fr; }
 }
 
-.site-imgwc {
+.pr-imgwc {
   display: flex;
   flex-direction: column;
   margin: 0;
 }
-.site-imgwc img {
+.pr-imgwc img {
   width: 100%;
   height: auto;
   display: block;
 }
-.site-img--uniform .site-imgwc img {
+.pr-img--uniform .pr-imgwc img {
   height: 220px;
   object-fit: cover;
 }
 
-.site-cap {
+.pr-cap {
   font-size: 14px;
   font-style: italic;
   color: var(--color-brand-muted, #7a6a54);

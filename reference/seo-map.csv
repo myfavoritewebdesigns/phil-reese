@@ -1,2 +1,58 @@
 old_url,new_url,status,title,meta_description,h1,canonical,schema_type,notes
-/example-old-slug/,/example-new-slug/,301,Page Title | Site Name,Meta description preserved from WP,Main H1 heading text,https://example.com/example-new-slug/,WebPage,Example row — replace with real URLs from WP sitemap
+/,/,planned,,,,,"ProfessionalService,Person","Homepage. Multi-office business broker. LocalBusiness/Person schema + sameAs socials"
+/about/,/about/,planned,,,,,"AboutPage,Person",About Phil Reese (CBI)
+/business-sellers/,/business-sellers/,planned,,,,,Service,Sell-side service page
+/business-buyers/,/business-buyers/,planned,,,,,Service,Buy-side service page
+/listings/,/listings/,planned,,,,,CollectionPage,Active business listings — confirm if dynamic/external feed
+/testimonials/,/testimonials/,planned,,,,,WebPage,Uses wp-customer-reviews plugin; Review/AggregateRating schema candidate
+/awards/,/awards/,planned,,,,,WebPage,
+/what-is-a-cbi/,/what-is-a-cbi/,planned,,,,,Article,Explainer: Certified Business Intermediary
+/faq/,/faq/,planned,,,,,FAQPage,FAQ schema
+/contact/,/contact/,planned,,,,,ContactPage,Contact Form 7 form — map fields in form-map.csv
+/blog/,/blog/,planned,,,,,Blog,Blog index (Archetype C)
+/sitemap/,/sitemap/,planned,,,,,WebPage,HTML sitemap page (not the XML one)
+/phoenix-business-broker/,/phoenix-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/scottsdale-business-broker/,/scottsdale-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/tempe-business-broker/,/tempe-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/mesa-business-broker/,/mesa-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/chandler-business-broker/,/chandler-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/gilbert-business-broker/,/gilbert-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/peoria-business-broker/,/peoria-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/glendale-business-broker/,/glendale-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/queen-creek-business-broker/,/queen-creek-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/sun-city-business-broker/,/sun-city-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/fountain-hills-business-broker/,/fountain-hills-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/paradise-valley-business-broker/,/paradise-valley-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly
+/landscaping-business-broker/,/landscaping-business-broker/,planned,,,,,Service,Niche (industry) landing page — preserve URL exactly
+/buying-or-selling/the-right-time-to-sell-your-family-business/,/buying-or-selling/the-right-time-to-sell-your-family-business/,planned,,,,,BlogPosting,"DECISION NEEDED: posts use /<category>/<slug>/ permalinks. Preserve (custom routing) vs move to /blog/<slug>/ (301). Seeded as PRESERVE."
+/buying-or-selling/optimizing-your-receivables-for-a-successful-business-sale/,/buying-or-selling/optimizing-your-receivables-for-a-successful-business-sale/,planned,,,,,BlogPosting,
+/buying-or-selling/negotiate-the-price-gap-between-business-buyers-and-sellers/,/buying-or-selling/negotiate-the-price-gap-between-business-buyers-and-sellers/,planned,,,,,BlogPosting,
+/buying-or-selling/when-is-the-right-time-to-share-your-businesss-financials-with-a-prospective-buyer/,/buying-or-selling/when-is-the-right-time-to-share-your-businesss-financials-with-a-prospective-buyer/,planned,,,,,BlogPosting,
+/buying-or-selling/different-types-of-buyers-you-may-encounter-when-selling-your-business-in-arizona/,/buying-or-selling/different-types-of-buyers-you-may-encounter-when-selling-your-business-in-arizona/,planned,,,,,BlogPosting,
+/buying-or-selling/how-to-be-prepared-for-a-buyers-due-diligence/,/buying-or-selling/how-to-be-prepared-for-a-buyers-due-diligence/,planned,,,,,BlogPosting,
+/buying-or-selling/buying-or-selling-a-business-as-an-asset-sale-vs-a-stock-sale-whats-the-difference/,/buying-or-selling/buying-or-selling-a-business-as-an-asset-sale-vs-a-stock-sale-whats-the-difference/,planned,,,,,BlogPosting,
+/buying-or-selling/ready-for-retirement-preparing-your-business-for-sale/,/buying-or-selling/ready-for-retirement-preparing-your-business-for-sale/,planned,,,,,BlogPosting,
+/buying-or-selling/avoiding-the-potential-pitfalls-of-selling-your-arizona-business/,/buying-or-selling/avoiding-the-potential-pitfalls-of-selling-your-arizona-business/,planned,,,,,BlogPosting,
+/sell-your-business/how-to-maximize-the-sale-price-of-your-business-in-arizona/,/sell-your-business/how-to-maximize-the-sale-price-of-your-business-in-arizona/,planned,,,,,BlogPosting,
+/sell-your-business/need-help-from-business-lawyer-to-sell-my-company/,/sell-your-business/need-help-from-business-lawyer-to-sell-my-company/,planned,,,,,BlogPosting,
+/sell-your-business/business-for-sale-how-long-does-it-take-to-sell/,/sell-your-business/business-for-sale-how-long-does-it-take-to-sell/,planned,,,,,BlogPosting,
+/business-broker/what-are-pros-cons-buying-independent-business-vs-buying-franchise/,/business-broker/what-are-pros-cons-buying-independent-business-vs-buying-franchise/,planned,,,,,BlogPosting,
+/business-broker/how-do-i-find-and-choose-a-good-buyer-for-my-business/,/business-broker/how-do-i-find-and-choose-a-good-buyer-for-my-business/,planned,,,,,BlogPosting,
+/sell-your-business/is-this-a-good-time-to-sell-my-business/,/sell-your-business/is-this-a-good-time-to-sell-my-business/,planned,,,,,BlogPosting,
+/sell-your-business/selling-your-business-during-the-covid-19-pandemic/,/sell-your-business/selling-your-business-during-the-covid-19-pandemic/,planned,,,,,BlogPosting,Dated COVID content — flag for Josh: keep/refresh/retire?
+/sell-your-business/process-of-selling-business/,/sell-your-business/process-of-selling-business/,planned,,,,,BlogPosting,
+/buying-or-selling/how-to-choose-a-tempe-business-broker/,/buying-or-selling/how-to-choose-a-tempe-business-broker/,planned,,,,,BlogPosting,
+/sell-your-business/selling-a-phoenix-area-business-is-tough/,/sell-your-business/selling-a-phoenix-area-business-is-tough/,planned,,,,,BlogPosting,
+/business-broker/proper-valuation-of-your-scottsdale-business-and-how-it-is-conducted/,/business-broker/proper-valuation-of-your-scottsdale-business-and-how-it-is-conducted/,planned,,,,,BlogPosting,
+/buying-or-selling/quarterly-survey-shows-that-phoenix-business-transactions-are-up/,/buying-or-selling/quarterly-survey-shows-that-phoenix-business-transactions-are-up/,planned,,,,,BlogPosting,
+/business-broker/how-much-is-all-my-hard-work-worth/,/business-broker/how-much-is-all-my-hard-work-worth/,planned,,,,,BlogPosting,
+/sell-your-business/how-do-you-keep-the-sale-of-my-business-confidential/,/sell-your-business/how-do-you-keep-the-sale-of-my-business-confidential/,planned,,,,,BlogPosting,
+/sell-your-business/how-do-i-find-a-buyer-for-my-business/,/sell-your-business/how-do-i-find-a-buyer-for-my-business/,planned,,,,,BlogPosting,
+/buying-or-selling/how-are-phoenix-business-acquisitions-financed/,/buying-or-selling/how-are-phoenix-business-acquisitions-financed/,planned,,,,,BlogPosting,
+/sell-your-business/no-intention-ever-selling-business/,/sell-your-business/no-intention-ever-selling-business/,planned,,,,,BlogPosting,
+/business-broker/why-should-you-buy-a-business-vs-starting-your-own/,/business-broker/why-should-you-buy-a-business-vs-starting-your-own/,planned,,,,,BlogPosting,
+/business-broker/opportunities-sba-rules-changes/,/business-broker/opportunities-sba-rules-changes/,planned,,,,,BlogPosting,
+/sell-your-business/dont-need-business-broker-help-sell-business/,/sell-your-business/dont-need-business-broker-help-sell-business/,planned,,,,,BlogPosting,
+/guest-blog/will-tenant-improvement-result-better-resale-value-business-commercial-property/,/guest-blog/will-tenant-improvement-result-better-resale-value-business-commercial-property/,planned,,,,,BlogPosting,Guest post — confirm author attribution
+/sell-your-business/to-sell-or-not-sell-how-to-decide/,/sell-your-business/to-sell-or-not-sell-how-to-decide/,planned,,,,,BlogPosting,
+/buying-or-selling/how-to-organize-your-financial-statements-for-a-business-sale/,/buying-or-selling/how-to-organize-your-financial-statements-for-a-business-sale/,planned,,,,,BlogPosting,

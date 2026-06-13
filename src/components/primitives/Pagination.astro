@@ -49,24 +49,24 @@ const pageNumbers = windowedPages(currentPage, totalPages);
 ---
 
 {totalPages > 1 && (
-  <nav class="site-pagination" aria-label="Pagination">
+  <nav class="pr-pagination" aria-label="Pagination">
     {prevUrl ? (
-      <a href={prevUrl} class="site-pagination__prev" rel="prev">
+      <a href={prevUrl} class="pr-pagination__prev" rel="prev">
         <span aria-hidden="true">←</span> Previous
       </a>
     ) : (
-      <span class="site-pagination__prev site-pagination__prev--disabled" aria-hidden="true">
+      <span class="pr-pagination__prev pr-pagination__prev--disabled" aria-hidden="true">
         <span>←</span> Previous
       </span>
     )}
 
-    <ol class="site-pagination__pages">
+    <ol class="pr-pagination__pages">
       {pageNumbers.map((p) => (
         <li>
           {p === "…" ? (
-            <span class="site-pagination__ellipsis" aria-hidden="true">…</span>
+            <span class="pr-pagination__ellipsis" aria-hidden="true">…</span>
           ) : p === currentPage ? (
-            <span class="site-pagination__current" aria-current="page">{p}</span>
+            <span class="pr-pagination__current" aria-current="page">{p}</span>
           ) : (
             <a href={pageHref(p)}>{p}</a>
           )}
@@ -75,11 +75,11 @@ const pageNumbers = windowedPages(currentPage, totalPages);
     </ol>
 
     {nextUrl ? (
-      <a href={nextUrl} class="site-pagination__next" rel="next">
+      <a href={nextUrl} class="pr-pagination__next" rel="next">
         Next <span aria-hidden="true">→</span>
       </a>
     ) : (
-      <span class="site-pagination__next site-pagination__next--disabled" aria-hidden="true">
+      <span class="pr-pagination__next pr-pagination__next--disabled" aria-hidden="true">
         Next <span>→</span>
       </span>
     )}
@@ -87,7 +87,7 @@ const pageNumbers = windowedPages(currentPage, totalPages);
 )}
 
 <style>
-  .site-pagination {
+  .pr-pagination {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -95,20 +95,20 @@ const pageNumbers = windowedPages(currentPage, totalPages);
     margin: 3rem 0 1rem;
     flex-wrap: wrap;
   }
-  .site-pagination__prev,
-  .site-pagination__next {
+  .pr-pagination__prev,
+  .pr-pagination__next {
     color: var(--color-brand-primary, #682412);
     text-decoration: none;
     font-weight: 600;
   }
-  .site-pagination__prev:hover,
-  .site-pagination__next:hover { text-decoration: underline; }
-  .site-pagination__prev--disabled,
-  .site-pagination__next--disabled {
+  .pr-pagination__prev:hover,
+  .pr-pagination__next:hover { text-decoration: underline; }
+  .pr-pagination__prev--disabled,
+  .pr-pagination__next--disabled {
     color: var(--color-muted-text, #b0b0b0);
     cursor: default;
   }
-  .site-pagination__pages {
+  .pr-pagination__pages {
     list-style: none;
     display: flex;
     gap: 0.25rem;
@@ -116,9 +116,9 @@ const pageNumbers = windowedPages(currentPage, totalPages);
     margin: 0;
     flex-wrap: wrap;
   }
-  .site-pagination__pages li a,
-  .site-pagination__current,
-  .site-pagination__ellipsis {
+  .pr-pagination__pages li a,
+  .pr-pagination__current,
+  .pr-pagination__ellipsis {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -129,14 +129,14 @@ const pageNumbers = windowedPages(currentPage, totalPages);
     text-decoration: none;
     color: var(--color-body, #333);
   }
-  .site-pagination__pages li a:hover {
+  .pr-pagination__pages li a:hover {
     background: var(--color-muted, #f4f4f4);
   }
-  .site-pagination__current {
+  .pr-pagination__current {
     background: var(--color-brand-primary, #682412);
     color: #fff;
   }
-  .site-pagination__ellipsis {
+  .pr-pagination__ellipsis {
     color: var(--color-muted-text, #6b6b6b);
   }
 </style>

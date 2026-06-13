@@ -54,14 +54,14 @@ const nextPageUrl = page.url.next ? `${SITE_URL}${page.url.next}` : undefined;
     {nextPageUrl && <link rel="next" href={nextPageUrl} />}
   </Fragment>
 
-  <div class="site-term-archive">
-    <header class="site-term-archive__header">
-      <p class="site-term-archive__eyebrow">Category</p>
+  <div class="pr-term-archive">
+    <header class="pr-term-archive__header">
+      <p class="pr-term-archive__eyebrow">Category</p>
       <h1>{name}</h1>
       {isPaged && <p>Page {page.currentPage} of {page.lastPage}</p>}
     </header>
 
-    <ul class="site-term-archive__items">
+    <ul class="pr-term-archive__items">
       {page.data.map((post) => (
         <li><BlogPostCard post={post} /></li>
       ))}
@@ -78,26 +78,26 @@ const nextPageUrl = page.url.next ? `${SITE_URL}${page.url.next}` : undefined;
 </Layout>
 
 <style>
-  .site-term-archive {
+  .pr-term-archive {
     max-width: 900px;
     margin: 0 auto;
     padding: 3rem 1.5rem;
   }
-  .site-term-archive__eyebrow {
+  .pr-term-archive__eyebrow {
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--color-muted-text, #6b6b6b);
     font-size: 0.875rem;
     margin: 0 0 0.25rem;
   }
-  .site-term-archive__header h1 {
+  .pr-term-archive__header h1 {
     font-size: 2.25rem;
     margin: 0;
   }
-  .site-term-archive__header {
+  .pr-term-archive__header {
     margin-bottom: 2rem;
   }
-  .site-term-archive__items {
+  .pr-term-archive__items {
     list-style: none;
     padding: 0;
     margin: 0;
