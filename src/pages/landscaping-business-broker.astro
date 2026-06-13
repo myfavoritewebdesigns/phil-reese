@@ -1,0 +1,479 @@
+---
+/* -----------------------------------------------------------------------
+   Landscaping Business Broker — faithful clone of
+   https://www.philsellsbiz.com/landscaping-business-broker/
+   NICHE / INDUSTRY page (not a city). Markup/copy verbatim from
+   reference/landscaping-business-broker-raw.html; section CSS lifted verbatim
+   from the live page's WP-Rocket used-CSS (reference/_landscaping-inline.css)
+   + the distilled section blob (reference/_peoria-business-broker-sections.css).
+   Sections in DOM order (5 live sections):
+     1. banner-sctn      — H1 only
+     2. philo-sctn       — intro copy + Landscaping.jpg
+     3. video-aalt-sctn  — two text columns (Prepare / Key Benefits) — no video
+     4. vid-sctn         — contact form + contact info column
+     5. cbi-info-section — 3 badge-cards (Service Areas / Valuation / Buyer Rep)
+     6. test-sctn        — reviews + Related Blogs (10 cards)
+   JSON-LD = live Yoast @graph (WebPage/ImageObject/BreadcrumbList/WebSite via
+   Layout) + standalone FinancialService + a Service node for landscaping
+   brokerage (provider = Phil/ProfessionalService) per task spec.
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL, contact, replyMethods } from "../config/site";
+import googleGLogoSvg from "../../reference/google-g-logo-svg.html?raw";
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+
+/* Live <title> + meta description, verbatim */
+const pageTitle = "Landscaping Business Broker in Arizona | Phil Reese";
+const pageDescription =
+  "Selling your landscaping business in Arizona? Phil is a Certified Business Intermediary who has helped parties buy and sell businesses in Phoenix & Tucson.";
+
+const ogImage = `${SITE_URL}/images/landscaping-business-broker/og-landscaping.jpg`;
+
+/* ---------- Page JSON-LD (Layout injects LocalBusiness + WebSite) ---------- */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/landscaping-business-broker/`,
+  url: `${SITE_URL}/landscaping-business-broker/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/landscaping-business-broker/#primaryimage` },
+  image: { "@id": `${SITE_URL}/landscaping-business-broker/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2019-04-05T05:12:49+00:00",
+  dateModified: "2026-06-12T23:06:47+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/landscaping-business-broker/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/landscaping-business-broker/`] }],
+};
+
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/landscaping-business-broker/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+  caption:
+    "If you are considering selling your landscaping business in Arizona, consult with Arizona business broker, Phil Reese. Phil is a local, Certified Business Intermediary (CBI) who has been helping parties buy and sell businesses throughout the Valley since 2001.",
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/landscaping-business-broker/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Landscaping Business Broker" },
+  ],
+};
+
+/* Service node — task spec: landscaping brokerage Service, NOT a city LocalBusiness. */
+const serviceSchema = {
+  "@type": "Service",
+  "@id": `${SITE_URL}/landscaping-business-broker/#service`,
+  name: "Landscaping Business Brokerage",
+  serviceType: "Business Brokerage — Buying & Selling Landscaping Businesses",
+  description: pageDescription,
+  areaServed: { "@type": "State", name: "Arizona" },
+  provider: {
+    "@type": "ProfessionalService",
+    name: "Phil Reese, Arizona Business Broker",
+    "@id": `${SITE_URL}/`,
+    url: `${SITE_URL}/`,
+  },
+};
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema, serviceSchema],
+  },
+  financialServiceSchema,
+];
+
+/* ---------- Reviews (test-sctn .rvw-wrapper), verbatim ---------- */
+const reviews = [
+  { text: "Working with Phil was a really good experience. From the beginning he returned my calls immediately and communication was never a problem.", name: "Nelson O." },
+  { text: "I recently purchased a business in which Phil Reese was the broker in the transaction. I can certainly recommend Phil to represent you in either a purchase or a sale transaction.", name: "Jack L." },
+];
+
+/* ---------- cbi-info-section badge cards, verbatim ---------- */
+const badgeCards = [
+  {
+    img: "local-buy-sell-mesa-business-broker.png",
+    alt: "Local Mesa Buy & Sell Business Broker",
+    title: "Our Local Service Areas",
+    body: "Phil Reese offers landscaping business brokering services throughout The Metro Phoenix, Arizona, concentrating on cities in the Valley including Mesa, Scottsdale, and Phoenix. When you need a trusted, Certified Business Intermediary to help sell your Arizona landscaping business, enlist the help of Phil Reese, CBI.",
+  },
+  {
+    img: "valuation-mesa-business.png",
+    alt: "Find out how much your Mesa business is worth!",
+    title: "Valuation of Your Landscaping Business",
+    body: "If you are looking to list your landscaping business for sale, Phil Reese is a local Arizona landscaping business broker who can provide you with an accurate valuation of your landscaping business and efficiently market it to potential buyers. Contact Phil Reese today to find out more!",
+  },
+  {
+    img: "buyer-representation-mesa-arizona.png",
+    alt: "Buyer Representation By Phil Reese Broker Mesa",
+    title: "Buyer Representation",
+    body: "The reason that Phil Reese is revered in the business brokering community is that he offers the best buyer representation for those looking to buy a landscaping business in Arizona (Note: Phil only represents buyers who are purchasing one of his listings.) Phil Reese is the best landscape business broker in Arizona, helping buyers and sellers alike!",
+  },
+];
+
+/* ---------- Related Blogs (test-sctn .related), verbatim ---------- */
+const blogs = [
+  { title: "When Is The Right Time To Sell Your Family Business: Essential Tips & Strategies", href: "/buying-or-selling/the-right-time-to-sell-your-family-business/", img: "When-Is-The-Right-Time-To-Sell-Your-Family-Business-Essential-Tips-Strategies-150x150.jpg", excerpt: "Why Hiring a Phoenix Business Broker Is Crucial For Selling Your Family Business If you own a business, it is …" },
+  { title: "Optimizing Your Receivables For A Successful Business Sale", href: "/buying-or-selling/optimizing-your-receivables-for-a-successful-business-sale/", img: "1200-x-1200-Featured-Images-for-Blogs-34-150x150.jpg", excerpt: "Proven Strategies To Boost Your Business Value & Ensure a Smooth Sale Process If you’re thinking about selling your business, …" },
+  { title: "How To Successfully Negotiate The Price Gap Between Business Buyers & Sellers", href: "/buying-or-selling/negotiate-the-price-gap-between-business-buyers-and-sellers/", img: "1200-x-1200-Featured-Images-for-Blogs-26-150x150.jpg", excerpt: "Expert Tips For Bridging The Price Gap & Achieving a Win-Win Deal When you're buying or selling a business, it's …" },
+  { title: "When Is the Right Time To Share Your Business’s Financials With a Prospective Buyer?", href: "/buying-or-selling/when-is-the-right-time-to-share-your-businesss-financials-with-a-prospective-buyer/", img: "1200-x-1200-Featured-Images-for-Blogs-32-150x150.jpg", excerpt: "How To Strategically Share Financial Information When Selling Your Phoenix Business When selling your Phoenix business, it’s important to balance …" },
+  { title: "Different Types of Buyers You May Encounter When Selling Your Business In Arizona", href: "/buying-or-selling/different-types-of-buyers-you-may-encounter-when-selling-your-business-in-arizona/", img: "1200-x-1200-Featured-Images-for-Blogs-11-150x150.jpg", excerpt: "Business Buyers Profiles You’ll Find When Selling Your Arizona-Based Business Selling a business can be an overwhelming task. There are …" },
+  { title: "How To Organize Your Financial Statements For A Business Sale", href: "/buying-or-selling/how-to-organize-your-financial-statements-for-a-business-sale/", img: "How-To-Organize-Your-Financial-Statements-For-A-Business-Sale-1-150x150.jpg", excerpt: "Optimizing Your Phoenix Business Sale: Detailed Financial Documentation When you are preparing to sell your Phoenix business, many factors play …" },
+  { title: "How To Be Prepared For A Buyer’s Due Diligence", href: "/buying-or-selling/how-to-be-prepared-for-a-buyers-due-diligence/", img: "How-To-Be-Prepared-For-A-Buyers-Due-Diligence-150x150.jpg", excerpt: "Getting Ready For a Due Diligence When Selling Your Business If you are preparing to sell your business, you’ll hear …" },
+  { title: "Buying Or Selling A Business As An Asset Sale vs A Stock Sale: What’s The Difference?", href: "/buying-or-selling/buying-or-selling-a-business-as-an-asset-sale-vs-a-stock-sale-whats-the-difference/", img: "buying-or-selling-a-business-as-an-asset-sale-vs-a-stock-sale-whats-the-difference-featured-150x150.jpg", excerpt: "What Type Of Business Sale Option Is Best For You? If you are thinking about buying or selling a business, …" },
+  { title: "Ready for Retirement? Preparing Your Business For Sale", href: "/buying-or-selling/ready-for-retirement-preparing-your-business-for-sale/", img: "Ready-for-Retirement-Preparing-Your-Business-For-Sale-AZ-150x150.jpg", excerpt: "Ways To Properly Sell Your Business While Retiring If you’re getting ready for retirement, you might be starting to think …" },
+  { title: "Avoiding The Potential Pitfalls Of Selling Your Arizona Business", href: "/buying-or-selling/avoiding-the-potential-pitfalls-of-selling-your-arizona-business/", img: "Avoiding-The-Potential-Pitfalls-Of-Selling-Your-Arizona-Business-150x150.jpg", excerpt: "What To Do To Evade Any Pitfalls When Selling Your Arizona Business When a business owner is ready to sell …" },
+];
+
+const IMG = "/images/landscaping-business-broker";
+
+/* Live vid-sctn contact column tel: links (Cell / Office / Fax), verbatim. */
+const hrefsLandscaping = {
+  cell:   "tel:+14807077721",
+  office: "tel:+14809085554",
+  fax:    "tel:+14806074435",
+};
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/landscaping-business-broker/"
+  ogImage={ogImage}
+  ogImageAlt="Phil Reese, Your Arizona Landscaping Business Broker"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <!-- 1. banner-sctn — H1 only -->
+  <section class="section banner-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h1 class="maintitle h1-style">Let Phil Reese Be Your Landscaping Business Broker Today!</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. philo-sctn — intro + image -->
+  <section class="section philo-sctn">
+    <div class="section-wrap">
+      <div class="txt-col">
+        <p>If you are considering selling your landscaping business in Arizona, consult with Arizona business broker, Phil Reese. Phil is a local, Certified Business Intermediary (CBI) who has been helping parties buy and sell businesses throughout the Valley since 2001.</p>
+        <p>As a local Arizona landscaping business broker, Phil understands the complexities involved with buying and selling a business. He can value your business and market it to potential buyers in a way that will keep the sale confidential.</p>
+      </div>
+      <div class="img-col">
+        <img src={`${IMG}/Landscaping.jpg`} alt="Phil Reese, Your Arizona Landscaping Business Broker" width="400" height="250" class="alignnone size-full" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. video-aalt-sctn — two text columns (no video on this page) -->
+  <section class="section video-aalt-sctn">
+    <div class="section-wrap">
+      <div class="img-col">
+        <h2 class="tc h4-style">How To Prepare Your Arizona Landscaping Business For Sale</h2>
+        <p>If you want to be in the best position possible to sell your Arizona landscaping business, there are many things you can do before you put it up for sale. Some of the things you can do to prepare your landscaping business for sale include making sure your workers are legally able to work in the U.S., making sure your equipment and vehicles are in good working condition, have key employees sign non-compete agreements, and making sure your books &amp; records are accurate and in good order.</p>
+        <p>Once your business is prepped and ready, Phil can market your landscaping business for sale so that it reaches the most potential buyers possible. If you are ready to sell, feel free to contact Phil and he can conduct a Free No-Obligation valuation of your business.</p>
+      </div>
+      <div class="txt-col">
+        <h3 class="tc h4-style">Key Benefits For Buying An Arizona Landscaping Business</h3>
+        <p>Buying a landscaping business in Arizona has many benefits. One of the many perks of buying a landscaping business is the ongoing, stable, consistency of work. Customers need their landscapes cared for on a weekly, bi-weekly, or monthly basis making this one of the most lucrative and stable professions in Arizona.</p>
+        <p>Another benefit of buying a landscaping business is that it is scalable based on your needs and growth ambitions. Phil usually has a variety of landscaping businesses for sale. Contact him today to see what his current listing inventory is.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. vid-sctn — contact form + contact info column -->
+  <section class="section vid-sctn">
+    <div class="section-wrap">
+      <div class="vid-col">
+        <div class="wpcf7">
+          <form
+            class="wpcf7-form"
+            action="/api/contact"
+            method="post"
+            aria-label="Contact form"
+            data-pr-contact-form
+            data-form-id="landscaping"
+          >
+            <input type="text" name="_honeypot" value="" tabindex="-1" autocomplete="off" aria-hidden="true" class="pr-hp" />
+            <div class="bottom-form">
+              <div class="col-1">
+                <label for="first-name-bt">Name</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="text" name="your-name-bt" id="first-name-bt" class="wpcf7-form-control wpcf7-text" maxlength="400" placeholder="Name*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-2">
+                <label for="your-email-bt">Email</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="email" name="your-email-bt" id="your-email-bt" class="wpcf7-form-control wpcf7-email wpcf7-text" maxlength="400" placeholder="Email*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-3">
+                <label for="your-phone-bt">Phone</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="tel" name="your-phone-bt" id="your-phone-bt" class="wpcf7-form-control wpcf7-tel wpcf7-text" maxlength="400" placeholder="Phone" />
+                </span>
+              </div>
+              <div class="col-4">
+                <label for="your-message-bt">Your Message*</label>
+                <span class="wpcf7-form-control-wrap">
+                  <textarea name="your-message-bt" id="your-message-bt" class="wpcf7-form-control wpcf7-textarea" cols="40" rows="10" maxlength="2000" minlength="20" placeholder="Your Message*" required aria-required="true"></textarea>
+                </span>
+              </div>
+              <div class="col-5">
+                <div class="bst-way">
+                  <label>Best Way to Reply:</label>
+                  <span class="wpcf7-form-control-wrap">
+                    <span class="wpcf7-form-control wpcf7-radio">
+                      {replyMethods.map((method, i) => (
+                        <span class={`wpcf7-list-item${i === 0 ? " first" : ""}${i === replyMethods.length - 1 ? " last" : ""}`}>
+                          <label>
+                            <input type="radio" name="bst-way-bt" value={method} checked={i === 0} />
+                            <span class="wpcf7-list-item-label">{method}</span>
+                          </label>
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </div>
+                <button type="submit" class="wpcf7-form-control wpcf7-submit">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="titlecol">
+        <div>Phil Reese, CBI – Arizona Business Broker</div>
+        <em>West USA Realty</em><br />
+        Cell : <a href={hrefsLandscaping.cell}>480-707-7721</a><br />
+        Office : <a href={hrefsLandscaping.office}>480-908-5554</a><br />
+        Fax : <a href={hrefsLandscaping.fax}>480-607-4435</a><br />
+        Email: <a href={`mailto:${contact.email}`}>{contact.email}</a><br />
+        Website: <a href={SITE_URL}>https://philsellsbiz.com</a>
+        <p>Servicing: The Metro Phoenix, Arizona market<br />Your privacy is always important. Your information will not be shared, sold or exchanged with anyone else.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. cbi-info-section — 3 badge cards -->
+  <section class="section cbi-info-section">
+    <div class="section-wrap">
+      <div class="cbi-badge-container">
+        {badgeCards.map((c) => (
+          <div class="badge-card">
+            <img src={`${IMG}/${c.img}`} alt={c.alt} width="64" height="64" class="alignnone size-full" loading="lazy" />
+            <h3 class="h5-style">{c.title}</h3>
+            <p class="p-style">{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. test-sctn — reviews + Related Blogs -->
+  <section class="section test-sctn test-sctn-alt">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="subtitle h3-style">Read Reviews From Some of His Clients</h3>
+      </div>
+      <div class="google-col">
+        <Fragment set:html={googleGLogoSvg} />
+        <div>
+          <p>Over 60 reviews</p>
+          <span>5.0 <span class="strs">★★★★★</span></span>
+        </div>
+      </div>
+      <div class="rvw-wrapper">
+        {reviews.map((r) => (
+          <div class="rvw-box">
+            <p>{r.text}</p>
+            <div class="rvw-bx">
+              <p class="name">{r.name}</p>
+              <span class="strs">★★★★★</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="related">
+        <h3 class="subtitle h3-style">Related Blogs</h3>
+        <div class="blog-grid">
+          {blogs.map((b) => (
+            <div class="blog-card">
+              <a class="blog-thumb" href={b.href}>
+                <img src={`${IMG}/${b.img}`} alt={b.title} width="150" height="150" loading="lazy" />
+              </a>
+              <div class="blog-body">
+                <h4 class="blog-title"><a href={b.href}>{b.title}</a></h4>
+                <p class="blog-excerpt">{b.excerpt}</p>
+                <a class="blog-readmore" href={b.href}>Read More</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Section CSS — lifted verbatim from the live used-CSS
+     (reference/_landscaping-inline.css + _peoria-business-broker-sections.css).
+     is:global so it matches set:html SVG nodes + the verbatim WP class names. -->
+<style is:global>
+  /* ---------- 1. banner-sctn ---------- */
+  .banner-sctn { padding-top: 80px; padding-bottom: 80px; background: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); z-index: 1; }
+  .banner-sctn .maintitle { font-weight: 500; color: var(--primary); font-size: clamp(24px, 4vw, 54px); }
+  .banner-sctn .one-col { text-align: center; }
+  @media (max-width: 400px) { section.section.banner-sctn { padding-top: 45px; } }
+
+  /* ---------- 2. philo-sctn ---------- */
+  .philo-sctn { padding-top: 80px; padding-bottom: 80px; }
+  .philo-sctn .txt-col { width: 55%; margin-bottom: 40px; padding-right: 5%; }
+  .philo-sctn .img-col { display: flex; width: 45%; }
+  .philo-sctn .img-col img { width: 100%; }
+  .philo-sctn .section-wrap { align-items: center; }
+  .philo-sctn .txt-col .maintitle { color: var(--primary); font-size: clamp(29px, 4vw, 48px); }
+  .philo-sctn .txt-col p { line-height: 1.5; font-size: 18px; color: var(--secondary); }
+  @media (max-width: 1024px) {
+    .philo-sctn .img-col { max-width: 360px; width: 100%; }
+    .philo-sctn .txt-col { width: 100%; text-align: center; padding: 0 15px; }
+  }
+  @media (max-width: 500px) {
+    .philo-sctn .txt-col { padding: 0; }
+    .philo-sctn { padding-top: 40px; padding-bottom: 40px; }
+  }
+
+  /* ---------- 3. video-aalt-sctn (text-only variant) ---------- */
+  .video-aalt-sctn { background: #d3d3d3; padding-top: 80px; padding-bottom: 80px; }
+  .video-aalt-sctn .txt-col { width: 50%; padding-left: 5%; }
+  .video-aalt-sctn .img-col { width: 50%; }
+  .video-aalt-sctn .section-wrap { align-items: flex-start; }
+  .video-aalt-sctn .tc { text-align: center; }
+  .video-aalt-sctn .h4-style { color: var(--primary); }
+  .video-aalt-sctn p { line-height: 1.5; font-size: 18px; color: var(--secondary); }
+  @media (max-width: 1024px) {
+    .video-aalt-sctn .img-col, .video-aalt-sctn .txt-col { width: 100%; text-align: center; padding: 0 15px; }
+  }
+  @media (max-width: 500px) {
+    .video-aalt-sctn .txt-col, .video-aalt-sctn .img-col { padding: 0; }
+    .video-aalt-sctn { padding-top: 40px; padding-bottom: 40px; }
+  }
+
+  /* ---------- 4. vid-sctn (contact form + contact info) ---------- */
+  .vid-sctn { background: #d3d3d3; padding-top: 50px; padding-bottom: 50px; border-bottom: 5px solid var(--red); }
+  .vid-sctn .section-wrap { align-items: center; justify-content: space-between; }
+  .vid-sctn .vid-col { width: 60%; }
+  .vid-sctn .titlecol { padding: 40px 30px; width: 38%; color: var(--secondary); font-size: 17px; line-height: 1.7; }
+  .vid-sctn .titlecol > div:first-child { font-weight: 700; color: var(--primary); }
+  .vid-sctn .titlecol a { color: var(--red); font-weight: 600; }
+  .vid-sctn .titlecol p { font-size: 13px; color: #4e4e4e; margin-top: 16px; }
+  @media (max-width: 800px) {
+    .vid-sctn .vid-col { width: 100%; order: 1; margin-top: 30px; }
+    .vid-sctn .titlecol { width: 100%; padding: 0; text-align: center; }
+    section.section.vid-sctn { padding-top: 40px; }
+  }
+
+  /* ---------- 5. cbi-info-section ---------- */
+  .cbi-info-section { padding: clamp(60px, 8vw, 100px) 0; color: var(--black); background: #ebebeb; }
+  .cbi-info-section .cbi-badge-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; width: 100%; }
+  .cbi-info-section .badge-card { background: #fff; border: 1px solid #e2e2e2; border-radius: 12px; padding: 30px; width: calc(33% - 30px); max-width: 450px; box-shadow: 0 10px 30px rgba(0, 0, 0, .05); display: flex; flex-direction: column; align-items: center; text-align: center; transition: transform .3s ease, box-shadow .3s ease; }
+  .cbi-info-section .badge-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(16, 33, 77, .1); border-color: var(--primary); }
+  .cbi-info-section .badge-card img { width: 64px; height: 64px; }
+  .cbi-info-section .badge-card h3 { color: var(--secondary); margin-bottom: 15px; max-width: 308px; }
+  .cbi-info-section .badge-card .p-style { line-height: 1.5; font-size: 18px; color: var(--secondary); text-align: center; }
+  @media (max-width: 1024px) {
+    .cbi-info-section { padding-left: 20px; padding-right: 20px; }
+    .cbi-info-section .badge-card { width: 100%; max-width: 100%; padding: 21px; }
+  }
+
+  /* ---------- 6. test-sctn + test-sctn-alt ---------- */
+  .test-sctn { background: linear-gradient(360deg, #e8e8e8 0, #e7e7e7 30%, #e7e7E700 100%) no-repeat padding-box; padding-top: 80px; padding-bottom: 80px; }
+  section.section.test-sctn { overflow: hidden; }
+  .test-sctn .title-col { flex-grow: 1; max-width: 750px; padding-right: 20px; margin-left: auto; }
+  .test-sctn .subtitle { margin: 0; color: var(--secondary); font-size: clamp(28px, 3vw, 42px); }
+  .test-sctn .google-col { display: flex; align-items: center; gap: 20px; background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); padding: 20px; margin-right: -40px; width: 44%; border-radius: 7px; }
+  .test-sctn .section-wrap { align-items: center; max-width: none; gap: 20px; }
+  .test-sctn .google-col div p { margin-top: 0; text-transform: uppercase; color: var(--primary); margin-bottom: 0; font-weight: 600; font-size: 16px; }
+  .test-sctn .google-col div span { font-weight: 900; color: var(--primary); }
+  .test-sctn .google-col div span span.strs { color: #ffb300; font-size: 20px; }
+  .test-sctn .google-col svg { width: 60px; height: auto; flex: 0 0 auto; }
+  .test-sctn-alt .rvw-wrapper { display: flex; flex-wrap: wrap; gap: 20px; width: 100%; margin-top: 30px; justify-content: center; }
+  .test-sctn-alt .rvw-wrapper .rvw-box { margin-bottom: 0; width: calc(33.33% - 20px); }
+  .rvw-box { background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); border-radius: 5px; padding: 30px; align-self: stretch; display: flex; flex-direction: column; }
+  .rvw-box > p { margin: 0 0 20px; }
+  .rvw-box .rvw-bx { display: flex; align-items: flex-end; gap: 10px; margin-top: auto; }
+  .rvw-box .name { font-weight: 700; color: var(--primary); margin: 0; }
+  .rvw-box .strs { color: #ffb300; }
+
+  /* Related Blogs (live pt-cv 2-col grid, simplified) */
+  .test-sctn .related { width: 100%; max-width: 1200px; margin: 60px auto 0; padding: 0 20px; }
+  .test-sctn .related .subtitle { text-align: center; margin-bottom: 30px; }
+  .test-sctn .blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .test-sctn .blog-card { display: flex; gap: 14px; background: #fff; border-radius: 6px; box-shadow: 0 0 12px rgba(0, 0, 0, .1); padding: 14px; }
+  .test-sctn .blog-thumb { flex: 0 0 110px; }
+  .test-sctn .blog-thumb img { width: 110px; height: 110px; object-fit: cover; border-radius: 4px; }
+  .test-sctn .blog-title { margin: 0 0 8px; font-size: 17px; line-height: 1.25; }
+  .test-sctn .blog-title a { color: var(--primary); text-decoration: none; }
+  .test-sctn .blog-title a:hover { text-decoration: underline; }
+  .test-sctn .blog-excerpt { margin: 0 0 10px; font-size: 14px; color: var(--secondary); line-height: 1.4; }
+  .test-sctn .blog-readmore { display: inline-block; background: var(--primary); color: #fff; font-size: 13px; padding: 5px 14px; border-radius: 3px; text-decoration: none; }
+  @media (max-width: 1024px) {
+    .test-sctn .section-wrap { justify-content: center; column-gap: 20px; }
+    .test-sctn .title-col { padding: 0; width: 100%; text-align: center; margin-bottom: 30px; margin-right: auto; }
+    .test-sctn .google-col { width: 100%; margin-right: 0; justify-content: center; max-width: 400px; }
+    .test-sctn-alt .rvw-wrapper .rvw-box { width: calc(50% - 20px); }
+  }
+  @media (max-width: 700px) {
+    .test-sctn .blog-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 500px) {
+    .test-sctn .google-col { flex-wrap: wrap; text-align: center; padding: 15px; }
+    .test-sctn-alt .rvw-wrapper .rvw-box { width: 100%; }
+    .test-sctn .blog-card { flex-direction: column; }
+    .test-sctn .blog-thumb img { width: 100%; height: 180px; }
+  }
+
+  /* ---------- Shared form CSS (verbatim from live) ---------- */
+  .vid-sctn .wpcf7 { width: 100%; }
+  .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; background: var(--primary); padding: 36px 30px; color: #fff; border-radius: 6px; }
+  .bottom-form input:not([type=submit]) { background: #fff; border: none; border-bottom: 2px solid var(--red); max-width: 100%; width: 100%; min-height: 31px; padding: 10px 13px; }
+  .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; min-height: 98px; }
+  .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
+  .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .bottom-form .col-4 { width: 100%; }
+  .bottom-form .col-4 .wpcf7-form-control-wrap, .bottom-form .col-5 .wpcf7-form-control-wrap { width: 100%; }
+  .bottom-form .col-5 { display: flex; justify-content: space-between; position: relative; text-align: left; width: 100%; gap: 4px; align-items: center; }
+  .bottom-form .col-5 .wpcf7-list-item.first { margin-left: 0; }
+  .bottom-form .col-5 .wpcf7-list-item-label { font-size: 12px; }
+  .bottom-form .col-5 .bst-way > label { width: 100%; display: block; }
+  .bottom-form .wpcf7-list-item { margin-left: 4px; }
+  .bottom-form .wpcf7-list-item label { display: flex; align-items: center; }
+  .bottom-form .wpcf7-radio { display: flex; gap: 8px; }
+  .bottom-form .bst-way { color: #fff; text-transform: uppercase; font-weight: 600; display: flex; gap: 12px; align-items: center; font-size: 12px; }
+  .bottom-form input::placeholder, .bottom-form textarea::placeholder { color: #555; }
+  .bottom-form button[type=submit] { border: 0; color: var(--primary); padding: 6px 20px; border-radius: 100px; width: 100%; max-width: 180px; background: #fff; font-weight: 700; text-transform: uppercase; min-width: fit-content; cursor: pointer; }
+  @media (max-width: 600px) {
+    .bottom-form .col-5 { flex-direction: column; text-align: center; }
+    .bottom-form .wpcf7-radio { justify-content: center; }
+    .bottom-form button[type=submit] { width: 100%; }
+    .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: 100%; }
+    .bottom-form .bst-way { gap: 4px; flex-direction: column; align-items: center; }
+  }
+
+  .pr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+  .pr-form-banner { width: 100%; margin-top: 14px; font-weight: 600; }
+  .pr-form-banner[data-state="success"] { color: #fff; }
+  .pr-form-banner[data-state="error"] { color: #ffd9d9; }
+</style>

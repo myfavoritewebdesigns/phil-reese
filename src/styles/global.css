@@ -298,3 +298,20 @@
   margin-top: 8px;
   line-height: 1.4;
 }
+
+/* -----------------------------------------------------------------------
+   BBB "Accredited Business A+" badge — pin to its natural 187x47 site-wide.
+   The badge sits in flex banner rows (.bnr-inn + city-page top-banner
+   variants) with no definite size, so align-items:stretch upscales it ~2x
+   (blurry). Live serves it crisp at 187x47 on every page. Targeted by src so
+   it's correct regardless of container. (The homepage also constrains it via
+   index.astro scoped CSS with the same values.)
+   ----------------------------------------------------------------------- */
+img[src*="bbb-accredited"] {
+  width: 187px;
+  height: 47px;
+  max-width: 100%;
+  flex: 0 0 auto;
+  object-fit: contain;
+  align-self: center;
+}

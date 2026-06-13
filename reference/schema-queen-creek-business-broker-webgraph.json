@@ -1,0 +1,63 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.philsellsbiz.com/queen-creek-business-broker/",
+      "url": "https://www.philsellsbiz.com/queen-creek-business-broker/",
+      "name": "Top-Rated Business Broker in Queen Creek, AZ",
+      "isPartOf": {
+        "@id": "https://www.philsellsbiz.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://www.philsellsbiz.com/queen-creek-business-broker/#primaryimage"
+      },
+      "image": {
+        "@id": "https://www.philsellsbiz.com/queen-creek-business-broker/#primaryimage"
+      },
+      "thumbnailUrl": "https://www.philsellsbiz.com/images/queen-creek-business-broker/og-queen-creek.jpg",
+      "datePublished": "2025-06-02T21:09:30+00:00",
+      "dateModified": "2026-06-12T21:20:14+00:00",
+      "description": "Get professional advice from an expert business broker in Queen Creek, AZ. Phil Reese specializes in dealing with commercial sales and negotiations.",
+      "breadcrumb": {
+        "@id": "https://www.philsellsbiz.com/queen-creek-business-broker/#breadcrumb"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "ReadAction",
+          "target": [
+            "https://www.philsellsbiz.com/queen-creek-business-broker/"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "ImageObject",
+      "inLanguage": "en-US",
+      "@id": "https://www.philsellsbiz.com/queen-creek-business-broker/#primaryimage",
+      "url": "https://www.philsellsbiz.com/images/queen-creek-business-broker/og-queen-creek.jpg",
+      "contentUrl": "https://www.philsellsbiz.com/images/queen-creek-business-broker/og-queen-creek.jpg",
+      "width": 1200,
+      "height": 1200,
+      "caption": "Queen Creek Business Broker featured image for https://www.philsellsbiz.com/queen-creek-business-broker/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.philsellsbiz.com/queen-creek-business-broker/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "AZ Business Broker",
+          "item": "https://www.philsellsbiz.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Top-Rated Queen Creek Business Broker"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,520 @@
+---
+/* -----------------------------------------------------------------------
+   Paradise Valley Business Broker — faithful clone of
+   https://www.philsellsbiz.com/paradise-valley-business-broker/
+   City local-SEO page. Markup/copy verbatim from
+   reference/paradise-valley-business-broker-raw.html; section CSS verbatim
+   from the live WP-Rocket used-CSS (reference/_pv-inline.css) +
+   reference/_peoria-business-broker-sections.css.
+   Sections in DOM order (9 live sections):
+     1. banner-sctn      — H1 + subtitle
+     2. philo-sctn       — intro copy + image
+     3. test-sctn        — reviews (test-sctn-alt) + "What Is A CBI" + directory badges
+     4. video-aalt-sctn  — lite-youtube video + services list-checks
+     5. cbi-info-section — when-to-sell + valuation copy (2 cards)
+     6. faq-sctn         — 7 FAQ <details> (FAQPage schema)
+     7. lctn-sctn        — 5 neighborhood location cards
+     8. vid-sctn         — contact form + "Schedule a Call" info column
+   JSON-LD = live Yoast @graph (Layout) + FinancialService + FAQPage + Reviews
+   (all verbatim from live) + a city LocalBusiness Service node per task spec.
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL, contact, replyMethods } from "../config/site";
+import googleGLogoSvg from "../../reference/google-g-logo-svg.html?raw";
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+import faqSchema from "../../reference/_ld-paradise-valley-business-broker-faq.json";
+import reviewsSchema from "../../reference/_ld-paradise-valley-business-broker-reviews.json";
+
+const pageTitle = "Sell Your Paradise Valley Business With A Certified Broker";
+const pageDescription =
+  "Want to sell a local business in Paradise Valley? Call a certified commercial broker near you with experience in selling big, small, and online companies.";
+
+const ogImage = `${SITE_URL}/images/paradise-valley-business-broker/og-paradise-valley.jpg`;
+const IMG = "/images/paradise-valley-business-broker";
+
+/* ---------- Page JSON-LD ---------- */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/paradise-valley-business-broker/`,
+  url: `${SITE_URL}/paradise-valley-business-broker/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/paradise-valley-business-broker/#primaryimage` },
+  image: { "@id": `${SITE_URL}/paradise-valley-business-broker/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2023-01-20T15:02:55+00:00",
+  dateModified: "2026-06-12T21:41:23+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/paradise-valley-business-broker/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/paradise-valley-business-broker/`] }],
+};
+
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/paradise-valley-business-broker/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+  caption: "Paradise Valley Business Broker By Phil Reese",
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/paradise-valley-business-broker/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Paradise Valley Business Broker" },
+  ],
+};
+
+/* City Service node (task spec) — Paradise Valley business brokerage. */
+const serviceSchema = {
+  "@type": "Service",
+  "@id": `${SITE_URL}/paradise-valley-business-broker/#service`,
+  name: "Paradise Valley Business Broker",
+  serviceType: "Business Brokerage — Selling a Business in Paradise Valley",
+  description: pageDescription,
+  areaServed: { "@type": "City", name: "Paradise Valley", containedInPlace: { "@type": "State", name: "Arizona" } },
+  provider: {
+    "@type": "ProfessionalService",
+    name: "Phil Reese, Arizona Business Broker",
+    "@id": `${SITE_URL}/`,
+    url: `${SITE_URL}/`,
+  },
+};
+
+const structuredData = [
+  { "@context": "https://schema.org", "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema, serviceSchema] },
+  financialServiceSchema,
+  faqSchema,
+  reviewsSchema,
+];
+
+/* ---------- Reviews (test-sctn-alt), verbatim ---------- */
+const reviews = [
+  { text: "My husband and I were prepared to wait months for our business to sell after we listed it with Phil, so we were pleasantly shocked when we had multiple offers within a matter of weeks! Phil has extensive skills in business evaluations and sales and graciously imparted his knowledge and experience to us with ongoing communication throughout the process until closing. The ease and speed of the entire transaction was unexpected but very much appreciated and wholly attributable to Phil's expertise. We'd wholeheartedly recommend working with him.", name: "Pam P.", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21KcFdHaG1SMjB5UW5aUWNWOTRPVlZYT1RGWWNrRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CAIQACodChtycF9oOmJpWGhmR20yQnZQcV94OVVXOTFYckE%7C%7C?hl=en" },
+  { text: "Phil is amazing! Ive purchased two of his listed companies now (well, one wasnt even listed yet), and he helped me through the process seamlessly. Easy to work with. Super knowledgeable. And has great connections (banks, escrow etc). I cannot recommend him highly enough.", name: "Santino DeFranco", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21weVp6RjJVM2t5Wm5KSlJYVlpYMUZqZW1kNU9WRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CAIQACodChtycF9oOmpyZzF2U3kyZnJJRXVZX1Fjemd5OVE%7C0dL4EeHNStH%7C?hl=en-US" },
+  { text: "If you have ever bought or sold a company, you know that it's an incredibly complex endeavor, sometimes with many unexpected twists and turns along the way. The smart person soon learns this is not something you should take on without the help of an expert to guide you. Phil Reese may well be the best and brightest expert you can find. Phil was amazing to work with throughout the entire process of selling our company. He was always highly professional and available to answer every kind of question or concern. We really don't know how we could have gotten through the tedious, roller-coaster process without him. And best of all, his guidance assured us the best possible results with an excellent buyer and top-level offer at the end of the day. We highly recommend Phil Reese!", name: "Mike Williams", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURXdFpxSzJnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDWtZqK2gE%7CCgwI0PaSkgYQoI3VtgE%7C?hl=en-US" },
+  { text: "In shopping around for a broker, Phil was the best fit for us. He is a good and kind man, and thoughtful. He listens and he gets things done. He was quick to take care of any needs we had and was not surprised when we got our full asking. All aspects of the sale were answered prayer. We would use him again but retirement looks pretty good!", name: "VICKI HANNA", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURjclpEblZnEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDcrZDnVg%7CCgwIjril9wUQ-MDEuQI%7C?hl=en-US" },
+  { text: "Phil is the best business broker in Arizona. He goes above and beyond for his clients.", name: "Shannon Kriloff", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSUQ1cVBpWmV3EAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgID5qPiZew%7CCgwIydHFqQYQuJmtzwE%7C?hl=en-US" },
+  { text: "Very professional with attention to detail. Very pleasant to work with even under stressful circumstances . I would definitely use Phil again .", name: "Ilene Price", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURVX3BiTFhBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDU_pbLXA%7CCgwIh-yH6wUQkPyUhwM%7C?hl=en-US" },
+];
+
+/* ---------- Directory listing badges (test-sctn .directorydiv), verbatim ---------- */
+const directories = [
+  { img: "google-maps.png", w: 97, h: 97, alt: "Find Phil Reese Business Broker In Paradise Valley On Google", href: "https://www.google.com/maps/place/Phil+Reese,+Arizona+Business+Broker/@33.6204098,-111.9286278,15z/data=!4m5!3m4!1s0x0:0x777d85f1a062a70!8m2!3d33.6204098!4d-111.9286278" },
+  { img: "yelp.png", w: 110, h: 97, alt: "Find Phil Reese Business Broker In Paradise Valley On Yelp", href: "https://www.yelp.com/biz/phil-reese-arizona-business-broker-scottsdale-7" },
+  { img: "bing.png", w: 111, h: 97, alt: "Find Phil Reese Business Broker In Paradise Valley On Bing", href: "https://www.bing.com/maps?q=Phil+Reese+Scottsdale&qs=n&form=QBLH&sp=-1&pq=phil+reese+scottsdale&sc=0-21&sk=&cvid=0A5BEE29D0DF4A4893F688B5083CC69A" },
+  { img: "hotfrog-az.png", w: 113, h: 97, alt: "Find Phil Reese Business Broker In Paradise Valley On Hotfrog", href: "https://www.hotfrog.com/company/1099478479065088/phil-reese-arizona-business-broker/scottsdale/business-financial-services" },
+  { img: "manta.png", w: 95, h: 95, alt: "Find Phil Reese Business Broker In Paradise Valley On Manta", href: "http://www.manta.com/c/mx61w9v/phil-reese-arizona-business-broker" },
+];
+
+/* ---------- Services list (video-aalt-sctn list-checks), verbatim ---------- */
+const services = [
+  "Seasoned Broker For Big And Small Businesses",
+  "Skilled Business Broker For Online Companies",
+  "Certified Business Intermediary For Franchise Businesses",
+  "Business Broker Experienced In Beauty & Hair Salons Sales",
+  "Sell Or Buy Contracting Companies With The Help Of A CBI",
+  "Highly Qualified Broker For Manufacturing Companies",
+];
+
+/* ---------- FAQ (faq-sctn), verbatim ---------- */
+const faqs = [
+  { q: "Q: What Documents Should You Gather For Selling Your business?", a: "When you are ready to sell your business, it is important to have the right paperwork ready for your broker. You will need to provide the financial statements for the current and past 2-3 years, a non-disclosure confidentiality agreement, an offer-to-purchase agreement, the current lease agreement, a letter of intent, the existing vendor/client contracts, all employment agreements, your existing insurance policy, and your professional certificates for the business." },
+  { q: "Q: How Long Will It Take To Sell A Business?", a: "The time needed to sell your business will vary greatly depending on several factors including the type of business it is, the amount it is worth, its location, and the current real estate market. While Phil Reese and the team at West Realty USA cannot guarantee a specific time frame for your business to be sold, you can typically expect the process to take between 6-11 months." },
+  { q: "Q: How Is A Business Value Determined?", a: "During our free business valuation process, we will determine how much your business is worth by totaling your assets and liabilities, assessing your current earnings, and estimating your projected earnings based on the quality of your goods and their market potential. Typically, a business is worth anywhere from one to five times its annual sales." },
+  { q: "Q: What Are The Steps To Put A Company For Sale?", a: "There are a few steps in the process to get your business ready to sell. First you will need to determine the value of your company, and get your financials fully cleaned up and organized. Prepare your exit strategy so you know what your next steps are after the business sells. Boost your sales to the best of your ability, and find a business broker to handle the process." },
+  { q: "Q: What Do Buyers Want To Know About Your Business?", a: "Perhaps the most important thing a potential buyer will want to know about your business is its level of profit. They will want to know that you have a healthy foundation and organized financials, along with a multi-year trend of increasing revenue and increasing potential sales. Buyers will ask about your net worth and want to make sure your licensure is in good standing." },
+  { q: "Q: What Are The Taxes I Will Have To Pay When Selling My Business?", a: "Typically, when a business is sold, the seller will be liable to pay capital gains taxes. In some states, income tax is also a consideration. Your capital gains are calculated by subtracting the original cost basis from your selling price, along with a 20% federal capital gains tax. Consult with your business broker for expert help determining exactly how much you will pay in taxes." },
+  { q: "Q: How Much Time Will I Have To Put Into The Business Selling Process?", a: "If you choose to hire a business broker to handle the sale of your business, you can expect them to handle the majority of the process. You will need to gather the appropriate paperwork, work on boosting your sales to attract more potential buyers, and keep in close communication with your broker to understand how the process is going. Schedule a consultation with Phil Reese today to learn what we can do for you!" },
+];
+
+/* ---------- Neighborhood location cards (lctn-sctn), verbatim (img order 1,5,3,4,2) ---------- */
+const lctnCards = [
+  { img: "lctn-img-1.jpg", alt: "Sell Your Company In Tatum Garden Estates", pre: "Want To Sell Your Company In ", place: "Tatum Garden Estates", post: "? Give Us A Call!", body: "We offer a free valuation process at West Realty USA, so give us a call today to learn what your business is worth! We will spend time understanding your needs, goals, and financial standing." },
+  { img: "lctn-img-5.jpg", alt: "Sell Your Company In Mockingbird Lane Estates", pre: "Your Business In ", place: "Mockingbird Lane Estates", post: " Needs A New Owner? Contact Our Agency!", body: "If you are seeking a new owner for your business, reach out to Phil Reese right away! We will schedule a free valuation, and consult with you to determine if it is the right time to sell." },
+  { img: "lctn-img-3.jpg", alt: "Sell Your Company In Sunset Hills", pre: "Need Confidentiality To Sell Your Business In ", place: "Sunset Hills", post: "? We’re Here For You!", body: "Are you considering selling your business in Sunset Hills? Let Phil Reese and the team at West Realty USA help you make an informed decision about how to move forward." },
+  { img: "lctn-img-4.jpg", alt: "Sell Your Company In Tatum Canyon", pre: "Ready To Sell Your Company In ", place: "Tatum Canyon", post: "? Call Us Today!", body: "When you are ready to sell your business and move on to something else, Phil Reese and his team of business brokers is ready to help. Give us a call to get started!" },
+  { img: "lctn-img-2.jpg", alt: "Sell Your Company In Mummy Mountain Park", pre: "Want To Buy A Business In ", place: "Mummy Mountain Park", post: "? Contact Us", body: "Are you interested in purchasing a business in the Mummy Mountain Park area? Contact Phil Reese to discuss your goals and let us help you get started with the process!" },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/paradise-valley-business-broker/"
+  ogImage={ogImage}
+  ogImageAlt="Paradise Valley Business Broker By Phil Reese"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <link slot="head" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.css" />
+  <script slot="head" is:inline src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.js" defer></script>
+
+  <!-- 1. banner-sctn -->
+  <section class="section banner-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h1 class="maintitle h1-style">Top-Rated Paradise Valley Business Broker</h1>
+        <h2 class="subtitle h3-style">Call Phil Reese When You Are Ready To Sell Your Company In Paradise Valley</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. philo-sctn -->
+  <section class="section philo-sctn">
+    <div class="section-wrap">
+      <div class="txt-col">
+        <p>If you are considering whether selling your business is the right move for you, there are a few vital things to consider before making a decision. You need to be sure the timing of your sale makes sense with the current real estate market, determine why you want to sell, understand the value of your business and a fair asking price, and a plan for what to do next. The best way to make an informed decision is to visit with a qualified business broker in Paradise Valley, such as Phil Reese.</p>
+        <p>Phil Reese is a licensed, reputable, and highly knowledgeable business broker who knows the market in Paradise Valley. He carries five-star ratings from countless clients who have succeeded in selling their business for top dollar and understanding every step of the process. Many business brokers are simply in it for the money, without taking time to consider whether it is the best move and the right time for you personally. Phil Reese is different! He has the background, skills, and education to make him especially qualified to value and market your business in the Phoenix Valley.</p>
+      </div>
+      <div class="img-col">
+        <img src={`${IMG}/Paradise-Valley.jpg`} alt="Paradise Valley Business Broker Phil Reese" width="400" height="250" class="alignleft size-full" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. test-sctn — reviews + What Is A CBI + directory badges -->
+  <section class="section test-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="subtitle h3-style">Read Our Five-Star Rated Reviews</h3>
+        <h4 class="h4-style">Learn What Our Buyers And Sellers Have To Say</h4>
+      </div>
+      <div class="google-col">
+        <Fragment set:html={googleGLogoSvg} />
+        <div>
+          <p>Over 60 reviews</p>
+          <span>5.0 <span class="strs">★★★★★</span></span>
+        </div>
+      </div>
+
+      <section class="section test-sctn test-sctn-alt">
+        <div class="rvw-wrapper">
+          {reviews.map((r) => (
+            <div class="rvw-box">
+              <p>{r.text}</p>
+              <div class="rvw-bx">
+                <p class="name"><span class="bold"><a href={r.url} target="_blank" rel="noopener">{r.name}</a></span></p>
+                <span class="strs">★★★★★</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div class="text-col">
+        <img src={`${IMG}/business-people-and-lawyers-discussing-contract-papers-sitting-at-the-table.jpg`} alt="Business Broker Explaining What Is A Certified Business Intermediary" width="400" height="300" class="alignnone size-full" loading="lazy" />
+        <h3 class="h3-style">What Is A Certified Business Intermediary?</h3>
+        <p>A Certified Business Intermediary is a Business Broker who has passed the licensure exam and demonstrated competence to facilitate the sale of businesses. The CBI designation is awarded by the International Business Brokers Association to brokers who have spent 60 hours in educational classes, along with a variety of tests and exams to reach certification. A Business Broker with the CBI license shows that they take their career and your personal success seriously.</p>
+        <div class="directorydiv img-social">
+          {directories.map((d) => (
+            <a href={d.href} target="_blank" rel="noopener">
+              <img src={`${IMG}/${d.img}`} alt={d.alt} width={d.w} height={d.h} class="alignleft size-full" loading="lazy" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. video-aalt-sctn — video + services list -->
+  <section class="section video-aalt-sctn">
+    <div class="section-wrap">
+      <div class="title-col one-col">
+        <h3 class="tc h4-style">Professional Business Broker Providing Services In Paradise Valley</h3>
+        <p>As a business broker near you in Paradise Valley who has proven himself in the industry, Phil Reese is proud to be one of the top sales agents in West USA Realty. Formed in 1986 with over 18 offices around the state of Arizona, West USA Realty can offer your business for sale with excellent exposure across the Phoenix metro area and the rest of the state.</p>
+        <p>Our certified business brokers have the ability to determine the true value of your business, to ensure it is offered at the right price to benefit both you and a potential buyer. We are honest, reliable, and thorough as we work closely with you throughout the valuation and listing process. Contact Phil Reese and West USA Realty to learn more about how we can help you!</p>
+      </div>
+      <div class="img-col">
+        <div class="lyte-wrapper" style="max-width:100%;margin:5px;">
+          <lite-youtube videoid="75l7CluKwIg" title="Phil Reese CBI-Arizona Business Broker" style={`background-image:url('${IMG}/yt-75l7CluKwIg.jpg');`}>
+            <a href="https://youtu.be/75l7CluKwIg" class="lite-yt-fallback" rel="nofollow">Watch this video on YouTube</a>
+          </lite-youtube>
+        </div>
+      </div>
+      <div class="txt-col">
+        <h4 class="tc h4-style">What Can A Local Business Broker With Experience <span>Do For You</span></h4>
+        <ul class="list-checks">
+          {services.map((s) => <li><h5>{s}</h5></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. cbi-info-section — when-to-sell + valuation -->
+  <section class="section cbi-info-section">
+    <div class="section-wrap">
+      <div class="cbi-badge-container">
+        <div class="badge-card">
+          <h3 class="tc h3-style">When Is A Good Moment To Sell Your Business In Paradise Valley?</h3>
+          <p>When you choose our Paradise Valley business brokers to handle the sale of your business, you can rest assured that we understand the stress, risk, and complexity that comes with selling a business. Phil Reese sold his first business through a business broker, so he can empathize with you every step of the way. One of the first things we do in the sale process is to determine if it is the right time for your business to be sold. We offer a free valuation of your company, and once the value has been determined, we look at your sales history to see the success rate of your business. Often, the best time to sell a business is when a company has a solid record of growth under its belt, and its market is expanding. This shows potential buyers a consistent sales record and excellent projection into the future, making your business attractive to a potential investor.</p>
+        </div>
+        <div class="badge-card">
+          <h3 class="tc h3-style">Find Out How We Determine How Much Your Business Is Worth</h3>
+          <h4 class="h5-style">Understanding The Valuation Process Of Your Paradise Valley Company</h4>
+          <p>Simply put, the business valuation process tells us the current worth of your business through a thorough analysis of all aspects. This includes the company’s management, capital structure, past earnings, projected future earnings, and the current market value of its assets. The tools used for the process can vary between which broker or agency you choose, but the bottom line is that we are able to find the worth of your business as a starting point for listing it on the market.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. faq-sctn -->
+  <section class="section faq-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h3 class="tc h3-style">Frequent Questions Asked To Our Business Broker</h3>
+        {faqs.map((f) => (
+          <details>
+            <summary><h3 class="h5-style faq-title">{f.q}</h3></summary>
+            <p><b>A: </b>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. lctn-sctn — neighborhood cards -->
+  <section class="section lctn-sctn">
+    <h3 class="tc h3-style">Top Business Sale Broker In The Paradise Valley Area</h3>
+    <h4 class="h4-style">Helping Company Owners From Every Neighborhood Sell Their Business</h4>
+    <div class="lctn-col-cont">
+      {lctnCards.map((c, i) => (
+        <div class={`card-lctn card-lctn-${i + 1}`}>
+          <div class="col-img">
+            <img src={`${IMG}/${c.img}`} alt={c.alt} width="234" height="176" class="alignnone size-full" loading="lazy" />
+          </div>
+          <div class="col-text">
+            <h4 class="h6-style">{c.pre}<strong>{c.place}</strong>{c.post}</h4>
+            <p>{c.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 8. vid-sctn — contact form + Schedule a Call info -->
+  <section class="section vid-sctn">
+    <div class="section-wrap">
+      <div class="vid-col">
+        <div class="wpcf7">
+          <form class="wpcf7-form" action="/api/contact" method="post" aria-label="Contact form" data-pr-contact-form data-form-id="paradise-valley">
+            <input type="text" name="_honeypot" value="" tabindex="-1" autocomplete="off" aria-hidden="true" class="pr-hp" />
+            <div class="bottom-form">
+              <div class="col-1">
+                <label for="first-name-bt">Name</label>
+                <span class="wpcf7-form-control-wrap"><input type="text" name="your-name-bt" id="first-name-bt" class="wpcf7-form-control wpcf7-text" maxlength="400" placeholder="Name*" required aria-required="true" /></span>
+              </div>
+              <div class="col-2">
+                <label for="your-email-bt">Email</label>
+                <span class="wpcf7-form-control-wrap"><input type="email" name="your-email-bt" id="your-email-bt" class="wpcf7-form-control wpcf7-email wpcf7-text" maxlength="400" placeholder="Email*" required aria-required="true" /></span>
+              </div>
+              <div class="col-3">
+                <label for="your-phone-bt">Phone</label>
+                <span class="wpcf7-form-control-wrap"><input type="tel" name="your-phone-bt" id="your-phone-bt" class="wpcf7-form-control wpcf7-tel wpcf7-text" maxlength="400" placeholder="Phone" /></span>
+              </div>
+              <div class="col-4">
+                <label for="your-message-bt">Your Message*</label>
+                <span class="wpcf7-form-control-wrap"><textarea name="your-message-bt" id="your-message-bt" class="wpcf7-form-control wpcf7-textarea" cols="40" rows="10" maxlength="2000" minlength="20" placeholder="Your Message*" required aria-required="true"></textarea></span>
+              </div>
+              <div class="col-5">
+                <div class="bst-way">
+                  <label>Best Way to Reply:</label>
+                  <span class="wpcf7-form-control-wrap">
+                    <span class="wpcf7-form-control wpcf7-radio">
+                      {replyMethods.map((method, i) => (
+                        <span class={`wpcf7-list-item${i === 0 ? " first" : ""}${i === replyMethods.length - 1 ? " last" : ""}`}>
+                          <label><input type="radio" name="bst-way-bt" value={method} checked={i === 0} /><span class="wpcf7-list-item-label">{method}</span></label>
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </div>
+                <button type="submit" class="wpcf7-form-control wpcf7-submit">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="titlecol">
+        <h3 class="tc h3-style">Schedule a Call Today!</h3>
+        <h4 class="tc h6-style">Contact A Proficient Business Broker Near Paradise Valley</h4>
+        <div>Phil Reese, CBI – Arizona Business Broker</div>
+        <em>West USA Realty</em><br />
+        Phone:<a href="tel:+14804288010">(480) 428-8010</a><br />
+        Email: <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        <p>Serving Gilbert and surrounding areas.<br />Office Hours: Daily: 8:00 am – 8:00 pm<br />Your privacy is always important. Your information will not be shared, sold or exchanged with anyone else.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Section CSS — verbatim from live used-CSS (reference/_pv-inline.css +
+     _peoria-business-broker-sections.css). is:global for set:html SVG nodes. -->
+<style is:global>
+  /* ---------- 1. banner-sctn ---------- */
+  .banner-sctn { padding-top: 80px; padding-bottom: 80px; background: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); z-index: 1; }
+  .banner-sctn .maintitle { font-weight: 500; color: var(--primary); font-size: clamp(24px, 4vw, 54px); }
+  .banner-sctn .one-col { text-align: center; }
+  .banner-sctn .subtitle { color: var(--primary); font-weight: 400; font-size: 30px; margin-bottom: 0; }
+  @media (max-width: 500px) { .banner-sctn { padding-bottom: 40px; padding-left: 20px; padding-right: 20px; } .banner-sctn .subtitle { font-size: 26px; } }
+  @media (max-width: 400px) { section.section.banner-sctn { padding-top: 45px; } }
+
+  /* ---------- 2. philo-sctn ---------- */
+  .philo-sctn { padding-top: 80px; padding-bottom: 80px; }
+  .philo-sctn .txt-col { width: 55%; margin-bottom: 40px; padding-right: 5%; }
+  .philo-sctn .img-col { display: flex; width: 45%; }
+  .philo-sctn .img-col img { width: 100%; height: auto; }
+  .philo-sctn .section-wrap { align-items: center; }
+  .philo-sctn .txt-col p { line-height: 1.5; font-size: 18px; color: var(--secondary); }
+  @media (max-width: 1024px) {
+    .philo-sctn .img-col { max-width: 360px; width: 100%; }
+    .philo-sctn .txt-col { width: 100%; text-align: center; padding: 0 15px; }
+  }
+  @media (max-width: 500px) { .philo-sctn .txt-col { padding: 0; } .philo-sctn { padding-top: 40px; padding-bottom: 40px; } }
+
+  /* ---------- 3. test-sctn (+ alt + What-Is-A-CBI text-col + directory) ---------- */
+  .test-sctn { background: linear-gradient(360deg, #e8e8e8 0, #e7e7e7 30%, #e7e7E700 100%) no-repeat padding-box; padding-top: 80px; padding-bottom: 80px; }
+  section.section.test-sctn { overflow: hidden; }
+  .test-sctn .title-col { flex-grow: 1; max-width: 750px; padding-right: 20px; margin-left: auto; }
+  .test-sctn .subtitle { margin: 0; color: var(--secondary); font-size: clamp(28px, 3vw, 42px); }
+  .test-sctn .h4-style { margin-bottom: 0; }
+  .test-sctn .google-col { display: flex; align-items: center; gap: 20px; background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); padding: 20px; margin-right: -40px; width: 44%; border-radius: 7px; }
+  .test-sctn .google-col svg { width: 60px; height: auto; flex: 0 0 auto; }
+  .test-sctn .section-wrap { align-items: center; max-width: none; gap: 20px; }
+  .test-sctn .google-col div p { margin-top: 0; text-transform: uppercase; color: var(--primary); margin-bottom: 0; font-weight: 600; font-size: 16px; }
+  .test-sctn .google-col div span { font-weight: 900; color: var(--primary); }
+  .test-sctn .google-col div span span.strs { color: #ffb300; font-size: 20px; }
+  .test-sctn .text-col { text-align: center; max-width: 800px; margin: 0 auto; width: 100%; }
+  .test-sctn .text-col img { max-width: 400px; height: auto; }
+  .test-sctn .text-col .h3-style { color: var(--red); margin-top: 20px; }
+  .test-sctn .text-col p { color: var(--secondary); font-size: 18px; }
+  .test-sctn-alt .rvw-wrapper { column-count: unset; display: flex; flex-wrap: wrap; column-gap: unset; gap: 20px; width: 100%; justify-content: center; padding: 0; }
+  section.section.test-sctn.test-sctn-alt { padding: 30px 0; width: 100%; }
+  .test-sctn-alt .rvw-wrapper .rvw-box { margin-bottom: 0; width: calc(33.33% - 20px); }
+  .rvw-box { background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); border-radius: 5px; padding: 30px; align-self: stretch; display: flex; flex-direction: column; text-align: left; }
+  .rvw-box > p { margin: 0 0 20px; }
+  .rvw-box .rvw-bx { display: flex; align-items: flex-end; gap: 10px; margin-top: auto; }
+  .rvw-box .name { font-weight: 700; color: var(--primary); margin: 0; max-width: 250px; }
+  .rvw-box .name .bold a { color: var(--primary); text-decoration: none; }
+  .rvw-box .strs { color: #ffb300; }
+  .directorydiv.img-social { display: flex; align-items: center; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 24px; }
+  .directorydiv.img-social a { width: 70px; }
+  .directorydiv.img-social img { width: 70px; height: auto; }
+  @media (max-width: 1024px) {
+    .test-sctn .section-wrap { justify-content: center; column-gap: 20px; }
+    .test-sctn .title-col { padding: 0; width: 100%; text-align: center; margin-bottom: 30px; margin-right: auto; }
+    .test-sctn .google-col { width: 100%; margin-right: 0; justify-content: center; max-width: 400px; }
+    .test-sctn-alt .rvw-wrapper .rvw-box { width: calc(50% - 20px); }
+  }
+  @media (max-width: 500px) { .test-sctn .google-col { flex-wrap: wrap; text-align: center; padding: 15px; } .test-sctn-alt .rvw-wrapper .rvw-box { width: 100%; } }
+
+  /* ---------- 4. video-aalt-sctn ---------- */
+  .video-aalt-sctn { background: #d3d3d3; padding-top: 80px; padding-bottom: 80px; }
+  .video-aalt-sctn .title-col { width: 100%; text-align: center; margin-bottom: 32px; }
+  .video-aalt-sctn .txt-col { width: 50%; padding-left: 5%; }
+  .video-aalt-sctn .img-col { width: 50%; max-width: 500px; }
+  .video-aalt-sctn .section-wrap { align-items: center; }
+  .video-aalt-sctn .tc { text-align: center; }
+  .video-aalt-sctn .h4-style { color: var(--primary); }
+  .video-aalt-sctn p { line-height: 1.5; font-size: 18px; color: var(--secondary); }
+  .video-aalt-sctn .title-col p { text-align: left; }
+  .video-aalt-sctn h4 span { display: block; }
+  .list-checks { list-style: none; padding-left: 10px; text-align: left; max-width: 362px; margin: 0 auto 5%; }
+  .list-checks > li { position: relative; padding-left: 26px; margin-bottom: 8px; }
+  .list-checks > li::before { content: "✓"; color: #410408; font-weight: 700; position: absolute; left: 0; top: 0; }
+  .list-checks > li h5 { padding-left: 8px; margin: 0; font-size: 16px; }
+  @media (max-width: 1024px) {
+    .video-aalt-sctn .img-col { max-width: 360px; width: 100%; }
+    .video-aalt-sctn .txt-col { width: 100%; text-align: center; padding: 0 15px; }
+  }
+  @media (max-width: 500px) { .video-aalt-sctn .txt-col { padding: 0; } .video-aalt-sctn { padding-top: 40px; padding-bottom: 40px; } }
+
+  /* ---------- 5. cbi-info-section ---------- */
+  .cbi-info-section { padding: clamp(60px, 8vw, 100px) 0; color: var(--black); background: #d3d3d3; }
+  .cbi-info-section .cbi-badge-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; width: 100%; }
+  .cbi-info-section .badge-card { background: #fff; border-radius: 12px; padding: 30px; width: calc(50% - 30px); box-shadow: 0 10px 30px rgba(0, 0, 0, .05); text-align: center; }
+  .cbi-info-section .badge-card h3 { color: var(--primary); margin-top: 0; }
+  .cbi-info-section .badge-card h4 { color: var(--secondary); }
+  .cbi-info-section .badge-card p { line-height: 1.5; font-size: 18px; color: var(--secondary); text-align: left; }
+  @media (max-width: 1024px) { .cbi-info-section { padding-left: 20px; padding-right: 20px; } .cbi-info-section .badge-card { width: 100%; } }
+
+  /* ---------- 6. faq-sctn ---------- */
+  .faq-sctn { padding-top: 80px; padding-bottom: 32px; }
+  .faq-sctn .one-col { max-width: 910px; }
+  .faq-sctn .h3-style { text-align: center; }
+  .faq-sctn details { border-bottom: 2px solid #d3d3d3; margin-bottom: 10px; padding-bottom: 6px; width: 100%; }
+  .faq-sctn summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 4px; border-bottom: 2px solid var(--red); padding-bottom: 13px; cursor: pointer; }
+  .faq-sctn summary::-webkit-details-marker { display: none; }
+  .faq-sctn .faq-title { margin: 0; font-size: 21px; font-weight: 700; color: var(--primary); text-align: left; }
+  .faq-sctn p { text-align: left; }
+  @media (max-width: 500px) { .faq-sctn { padding-top: 40px; } }
+
+  /* ---------- 7. lctn-sctn ---------- */
+  .lctn-sctn { padding-top: calc(32px + 3%); padding-bottom: calc(32px + 3%); background: #d3d3d3; }
+  .lctn-sctn .h3-style, .lctn-sctn .h4-style { width: 100%; text-align: center; }
+  .lctn-sctn .h3-style { margin-bottom: 8px; color: var(--red); }
+  .lctn-sctn .lctn-col-cont { display: flex; gap: 32px; flex-wrap: wrap; justify-content: space-evenly; width: 100%; }
+  .lctn-sctn .card-lctn { width: calc(20% - 32px); background: #eeeded; padding: 20px; border-radius: 12px; border: 1px solid var(--primary); flex-grow: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .lctn-sctn .card-lctn .col-img { width: 100%; display: flex; justify-content: center; }
+  .lctn-sctn .card-lctn .col-img img { width: 100%; height: auto; border-radius: 6px; }
+  .lctn-sctn .col-text { display: flex; flex-direction: column; }
+  .lctn-sctn .card-lctn .h6-style { color: var(--red); margin: 0 0 8px; }
+  .lctn-sctn .card-lctn p:last-child { margin: 0; }
+  @media (max-width: 1024px) { .lctn-sctn .card-lctn { width: calc(33% - 32px); } }
+  @media (max-width: 800px) { .lctn-sctn .card-lctn { width: calc(50% - 32px); } }
+  @media (max-width: 560px) { .lctn-sctn .card-lctn { width: 100%; } }
+
+  /* ---------- 8. vid-sctn (contact) ---------- */
+  .vid-sctn { background: #ebebeb; padding-top: 50px; padding-bottom: 50px; border-bottom: 5px solid var(--red); }
+  .vid-sctn .section-wrap { align-items: center; justify-content: space-between; }
+  .vid-sctn .vid-col { width: 60%; }
+  .vid-sctn .titlecol { padding: 40px 30px; width: 38%; color: var(--secondary); font-size: 17px; line-height: 1.7; }
+  .vid-sctn .titlecol .h3-style { color: var(--red); margin: 0 0 8px; }
+  .vid-sctn .titlecol .h6-style { color: var(--secondary); margin: 0 0 16px; }
+  .vid-sctn .titlecol > div:nth-of-type(1) { font-weight: 700; color: var(--primary); }
+  .vid-sctn .titlecol a { color: var(--red); font-weight: 600; }
+  .vid-sctn .titlecol p { font-size: 13px; color: #4e4e4e; margin-top: 16px; }
+  @media (max-width: 800px) {
+    .vid-sctn .vid-col { width: 100%; order: 1; margin-top: 30px; }
+    .vid-sctn .titlecol { width: 100%; padding: 0; text-align: center; }
+    section.section.vid-sctn { padding-top: 40px; }
+  }
+
+  /* ---------- Shared form CSS ---------- */
+  .vid-sctn .wpcf7 { width: 100%; }
+  .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; background: var(--primary); padding: 36px 30px; color: #fff; border-radius: 6px; }
+  .bottom-form input:not([type=submit]) { background: #fff; border: none; border-bottom: 2px solid var(--red); max-width: 100%; width: 100%; min-height: 31px; padding: 10px 13px; }
+  .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; min-height: 98px; }
+  .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
+  .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .bottom-form .col-4 { width: 100%; }
+  .bottom-form .col-4 .wpcf7-form-control-wrap, .bottom-form .col-5 .wpcf7-form-control-wrap { width: 100%; }
+  .bottom-form .col-5 { display: flex; justify-content: space-between; position: relative; text-align: left; width: 100%; gap: 4px; align-items: center; }
+  .bottom-form .col-5 .wpcf7-list-item.first { margin-left: 0; }
+  .bottom-form .col-5 .wpcf7-list-item-label { font-size: 12px; }
+  .bottom-form .col-5 .bst-way > label { width: 100%; display: block; }
+  .bottom-form .wpcf7-list-item { margin-left: 4px; }
+  .bottom-form .wpcf7-list-item label { display: flex; align-items: center; }
+  .bottom-form .wpcf7-radio { display: flex; gap: 8px; }
+  .bottom-form .bst-way { color: #fff; text-transform: uppercase; font-weight: 600; display: flex; gap: 12px; align-items: center; font-size: 12px; }
+  .bottom-form input::placeholder, .bottom-form textarea::placeholder { color: #555; }
+  .bottom-form button[type=submit] { border: 0; color: var(--primary); padding: 6px 20px; border-radius: 100px; width: 100%; max-width: 180px; background: #fff; font-weight: 700; text-transform: uppercase; min-width: fit-content; cursor: pointer; }
+  @media (max-width: 600px) {
+    .bottom-form .col-5 { flex-direction: column; text-align: center; }
+    .bottom-form .wpcf7-radio { justify-content: center; }
+    .bottom-form button[type=submit] { width: 100%; }
+    .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: 100%; }
+    .bottom-form .bst-way { gap: 4px; flex-direction: column; align-items: center; }
+  }
+  .pr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+  .pr-form-banner { width: 100%; margin-top: 14px; font-weight: 600; }
+  .pr-form-banner[data-state="success"] { color: #fff; }
+  .pr-form-banner[data-state="error"] { color: #ffd9d9; }
+</style>

@@ -1,0 +1,63 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.philsellsbiz.com/scottsdale-business-broker/",
+      "url": "https://www.philsellsbiz.com/scottsdale-business-broker/",
+      "name": "Expert Business Broker of Scottsdale Phil Reese",
+      "isPartOf": {
+        "@id": "https://www.philsellsbiz.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://www.philsellsbiz.com/scottsdale-business-broker/#primaryimage"
+      },
+      "image": {
+        "@id": "https://www.philsellsbiz.com/scottsdale-business-broker/#primaryimage"
+      },
+      "thumbnailUrl": "https://www.philsellsbiz.com/wp-content/uploads/2021/02/scottsdale-business-broker.jpg",
+      "datePublished": "2015-03-15T03:49:36+00:00",
+      "dateModified": "2026-06-12T20:07:11+00:00",
+      "description": "Call Scottsdale Business Broker Phil Reese Today At 480-707-7721 For Assistance With Selling or Buying A Scottsdale Business!",
+      "breadcrumb": {
+        "@id": "https://www.philsellsbiz.com/scottsdale-business-broker/#breadcrumb"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "ReadAction",
+          "target": [
+            "https://www.philsellsbiz.com/scottsdale-business-broker/"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "ImageObject",
+      "inLanguage": "en-US",
+      "@id": "https://www.philsellsbiz.com/scottsdale-business-broker/#primaryimage",
+      "url": "https://www.philsellsbiz.com/wp-content/uploads/2021/02/scottsdale-business-broker.jpg",
+      "contentUrl": "https://www.philsellsbiz.com/wp-content/uploads/2021/02/scottsdale-business-broker.jpg",
+      "width": 1200,
+      "height": 1200,
+      "caption": "Would you like to sell your Scottsdale business? If so, I would highly recommend you use a Scottsdale Business Broker, that being me, because I know the area well and have sold many businesses in Scottsdale."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.philsellsbiz.com/scottsdale-business-broker/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "AZ Business Broker",
+          "item": "https://www.philsellsbiz.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Scottsdale Business Broker"
+        }
+      ]
+    }
+  ]
+}

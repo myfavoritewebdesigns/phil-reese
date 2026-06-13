@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en-US" >
+	<head><meta charset="UTF-8" /><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>(()=>{class RocketLazyLoadScripts{constructor(){this.v="2.0.5",this.userEvents=["keydown","keyup","mousedown","mouseup","mousemove","mouseover","mouseout","touchmove","touchstart","touchend","touchcancel","wheel","click","dblclick","input"],this.attributeEvents=["onblur","onclick","oncontextmenu","ondblclick","onfocus","onmousedown","onmouseenter","onmouseleave","onmousemove","onmouseout","onmouseover","onmouseup","onmousewheel","onscroll","onsubmit"]}async t(){this.i(),this.o(),/iP(ad|hone)/.test(navigator.userAgent)&&this.h(),this.u(),this.l(this),this.m(),this.k(this),this.p(this),this._(),await Promise.all([this.R(),this.L()]),this.lastBreath=Date.now(),this.S(this),this.P(),this.D(),this.O(),this.M(),await this.C(this.delayedScripts.normal),await this.C(this.delayedScripts.defer),await this.C(this.delayedScripts.async),await this.T(),await this.F(),await this.j(),await this.A(),window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this.everythingLoaded=!0,this.lastTouchEnd&&await new Promise(t=>setTimeout(t,500-Date.now()+this.lastTouchEnd)),this.I(),this.H(),this.U(),this.W()}i(){this.CSPIssue=sessionStorage.getItem("rocketCSPIssue"),document.addEventListener("securitypolicyviolation",t=>{this.CSPIssue||"script-src-elem"!==t.violatedDirective||"data"!==t.blockedURI||(this.CSPIssue=!0,sessionStorage.setItem("rocketCSPIssue",!0))},{isRocket:!0})}o(){window.addEventListener("pageshow",t=>{this.persisted=t.persisted,this.realWindowLoadedFired=!0},{isRocket:!0}),window.addEventListener("pagehide",()=>{this.onFirstUserAction=null},{isRocket:!0})}h(){let t;function e(e){t=e}window.addEventListener("touchstart",e,{isRocket:!0}),window.addEventListener("touchend",function i(o){o.changedTouches[0]&&t.changedTouches[0]&&Math.abs(o.changedTouches[0].pageX-t.changedTouches[0].pageX)<10&&Math.abs(o.changedTouches[0].pageY-t.changedTouches[0].pageY)<10&&o.timeStamp-t.timeStamp<200&&(window.removeEventListener("touchstart",e,{isRocket:!0}),window.removeEventListener("touchend",i,{isRocket:!0}),"INPUT"===o.target.tagName&&"text"===o.target.type||(o.target.dispatchEvent(new TouchEvent("touchend",{target:o.target,bubbles:!0})),o.target.dispatchEvent(new MouseEvent("mouseover",{target:o.target,bubbles:!0})),o.target.dispatchEvent(new PointerEvent("click",{target:o.target,bubbles:!0,cancelable:!0,detail:1,clientX:o.changedTouches[0].clientX,clientY:o.changedTouches[0].clientY})),event.preventDefault()))},{isRocket:!0})}q(t){this.userActionTriggered||("mousemove"!==t.type||this.firstMousemoveIgnored?"keyup"===t.type||"mouseover"===t.type||"mouseout"===t.type||(this.userActionTriggered=!0,this.onFirstUserAction&&this.onFirstUserAction()):this.firstMousemoveIgnored=!0),"click"===t.type&&t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation(),"touchstart"===this.lastEvent&&"touchend"===t.type&&(this.lastTouchEnd=Date.now()),"click"===t.type&&(this.lastTouchEnd=0),this.lastEvent=t.type,t.composedPath&&t.composedPath()[0].getRootNode()instanceof ShadowRoot&&(t.rocketTarget=t.composedPath()[0]),this.savedUserEvents.push(t)}u(){this.savedUserEvents=[],this.userEventHandler=this.q.bind(this),this.userEvents.forEach(t=>window.addEventListener(t,this.userEventHandler,{passive:!1,isRocket:!0})),document.addEventListener("visibilitychange",this.userEventHandler,{isRocket:!0})}U(){this.userEvents.forEach(t=>window.removeEventListener(t,this.userEventHandler,{passive:!1,isRocket:!0})),document.removeEventListener("visibilitychange",this.userEventHandler,{isRocket:!0}),this.savedUserEvents.forEach(t=>{(t.rocketTarget||t.target).dispatchEvent(new window[t.constructor.name](t.type,t))})}m(){const t="return false",e=Array.from(this.attributeEvents,t=>"data-rocket-"+t),i="["+this.attributeEvents.join("],[")+"]",o="[data-rocket-"+this.attributeEvents.join("],[data-rocket-")+"]",s=(e,i,o)=>{o&&o!==t&&(e.setAttribute("data-rocket-"+i,o),e["rocket"+i]=new Function("event",o),e.setAttribute(i,t))};new MutationObserver(t=>{for(const n of t)"attributes"===n.type&&(n.attributeName.startsWith("data-rocket-")||this.everythingLoaded?n.attributeName.startsWith("data-rocket-")&&this.everythingLoaded&&this.N(n.target,n.attributeName.substring(12)):s(n.target,n.attributeName,n.target.getAttribute(n.attributeName))),"childList"===n.type&&n.addedNodes.forEach(t=>{if(t.nodeType===Node.ELEMENT_NODE)if(this.everythingLoaded)for(const i of[t,...t.querySelectorAll(o)])for(const t of i.getAttributeNames())e.includes(t)&&this.N(i,t.substring(12));else for(const e of[t,...t.querySelectorAll(i)])for(const t of e.getAttributeNames())this.attributeEvents.includes(t)&&s(e,t,e.getAttribute(t))})}).observe(document,{subtree:!0,childList:!0,attributeFilter:[...this.attributeEvents,...e]})}I(){this.attributeEvents.forEach(t=>{document.querySelectorAll("[data-rocket-"+t+"]").forEach(e=>{this.N(e,t)})})}N(t,e){const i=t.getAttribute("data-rocket-"+e);i&&(t.setAttribute(e,i),t.removeAttribute("data-rocket-"+e))}k(t){Object.defineProperty(HTMLElement.prototype,"onclick",{get(){return this.rocketonclick||null},set(e){this.rocketonclick=e,this.setAttribute(t.everythingLoaded?"onclick":"data-rocket-onclick","this.rocketonclick(event)")}})}S(t){function e(e,i){let o=e[i];e[i]=null,Object.defineProperty(e,i,{get:()=>o,set(s){t.everythingLoaded?o=s:e["rocket"+i]=o=s}})}e(document,"onreadystatechange"),e(window,"onload"),e(window,"onpageshow");try{Object.defineProperty(document,"readyState",{get:()=>t.rocketReadyState,set(e){t.rocketReadyState=e},configurable:!0}),document.readyState="loading"}catch(t){console.log("WPRocket DJE readyState conflict, bypassing")}}l(t){this.originalAddEventListener=EventTarget.prototype.addEventListener,this.originalRemoveEventListener=EventTarget.prototype.removeEventListener,this.savedEventListeners=[],EventTarget.prototype.addEventListener=function(e,i,o){o&&o.isRocket||!t.B(e,this)&&!t.userEvents.includes(e)||t.B(e,this)&&!t.userActionTriggered||e.startsWith("rocket-")||t.everythingLoaded?t.originalAddEventListener.call(this,e,i,o):(t.savedEventListeners.push({target:this,remove:!1,type:e,func:i,options:o}),"mouseenter"!==e&&"mouseleave"!==e||t.originalAddEventListener.call(this,e,t.savedUserEvents.push,o))},EventTarget.prototype.removeEventListener=function(e,i,o){o&&o.isRocket||!t.B(e,this)&&!t.userEvents.includes(e)||t.B(e,this)&&!t.userActionTriggered||e.startsWith("rocket-")||t.everythingLoaded?t.originalRemoveEventListener.call(this,e,i,o):t.savedEventListeners.push({target:this,remove:!0,type:e,func:i,options:o})}}J(t,e){this.savedEventListeners=this.savedEventListeners.filter(i=>{let o=i.type,s=i.target||window;return e!==o||t!==s||(this.B(o,s)&&(i.type="rocket-"+o),this.$(i),!1)})}H(){EventTarget.prototype.addEventListener=this.originalAddEventListener,EventTarget.prototype.removeEventListener=this.originalRemoveEventListener,this.savedEventListeners.forEach(t=>this.$(t))}$(t){t.remove?this.originalRemoveEventListener.call(t.target,t.type,t.func,t.options):this.originalAddEventListener.call(t.target,t.type,t.func,t.options)}p(t){let e;function i(e){return t.everythingLoaded?e:e.split(" ").map(t=>"load"===t||t.startsWith("load.")?"rocket-jquery-load":t).join(" ")}function o(o){function s(e){const s=o.fn[e];o.fn[e]=o.fn.init.prototype[e]=function(){return this[0]===window&&t.userActionTriggered&&("string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=i(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach(t=>{const e=arguments[0][t];delete arguments[0][t],arguments[0][i(t)]=e})),s.apply(this,arguments),this}}if(o&&o.fn&&!t.allJQueries.includes(o)){const e={DOMContentLoaded:[],"rocket-DOMContentLoaded":[]};for(const t in e)document.addEventListener(t,()=>{e[t].forEach(t=>t())},{isRocket:!0});o.fn.ready=o.fn.init.prototype.ready=function(i){function s(){parseInt(o.fn.jquery)>2?setTimeout(()=>i.bind(document)(o)):i.bind(document)(o)}return"function"==typeof i&&(t.realDomReadyFired?!t.userActionTriggered||t.fauxDomReadyFired?s():e["rocket-DOMContentLoaded"].push(s):e.DOMContentLoaded.push(s)),this},s("on"),s("one"),s("off"),t.allJQueries.push(o)}e=o}t.allJQueries=[],o(window.jQuery),Object.defineProperty(window,"jQuery",{get:()=>e,set(t){o(t)}})}P(){const t=new Map;document.write=document.writeln=function(e){const i=document.currentScript,o=document.createRange(),s=i.parentElement;let n=t.get(i);void 0===n&&(n=i.nextSibling,t.set(i,n));const c=document.createDocumentFragment();o.setStart(c,0),c.appendChild(o.createContextualFragment(e)),s.insertBefore(c,n)}}async R(){return new Promise(t=>{this.userActionTriggered?t():this.onFirstUserAction=t})}async L(){return new Promise(t=>{document.addEventListener("DOMContentLoaded",()=>{this.realDomReadyFired=!0,t()},{isRocket:!0})})}async j(){return this.realWindowLoadedFired?Promise.resolve():new Promise(t=>{window.addEventListener("load",t,{isRocket:!0})})}M(){this.pendingScripts=[];this.scriptsMutationObserver=new MutationObserver(t=>{for(const e of t)e.addedNodes.forEach(t=>{"SCRIPT"!==t.tagName||!t.src||t.noModule||t.isWPRocket||this.pendingScripts.push({script:t,promise:new Promise(e=>{const i=()=>{const i=this.pendingScripts.findIndex(e=>e.script===t);i>=0&&this.pendingScripts.splice(i,1),e()};t.addEventListener("load",i,{isRocket:!0}),t.addEventListener("error",i,{isRocket:!0}),setTimeout(i,1e3)})})})}),this.scriptsMutationObserver.observe(document,{childList:!0,subtree:!0})}async F(){await this.X(),this.pendingScripts.length?(await this.pendingScripts[0].promise,await this.F()):this.scriptsMutationObserver.disconnect()}D(){this.delayedScripts={normal:[],async:[],defer:[]},document.querySelectorAll("script[type$=rocketlazyloadscript]").forEach(t=>{t.hasAttribute("data-rocket-src")?t.hasAttribute("async")&&!1!==t.async?this.delayedScripts.async.push(t):t.hasAttribute("defer")&&!1!==t.defer||"module"===t.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(t):this.delayedScripts.normal.push(t):this.delayedScripts.normal.push(t)})}async _(){await this.L();let t=[];document.querySelectorAll("script[type$=rocketlazyloadscript][data-rocket-src]").forEach(e=>{let i=e.getAttribute("data-rocket-src");if(i&&!i.startsWith("data:")){i.startsWith("//")&&(i=location.protocol+i);try{const o=new URL(i).origin;o!==location.origin&&t.push({src:o,crossOrigin:e.crossOrigin||"module"===e.getAttribute("data-rocket-type")})}catch(t){}}}),t=[...new Map(t.map(t=>[JSON.stringify(t),t])).values()],this.Y(t,"preconnect")}async G(t){if(await this.K(),!0!==t.noModule||!("noModule"in HTMLScriptElement.prototype))return new Promise(e=>{let i;function o(){(i||t).setAttribute("data-rocket-status","executed"),e()}try{if(navigator.userAgent.includes("Firefox/")||""===navigator.vendor||this.CSPIssue)i=document.createElement("script"),[...t.attributes].forEach(t=>{let e=t.nodeName;"type"!==e&&("data-rocket-type"===e&&(e="type"),"data-rocket-src"===e&&(e="src"),i.setAttribute(e,t.nodeValue))}),t.text&&(i.text=t.text),t.nonce&&(i.nonce=t.nonce),i.hasAttribute("src")?(i.addEventListener("load",o,{isRocket:!0}),i.addEventListener("error",()=>{i.setAttribute("data-rocket-status","failed-network"),e()},{isRocket:!0}),setTimeout(()=>{i.isConnected||e()},1)):(i.text=t.text,o()),i.isWPRocket=!0,t.parentNode.replaceChild(i,t);else{const i=t.getAttribute("data-rocket-type"),s=t.getAttribute("data-rocket-src");i?(t.type=i,t.removeAttribute("data-rocket-type")):t.removeAttribute("type"),t.addEventListener("load",o,{isRocket:!0}),t.addEventListener("error",i=>{this.CSPIssue&&i.target.src.startsWith("data:")?(console.log("WPRocket: CSP fallback activated"),t.removeAttribute("src"),this.G(t).then(e)):(t.setAttribute("data-rocket-status","failed-network"),e())},{isRocket:!0}),s?(t.fetchPriority="high",t.removeAttribute("data-rocket-src"),t.src=s):t.src="data:text/javascript;base64,"+window.btoa(unescape(encodeURIComponent(t.text)))}}catch(i){t.setAttribute("data-rocket-status","failed-transform"),e()}});t.setAttribute("data-rocket-status","skipped")}async C(t){const e=t.shift();return e?(e.isConnected&&await this.G(e),this.C(t)):Promise.resolve()}O(){this.Y([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}Y(t,e){this.trash=this.trash||[];let i=!0;var o=document.createDocumentFragment();t.forEach(t=>{const s=t.getAttribute&&t.getAttribute("data-rocket-src")||t.src;if(s&&!s.startsWith("data:")){const n=document.createElement("link");n.href=s,n.rel=e,"preconnect"!==e&&(n.as="script",n.fetchPriority=i?"high":"low"),t.getAttribute&&"module"===t.getAttribute("data-rocket-type")&&(n.crossOrigin=!0),t.crossOrigin&&(n.crossOrigin=t.crossOrigin),t.integrity&&(n.integrity=t.integrity),t.nonce&&(n.nonce=t.nonce),o.appendChild(n),this.trash.push(n),i=!1}}),document.head.appendChild(o)}W(){this.trash.forEach(t=>t.remove())}async T(){try{document.readyState="interactive"}catch(t){}this.fauxDomReadyFired=!0;try{await this.K(),this.J(document,"readystatechange"),document.dispatchEvent(new Event("rocket-readystatechange")),await this.K(),document.rocketonreadystatechange&&document.rocketonreadystatechange(),await this.K(),this.J(document,"DOMContentLoaded"),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this.K(),this.J(window,"DOMContentLoaded"),window.dispatchEvent(new Event("rocket-DOMContentLoaded"))}catch(t){console.error(t)}}async A(){try{document.readyState="complete"}catch(t){}try{await this.K(),this.J(document,"readystatechange"),document.dispatchEvent(new Event("rocket-readystatechange")),await this.K(),document.rocketonreadystatechange&&document.rocketonreadystatechange(),await this.K(),this.J(window,"load"),window.dispatchEvent(new Event("rocket-load")),await this.K(),window.rocketonload&&window.rocketonload(),await this.K(),this.allJQueries.forEach(t=>t(window).trigger("rocket-jquery-load")),await this.K(),this.J(window,"pageshow");const t=new Event("rocket-pageshow");t.persisted=this.persisted,window.dispatchEvent(t),await this.K(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}catch(t){console.error(t)}}async K(){Date.now()-this.lastBreath>45&&(await this.X(),this.lastBreath=Date.now())}async X(){return document.hidden?new Promise(t=>setTimeout(t)):new Promise(t=>requestAnimationFrame(t))}B(t,e=window){return e===document&&"readystatechange"===t||(e===document&&"DOMContentLoaded"===t||(e===window&&"DOMContentLoaded"===t||(e===window&&"load"===t||e===window&&"pageshow"===t)))}static run(){(new RocketLazyLoadScripts).t()}}RocketLazyLoadScripts.run()})();
+</script>
+		<script type="text/rocketlazyloadscript" data-minify="1" data-rocket-src="https://www.philsellsbiz.com/wp-content/cache/min/1/wp-content/themes/newtheme/remodel/js/mobile-menu.js?ver=1781291795" data-rocket-defer defer></script>
+		
+		<script type="text/rocketlazyloadscript" id="det-mobile">
+		document.addEventListener("DOMContentLoaded", function () {
+		  function updateHambBars() {
+		    const hambBars = document.getElementById("hamb-bars");
+		    if (window.innerWidth > 1024) {
+		      hambBars.setAttribute("open", "");
+		    } else {
+		      hambBars.removeAttribute("open");
+		    }
+		  }
+		  // Run the function on page load
+		  updateHambBars();
+		  // Add a listener for window resize
+		  window.addEventListener("resize", updateHambBars);
+		});
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+		<!--<link rel="stylesheet" href="<php echo get_template_directory_uri(); ?>/reset.css">-->
+
+		
+
+		<link rel="profile" href="https://gmpg.org/xfn/11" />
+		<!--<link rel="stylesheet" type="text/css" media="all" href="<php // bloginfo( 'stylesheet_url' ); ?>" />-->
+		
+		
+		<script type="text/rocketlazyloadscript" data-rocket-src="https://kit.fontawesome.com/845e80fe00.js" crossorigin="anonymous" data-rocket-defer defer></script>
+		<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v27.8 - https://yoast.com/product/yoast-seo-wordpress/ -->
+	<title>Expert Business Broker of Scottsdale Phil Reese</title>
+<link data-rocket-prefetch href="https://www.gstatic.com" rel="dns-prefetch">
+<link data-rocket-prefetch href="https://www.googletagmanager.com" rel="dns-prefetch">
+<link data-rocket-prefetch href="https://kit.fontawesome.com" rel="dns-prefetch">
+<link data-rocket-prefetch href="https://www.google.com" rel="dns-prefetch">
+<link data-rocket-prefetch href="https://plus.google.com" rel="dns-prefetch">
+<link crossorigin data-rocket-preload as="font" href="https://www.philsellsbiz.com/wp-content/themes/newtheme/remodel/fonts/CrimsonText-Regular.woff2" rel="preload">
+<style id="wpr-usedcss">@font-face{font-display:swap;font-family:CrimsonText;font-style:normal;font-weight:400;src:url(https://www.philsellsbiz.com/wp-content/themes/newtheme/remodel/fonts/CrimsonText-Regular.woff2)}:root{--primary:#310407;--secondary:#353535;--red:#9F2E1E;--white:#fff;--black:#000;--light-gray:#cecece;--font-size--h1:clamp(24px, 2.8vw, 31px);--font-size--h2:clamp(18px, 2.5vw, 28px);--font-size--h3:clamp(23px, 3vw, 36px);--font-size--h4:clamp(20px, 2.5vw, 26px);--font-size--h5:clamp(18px, 2.2vw, 24px);--font-size--h6:clamp(18px, 1.9vw, 21px);--font-size--big:clamp(30px, 4.5vw, 62px);--font-size--body:16px;--font-size--button:18px;--font-size--little-text:12px;--font-weight--h1:600;--font-weight--h2:600;--font-weight--h3:600;--font-weight--h4:600;--font-weight--h5:600;--font-weight--h6:600;--font-weight--button:600;--font-family--h1:"CrimsonText";--font-family--h2:"CrimsonText";--font-family--h3:"CrimsonText";--font-family--h4:"CrimsonText";--font-family--h5:"CrimsonText";--font-family--h6:"CrimsonText";--font-family--button:sans-serif;--font-family--body:sans-serif;--margin-bottom--title:32px;--margin-top--title:0;--margin-bottom--p:16px}body{margin:0;box-sizing:border-box;font-family:var(--font-family--body);font-size:var(--font-size--body);background-color:var(--white)}html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--secondary) transparent}::-webkit-scrollbar{width:5px;height:10px}::-webkit-scrollbar-track{background:0 0;border-radius:10px}::-webkit-scrollbar-thumb{background:var(--secondary);border-radius:10px}::-webkit-scrollbar-thumb:hover{background:var(--primary)}.section{display:flex;justify-content:center;flex-wrap:wrap;background-size:cover;position:relative}@media(min-width:1025px){.section{padding-right:40px;padding-left:40px}}@media(max-width:1024px){.section{padding-right:16px;padding-left:16px}}.one-col{display:flex;justify-content:center;align-items:center;width:100%;flex-direction:column}.section-wrap{display:flex;justify-content:center;width:100%;max-width:1250px;flex-wrap:wrap}h1,h3{line-height:1.2;margin-bottom:var(--margin-bottom--title);margin-top:var(--margin-top--title);text-wrap:balance}.h1-style{font-size:var(--font-size--h1);font-weight:var(--font-weight--h1);font-family:var(--font-family--h1)}a{color:var(--primary);transition:.3s ease;text-decoration:none}details summary::-webkit-details-marker{display:none}details summary{list-style:none!important;counter-increment:none!important;list-style-type:none!important}summary:hover{cursor:pointer}#content{padding-top:170px}header.hdr-main{position:fixed;background:#fff;box-shadow:0 0 15px 0 rgba(0,0,0,.25)}@media (max-width:1024px){section.top-hdr{position:fixed;width:100%;z-index:999;top:0}header.hdr-main{top:0}#content{padding-top:150px}}.hamb-bars summary::marker{content:"☰"}.hamb-bars[open] summary::marker{content:"✕"}.hdr-main{width:100%;display:flex;justify-content:center;z-index:1000;flex-wrap:wrap}.hdr-wrp{width:100%;display:flex;align-items:center;flex-wrap:wrap;max-width:1440px;padding:20px}.menu{list-style:none;margin:0}.menu li a{color:#fff;font-family:var(--font-family--h4);padding:10px;display:flex}.menu li{position:relative}.sub-menu li a{color:var(--secondary);font-size:14px;font-weight:400}.sub-menu li a:hover{color:var(--primary)}.sub-menu>li{border-bottom:2px solid var(--primary);padding:4px 15px}header .menu{align-items:center;margin-left:auto;justify-content:flex-end;column-gap:20px;display:flex;flex-wrap:wrap;justify-content:space-between;padding:0}.hdr-col1{display:flex;gap:14px;align-items:center;width:30%;justify-content:center}ul.sub-menu{overflow:visible}.menu .sub-menu .sub-menu{left:100%;top:0}.menu .sub-menu li:hover .sub-menu,.menu li:hover .sub-menu>li{display:block}.menu .sub-menu li .sub-menu,.sub-menu>li{display:none}header .menu li a{font-size:22px}*{box-sizing:border-box}img{max-width:100%;height:auto}header .blw-txt{display:block;text-align:center;width:100%;font-weight:700;font-weight:100;letter-spacing:1px}header .hdr-btns>div>a{display:flex;flex-wrap:wrap;justify-content:center}header .hdr-btns>div>a{background:0 0;padding:0}header .hdr-btns>div>a>span:first-child{background:var(--primary);padding:8px 20px}header .blw-txt{color:var(--primary);margin-top:4px}.certified-badges div{max-width:76px}.certified-badges div svg{width:176px;fill:#ec4c3e}.certified-badges .wth-svg{max-width:none}.certified-badges{padding-right:6px}.certified-badges{display:flex;align-items:center;gap:10px;padding-right:20px}.hdr-col1{max-width:380px}.certified-badges .west-usa{max-width:100px}@media (min-width:1025px){.top-hdr{display:none}.sub-menu{opacity:0;position:absolute;margin-left:0;width:auto;list-style:none;display:flex;flex-direction:column;width:100%;z-index:1;transition:all .3s ease-out;height:0;overflow:hidden;min-width:150px}.menu li:hover .sub-menu{opacity:1;background-color:var(--white);transition:all .3s ease-out;height:auto}.menu-item-has-children::after{content:"›";color:var(--primary);transform:rotate(90deg);position:absolute;font-size:20px;line-height:15px;text-align:center;right:0;top:5px}.menu-item-has-children{padding-right:17px}.hamb-bars summary{display:none}.hdr-col2{flex-grow:1;display:flex;justify-content:flex-end;align-items:center}.hdr-col2 .hamb-bars{transform:skewX(-27deg)}.hdr-col3{background:var(--primary);width:100%;display:flex;justify-content:center;padding:0 14px}.hdr-col1>a{max-width:100%}.hdr-btns>div>a{background:var(--primary);color:#fff;padding:10px 20px}.hdr-col3 #hamb-bars{max-width:1500px}.top-hdr>div>a span span{color:#b7b7b7;font-style:italic;font-size:10px}header .blw-txt{color:#b7b7b7;font-size:13px;font-style:italic}header .blw-txt a{color:#393939}}@media (max-width:1200px){header .menu li a{font-size:19px}}@media (max-width:1024px){.hdr-col1{max-width:400px}header.hdr-main{position:fixed;background:#fff;box-shadow:0 0 15px 0 rgba(0,0,0,.25)}section.top-hdr{position:fixed;width:100%;z-index:999;top:0}#content{padding-top:170px}.top-hdr{display:flex;justify-content:space-between}.top-hdr>div{flex-grow:1}.top-hdr>div>a{display:flex;padding:12px 20px;justify-content:center;align-items:center;gap:5px;line-height:1;font-family:var(--font-family--h4);background-color:var(--primary);color:#fff}.top-hdr>div>a svg{position:relative;fill:white}.top-hdr .ctc-btn>a{background-color:var(--secondary);color:var(--white)}.top-hdr .ctc-btn>a>svg{fill:var(--white)}.hdr-wrp{align-items:center}.hdr-main{padding-bottom:15px;padding-top:15px;position:relative;box-shadow:0 10px 11px 0 rgba(0,0,0,.12);padding-left:3%;padding-right:3%;z-index:10000;overflow:visible;align-items:center}.menu summary{display:flex;justify-content:space-between;align-items:center}.menu ul.sub-menu{margin-left:0;list-style:none;margin-bottom:3px}details[open]>summary:after{content:'-'}.hdr-col2{flex-grow:1}.hdr-col1{padding-top:0;width:auto}.hamb-bars summary{font-size:32px}.hamb-menu{position:absolute;background-color:var(--white);box-shadow:0 1px 15px 5px rgba(0,0,0,.25);left:0;width:100%;top:100%;max-height:60vh;overflow:scroll}header .menu{flex-direction:column;text-align:left;align-items:flex-start}header .menu>li{border-bottom:2px solid var(--secondary);width:100%;padding:7px 12px}.hamb-bars>summary::marker{content:''}header .hamb-bars[open]>summary::marker{content:''}.hamb-bars>summary::-webkit-details-marker{display:none}.hamb-bars>summary{list-style:none!important;counter-increment:none!important;list-style-type:none!important}.hamb-bars summary{position:relative}header .hamb-bars>summary::after{content:'☰'}header .hamb-bars[open]>summary::after{content:'✕'}.hdr-wrp{padding:0;width:80%;flex-grow:1}header .menu li a{font-size:17px;color:var(--primary);padding:0;font-weight:900}.hamb-menu{background:#212121;padding:10px 0}header .menu>li{border:0;padding:0}header .menu li a{color:#fff;padding:8px 17px}.hdr-col2 .hdr-btns{display:none}.certified-badges{display:flex;align-items:center;padding-right:0}.hdr-col2{display:none}.sticky.scrolled .hdr-col2{opacity:0;transition:all .3s ease-out}.sticky.scrolled .hdr-col2{transition:all .3s ease-out;pointer-events:none}.top-hdr>div>a span span{display:block;font-size:12px;text-align:center}.top-hdr>div>a{align-items:flex-start;padding:10px 20px}.top-hdr .ctc-btn>a{height:100%;align-items:center}header.hdr-main{margin-top:44px}section.top-hdr a{font-size:13px}.top-hdr>div>a span span{color:#b7b7b7;font-style:italic;font-size:10px}}@media (max-width:600px){.hdr-col2{left:20px;max-width:calc(100% - 40px)}.hdr-col1{max-width:300px}}@media (max-width:500px){.certified-badges{justify-content:space-between;gap:5px}.certified-badges .wth-svg{max-width:30%;display:flex}.certified-badges div svg{width:100%}.certified-badges div{max-width:47px}}@media (max-width:400px){.hdr-col2{left:10px;max-width:calc(100% - 20px);top:calc(100% + 10px)}section.section.banner-sctn{padding-top:45px}div#content{padding-top:133px}}@media(max-width:345px){section.top-hdr a{font-size:14px}}.links-inn{display:flex;flex-wrap:wrap;width:100%;gap:20px 5%;justify-content:center;list-style:none}@media (max-width:800px){.areas-sctn .maintitle:before{content:'';flex-grow:1;background:var(--primary);height:2px}.links-inn{justify-content:center}.areas-sctn .maintitle{text-align:center}}footer .menu{padding:0;display:flex;justify-content:center;gap:20px}.menu-footer{background:var(--primary);width:100%}footer .menu li a{font-size:22px}footer .ftr-wrp{color:#fff;padding:39px 20px 20px;max-width:1700px;width:100%;display:flex;flex-wrap:wrap}footer.main-footer{background:var(--secondary);display:flex;flex-wrap:wrap;justify-content:center;width:100%}.ftr-col1{display:flex;flex-direction:column;width:24%;justify-content:center;text-align:center}.ftr-col1 .social-links{display:flex;gap:10px;justify-content:space-around;margin-top:13px}.ftr-col1 .social-links svg{fill:white;width:45px;height:auto}.ftr-col1 .social-links a{display:flex}.addresses{text-align:center;width:18%;padding:0 10px}.copyright a{color:#fff}.copyright{width:100%;text-align:center;padding:22px 20px 0;border-top:2px solid #fff;margin-top:30px}footer .adr-title{margin-bottom:7px;color:#fff}footer .adr-title a{color:#fff}.contactinfo>span{font-size:22px;padding-top:10px;font-weight:700}.contactinfo>a{color:#fff;display:flex;justify-content:center;padding:10px}.addresses a{color:#fff}.addresses>div:last-child{padding:10px}.bbb-logo{display:flex;justify-content:center;padding:20px}.addresses{padding-top:30px}@media (max-width:1024px){footer .menu{flex-wrap:wrap;gap:0}.ftr-col1{width:100%}.ftr-col1 .social-links{margin-bottom:37px;max-width:500px;margin-left:auto;margin-right:auto}.addresses{width:25%}}@media (max-width:800px){.addresses{width:50%;margin-bottom:20px}.hdr-col1{padding-right:16px}footer .menu li a{padding:10px}footer .menu{flex-direction:column;justify-content:center;align-items:center;padding:20px 8px}footer .bbb-logo{filter:saturate(.4)}#content{padding-top:130px}}@media (max-width:500px){.addresses{width:100%}}img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}.wpcr3_respond_2{position:relative}.wpcr3_respond_2 label{display:inline-block!important}.wpcr3_respond_2 input[type=text]{min-width:200px}.wpcr3_respond_2 textarea{height:100px!important;min-width:500px}.wpcr3_respond_2 small{padding:0!important;margin:0!important}.wpcr3_respond_2 table{border:0!important;border-style:none!important}.wpcr3_respond_1,.wpcr3_respond_2{margin:0!important;padding:0!important;clear:both!important}.wpcr3_respond_1 p,.wpcr3_respond_2 p{margin:0!important;padding:0!important;line-height:120%!important;margin-top:2px!important;margin-bottom:2px!important}div.wpcr3_rating_style1_base{background:var(--wpr-bg-f1953d5a-8f66-460d-8b04-10fc866fc24f) no-repeat;width:85px;height:17px;line-height:17px;float:left;padding-right:4px;overflow:hidden;display:block}div.wpcr3_rating_style1_average{background:var(--wpr-bg-17e2e5c1-a388-4d96-9ab9-c64b26952879) 0 -15px no-repeat;text-indent:-9999px;height:17px;line-height:17px}div.wpcr3_rating_style1_status{height:17px;line-height:17px;width:100px;overflow:hidden;position:relative;cursor:pointer;display:block}div.wpcr3_rating_style1_score{background:var(--wpr-bg-308a2e08-024b-4d53-bdcc-1667bbd06078) no-repeat;width:85px;height:17px;line-height:17px;float:left;position:relative}div.wpcr3_rating_style1_score div{display:block;height:17px;float:left;text-indent:-9999px;position:absolute;overflow:hidden;line-height:17px}div.wpcr3_rating_style1_score div:hover{background:var(--wpr-bg-55d4dc0e-e4b1-47a2-b9a7-da68791ed87a) bottom right no-repeat}.wpcr3_respond_2{display:none;background-color:inherit}.wpcr3_div_2{width:600px;max-width:100%}.wpcr3_table_2{text-align:left;width:100%}.wpcr3_pagination{clear:both;padding:0;position:relative;font-size:11px;line-height:13px}.wpcr3_pagination .wpcr3_a{display:block;float:left;margin:0 1px;padding:6px 10px;line-height:16px;text-decoration:none;width:auto;color:#fff;background:#555;cursor:pointer}.wpcr3_pagination .wpcr3_a:hover{color:#fff;background:#3279bb}.wpcr3_pagination .wpcr3_a.wpcr3_disabled,.wpcr3_pagination .wpcr3_a.wpcr3_disabled:hover{background:#ddd;color:#fff;cursor:default}.wpcr3_hide{display:none!important}.pt-cv-wrapper details,.pt-cv-wrapper footer,.pt-cv-wrapper header,.pt-cv-wrapper main,.pt-cv-wrapper section,.pt-cv-wrapper summary{display:block}.pt-cv-wrapper audio,.pt-cv-wrapper progress,.pt-cv-wrapper video{display:inline-block;vertical-align:baseline}.pt-cv-wrapper audio:not([controls]){display:none;height:0}.pt-cv-wrapper [hidden],.pt-cv-wrapper template{display:none}.pt-cv-wrapper a{background-color:transparent}.pt-cv-wrapper a:active,.pt-cv-wrapper a:hover{outline:0}.pt-cv-wrapper strong{font-weight:700}.pt-cv-wrapper h1{margin:.67em 0}.pt-cv-wrapper small{font-size:80%}.pt-cv-wrapper img{border:0}.pt-cv-wrapper svg:not(:root){overflow:hidden}.pt-cv-wrapper code{font-family:monospace,monospace;font-size:1em}.pt-cv-wrapper button,.pt-cv-wrapper input,.pt-cv-wrapper optgroup,.pt-cv-wrapper select,.pt-cv-wrapper textarea{color:inherit;font:inherit;margin:0}.pt-cv-wrapper button{overflow:visible}.pt-cv-wrapper button,.pt-cv-wrapper select{text-transform:none}.pt-cv-wrapper button,.pt-cv-wrapper html input[type=button],.pt-cv-wrapper input[type=reset],.pt-cv-wrapper input[type=submit]{-webkit-appearance:button;cursor:pointer}.pt-cv-wrapper button[disabled],.pt-cv-wrapper html input[disabled]{cursor:default}.pt-cv-wrapper button::-moz-focus-inner,.pt-cv-wrapper input::-moz-focus-inner{border:0;padding:0}.pt-cv-wrapper input{line-height:normal}.pt-cv-wrapper input[type=checkbox],.pt-cv-wrapper input[type=radio]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0}.pt-cv-wrapper input[type=number]::-webkit-inner-spin-button,.pt-cv-wrapper input[type=number]::-webkit-outer-spin-button{height:auto}.pt-cv-wrapper input[type=search]{-webkit-appearance:textfield;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}.pt-cv-wrapper input[type=search]::-webkit-search-cancel-button,.pt-cv-wrapper input[type=search]::-webkit-search-decoration{-webkit-appearance:none}.pt-cv-wrapper fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}.pt-cv-wrapper legend{border:0;padding:0}.pt-cv-wrapper textarea{overflow:auto}.pt-cv-wrapper optgroup{font-weight:700}.pt-cv-wrapper table{border-collapse:collapse;border-spacing:0}@media print{.pt-cv-wrapper *,.pt-cv-wrapper :after,.pt-cv-wrapper :before{background:0 0!important;color:#000!important;-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}.pt-cv-wrapper a,.pt-cv-wrapper a:visited{text-decoration:underline}.pt-cv-wrapper a[href]:after{content:" (" attr(href) ")"}.pt-cv-wrapper a[href^="#"]:after,.pt-cv-wrapper a[href^="javascript:"]:after{content:""}.pt-cv-wrapper img,.pt-cv-wrapper tr{page-break-inside:avoid}.pt-cv-wrapper img{max-width:100%!important}.pt-cv-wrapper h3,.pt-cv-wrapper p{orphans:3;widows:3}.pt-cv-wrapper h3{page-break-after:avoid}.pt-cv-wrapper .label{border:1px solid #000}.pt-cv-wrapper .table{border-collapse:collapse!important}}.pt-cv-wrapper img{vertical-align:middle}.pt-cv-wrapper .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);border:0}.pt-cv-wrapper [role=button]{cursor:pointer}.pt-cv-wrapper .fade{opacity:0;-webkit-transition:opacity .15s linear;-o-transition:opacity .15s linear;transition:opacity .15s linear}.pt-cv-wrapper .fade.in{opacity:1}.pt-cv-wrapper .collapse{display:none}.pt-cv-wrapper .collapse.in{display:block}.pt-cv-wrapper tr.collapse.in{display:table-row}.pt-cv-wrapper tbody.collapse.in{display:table-row-group}.pt-cv-wrapper .collapsing{position:relative;height:0;overflow:hidden;-webkit-transition-property:height,visibility;-o-transition-property:height,visibility;transition-property:height,visibility;-webkit-transition-duration:.35s;-o-transition-duration:.35s;transition-duration:.35s;-webkit-transition-timing-function:ease;-o-transition-timing-function:ease;transition-timing-function:ease}.pt-cv-wrapper .dropdown{position:relative}.pt-cv-wrapper .dropdown-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:160px;padding:5px 0;margin:2px 0 0;list-style:none;font-size:14px;text-align:left;background-color:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,.15);border-radius:4px;-webkit-box-shadow:0 6px 12px rgba(0,0,0,.175);box-shadow:0 6px 12px rgba(0,0,0,.175);-webkit-background-clip:padding-box;background-clip:padding-box}.pt-cv-wrapper .dropdown-menu.pull-right{right:0;left:auto}.pt-cv-wrapper .dropdown-menu>li>a{display:block;padding:3px 20px;clear:both;font-weight:400;line-height:1.42857143;color:#333;white-space:nowrap}.pt-cv-wrapper .dropdown-menu>li>a:focus,.pt-cv-wrapper .dropdown-menu>li>a:hover{text-decoration:none;color:#262626;background-color:#f5f5f5}.pt-cv-wrapper .dropdown-menu>.active>a,.pt-cv-wrapper .dropdown-menu>.active>a:focus,.pt-cv-wrapper .dropdown-menu>.active>a:hover{color:#fff;text-decoration:none;outline:0;background-color:#337ab7}.pt-cv-wrapper .dropdown-menu>.disabled>a,.pt-cv-wrapper .dropdown-menu>.disabled>a:focus,.pt-cv-wrapper .dropdown-menu>.disabled>a:hover{color:#777}.pt-cv-wrapper .dropdown-menu>.disabled>a:focus,.pt-cv-wrapper .dropdown-menu>.disabled>a:hover{text-decoration:none;background-color:transparent;background-image:none;cursor:not-allowed}.pt-cv-wrapper .open>.dropdown-menu{display:block}.pt-cv-wrapper .open>a{outline:0}.pt-cv-wrapper .dropdown-backdrop{position:fixed;left:0;right:0;bottom:0;top:0;z-index:990}.pt-cv-wrapper .pull-right>.dropdown-menu{right:0;left:auto}.pt-cv-wrapper .pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px}.pt-cv-wrapper .pagination>li{display:inline}.pt-cv-wrapper .pagination>li>a,.pt-cv-wrapper .pagination>li>span{position:relative;float:left;padding:6px 12px;line-height:1.42857143;text-decoration:none;color:#337ab7;background-color:#fff;border:1px solid #ddd;margin-left:-1px}.pt-cv-wrapper .pagination>li:first-child>a,.pt-cv-wrapper .pagination>li:first-child>span{margin-left:0;border-bottom-left-radius:4px;border-top-left-radius:4px}.pt-cv-wrapper .pagination>li:last-child>a,.pt-cv-wrapper .pagination>li:last-child>span{border-bottom-right-radius:4px;border-top-right-radius:4px}.pt-cv-wrapper .pagination>li>a:focus,.pt-cv-wrapper .pagination>li>a:hover,.pt-cv-wrapper .pagination>li>span:focus,.pt-cv-wrapper .pagination>li>span:hover{z-index:3;color:#23527c;background-color:#eee;border-color:#ddd}.pt-cv-wrapper .pagination>.active>a,.pt-cv-wrapper .pagination>.active>a:focus,.pt-cv-wrapper .pagination>.active>a:hover,.pt-cv-wrapper .pagination>.active>span,.pt-cv-wrapper .pagination>.active>span:focus,.pt-cv-wrapper .pagination>.active>span:hover{z-index:2;color:#fff;background-color:#337ab7;border-color:#337ab7;cursor:default}.pt-cv-wrapper .pagination>.disabled>a,.pt-cv-wrapper .pagination>.disabled>a:focus,.pt-cv-wrapper .pagination>.disabled>a:hover,.pt-cv-wrapper .pagination>.disabled>span,.pt-cv-wrapper .pagination>.disabled>span:focus,.pt-cv-wrapper .pagination>.disabled>span:hover{color:#777;background-color:#fff;border-color:#ddd;cursor:not-allowed}.pt-cv-wrapper .pagination-lg>li>a,.pt-cv-wrapper .pagination-lg>li>span{padding:10px 16px;font-size:18px;line-height:1.3333333}.pt-cv-wrapper .pagination-lg>li:first-child>a,.pt-cv-wrapper .pagination-lg>li:first-child>span{border-bottom-left-radius:6px;border-top-left-radius:6px}.pt-cv-wrapper .pagination-lg>li:last-child>a,.pt-cv-wrapper .pagination-lg>li:last-child>span{border-bottom-right-radius:6px;border-top-right-radius:6px}.pt-cv-wrapper .pagination-sm>li>a,.pt-cv-wrapper .pagination-sm>li>span{padding:5px 10px;font-size:12px;line-height:1.5}.pt-cv-wrapper .pagination-sm>li:first-child>a,.pt-cv-wrapper .pagination-sm>li:first-child>span{border-bottom-left-radius:3px;border-top-left-radius:3px}.pt-cv-wrapper .pagination-sm>li:last-child>a,.pt-cv-wrapper .pagination-sm>li:last-child>span{border-bottom-right-radius:3px;border-top-right-radius:3px}.pt-cv-wrapper .pt-cv-carousel{position:relative}.pt-cv-wrapper .pt-cv-carousel-indicators{position:absolute;bottom:10px;left:50%;z-index:15;width:60%;margin-left:-30%;padding-left:0;list-style:none;text-align:center}.pt-cv-wrapper .pt-cv-carousel-indicators li{display:inline-block;width:10px;height:10px;margin:1px;text-indent:-999px;border:1px solid #fff;border-radius:10px;cursor:pointer;background-color:transparent}.pt-cv-wrapper .pt-cv-carousel-indicators .active{margin:0;width:12px;height:12px;background-color:#fff}@media screen and (min-width:768px){.pt-cv-wrapper .pt-cv-carousel-indicators{bottom:20px}}.pt-cv-wrapper .pull-right{float:right!important}.pt-cv-wrapper .pull-left{float:left!important}.pt-cv-wrapper .hide{display:none!important}.pt-cv-wrapper .show{display:block!important}.pt-cv-wrapper .hidden{display:none!important}.pt-cv-wrapper h1,.pt-cv-wrapper h3{font-family:inherit;font-weight:500;line-height:1.1;color:inherit}.pt-cv-wrapper .pagination>li:first-child>a,.pt-cv-wrapper .pagination>li:first-child>span,.pt-cv-wrapper .pagination>li:last-child>a,.pt-cv-wrapper .pagination>li:last-child>span{border-radius:0}.pt-cv-wrapper [class*=pt-cv-] a{box-shadow:none}:root{--wp-internal-comment:"Placeholder for wp_hoist_late_printed_styles() to replace with the block styles printed at wp_footer."}:root{--wp-internal-comment:"Placeholder for wp_hoist_late_printed_styles() to replace with the global-styles printed at wp_footer."}fieldset.hidden-fields-container{display:none}.lyte-wrapper div,.lyte-wrapper-audio div{margin:0;overflow:hidden}.lyMe,.lyte{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background-color:#777}.fourthree .lyMe,.fourthree .lyte{padding-bottom:75%}.lidget{margin-bottom:5px}.lidget .lyte,.widget .lyMe{padding-bottom:0!important;height:100%!important}.lyte-wrapper-audio .lyte{height:38px!important;overflow:hidden;padding:0!important}.lyMe iframe,.lyte .pL,.lyte iframe{position:absolute!important;top:0;left:0;width:100%;height:100%!important;background:center no-repeat #000;background-size:cover;cursor:pointer}.tC{left:0;position:absolute;top:0;width:100%}.tC{background-image:linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,0))}.tT{color:#fff;font-family:Roboto,sans-serif;font-size:16px;height:auto;text-align:left;padding:5px 10px 50px}.play{background:no-repeat;width:88px;height:63px;position:absolute;left:43%;left:calc(50% - 44px);left:-webkit-calc(50% - 44px);top:38%;top:calc(50% - 31px);top:-webkit-calc(50% - 31px)}.widget .play{top:30%;top:calc(45% - 31px);top:-webkit-calc(45% - 31px);transform:scale(.6);-webkit-transform:scale(.6);-ms-transform:scale(.6)}.lyte:hover .play{background-position:0 -65px}.lyte-audio .pL{max-height:38px!important}.lyte-audio iframe{height:438px!important}.lyte .ctrl{background:0 -220px rgba(0,0,0,.3);width:100%;height:40px;bottom:0;left:0;position:absolute}.lyte-wrapper .ctrl{display:none}.Lctrl{background:0 -137px no-repeat;width:158px;height:40px;bottom:0;left:0;position:absolute}.Rctrl{background:-42px -179px no-repeat;width:117px;height:40px;bottom:0;right:0;position:absolute;padding-right:10px}.lyte-audio .play{display:none}.lyte-audio .ctrl{background-color:#000}.lyte .hidden{display:none}.lyte .Lctrl,.lyte .Rctrl,.lyte .ctrl,.lyte .play{background-image:var(--wpr-bg-be7861e4-6bc4-4179-bfc3-20a54315d418)}#lyte_S2MEv8XLgKo{background-image:var(--wpr-bg-fa62f083-741c-4f28-a3b3-1171cf4dc553)}#lyte_S2MEv8XLgKo.wyl-lazy{background-image:none;background-color:#ccc}.mobileimages{display:flex;flex-wrap:wrap;justify-content:space-around;gap:8px;width:100%}.banner-sctn{padding-top:80px;padding-bottom:80px;background:#f9f9f9}.banner-sctn .maintitle{font-weight:500;color:var(--primary);font-size:clamp(24px, 4vw, 54px)}.banner-sctn .one-col{text-align:center}.banner-sctn .one-col>p{max-width:1200px;color:var(--primary)}.banner-sctn{box-shadow:0 0 15px 0 rgba(0,0,0,.25)}@media (min-width:1025px){.banner-sctn .certified-badges{display:none}}.banner-sctn .certified-badges{padding:0}@media (max-width:500px){.banner-sctn{padding-bottom:40px;padding-left:20px;padding-right:20px}}.test-sctn{background:#e8e8e8;padding-top:80px;padding-bottom:80px}.test-sctn .maintitle{margin:0;font-family:sans-serif;font-weight:400;color:var(--red)}.test-sctn .section-wrap{align-items:center;max-width:none;gap:20px}.rvw-box{background:#fff;box-shadow:0 0 15px 0 rgba(0,0,0,.25);border-radius:5px;padding:30px;width:calc(33.33% - 14px)}.rvw-box p{margin:0}.rvw-box .rvw-bx{display:flex;align-items:center;gap:10px;margin-top:20px}.rvw-box div .name{color:var(--secondary)}section.section.test-sctn{overflow:hidden}.rvw-box{align-self:stretch;display:flex;flex-direction:column}.rvw-box div .name{max-width:250px}.rvw-box .rvw-bx{margin-top:auto}.rvw-box>p{margin-bottom:20px}.strs{color:#ffb300}.rvw-box .name{font-weight:700;color:var(--primary)}.rvw-box div .name span{display:block;font-size:12px}.rvw-box .rvw-bx{align-items:flex-end}.rvw-box details summary{margin-bottom:10px;font-weight:700;color:var(--red);display:flex;justify-content:space-between;border-bottom:1px solid var(--red);padding-bottom:6px;order:1;margin-top:10px}.rvw-box details summary:after{content:'+'}.rvw-box details[open] summary:after{content:'-'}details{display:flex;flex-direction:column}.vid-sctn .vid-col iframe{max-width:100%}.rvw-wrapper{column-count:3;column-gap:1.5rem}.rvw-box{display:inline-block;width:100%;margin-bottom:1.5rem;break-inside:avoid}.test-sctn-alt .rvw-wrapper{column-count:unset;display:flex;flex-wrap:wrap;column-gap:unset;gap:20px}.test-sctn-alt .rvw-wrapper .rvw-box{margin-bottom:0;width:calc(33.33% - 20px)}@media (max-width:1024px){.test-sctn .section-wrap{justify-content:center;column-gap:20px}}@media (max-width:800px){section.section.test-sctn{padding-top:50px;padding-bottom:50px}.vid-sctn .vid-col iframe{height:200px}.rvw-wrapper{column-count:2}.test-sctn-alt .rvw-wrapper .rvw-box{width:calc(50% - 20px)}}.rvw-wrapper{display:flex;flex-wrap:wrap;justify-content:center}@media(min-width:701px){.rvw-wrapper .rvw-box{width:45%}}.video-aalt-sctn{padding-top:80px;padding-bottom:80px}.video-aalt-sctn .txt-col{width:50%;padding-left:5%}.video-aalt-sctn .img-col{width:50%}.video-aalt-sctn .section-wrap{align-items:center}.video-aalt-sctn .txt-col .maintitle{color:var(--primary);font-size:clamp(29px, 4vw, 48px)}.video-aalt-sctn p{line-height:1.5;font-size:18px;color:var(--secondary)}@media (max-width:1024px){.video-aalt-sctn .img-col{max-width:360px;width:100%}.video-aalt-sctn .txt-col{width:100%;text-align:center;padding:0 15px}}@media (max-width:500px){.rvw-wrapper{column-count:1}.test-sctn-alt .rvw-wrapper .rvw-box{width:100%}.video-aalt-sctn .txt-col{padding:0}.video-aalt-sctn{padding-top:40px;padding-bottom:40px}}.areas-sctn{color:var(--primary);padding:80px 20px;box-shadow:0 0 15px 0 rgba(0,0,0,.25)}.areas-sctn .maintitle{font-size:clamp(28px, 4vw, 40px);font-family:var(--font-family--h3);display:flex;width:100%;align-items:center;gap:20px;font-weight:400}.areas-sctn .maintitle:after{content:'';flex-grow:1;background:var(--primary);height:2px}.links-inn{display:flex;flex-wrap:wrap;width:100%;gap:20px 5%;justify-content:center}.links-inn a{color:var(--primary);text-decoration:underline;font-size:18px;font-weight:700}@media (max-width:800px){.areas-sctn .maintitle:before{content:'';flex-grow:1;background:var(--primary);height:2px}.links-inn{justify-content:center}.areas-sctn .maintitle{text-align:center}.areas-sctn{padding-top:32px;padding-bottom:32px}}.vid-sctn{background:#d3d3d3;padding-bottom:50px;border-bottom:5px solid var(--red)}.vid-sctn .vid-col{width:43%;margin-top:-61px}.vid-sctn .titlecol{width:56%;padding-left:30px}.vid-sctn .section-wrap{align-items:center;justify-content:space-between}.vid-sctn .titlecol .maintitle{color:var(--secondary);font-size:clamp(30px, 3vw, 42px);margin:0}.banner-sctn{z-index:1}.vid-sctn .titlecol{padding:40px 30px;width:38%}.vid-sctn{padding-top:50px}.vid-sctn .vid-col{margin-top:0;width:60%}@media (max-width:800px){.vid-sctn .vid-col{width:100%;order:1;margin-top:30px;text-align:center}.vid-sctn .titlecol{width:100%;padding:0;text-align:center}section.section.vid-sctn{padding-top:40px}.vid-sctn .titlecol .maintitle{font-size:26px}}.bottom-form{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}.bottom-form input:not([type=submit]){background-color:transparent;border:none;border-bottom:2px solid var(--primary);max-width:100%;width:100%;min-height:43px;min-width:13px}span.wpcf7-not-valid-tip{font-size:12px}.bottom-form .wpcf7-form-control-wrap{max-width:100%;width:100%}.bottom-form textarea{height:98px;border:none;border-bottom:2px solid var(--primary);min-height:98px;background-color:var(--white)}.bottom-form .col-1 label,.bottom-form .col-2 label,.bottom-form .col-3 label,.bottom-form .col-4 label{display:none}.bottom-form .col-1,.bottom-form .col-2,.bottom-form .col-3{width:calc(33% - 8px);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}.bottom-form .col-4 .wpcf7-form-control-wrap,.bottom-form .col-5 .wpcf7-form-control-wrap{width:100%}.bottom-form .wpcf7-list-item label{display:flex;align-items:center}.bottom-form .wpcf7-radio{display:flex;gap:8px}.bottom-form .col-5{display:flex;justify-content:space-between;position:relative;text-align:left;width:100%;gap:4px;align-items:center}.bottom-form .col-5 .wpcf7-list-item.first{margin-left:0}.bottom-form .col-5 .wpcf7-list-item-label{font-size:14px}.bottom-form .wpcf7-spinner{position:absolute;right:0;top:0;bottom:0;margin:auto}.bottom-form .col-5 .bst-way>label{width:100%;display:block}.bottom-form .wpcf7-list-item{margin-left:4px}.bottom-form input[type=submit]{background-color:var(--primary);font-weight:700;text-transform:uppercase;min-width:fit-content}.bottom-form input[type=submit]:hover{background-color:var(--primary)}.bottom-form .col-4{width:100%}.bottom-form .bst-way{display:flex;gap:12px;align-items:center}.bottom-form{background:var(--primary);padding:36px 30px;color:#fff}.bottom-form input:not([type=submit]){background:#fff;border-color:var(--red);min-height:31px;padding:10px 13px}.bottom-form textarea{width:100%;font-family:var(--font-family--body);padding:10px}.bottom-form input[type=submit]{border:0;color:#fff;background:#fff;color:var(--primary);padding:6px 20px;border-radius:100px;font-weight:700}.bottom-form .bst-way{font-size:12px}.bottom-form .col-5 .wpcf7-list-item-label{font-size:12px}@media(max-width:500px){.bottom-form .col-5{flex-direction:column;text-align:center}.bottom-form .wpcf7-radio{justify-content:center}.bottom-form input[type=submit]{width:100%}.bottom-form .col-1,.bottom-form .col-2,.bottom-form .col-3{width:100%}.bottom-form .bst-way{gap:4px;flex-direction:column;align-items:center}}</style><link rel="preload" data-rocket-preload as="image" href="https://www.philsellsbiz.com/wp-content/uploads/2015/03/oldtown-scottsdale-art-district-150x150.jpg" fetchpriority="high">
+	<meta name="description" content="Call Scottsdale Business Broker Phil Reese Today At 480-707-7721 For Assistance With Selling or Buying A Scottsdale Business!" />
+	<link rel="canonical" href="https://www.philsellsbiz.com/scottsdale-business-broker/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Expert Business Broker of Scottsdale Phil Reese" />
+	<meta property="og:description" content="Call Scottsdale Business Broker Phil Reese Today At 480-707-7721 For Assistance With Selling or Buying A Scottsdale Business!" />
+	<meta property="og:url" content="https://www.philsellsbiz.com/scottsdale-business-broker/" />
+	<meta property="og:site_name" content="Phil Reese Sells Arizona Businesses" />
+	<meta property="article:publisher" content="https://www.facebook.com/philsellsbiz" />
+	<meta property="article:modified_time" content="2026-06-12T20:07:11+00:00" />
+	<meta property="og:image" content="https://www.philsellsbiz.com/wp-content/uploads/2021/02/scottsdale-business-broker.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="1200" />
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@philsellsbiz" />
+	<meta name="twitter:label1" content="Est. reading time" />
+	<meta name="twitter:data1" content="5 minutes" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebPage","@id":"https:\/\/www.philsellsbiz.com\/scottsdale-business-broker\/","url":"https:\/\/www.philsellsbiz.com\/scottsdale-business-broker\/","name":"Expert Business Broker of Scottsdale Phil Reese","isPartOf":{"@id":"https:\/\/www.philsellsbiz.com\/#website"},"primaryImageOfPage":{"@id":"https:\/\/www.philsellsbiz.com\/scottsdale-business-broker\/#primaryimage"},"image":{"@id":"https:\/\/www.philsellsbiz.com\/scottsdale-business-broker\/#primaryimage"},"thumbnailUrl":"https:\/\/www.philsellsbiz.com\/wp-content\/uploads\/2021\/02\/scottsdale-business-broker.jpg","datePublished":"2015-03-15T03:49:36+00:00","dateModified":"2026-06-12T20:07:11+00:00","description":"Call Scottsdale Business Broker Phil Reese Today At 480-707-7721 For Assistance With Selling or Buying A Scottsdale Business!","breadcrumb":{"@id":"https:\/\/www.philsellsbiz.com\/scottsdale-business-broker\/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https:\/\/www.philsellsbiz.com\/scottsdale-business-broker\/"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https:\/\/www.philsellsbiz.com\/scottsdale-business-broker\/#primaryimage","url":"https:\/\/www.philsellsbiz.com\/wp-content\/uploads\/2021\/02\/scottsdale-business-broker.jpg","contentUrl":"https:\/\/www.philsellsbiz.com\/wp-content\/uploads\/2021\/02\/scottsdale-business-broker.jpg","width":1200,"height":1200,"caption":"Would you like to sell your Scottsdale business? If so, I would highly recommend you use a Scottsdale Business Broker, that being me, because I know the area well and have sold many businesses in Scottsdale."},{"@type":"BreadcrumbList","@id":"https:\/\/www.philsellsbiz.com\/scottsdale-business-broker\/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"AZ Business Broker","item":"https:\/\/www.philsellsbiz.com\/"},{"@type":"ListItem","position":2,"name":"Scottsdale Business Broker"}]},{"@type":"WebSite","@id":"https:\/\/www.philsellsbiz.com\/#website","url":"https:\/\/www.philsellsbiz.com\/","name":"Phil Reese Sells Arizona Businesses","description":"Phoenix Arizona Business Broker","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https:\/\/www.philsellsbiz.com\/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-US"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="amphtml" href="https://www.philsellsbiz.com/scottsdale-business-broker/amp/" />
+<link rel="alternate" type="application/rss+xml" title="Phil Reese Sells Arizona Businesses &raquo; Feed" href="https://www.philsellsbiz.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Phil Reese Sells Arizona Businesses &raquo; Comments Feed" href="https://www.philsellsbiz.com/comments/feed/" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://www.philsellsbiz.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.philsellsbiz.com%2Fscottsdale-business-broker%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://www.philsellsbiz.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.philsellsbiz.com%2Fscottsdale-business-broker%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css"></style>
+
+
+<style id="classic-theme-styles-inline-css"></style>
+<style id="wp-block-styles-placeholder-inline-css"></style>
+<style id="wp-global-styles-placeholder-inline-css"></style>
+<style id="rocket-lazyload-inline-css">
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player:focus-within{outline: 2px solid currentColor;outline-offset: 5px;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:100%;width:100%;left:0;top:0;position:absolute;background:var(--wpr-bg-d9c4e91a-d8b7-440d-b191-3ccf69bf0db7) no-repeat center;background-color: transparent !important;cursor:pointer;border:none;}
+/*# sourceURL=rocket-lazyload-inline-css */
+</style>
+<script type="text/rocketlazyloadscript" id="jquery-core-js" data-rocket-src="https://www.philsellsbiz.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
+<script type="text/rocketlazyloadscript" id="jquery-migrate-js" data-rocket-src="https://www.philsellsbiz.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" data-rocket-defer defer></script>
+<script type="text/rocketlazyloadscript" data-minify="1" id="wp-customer-reviews-3-frontend-js" data-rocket-src="https://www.philsellsbiz.com/wp-content/cache/min/1/wp-content/plugins/wp-customer-reviews/js/wp-customer-reviews.js?ver=1781291795" data-rocket-defer defer></script>
+<link rel='shortlink' href='https://www.philsellsbiz.com/?p=273' />
+<!-- start Simple Custom CSS and JS -->
+<script type="text/rocketlazyloadscript" data-rocket-type="text/javascript">
+/* Default comment here */ 
+
+jQuery(document).ready(function( $ ){
+$( ".toggle-button" ).click(function() {
+  $( ".hide-sales" ).toggle();
+});
+});</script>
+<!-- end Simple Custom CSS and JS -->
+<link rel="icon" href="https://www.philsellsbiz.com/wp-content/uploads/2025/09/favicon-120x120.png" sizes="32x32" />
+<link rel="icon" href="https://www.philsellsbiz.com/wp-content/uploads/2025/09/favicon.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.philsellsbiz.com/wp-content/uploads/2025/09/favicon.png" />
+<meta name="msapplication-TileImage" content="https://www.philsellsbiz.com/wp-content/uploads/2025/09/favicon.png" />
+<style id="wp-custom-css"></style>
+<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript>		<!--<link rel="stylesheet" type="text/css" media="all" href="/style.css" />-->
+		<link rel="author" href="https://www.google.com/+PhilReeseAZ" /> <link rel="publisher" href="https://plus.google.com/+Philsellsbiz" />
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script type="text/rocketlazyloadscript" async data-rocket-src="https://www.googletagmanager.com/gtag/js?id=G-N1LP9PDFMD"></script>
+		<script type="text/rocketlazyloadscript">
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-N1LP9PDFMD');
+		</script>
+		<!-- Global site tag (gtag.js) - Google AdWords: 981238561 -->
+		<script type="text/rocketlazyloadscript" async data-rocket-src="https://www.googletagmanager.com/gtag/js?id=AW-981238561"></script>
+		<script type="text/rocketlazyloadscript">
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'AW-981238561');
+		</script>
+		<script type="text/rocketlazyloadscript">
+			gtag('config', 'AW-981238561/4piQCO34mH8QoYby0wM', {
+				'phone_conversion_number': '480-707-7721'
+			});
+		</script>
+		<script type="text/rocketlazyloadscript">
+			gtag('config', 'AW-981238561/VWq-CKD8mH8QoYby0wM', {
+				'phone_conversion_number': '480-428-8010'
+			});
+		</script>
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "FinancialService",
+			"@id": "https://www.philsellsbiz.com/#SouthPhoenix",
+			"url": "https://www.philsellsbiz.com/phoenix-business-broker/",
+			"sameAs": [
+				"https://twitter.com/philsellsbiz",
+				"https://www.facebook.com/philsellsbiz",
+				"https://www.youtube.com/@Philsellsbiz/",
+				"https://maps.app.goo.gl/cQrjjQRuW3YHYcp6A",
+				"https://www.yelp.com/biz/phil-reese-arizona-business-broker-phoenix-2"
+			],
+			"logo": "https://www.philsellsbiz.com/wp-content/uploads/2017/09/phil-reese-amp-long-logo.png",
+			"image": "https://www.philsellsbiz.com/wp-content/uploads/2023/11/gilbert-business-broker-phil-reese.jpg",
+			"name": "Phil Reese, Arizona Business Broker",
+			"legalName": "Phil Reese",
+			"description": "Sell your business with AZ Business Broker Phil Reese, a local AZ business broker with Offices In Phoenix & Scottsdale.",
+			"numberOfEmployees": {
+				"@type": "QuantitativeValue",
+				"value": 1
+			},
+			"priceRange": "$$$",
+			"openingHours": [
+				"Mo-Fr 08:00-20:00",
+				"Sa 08:00-20:00",
+				"Su 08:00-20:00"
+			],
+			"telephone": "+1-480-428-8010",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "4505 E Chandler Blvd #170-A",
+				"addressLocality": "Phoenix",
+				"addressRegion": "AZ",
+				"postalCode": "85048",
+				"addressCountry": "US"
+			},
+			"contactPoint": {
+				"@type": "ContactPoint",
+				"telephone": "+1-480-428-8010",
+				"contactType": "Customer Support",
+				"availableLanguage": ["English"]
+			},
+			"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "33.31588233209545",
+				"longitude": "-111.98929719095416"
+			},
+			"aggregateRating": {
+				"@type": "AggregateRating",
+				"bestRating": "5",
+				"worstRating": "1",
+				"ratingCount": "21",
+				"ratingValue": "5"
+			},
+			"makesOffer": [
+				{
+					"@type": "Offer",
+					"itemOffered": {
+						"@type": "Service",
+						"name": "Business Acquisitions"
+					}
+				},
+				{
+					"@type": "Offer",
+					"itemOffered": {
+						"@type": "Service",
+						"name": "Business Valuation"
+					}
+				},
+				{
+					"@type": "Offer",
+					"itemOffered": {
+						"@type": "Service",
+						"name": "Certified Business Intermediary"
+					}
+				},
+				{
+					"@type": "Offer",
+					"itemOffered": {
+						"@type": "Service",
+						"name": "Business Broker"
+					}
+				}
+			],
+			"department": [
+				{
+					"@type": "FinancialService",
+					"name": "Phil Reese | Scottsdale",
+					"@id": "https://www.philsellsbiz.com/#Scottsdale",
+					"url": "https://www.philsellsbiz.com/",
+					"sameAs": [
+						"https://www.facebook.com/philreeseSco/",
+						"https://maps.app.goo.gl/AzgRm8qdbDjUXUbR9",
+						"https://www.yelp.com/biz/phil-reese-arizona-business-broker-scottsdale-7"
+					],
+					"image": "https://www.philsellsbiz.com/wp-content/uploads/2023/11/gilbert-business-broker-phil-reese.jpg",
+					"telephone": "+1 480-707-7721",
+					"priceRange": "$$$",
+					"openingHours": [
+						"Mo-Su 08:00-20:00"
+					],
+					"address": {
+						"@type": "PostalAddress",
+						"streetAddress": "14350 N 87th St #180",
+						"addressLocality": "Scottsdale",
+						"addressRegion": "AZ",
+						"postalCode": "85260",
+						"addressCountry": "US"
+					},
+					"contactPoint": {
+						"@type": "ContactPoint",
+						"telephone": "+1 480-707-7721",
+						"contactType": "Customer Support",
+						"availableLanguage": ["English"]
+					},
+					"geo": {
+						"@type": "GeoCoordinates",
+						"latitude": "33.61613881316952",
+						"longitude": "-111.89485513144321"
+					},
+					"aggregateRating": {
+						"@type": "AggregateRating",
+						"bestRating": "5",
+						"worstRating": "1",
+						"ratingCount": "25",
+						"ratingValue": "5"
+					},
+					"areaServed": {
+						"@type": "AdministrativeArea",
+						"name": "Arizona"
+					},
+					"makesOffer": [
+						{
+							"@type": "Offer",
+							"itemOffered": {
+								"@type": "Service",
+								"name": "Business Acquisitions"
+							}
+						},
+						{
+							"@type": "Offer",
+							"itemOffered": {
+								"@type": "Service",
+								"name": "Business Valuation"
+							}
+						},
+						{
+							"@type": "Offer",
+							"itemOffered": {
+								"@type": "Service",
+								"name": "Certified Business Intermediary"
+							}
+						},
+						{
+							"@type": "Offer",
+							"itemOffered": {
+								"@type": "Service",
+								"name": "Business Broker"
+							}
+						}
+					]
+				},
+				{
+					"@type": "FinancialService",
+					"name": "Phil Reese | Phoenix",
+					"@id": "https://www.philsellsbiz/#Phoenix",
+					"url": "https://www.philsellsbiz.com/phoenix-business-broker/",
+					"sameAs": [
+						"https://www.facebook.com/philreesePh",
+						"https://www.youtube.com/@philreesearizonabusinessbr8096/",
+						"https://maps.app.goo.gl/QAxiYWhT3ziHwizu5"
+					],
+					"image": "https://www.philsellsbiz.com/wp-content/uploads/2023/11/gilbert-business-broker-phil-reese.jpg",
+					"telephone": "+1 480-493-4751",
+					"priceRange": "$$$",
+					"openingHours": [
+						"Mo-Su 08:00-20:00"
+					],
+					"address": {
+						"@type": "PostalAddress",
+						"streetAddress": "2355 E Utopia Rd Ste #100",
+						"addressLocality": "Phoenix",
+						"addressRegion": "AZ",
+						"postalCode": "85027",
+						"addressCountry": "US"
+					},
+					"contactPoint": {
+						"@type": "ContactPoint",
+						"telephone": "+1 480-493-4751",
+						"contactType": "Customer Support",
+						"availableLanguage": ["English"]
+					},
+					"geo": {
+						"@type": "GeoCoordinates",
+						"latitude": "33.66204137327958",
+						"longitude": "-112.11014026865283"
+					},
+					"aggregateRating": {
+						"@type": "AggregateRating",
+						"bestRating": "5",
+						"worstRating": "1",
+						"ratingCount": "1",
+						"ratingValue": "5"
+					},
+					"makesOffer": [
+						{
+							"@type": "Offer",
+							"itemOffered": {
+								"@type": "Service",
+								"name": "Certified Business Intermediary"
+							}
+						},
+						{
+							"@type": "Offer",
+							"itemOffered": {
+								"@type": "Service",
+								"name": "Business Broker"
+							}
+						},
+						{
+							"@type": "Offer",
+							"itemOffered": {
+								"@type": "Service",
+								"name": "Business Valuations"
+							}
+						},
+						{
+							"@type": "Offer",
+							"itemOffered": {
+								"@type": "Service",
+								"name": "Business Acquisitions"
+							}
+						}
+					]
+				}
+			]
+		}
+		</script>
+	<style id="rocket-lazyrender-inline-css">[data-wpr-lazyrender] {content-visibility: auto;}</style><style id="wpr-lazyload-bg-container"></style><style id="wpr-lazyload-bg-exclusion"></style>
+<noscript>
+<style id="wpr-lazyload-bg-nostyle">div.wpcr3_rating_style1_base{--wpr-bg-f1953d5a-8f66-460d-8b04-10fc866fc24f: url('https://www.philsellsbiz.com/wp-content/plugins/wp-customer-reviews/css/newstars.png');}div.wpcr3_rating_style1_average{--wpr-bg-17e2e5c1-a388-4d96-9ab9-c64b26952879: url('https://www.philsellsbiz.com/wp-content/plugins/wp-customer-reviews/css/newstars.png');}div.wpcr3_rating_style1_score{--wpr-bg-308a2e08-024b-4d53-bdcc-1667bbd06078: url('https://www.philsellsbiz.com/wp-content/plugins/wp-customer-reviews/css/newstars.png');}div.wpcr3_rating_style1_score div:hover{--wpr-bg-55d4dc0e-e4b1-47a2-b9a7-da68791ed87a: url('https://www.philsellsbiz.com/wp-content/plugins/wp-customer-reviews/css/newstars.png');}.lyte .Lctrl,.lyte .Rctrl,.lyte .ctrl,.lyte .play{--wpr-bg-be7861e4-6bc4-4179-bfc3-20a54315d418: url('https://www.philsellsbiz.com/wp-content/plugins/wp-youtube-lyte/lyte/lytesprite.png');}#lyte_S2MEv8XLgKo{--wpr-bg-fa62f083-741c-4f28-a3b3-1171cf4dc553: url('https://i.ytimg.com/vi/S2MEv8XLgKo/hqdefault.jpg');}.rll-youtube-player .play{--wpr-bg-d9c4e91a-d8b7-440d-b191-3ccf69bf0db7: url('https://www.philsellsbiz.com/wp-content/plugins/wp-rocket/assets/img/youtube.png');}</style>
+</noscript>
+<script type="application/javascript">const rocket_pairs = [{"selector":"div.wpcr3_rating_style1_base","style":"div.wpcr3_rating_style1_base{--wpr-bg-f1953d5a-8f66-460d-8b04-10fc866fc24f: url('https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-customer-reviews\/css\/newstars.png');}","hash":"f1953d5a-8f66-460d-8b04-10fc866fc24f","url":"https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-customer-reviews\/css\/newstars.png"},{"selector":"div.wpcr3_rating_style1_average","style":"div.wpcr3_rating_style1_average{--wpr-bg-17e2e5c1-a388-4d96-9ab9-c64b26952879: url('https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-customer-reviews\/css\/newstars.png');}","hash":"17e2e5c1-a388-4d96-9ab9-c64b26952879","url":"https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-customer-reviews\/css\/newstars.png"},{"selector":"div.wpcr3_rating_style1_score","style":"div.wpcr3_rating_style1_score{--wpr-bg-308a2e08-024b-4d53-bdcc-1667bbd06078: url('https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-customer-reviews\/css\/newstars.png');}","hash":"308a2e08-024b-4d53-bdcc-1667bbd06078","url":"https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-customer-reviews\/css\/newstars.png"},{"selector":"div.wpcr3_rating_style1_score div","style":"div.wpcr3_rating_style1_score div:hover{--wpr-bg-55d4dc0e-e4b1-47a2-b9a7-da68791ed87a: url('https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-customer-reviews\/css\/newstars.png');}","hash":"55d4dc0e-e4b1-47a2-b9a7-da68791ed87a","url":"https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-customer-reviews\/css\/newstars.png"},{"selector":".lyte .Lctrl,.lyte .Rctrl,.lyte .ctrl,.lyte .play","style":".lyte .Lctrl,.lyte .Rctrl,.lyte .ctrl,.lyte .play{--wpr-bg-be7861e4-6bc4-4179-bfc3-20a54315d418: url('https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-youtube-lyte\/lyte\/lytesprite.png');}","hash":"be7861e4-6bc4-4179-bfc3-20a54315d418","url":"https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-youtube-lyte\/lyte\/lytesprite.png"},{"selector":"#lyte_S2MEv8XLgKo","style":"#lyte_S2MEv8XLgKo{--wpr-bg-fa62f083-741c-4f28-a3b3-1171cf4dc553: url('https:\/\/i.ytimg.com\/vi\/S2MEv8XLgKo\/hqdefault.jpg');}","hash":"fa62f083-741c-4f28-a3b3-1171cf4dc553","url":"https:\/\/i.ytimg.com\/vi\/S2MEv8XLgKo\/hqdefault.jpg"},{"selector":".rll-youtube-player .play","style":".rll-youtube-player .play{--wpr-bg-d9c4e91a-d8b7-440d-b191-3ccf69bf0db7: url('https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-rocket\/assets\/img\/youtube.png');}","hash":"d9c4e91a-d8b7-440d-b191-3ccf69bf0db7","url":"https:\/\/www.philsellsbiz.com\/wp-content\/plugins\/wp-rocket\/assets\/img\/youtube.png"}]; const rocket_excluded_pairs = [];</script><meta name="generator" content="WP Rocket 3.21.3" data-wpr-features="wpr_lazyload_css_bg_img wpr_remove_unused_css wpr_delay_js wpr_defer_js wpr_minify_js wpr_lazyload_images wpr_lazyload_iframes wpr_preconnect_external_domains wpr_auto_preload_fonts wpr_automatic_lazy_rendering wpr_oci wpr_minify_css wpr_preload_links wpr_desktop" /></head>
+	<body class="wp-singular page-template page-template-remodel-2026 page-template-remodel-2026-php page page-id-273 wp-theme-newtheme" >
+		<div  id="mainwrapper-new">
+			<section  class="top-hdr">
+	<div  class="ctc-btn"><a href="/cdn-cgi/l/email-protection#33435b5a5f73435b5a5f40565f5f40515a491d505c5e"><svg width="16" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg><span><span class="__cf_email__" data-cfemail="14647c7d7854647c7d786771787867767d6e3a777b79">[email&#160;protected]</span></span></a></div>
+	<div  class="phn-btn"><a href="tel:+14807077721"><svg id="phone" viewBox="0 0 32 32" width="16" data-name="Layer 3"><path d="m30.035 22.6c-.082-.065-6.035-4.356-7.669-4.048-.78.138-1.226.67-2.121 1.735-.144.172-.49.584-.759.877a12.517 12.517 0 0 1 -1.651-.672 13.7 13.7 0 0 1 -6.321-6.321 12.458 12.458 0 0 1 -.672-1.651c.294-.27.706-.616.882-.764 1.06-.89 1.593-1.336 1.731-2.118.283-1.62-4.005-7.614-4.05-7.668a2.289 2.289 0 0 0 -1.705-.97c-1.738 0-6.7 6.437-6.7 7.521 0 .063.091 6.467 7.988 14.5 8.025 7.888 14.428 7.979 14.491 7.979 1.085 0 7.521-4.962 7.521-6.7a2.283 2.283 0 0 0 -.965-1.7z"></path></svg><span>480-707-7721 <span>Call | Text</span></span></a></div>
+</section>
+<header  class="hdr-main sticky">
+	<div  class="hdr-wrp">
+		<div class="hdr-col1">
+			<a href="/">
+				<img src="/wp-content/uploads/2026/05/Logo-Phill-Reese-MCBI-1.svg" alt="Phil Reese Logo" width="1022" height="204" class="alignnone size-full wp-image-5172"  role="img" />
+			</a>
+		</div>
+		<div class="hdr-col2">
+			<div class="certified-badges">
+				<div class="wth-svg">
+<svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1195.1 272"><g><path class="st0" d="M1195.4,0c.3,5.8-3.7,5.3-7.6,5.3H10C6,5.2,1,6.7.9,0h1194.5Z"/><path class="st0" d="M1.4,251.6h9.5c391.5,0,783,0,1174.5.1,3.1,0,8.6.7,8.8,1.8.9,5.5.5,11.2.2,16.8,0,.6-2.3,1.4-3.6,1.5-2.3.3-4.7.1-7.1.1H12.7c-.9,0-1.9-.1-2.8,0-6.8,1.1-9.5-1.7-8.6-8.5.5-3.5.1-7.1.1-11.8Z"/><path class="st0" d="M213.9,125.3c4.4,1.9,6.9,3.1,9.4,4.1,19.3,8.2,29.7,22.6,30.1,43.7.4,20.8-9.3,36.1-28.1,44.1-10.6,4.5-22.6,7.7-34.1,7.9-41.5,1-83.1.5-124.6.5-1.9,0-3.8-1.1-5.7-1.7,1.3-1.3,2.8-2.5,4-3.9,1.8-2.3,3.8-4.5,4.7-7.2.9-2.6.5-5.6.5-8.4,0-50.1.1-100.2-.1-150.3,0-6.6,2.4-14.9-8-17.1-.1,0-.1-3.5.8-4.1,1.1-.8,3.1-.6,4.8-.6,38.5.2,76.9.1,115.4.7,14.5.2,28.5,3.8,41.4,10.7,15.9,8.5,24.3,21.6,24.3,39.9-.1,17.9-9.7,29.3-25.1,36.8-2.6,1.4-5.1,2.6-9.7,4.9ZM146.9,193.4h0c10.2,0,20.3.5,30.4-.2,7.9-.6,16-1.9,23.4-4.6,10-3.6,15.2-11.9,15.2-22.5s-4.7-18.3-14.5-22.2c-5.2-2.1-10.8-4.1-16.3-4.3-23.8-.7-47.7-.7-71.5-1.2-5.2-.1-6.4,2.5-6.3,7,.1,13.6.2,27.3,0,40.9-.1,5.1,1.7,7.2,7,7.1,10.8-.1,21.7,0,32.6,0ZM147.5,108.9c9.2,0,18.4.3,27.6-.1,6.6-.3,13.2-.9,19.6-2.4,11.6-2.8,16.8-10.3,16.4-22.2-.5-12.3-8.8-20.4-23.9-20.9-24.5-.9-49-.7-73.6-1-4.6-.1-6.3,2-6.2,6.4.1,11,.2,22.1-.1,33.1-.1,5.6,2.3,7.4,7.6,7.2,10.9-.3,21.7-.1,32.6-.1Z"/><path class="st0" d="M413.6,125.8c3.1,1.4,5.6,2.5,8.1,3.6,19.5,8.4,29.9,23,29.9,44.5.1,21.2-10.3,36.2-29.4,44-10.3,4.2-21.8,7-32.9,7.2-41.3.9-82.6.5-123.9.4-2,0-4-1.4-6-2.1,1.5-1.2,3.3-2.3,4.4-3.8,1.8-2.5,4.1-5.2,4.4-8.1.7-5.6.3-11.3.3-16.9V53.5c0-6.6,1.7-14.3-8-16.3.4-1.6.3-3.5,1.2-4.6.7-.8,2.7-.4,4.1-.4,38,.1,76,.1,114,.6,15.2.2,29.9,3.7,43.4,11.1,15.9,8.8,24,22.2,23.6,40.4-.3,17.5-9.8,28.8-25,36.1-2.1,1-4.2,2.1-6.3,3.1-.4.4-.6.8-1.9,2.3ZM345.6,193.4h0c10.1,0,20.3.6,30.4-.2,8.1-.7,16.4-2.2,24-5,9.4-3.5,14.3-11.4,14.5-21.5.3-10-4.2-18-13.4-22.2-5.7-2.6-12.1-4.7-18.2-4.9-23.6-.8-47.1-.7-70.7-1.1-4.9-.1-6.6,2.1-6.6,6.8.1,13.9.1,27.7,0,41.6-.1,4.8,1.9,6.7,6.7,6.7,11.1-.3,22.2-.2,33.3-.2ZM345.6,108.9h0c9.7,0,19.4.6,29-.2,8.3-.7,16.9-2,24.7-4.9,8.5-3.2,10.7-11.2,10.3-19.8-.3-8-3.8-14.1-11.2-17.3-4.3-1.8-9-3.4-13.6-3.5-24.2-.6-48.5-.6-72.8-.9-4.4-.1-6.4,1.6-6.4,6.2.1,11.3.1,22.5,0,33.8-.1,4.8,1.9,6.8,6.7,6.7,11.1-.2,22.2-.1,33.3-.1Z"/><path class="st0" d="M492.7,225.8h-25.2c-6.6,0-13.2,0-19.8-.1-1.2,0-2.4-1-3.7-1.5.6-1.3,1.1-2.8,2-4,3.3-4.7,7.6-9,10-14.2,21.3-45.9,42.2-91.9,63.2-137.9,2.6-5.8,5.4-11.5,8-17.3,2-4.6,1.5-8.6-3.1-11.7-1.3-.9-1.9-2.8-2.8-4.3,1.6-.7,3.1-2,4.7-2,16-.1,32.1-.1,48.1,0,1.4,0,3.1,1,3.9,2,.4.5-.5,2.9-1.4,3.4-8.2,4.7-5.5,11.1-2.6,17.1,7.9,16.5,16.1,33,24.2,49.4,16.5,33.6,32.8,67.2,49.6,100.6,2.6,5.2,7.4,9.4,11.1,14.1,1.1,1.3,1.8,3,2.6,4.4-1.4.6-2.8,1.7-4.2,1.7-17,.1-34,.1-51,0-1.4,0-3-.9-4.1-1.9-.3-.3.6-2.7,1.5-3.4,4.2-3,3.7-7,2-10.8-4.4-9.6-9-19.2-14-28.5-1-1.9-4.6-3.3-6.9-3.4-25.7-.2-51.4-.2-77.2,0-2.5,0-6.2,1.8-7.3,3.9-4.7,8.7-8.7,17.7-12.9,26.7-2.4,5.2-3.2,10,3.2,13.1.7.5.9,1.8,2.1,4.6ZM512.2,151.4h66c-10.4-23.8-20.2-46.3-30-68.7-.9.1-1.8.2-2.7.2-10.9,22.5-21.8,44.9-33.3,68.5Z"/><path class="st0" d="M46.4,225.2H1.7c-.5-.5-1.1-1.1-1.6-1.6,12.4-3.7,9.7-13,9.7-21.1.1-50.6,0-101.1,0-151.7,0-5.5.4-11.1-6.6-13.2-.7-.2-1.6-2.4-1.5-2.6,1.1-.9,2.5-2.2,3.8-2.2,7.3-.2,14.6-.1,21.9-.1,5.2,0,10.4-.1,15.6.1,1.4.1,2.8,1.1,4.2,1.7-.7,1.3-1.6,2.5-2.2,3.9-1.6,3.2-4.3,6.4-4.4,9.6-.2,54.6-.3,109.1.1,163.7.1,4.1,3.4,8.3,5.7,13.5Z"/></g><g class="st1">   <path class="st0" d="M702.06,73.96v-36.27h5.09v36.27h-5.09Z"/>    <path class="st0" d="M746.24,73.96h-6.1l-18.78-29.72h-.2c.05.89.11,1.87.17,2.94.07,1.07.12,2.18.16,3.35.04,1.17.07,2.34.09,3.54v19.9h-4.66v-36.27h6.05l18.71,29.57h.17c-.03-.73-.07-1.63-.12-2.7-.05-1.07-.09-2.21-.14-3.41-.04-1.2-.06-2.34-.06-3.41v-20.05h4.71v36.27Z"/>    <path class="st0" d="M767.81,73.96h-5.11v-31.88h-11.02v-4.39h27.12v4.39h-10.99v31.88Z"/>    <path class="st0" d="M804.67,73.96h-20.37v-36.27h20.37v4.37h-15.28v10.79h14.37v4.32h-14.37v12.41h15.28v4.39Z"/>    <path class="st0" d="M822.59,37.69c3.06,0,5.59.38,7.58,1.13,1.99.75,3.48,1.89,4.45,3.42.98,1.53,1.46,3.47,1.46,5.82,0,1.85-.34,3.42-1.02,4.69-.68,1.27-1.57,2.32-2.67,3.13-1.1.81-2.28,1.45-3.54,1.91l10.15,16.18h-5.83l-8.83-14.84h-6.67v14.84h-5.09v-36.27h10ZM822.26,42.01h-4.59v12.88h4.94c2.86,0,4.95-.56,6.28-1.67s1.99-2.77,1.99-4.95-.7-3.87-2.11-4.83c-1.41-.95-3.57-1.43-6.5-1.43Z"/>    <path class="st0" d="M873.82,73.96h-6.1l-18.78-29.72h-.2c.05.89.11,1.87.17,2.94.07,1.07.12,2.18.16,3.35.04,1.17.07,2.34.09,3.54v19.9h-4.66v-36.27h6.05l18.71,29.57h.17c-.03-.73-.07-1.63-.12-2.7-.05-1.07-.09-2.21-.14-3.41-.04-1.2-.06-2.34-.06-3.41v-20.05h4.71v36.27Z"/>    <path class="st0" d="M906.15,73.96l-4.02-10.79h-14.22l-3.97,10.79h-5.28l13.84-36.42h5.21l13.77,36.42h-5.33ZM900.71,58.75l-3.82-10.69c-.12-.36-.29-.91-.53-1.64-.24-.73-.48-1.48-.72-2.26-.24-.78-.43-1.42-.58-1.94-.17.68-.36,1.39-.57,2.15-.21.75-.43,1.46-.63,2.11-.21.65-.38,1.18-.51,1.58l-3.87,10.69h11.24Z"/>    <path class="st0" d="M928.25,73.96h-5.11v-31.88h-11.02v-4.39h27.12v4.39h-10.99v31.88Z"/>    <path class="st0" d="M944.75,73.96v-36.27h5.09v36.27h-5.09Z"/>    <path class="st0" d="M991.45,55.78c0,2.8-.36,5.34-1.07,7.63-.71,2.29-1.77,4.26-3.16,5.9-1.4,1.65-3.14,2.92-5.24,3.81-2.09.89-4.54,1.34-7.33,1.34s-5.32-.45-7.43-1.34c-2.11-.89-3.86-2.17-5.25-3.82-1.39-1.65-2.43-3.63-3.11-5.93-.69-2.3-1.03-4.85-1.03-7.64,0-3.72.61-6.98,1.84-9.77,1.22-2.8,3.09-4.97,5.59-6.51,2.51-1.55,5.66-2.32,9.47-2.32s6.75.77,9.23,2.31c2.48,1.54,4.35,3.7,5.61,6.49,1.26,2.79,1.89,6.07,1.89,9.86ZM963.16,55.78c0,2.94.41,5.49,1.23,7.63.82,2.14,2.08,3.8,3.77,4.96s3.86,1.75,6.49,1.75,4.84-.58,6.52-1.75c1.69-1.17,2.93-2.82,3.72-4.96s1.19-4.69,1.19-7.63c0-4.47-.91-7.96-2.73-10.48-1.82-2.52-4.7-3.78-8.63-3.78-2.65,0-4.82.58-6.53,1.72-1.7,1.15-2.97,2.79-3.8,4.91-.83,2.13-1.24,4.67-1.24,7.63Z"/>
+    <path class="st0" d="M1028.69,73.96h-6.1l-18.78-29.72h-.2c.05.89.11,1.87.17,2.94.07,1.07.12,2.18.16,3.35.04,1.17.07,2.34.09,3.54v19.9h-4.66v-36.27h6.05l18.71,29.57h.17c-.03-.73-.07-1.63-.12-2.7-.05-1.07-.09-2.21-.14-3.41-.04-1.2-.06-2.34-.06-3.41v-20.05h4.71v36.27Z"/>
+    <path class="st0" d="M1061.01,73.96l-4.02-10.79h-14.22l-3.97,10.79h-5.28l13.84-36.42h5.21l13.77,36.42h-5.33ZM1055.58,58.75l-3.82-10.69c-.12-.36-.29-.91-.53-1.64-.24-.73-.48-1.48-.72-2.26-.24-.78-.43-1.42-.58-1.94-.17.68-.36,1.39-.57,2.15-.21.75-.43,1.46-.63,2.11-.21.65-.38,1.18-.51,1.58l-3.87,10.69h11.24Z"/>
+    <path class="st0" d="M1071.26,73.96v-36.27h5.09v31.86h15.75v4.42h-20.84Z"/>
+  </g>
+  <g class="st1">
+    <path class="st0" d="M702.06,105.69h10.52c4.61,0,8.09.68,10.42,2.03,2.33,1.36,3.5,3.68,3.5,6.97,0,1.41-.26,2.66-.77,3.77-.51,1.11-1.26,2.03-2.23,2.75-.98.73-2.17,1.22-3.6,1.49v.25c1.49.25,2.81.69,3.97,1.34,1.16.65,2.07,1.56,2.74,2.74s1,2.7,1,4.55c0,2.22-.52,4.1-1.56,5.64-1.04,1.55-2.52,2.72-4.43,3.52s-4.18,1.2-6.81,1.2h-12.75v-36.27ZM707.14,120.95h6.33c2.93,0,4.95-.48,6.08-1.44,1.12-.96,1.69-2.36,1.69-4.19s-.67-3.27-2.01-4.11c-1.34-.83-3.46-1.25-6.38-1.25h-5.71v10.99ZM707.14,125.14v12.53h6.92c2.99,0,5.11-.59,6.34-1.76,1.23-1.17,1.85-2.75,1.85-4.74,0-1.26-.28-2.34-.83-3.24-.55-.9-1.45-1.59-2.69-2.07-1.24-.48-2.91-.72-5.01-.72h-6.57Z"/>
+    <path class="st0" d="M763.17,105.69v23.47c0,2.55-.53,4.82-1.58,6.82-1.05,2-2.63,3.58-4.75,4.74-2.12,1.16-4.78,1.74-7.99,1.74-4.55,0-8.02-1.22-10.41-3.66-2.39-2.44-3.58-5.69-3.58-9.74v-23.37h5.11v23.17c0,3.06.77,5.37,2.3,6.92,1.53,1.55,3.81,2.33,6.83,2.33,2.08,0,3.79-.38,5.11-1.13,1.32-.75,2.3-1.82,2.94-3.2s.96-3.02.96-4.93v-23.17h5.06Z"/>
+    <path class="st0" d="M793.31,132.21c0,2.15-.53,3.99-1.6,5.52-1.07,1.53-2.57,2.7-4.5,3.51-1.94.81-4.23,1.22-6.9,1.22-1.34,0-2.62-.07-3.83-.21-1.22-.14-2.34-.34-3.39-.61s-1.99-.6-2.83-.99v-4.81c1.37.56,2.96,1.09,4.76,1.58,1.8.49,3.66.73,5.58.73,1.67,0,3.07-.23,4.21-.68s1.99-1.1,2.57-1.92.87-1.82.87-2.98-.28-2.13-.84-2.92c-.56-.79-1.45-1.51-2.67-2.17s-2.81-1.36-4.78-2.11c-1.37-.5-2.62-1.06-3.75-1.7-1.12-.64-2.1-1.37-2.92-2.2-.82-.83-1.45-1.8-1.9-2.92-.45-1.12-.67-2.4-.67-3.86,0-2,.49-3.71,1.48-5.14.98-1.42,2.36-2.51,4.13-3.26,1.77-.75,3.82-1.13,6.15-1.13,1.92,0,3.71.19,5.37.57s3.25.9,4.75,1.56l-1.61,4.22c-1.41-.58-2.82-1.05-4.24-1.41s-2.89-.55-4.42-.55c-1.41,0-2.59.21-3.56.62-.97.41-1.7,1-2.21,1.76s-.76,1.66-.76,2.7c0,1.17.26,2.15.79,2.93.53.78,1.37,1.48,2.51,2.11,1.14.63,2.63,1.3,4.47,2.01,2.07.79,3.83,1.64,5.27,2.53,1.45.89,2.55,1.97,3.31,3.23.76,1.26,1.14,2.85,1.14,4.76Z"/>
+    <path class="st0" d="M800.48,141.96v-36.27h5.09v36.27h-5.09Z"/>
+    <path class="st0" d="M844.67,141.96h-6.1l-18.78-29.72h-.2c.05.89.11,1.87.17,2.94.07,1.07.12,2.18.16,3.35.04,1.17.07,2.34.09,3.54v19.9h-4.66v-36.27h6.05l18.71,29.57h.17c-.03-.73-.07-1.63-.12-2.7-.05-1.07-.09-2.21-.14-3.41-.04-1.2-.06-2.34-.06-3.41v-20.05h4.71v36.27Z"/>
+    <path class="st0" d="M874.74,141.96h-20.37v-36.27h20.37v4.37h-15.28v10.79h14.37v4.32h-14.37v12.41h15.28v4.39Z"/>
+    <path class="st0" d="M903.37,132.21c0,2.15-.53,3.99-1.6,5.52-1.07,1.53-2.57,2.7-4.5,3.51-1.94.81-4.23,1.22-6.9,1.22-1.34,0-2.62-.07-3.83-.21-1.22-.14-2.34-.34-3.39-.61s-1.99-.6-2.83-.99v-4.81c1.37.56,2.96,1.09,4.76,1.58,1.8.49,3.66.73,5.58.73,1.67,0,3.07-.23,4.21-.68s1.99-1.1,2.57-1.92.87-1.82.87-2.98-.28-2.13-.84-2.92c-.56-.79-1.45-1.51-2.67-2.17s-2.81-1.36-4.78-2.11c-1.37-.5-2.62-1.06-3.75-1.7-1.12-.64-2.1-1.37-2.92-2.2-.82-.83-1.45-1.8-1.9-2.92-.45-1.12-.67-2.4-.67-3.86,0-2,.49-3.71,1.48-5.14.98-1.42,2.36-2.51,4.13-3.26,1.77-.75,3.82-1.13,6.15-1.13,1.92,0,3.71.19,5.37.57s3.25.9,4.75,1.56l-1.61,4.22c-1.41-.58-2.82-1.05-4.24-1.41s-2.89-.55-4.42-.55c-1.41,0-2.59.21-3.56.62-.97.41-1.7,1-2.21,1.76s-.76,1.66-.76,2.7c0,1.17.26,2.15.79,2.93.53.78,1.37,1.48,2.51,2.11,1.14.63,2.63,1.3,4.47,2.01,2.07.79,3.83,1.64,5.27,2.53,1.45.89,2.55,1.97,3.31,3.23.76,1.26,1.14,2.85,1.14,4.76Z"/>
+    <path class="st0" d="M931.26,132.21c0,2.15-.53,3.99-1.6,5.52-1.07,1.53-2.57,2.7-4.5,3.51-1.94.81-4.23,1.22-6.9,1.22-1.34,0-2.62-.07-3.83-.21-1.22-.14-2.34-.34-3.39-.61s-1.99-.6-2.83-.99v-4.81c1.37.56,2.96,1.09,4.76,1.58,1.8.49,3.66.73,5.58.73,1.67,0,3.07-.23,4.21-.68s1.99-1.1,2.57-1.92.87-1.82.87-2.98-.28-2.13-.84-2.92c-.56-.79-1.45-1.51-2.67-2.17s-2.81-1.36-4.78-2.11c-1.37-.5-2.62-1.06-3.75-1.7-1.12-.64-2.1-1.37-2.92-2.2-.82-.83-1.45-1.8-1.9-2.92-.45-1.12-.67-2.4-.67-3.86,0-2,.49-3.71,1.48-5.14.98-1.42,2.36-2.51,4.13-3.26,1.77-.75,3.82-1.13,6.15-1.13,1.92,0,3.71.19,5.37.57s3.25.9,4.75,1.56l-1.61,4.22c-1.41-.58-2.82-1.05-4.24-1.41s-2.89-.55-4.42-.55c-1.41,0-2.59.21-3.56.62-.97.41-1.7,1-2.21,1.76s-.76,1.66-.76,2.7c0,1.17.26,2.15.79,2.93.53.78,1.37,1.48,2.51,2.11,1.14.63,2.63,1.3,4.47,2.01,2.07.79,3.83,1.64,5.27,2.53,1.45.89,2.55,1.97,3.31,3.23.76,1.26,1.14,2.85,1.14,4.76Z"/>
+    <path class="st0" d="M951.63,105.69h10.52c4.61,0,8.09.68,10.42,2.03,2.33,1.36,3.5,3.68,3.5,6.97,0,1.41-.26,2.66-.77,3.77-.51,1.11-1.26,2.03-2.23,2.75-.98.73-2.17,1.22-3.6,1.49v.25c1.49.25,2.81.69,3.97,1.34,1.16.65,2.07,1.56,2.74,2.74s1,2.7,1,4.55c0,2.22-.52,4.1-1.56,5.64-1.04,1.55-2.52,2.72-4.43,3.52s-4.18,1.2-6.81,1.2h-12.75v-36.27ZM956.71,120.95h6.33c2.93,0,4.95-.48,6.08-1.44,1.12-.96,1.69-2.36,1.69-4.19s-.67-3.27-2.01-4.11c-1.34-.83-3.46-1.25-6.38-1.25h-5.71v10.99ZM956.71,125.14v12.53h6.92c2.99,0,5.11-.59,6.34-1.76,1.23-1.17,1.85-2.75,1.85-4.74,0-1.26-.28-2.34-.83-3.24-.55-.9-1.45-1.59-2.69-2.07-1.24-.48-2.91-.72-5.01-.72h-6.57Z"/>
+    <path class="st0" d="M994.77,105.69c3.06,0,5.59.38,7.58,1.13,1.99.75,3.48,1.89,4.45,3.42.98,1.53,1.46,3.47,1.46,5.82,0,1.85-.34,3.42-1.02,4.69-.68,1.27-1.57,2.32-2.67,3.13-1.1.81-2.28,1.45-3.54,1.91l10.15,16.18h-5.83l-8.83-14.84h-6.67v14.84h-5.09v-36.27h10ZM994.45,110.01h-4.59v12.88h4.94c2.86,0,4.95-.56,6.28-1.67s1.99-2.77,1.99-4.95-.7-3.87-2.11-4.83c-1.41-.95-3.57-1.43-6.5-1.43Z"/>
+    <path class="st0" d="M1048.51,123.78c0,2.8-.36,5.34-1.07,7.63-.71,2.29-1.77,4.26-3.16,5.9-1.4,1.65-3.14,2.92-5.24,3.81-2.09.89-4.54,1.34-7.33,1.34s-5.32-.45-7.43-1.34c-2.11-.89-3.86-2.17-5.25-3.82s-2.43-3.63-3.11-5.93c-.69-2.3-1.03-4.85-1.03-7.64,0-3.72.61-6.98,1.84-9.77,1.22-2.8,3.09-4.97,5.59-6.51,2.51-1.55,5.66-2.32,9.47-2.32s6.75.77,9.23,2.31c2.48,1.54,4.35,3.7,5.61,6.49,1.26,2.79,1.89,6.07,1.89,9.86ZM1020.23,123.78c0,2.94.41,5.49,1.23,7.63.82,2.14,2.08,3.8,3.77,4.96s3.86,1.75,6.49,1.75,4.84-.58,6.52-1.75c1.69-1.17,2.93-2.82,3.72-4.96s1.19-4.69,1.19-7.63c0-4.47-.91-7.96-2.73-10.48-1.82-2.52-4.7-3.78-8.63-3.78-2.65,0-4.82.58-6.53,1.72-1.7,1.15-2.97,2.79-3.8,4.91-.83,2.13-1.24,4.67-1.24,7.63Z"/>
+    <path class="st0" d="M1083.34,141.96h-5.93l-12.18-17.04-3.72,3.18v13.87h-5.09v-36.27h5.09v17.71c.84-.99,1.7-1.98,2.57-2.95.87-.98,1.73-1.96,2.59-2.95l10.4-11.81h5.83l-13.99,15.8,14.44,20.47Z"/>
+    <path class="st0" d="M1108.58,141.96h-20.37v-36.27h20.37v4.37h-15.28v10.79h14.37v4.32h-14.37v12.41h15.28v4.39Z"/>
+    <path class="st0" d="M1126.49,105.69c3.06,0,5.59.38,7.58,1.13,1.99.75,3.48,1.89,4.45,3.42.98,1.53,1.46,3.47,1.46,5.82,0,1.85-.34,3.42-1.02,4.69-.68,1.27-1.57,2.32-2.67,3.13-1.1.81-2.28,1.45-3.54,1.91l10.15,16.18h-5.83l-8.83-14.84h-6.67v14.84h-5.09v-36.27h10ZM1126.17,110.01h-4.59v12.88h4.94c2.86,0,4.95-.56,6.28-1.67s1.99-2.77,1.99-4.95-.7-3.87-2.11-4.83c-1.41-.95-3.57-1.43-6.5-1.43Z"/>
+    <path class="st0" d="M1169.11,132.21c0,2.15-.53,3.99-1.6,5.52-1.07,1.53-2.57,2.7-4.5,3.51-1.94.81-4.23,1.22-6.9,1.22-1.34,0-2.62-.07-3.83-.21-1.22-.14-2.34-.34-3.39-.61s-1.99-.6-2.83-.99v-4.81c1.37.56,2.96,1.09,4.76,1.58,1.8.49,3.66.73,5.58.73,1.67,0,3.07-.23,4.21-.68s1.99-1.1,2.57-1.92.87-1.82.87-2.98-.28-2.13-.84-2.92c-.56-.79-1.45-1.51-2.67-2.17s-2.81-1.36-4.78-2.11c-1.37-.5-2.62-1.06-3.75-1.7-1.12-.64-2.1-1.37-2.92-2.2-.82-.83-1.45-1.8-1.9-2.92-.45-1.12-.67-2.4-.67-3.86,0-2,.49-3.71,1.48-5.14.98-1.42,2.36-2.51,4.13-3.26,1.77-.75,3.82-1.13,6.15-1.13,1.92,0,3.71.19,5.37.57s3.25.9,4.75,1.56l-1.61,4.22c-1.41-.58-2.82-1.05-4.24-1.41s-2.89-.55-4.42-.55c-1.41,0-2.59.21-3.56.62-.97.41-1.7,1-2.21,1.76s-.76,1.66-.76,2.7c0,1.17.26,2.15.79,2.93.53.78,1.37,1.48,2.51,2.11,1.14.63,2.63,1.3,4.47,2.01,2.07.79,3.83,1.64,5.27,2.53,1.45.89,2.55,1.97,3.31,3.23.76,1.26,1.14,2.85,1.14,4.76Z"/>
+  </g>
+  <g class="st1">
+    <path class="st0" d="M724.68,208.74l-4.02-10.79h-14.22l-3.97,10.79h-5.28l13.84-36.42h5.21l13.77,36.42h-5.33ZM719.25,193.53l-3.82-10.69c-.12-.36-.29-.91-.53-1.64-.24-.73-.48-1.48-.72-2.26-.24-.78-.43-1.42-.58-1.94-.17.68-.36,1.39-.57,2.15-.21.75-.43,1.46-.63,2.11s-.38,1.18-.51,1.58l-3.87,10.69h11.24Z"/>
+    <path class="st0" d="M755.65,198.98c0,2.15-.53,3.99-1.6,5.52-1.07,1.53-2.57,2.7-4.5,3.51-1.94.81-4.23,1.22-6.9,1.22-1.34,0-2.62-.07-3.83-.21-1.22-.14-2.34-.34-3.39-.61s-1.99-.6-2.83-.99v-4.81c1.37.56,2.96,1.09,4.76,1.58,1.8.49,3.66.73,5.58.73,1.67,0,3.07-.23,4.21-.68s1.99-1.1,2.57-1.92.87-1.82.87-2.98-.28-2.13-.84-2.92c-.56-.79-1.45-1.51-2.67-2.17-1.22-.66-2.81-1.36-4.78-2.11-1.37-.5-2.62-1.06-3.75-1.7-1.12-.64-2.1-1.37-2.92-2.2-.82-.83-1.45-1.8-1.9-2.92-.45-1.12-.67-2.4-.67-3.86,0-2,.49-3.71,1.48-5.14.98-1.42,2.36-2.51,4.13-3.26,1.77-.75,3.82-1.13,6.15-1.13,1.92,0,3.71.19,5.37.57,1.66.38,3.25.9,4.75,1.56l-1.61,4.22c-1.41-.58-2.82-1.05-4.24-1.41-1.42-.36-2.89-.55-4.42-.55-1.41,0-2.59.21-3.56.62-.97.41-1.7,1-2.21,1.76s-.76,1.66-.76,2.7c0,1.17.26,2.15.79,2.93s1.37,1.48,2.51,2.11c1.14.63,2.63,1.3,4.47,2.01,2.07.79,3.83,1.64,5.27,2.53,1.45.89,2.55,1.97,3.31,3.23s1.14,2.84,1.14,4.76Z"/>
+    <path class="st0" d="M783.53,198.98c0,2.15-.53,3.99-1.6,5.52-1.07,1.53-2.57,2.7-4.5,3.51-1.94.81-4.23,1.22-6.9,1.22-1.34,0-2.62-.07-3.83-.21-1.22-.14-2.34-.34-3.39-.61s-1.99-.6-2.83-.99v-4.81c1.37.56,2.96,1.09,4.76,1.58,1.8.49,3.66.73,5.58.73,1.67,0,3.07-.23,4.21-.68s1.99-1.1,2.57-1.92.87-1.82.87-2.98-.28-2.13-.84-2.92c-.56-.79-1.45-1.51-2.67-2.17-1.22-.66-2.81-1.36-4.78-2.11-1.37-.5-2.62-1.06-3.75-1.7-1.12-.64-2.1-1.37-2.92-2.2-.82-.83-1.45-1.8-1.9-2.92-.45-1.12-.67-2.4-.67-3.86,0-2,.49-3.71,1.48-5.14.98-1.42,2.36-2.51,4.13-3.26,1.77-.75,3.82-1.13,6.15-1.13,1.92,0,3.71.19,5.37.57,1.66.38,3.25.9,4.75,1.56l-1.61,4.22c-1.41-.58-2.82-1.05-4.24-1.41-1.42-.36-2.89-.55-4.42-.55-1.41,0-2.59.21-3.56.62-.97.41-1.7,1-2.21,1.76s-.76,1.66-.76,2.7c0,1.17.26,2.15.79,2.93s1.37,1.48,2.51,2.11c1.14.63,2.63,1.3,4.47,2.01,2.07.79,3.83,1.64,5.27,2.53,1.45.89,2.55,1.97,3.31,3.23s1.14,2.84,1.14,4.76Z"/>
+    <path class="st0" d="M822.54,190.55c0,2.8-.36,5.34-1.07,7.63-.71,2.29-1.77,4.26-3.16,5.9-1.4,1.65-3.14,2.92-5.24,3.81-2.09.89-4.54,1.34-7.33,1.34s-5.32-.45-7.43-1.34c-2.11-.89-3.86-2.17-5.25-3.82s-2.43-3.63-3.11-5.93c-.69-2.3-1.03-4.85-1.03-7.64,0-3.72.61-6.98,1.84-9.78,1.22-2.79,3.09-4.97,5.59-6.51s5.66-2.32,9.47-2.32,6.75.77,9.23,2.31c2.48,1.54,4.35,3.7,5.61,6.49s1.89,6.07,1.89,9.86ZM794.25,190.55c0,2.94.41,5.49,1.23,7.63.82,2.14,2.08,3.8,3.77,4.96s3.86,1.75,6.49,1.75,4.84-.58,6.52-1.75c1.69-1.17,2.93-2.82,3.72-4.96s1.19-4.69,1.19-7.63c0-4.47-.91-7.96-2.73-10.48s-4.7-3.78-8.63-3.78c-2.65,0-4.82.58-6.53,1.72-1.7,1.15-2.97,2.79-3.8,4.91-.83,2.13-1.24,4.67-1.24,7.63Z"/>
+    <path class="st0" d="M845.93,176.33c-1.87,0-3.54.33-5.02.98-1.48.65-2.73,1.61-3.76,2.85-1.03,1.25-1.81,2.75-2.36,4.5-.55,1.75-.82,3.73-.82,5.93,0,2.93.43,5.46,1.3,7.59.87,2.13,2.18,3.78,3.93,4.94,1.75,1.16,3.96,1.74,6.62,1.74,1.59,0,3.11-.14,4.55-.43,1.45-.29,2.89-.67,4.33-1.13v4.37c-1.39.53-2.82.92-4.3,1.18-1.48.26-3.21.38-5.2.38-3.71,0-6.79-.77-9.24-2.31-2.46-1.54-4.29-3.7-5.5-6.49-1.21-2.79-1.81-6.07-1.81-9.86,0-2.75.38-5.26,1.14-7.53.76-2.27,1.88-4.24,3.35-5.9,1.47-1.66,3.28-2.94,5.42-3.85,2.14-.9,4.61-1.35,7.41-1.35,1.82,0,3.59.19,5.32.58s3.32.93,4.78,1.62l-1.89,4.24c-1.21-.55-2.5-1.03-3.88-1.44-1.38-.41-2.84-.62-4.38-.62Z"/>
+    <path class="st0" d="M862.56,208.74v-36.27h5.09v36.27h-5.09Z"/>
+    <path class="st0" d="M900.04,208.74l-4.02-10.79h-14.22l-3.97,10.79h-5.28l13.84-36.42h5.21l13.77,36.42h-5.33ZM894.61,193.53l-3.82-10.69c-.12-.36-.29-.91-.53-1.64-.24-.73-.48-1.48-.72-2.26-.24-.78-.43-1.42-.58-1.94-.17.68-.36,1.39-.57,2.15-.21.75-.43,1.46-.63,2.11s-.38,1.18-.51,1.58l-3.87,10.69h11.24Z"/>
+    <path class="st0" d="M922.15,208.74h-5.11v-31.88h-11.02v-4.39h27.12v4.39h-10.99v31.88Z"/>
+    <path class="st0" d="M938.65,208.74v-36.27h5.09v36.27h-5.09Z"/>
+    <path class="st0" d="M985.34,190.55c0,2.8-.36,5.34-1.07,7.63-.71,2.29-1.77,4.26-3.16,5.9-1.4,1.65-3.14,2.92-5.24,3.81-2.09.89-4.54,1.34-7.33,1.34s-5.32-.45-7.43-1.34c-2.11-.89-3.86-2.17-5.25-3.82s-2.43-3.63-3.11-5.93c-.69-2.3-1.03-4.85-1.03-7.64,0-3.72.61-6.98,1.84-9.78,1.22-2.79,3.09-4.97,5.59-6.51s5.66-2.32,9.47-2.32,6.75.77,9.23,2.31c2.48,1.54,4.35,3.7,5.61,6.49s1.89,6.07,1.89,9.86ZM957.06,190.55c0,2.94.41,5.49,1.23,7.63.82,2.14,2.08,3.8,3.77,4.96s3.86,1.75,6.49,1.75,4.84-.58,6.52-1.75c1.69-1.17,2.93-2.82,3.72-4.96s1.19-4.69,1.19-7.63c0-4.47-.91-7.96-2.73-10.48s-4.7-3.78-8.63-3.78c-2.65,0-4.82.58-6.53,1.72-1.7,1.15-2.97,2.79-3.8,4.91-.83,2.13-1.24,4.67-1.24,7.63Z"/>
+    <path class="st0" d="M1022.58,208.74h-6.1l-18.78-29.72h-.2c.05.89.11,1.87.17,2.94.07,1.07.12,2.18.16,3.35.04,1.17.07,2.34.09,3.54v19.9h-4.66v-36.27h6.05l18.71,29.57h.17c-.03-.73-.07-1.63-.12-2.7-.05-1.08-.09-2.21-.14-3.41-.04-1.2-.06-2.34-.06-3.41v-20.05h4.71v36.27Z"/>
+    <path class="st0" d="M1030.94,205.91c0-1.26.32-2.15.96-2.67.64-.52,1.41-.78,2.32-.78s1.71.26,2.36.78c.64.52.97,1.41.97,2.67s-.32,2.12-.97,2.68c-.65.56-1.43.84-2.36.84s-1.68-.28-2.32-.84c-.64-.56-.96-1.46-.96-2.68Z"/>
+  </g>
+  <g>
+    <path class="st0" d="M1063.9,190.5c0,7.1-5.8,13-13,13s-13-5.8-13-12.9,5.8-13,13-13c7.1-.1,13,5.7,13,12.9ZM1062.2,190.5c0-6.2-5-11.3-11.3-11.3s-11.4,5-11.4,11.3,5,11.4,11.3,11.4c6.3-.1,11.4-5.1,11.4-11.4Z"/>
+    <path class="st0" d="M1046.4,197.6v-14.1c.1,0,.1-.1.1-.1,1.9,0,3.8-.1,5.8,0,2.4.1,3.7,1.5,3.7,3.9,0,2.1-.8,3.2-3,4,2,1.6,2.6,4.1,3.9,6.3h-2.7c-.1,0-.3-.2-.4-.4-.8-1.4-1.6-2.8-2.4-4.3-.6-1.1-1.5-1.3-2.7-1.2v5.9c-.8,0-1.5,0-2.3,0ZM1048.8,189.3h3.2c1.1,0,1.6-.7,1.6-1.8s-.5-1.6-1.6-1.7h-3.2c0,1.2,0,2.4,0,3.5Z"/>
+  </g>
+</svg></div>
+				<div><img  src="/wp-content/uploads/2021/04/top-banner-logo-2.png" width="74" height="73" alt="AZBBA logo"></div>
+				<div><img src="/wp-content/uploads/2026/03/CBI-logo-2.png" alt="CBI Badge" width="164" height="162" class="alignnone size-full wp-image-4593" /></div>
+				<div><img src="/wp-content/uploads/2026/03/Top1Percent_Badge_2025-3.png" alt="" width="70" height="88" class="alignnone size-full wp-image-4590" /></div>
+				<div><img src="/wp-content/uploads/2026/03/MultiMillionDollarProducers_Badge_2025-3.png" alt="" width="80" height="80" class="alignnone size-full wp-image-4589" /></div>
+				<div class="west-usa"><img src="/wp-content/uploads/2026/05/west-usa.png" alt="" width="537" height="329" class="alignnone size-full wp-image-5153" /></div>
+				
+				
+			</div>
+			<div class="hdr-btns">
+				<div class="phn-btn">
+				<a href="tel:+14807077721"><span>480-707-7721</span></a>
+				<span class="blw-txt"><a href="tel:+14807077721">Call</a> | <a href="sms:+12223334444">Text</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div  class="hdr-col3">	
+			<details class="hamb-bars" id="hamb-bars">
+				<summary>
+				</summary>
+				<div class="hamb-menu" >
+					<div class="menu-menu-remodel-2026-container"><ul id="menu-menu-remodel-2026" class="menu"><li id="menu-item-5115" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-5115"><a href="https://www.philsellsbiz.com/">Home</a></li>
+<li id="menu-item-4447" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4447"><a href="https://www.philsellsbiz.com/about/">About Phil</a></li>
+<li id="menu-item-4448" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4448"><a href="https://www.philsellsbiz.com/what-is-a-cbi/">What Is A CBI?</a></li>
+<li id="menu-item-4449" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4449"><a href="https://www.philsellsbiz.com/business-sellers/">For Sellers</a></li>
+<li id="menu-item-4450" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4450"><a href="https://www.philsellsbiz.com/business-buyers/">For Buyers</a></li>
+<li id="menu-item-4451" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4451"><a href="https://www.philsellsbiz.com/testimonials/">Testimonials</a></li>
+<li id="menu-item-4452" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4452"><a href="https://www.philsellsbiz.com/listings/">Listings</a></li>
+<li id="menu-item-4453" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4453"><a href="https://www.philsellsbiz.com/blog/">Blog</a></li>
+<li id="menu-item-4454" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4454"><a href="https://www.philsellsbiz.com/faq/">FAQ</a></li>
+<li id="menu-item-4455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4455"><a href="https://www.philsellsbiz.com/contact/">Contact Phil</a></li>
+</ul></div>				</div>
+			</details>
+		</div>
+
+</header>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/rocketlazyloadscript" data-minify="1" data-rocket-src="https://www.philsellsbiz.com/wp-content/cache/min/1/wp-content/themes/newtheme/remodel/js/sticky-header.js?ver=1781291795" data-rocket-defer defer></script>
+<div  id="content">
+<div  id="leftcolumn">
+<style></style>
+<section class="section banner-sctn">
+	<div class="section-wrap">
+		<div class="one-col">
+			<h1 class="maintitle h1-style" style="text-transform: uppercase;margin-bottom:0">Call Scottsdale Business Broker Phil Reese When You Are Ready To Sell Your Scottsdale Business!</h1>
+			<p>Would you like to sell your Scottsdale business? If so, I would highly recommend you use a <strong><a href="/">Scottsdale Business Broker</a></strong>, that being me, because I know the area well and have sold many businesses in Scottsdale. Attempting to sell a business by yourself can be extremely risky. There are numerous legal issues to be managed when you <strong>sell your Scottsdale business</strong>, and if any of them are neglected, it can prove much more costly than the fee of hiring a Business Broker to begin with.</p>
+			<p>Discreetly marketing a business requires a great deal of expertise. That’s why when I advertise your business, your company’s name and address will not be disclosed until I’m certain I’m dealing with a serious buyer and then I require them to <a href="/sell-your-business/how-do-you-keep-the-sale-of-my-business-confidential/">sign a confidentiality agreement</a> before disclosing more information.</p>
+			<div class="mobileimages"><a href="/wp-content/uploads/2015/03/scottsdale-waterfront-district.jpg"><img decoding="async" class="alignleftnew" src="/wp-content/uploads/2015/03/scottsdale-waterfront-district-150x150.jpg" alt="Find out how we can help sell your Scottsdale waterfront business!" width="150" height="150" /></a><a href="/wp-content/uploads/2015/03/oldtown-scottsdale-art-district.jpg"><img fetchpriority="high" decoding="async" class="alignleftnew" src="/wp-content/uploads/2015/03/oldtown-scottsdale-art-district-150x150.jpg" alt="We specialize in helping Scottsdale residents sell their businesses!" width="150" height="150" /></a><a href="/wp-content/uploads/2015/03/camelback-mountain-scottsdale-az.jpg"><img decoding="async" class="alignleftnew" src="/wp-content/uploads/2015/03/camelback-mountain-scottsdale-az-150x150.jpg" alt="We provide expert services throughout Scottsdale, Arizona!" width="150" height="150" /></a><a href="/wp-content/uploads/2015/03/main-stree-oldtown-scottsdale-arizona.jpg"><img decoding="async" class="alignleftnew" src="/wp-content/uploads/2015/03/main-stree-oldtown-scottsdale-arizona-150x150.jpg" alt="Do you have a business on Main Street you are looking to sell?" width="150" height="150" /></a><a href="/wp-content/uploads/2015/03/waterfront-scottsdale-arizona-restaurants.jpg"><img decoding="async" class="alignleftnew" src="/wp-content/uploads/2015/03/waterfront-scottsdale-arizona-restaurants-150x150.jpg" alt="The Waterfront District of Downtown Scottsdale" width="150" height="150" /></a></div>
+			<p>Not only do I advertise locally, but all over the world. Over 50% of my business purchasers are from other states and many are from other countries. Buyers from other countries can obtain an E2 Visa by purchasing a business in the United States.</p>
+			<p>Another reason to hire me is I am a member and the Past Ethics Chairman of the Arizona Business Brokers Association and I am willing to co-broke with my fellow members. Some Scottsdale Business Brokers refuse to co-broke because they don’t want to share their commission. I believe my first duty is to my client and not to getting a bigger commission check. I am committed to selling my client’s business first and foremost.</p>
+		</div>
+	</div>
+</section>
+<section class="section test-sctn test-sctn-alt">
+	<div class="section-wrap">
+		<div class="rvw-wrapper">
+		<div class="rvw-box">
+			<p>My husband and I recently completed the sale of our business with Phil as our broker.  He was professional, knowledgeable and kept us informed every step of the process.  Phil treated us like family and always had our best interest top of mind.  Phil has a great sense of humor and shared many of his prior experiences/success stories with us which made us feel very comfortable.  We highly recommend Phil as a business broker.</p>
+			<div class="rvw-bx">
+				<p class="name"><span class="bold"><a href="https://maps.app.goo.gl/gayycSR8M3MVPYzo8" target="_blank" rel="noopener nofollow">Deirdre Marovich</a></span></p>
+				<span class="strs">★★★★★</span>
+			</div>
+		</div>
+		<div class="rvw-box">
+			<p>Working with Phil Reese was truly an exceptional experience! From the very first consultation to the final closing, Phil went above and beyond to make selling my business smooth, stress-free, and successful. His expertise in the Arizona market is unmatched — he knew exactly how to position my business to attract the right buyers and negotiated a deal that exceeded my expectations.  Phil is incredibly professional, responsive, and genuinely cares about his clients. He took the time to answer all my questions, kept me updated every step of the way, and always made me feel like a top priority. His honesty and integrity gave me complete peace of mind throughout the entire process.  If you are considering selling or buying a business in Arizona, I cannot recommend Phil Reese enough. He is hands down the best business broker out there — knowledgeable, dedicated, and a true partner you can trust. Thank you, Phil, for helping me achieve my goals and making this such a positive experience!</p>
+			<div class="rvw-bx">
+				<p class="name"><span class="bold"><a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pVd1p6QjVZbFJCVjI5elpFbDJTRGhJTVZWcVMwRRAB!2m1!1s0x0:0x777d85f1a062a70!3m1!1s2@1:CAIQACodChtycF9oOjUwZzB5YlRBV29zZEl2SDhIMVVqS0E%7C0cOkj1WiSBN%7C?hl=en-US" target="_blank" rel="noopener nofollow">Rickey Woolfolk</a></span></p>
+				<span class="strs">★★★★★</span>
+			</div>
+		</div>
+		<div class="rvw-box">
+			<p>When you want to sell your business, Phil Reese is the person to call. He is a Certified Business Intermediary which shows he has the education and skills to sell businesses. He has over 14 years of experience selling businesses. He has lots of testimonials from happy clients. He is located in Scottsdale.  Out of state Business Brokers can’t provide the same service as a local broker. He stays in contact with his clients during the listing period.</p>
+			<div class="rvw-bx">
+				<p class="name"><span class="bold"><a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSUNROGJqYkFREAE!2m1!1s0x0:0x777d85f1a062a70!3m1!1s2@1:CIHM0ogKEICAgICQ8bjbAQ%7CCgwI__ePuAUQwJKmiwM%7C?hl=en-US" target="_blank" rel="noopener nofollow">Jonothan Cruz</a></span></p>
+				<span class="strs">★★★★★</span>
+			</div>
+		</div>
+		</div>
+	</div>
+</section>
+
+  <style></style>
+<section class="section video-aalt-sctn">
+	<div class="section-wrap">
+		<div class="img-col">
+			<div class="lyte-wrapper" title="Proper Valuation of Your Scottsdale Business by Phil Reese" style="width:853px;max-width:100%;margin:5px;"><div class="lyMe" id="WYL_S2MEv8XLgKo" itemprop="video" itemscope itemtype="https://schema.org/VideoObject"><div><meta itemprop="thumbnailUrl" content="https://i.ytimg.com/vi/S2MEv8XLgKo/hqdefault.jpg" /><meta itemprop="embedURL" content="https://www.youtube.com/embed/S2MEv8XLgKo" /><meta itemprop="duration" content="PT40S" /><meta itemprop="uploadDate" content="2016-09-01T17:00:16Z" /></div><meta itemprop="accessibilityFeature" content="captions" /><div id="lyte_S2MEv8XLgKo" data-src="https://i.ytimg.com/vi/S2MEv8XLgKo/hqdefault.jpg" class="pL"><div class="tC"><div class="tT" itemprop="name">Proper Valuation of Your Scottsdale Business by Phil Reese</div></div><div class="play"></div><div class="ctrl"><div class="Lctrl"></div><div class="Rctrl"></div></div></div><noscript><a href="https://youtu.be/S2MEv8XLgKo" rel="nofollow"><img decoding="async" src="https://i.ytimg.com/vi/S2MEv8XLgKo/0.jpg" alt="Proper Valuation of Your Scottsdale Business by Phil Reese" width="853" height="460" /><br />Watch this video on YouTube</a></noscript><meta itemprop="description" content="Once you have made the difficult decision to sell your Scottsdale business, you should make sure you get the proper valuation so that you get what you are owed. Getting the proper selling price for your business is the key to making a profit on what you have worked so hard to build. It’s also important to know the value of your business because of emotional attachments and other factors. Meeting with a Certified Business Intermediary can help you sell your business the right way and for the right price. For more information about getting the proper valuation for your Scottsdale Business, consult with Phil Reese, CBI, or visit his website today: https://www.philsellsbiz.com/business-broker/proper-valuation-of-your-scottsdale-business-and-how-it-is-conducted/ Audio Transcript: When you decide to sell your business one of the first things that needs to be done is a proper business valuation. A valuation is the process of determining what the most probable selling price of your business would be in the current market. Phil Reese has the experience and qualifications to properly evaluate your business. Upon going over the financials of a business and gauging its profitability Phil Reese seeks to understand everything that makes your business tick. There are many things to take into consideration when selling a business. Luckily there’s Phil Reese. Don’t hesitate, call today at 480-707-7721 or go online to PhilSellsBiz.com. Phil Reese 480-707-7721 7077 E. Marilyn Road, Bldg. 4 Suite 130 Scottsdale, AZ 85254 http://www.philsellsbiz.com/ philreeseaz@gmail.com Connect with me: https://twitter.com/philsellsbiz https://www.facebook.com/philsellsbiz http://www.pinterest.com/philsellsbiz https://plus.google.com/+Philsellsbiz https://www.google.com/+PhilReeseAZ related pages: http://www.philsellsbiz.com http://www.philsellsbiz.com/phoenix-business-broker/ http://www.philsellsbiz.com/scottsdale-business-broker/ http://www.philsellsbiz.com/tempe-business-broker/ http://www.philsellsbiz.com/mesa-business-broker/ Video By: http://myfavoritewebdesigns.com/"></div></div><div class="lL" style="max-width:100%;width:853px;margin:5px;"></div>
+		</div>
+		<div class="txt-col">
+   			<p style="margin-bottom: 10px;">I personally see the economy improving and the business sales market getting stronger. I have numerous clients interested in purchasing a profitable business and Scottsdale is a very desirable location. The most profitable time to <em>sell your Scottsdale business</em> is when revenue and profits are up. Unfortunately, most business owners wait till their revenue and profits start going down before they call me. By then, it’s usually too late to sell.</p>
+			<p style="margin-bottom: 10px;">Just so you know, I have over 20 years’ experience in sales and marketing. In addition, I am one of only six Business Brokers in Arizona holding the Certified Business Intermediary (CBI) designation. The largest Business Broker trade group in the world, the International Business Brokers Association, grants the Certified Business Intermediary designation to Business Brokers who successfully complete the required education and then pass the mandatory testing proving they are proficient in facilitating the sale of businesses. The CBI designation assures you that a Business Broker is highly educated, up to date, and experienced in the process of selling businesses.</p>
+			<p style="margin-bottom: 10px;">If you would like to discuss the selling process and would like to see if you <a href="/business-broker/proper-valuation-of-your-scottsdale-business-and-how-it-is-conducted/">qualify for a FREE No-Obligation Valuation of your Scottsdale business</a>, contact me at 480-707-7721 or <a href="/cdn-cgi/l/email-protection#ccbca4a5a08cbca4a5a0bfa9a0a0bfaea5b6e2afa3a1"><span class="__cf_email__" data-cfemail="582830313418283031342b3d34342b3a3122763b3735">[email&#160;protected]</span></a>.</p>
+		</div>
+	</div>
+</section>
+<section class="section areas-sctn">
+	<div class="section-wrap">
+		<h3 class="maintitle">Arizona Service Areas</h3>
+		<div class="links-inn">
+			<li><a href="/phoenix-business-broker/">Phoenix Business Broker</a></li>
+			<li><a href="/scottsdale-business-broker/">Scottsdale Business Broker</a></li>
+			<li><a href="/tempe-business-broker/">Tempe Business Broker</a></li>
+			<li><a href="/mesa-business-broker/">Mesa Business Broker</a></li>
+			<li>And The Surrounding Areas</li>
+		</div>
+	</div>
+</section>
+<section class="section vid-sctn">
+	<div class="section-wrap">
+		<div class="vid-col">
+			
+<div class="wpcf7 no-js" id="wpcf7-f40-p273-o1" lang="en-US" dir="ltr" data-wpcf7-id="40">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="/scottsdale-business-broker/#wpcf7-f40-p273-o1" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init">
+<fieldset class="hidden-fields-container"><input type="hidden" name="_wpcf7" value="40" /><input type="hidden" name="_wpcf7_version" value="6.1.6" /><input type="hidden" name="_wpcf7_locale" value="en_US" /><input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f40-p273-o1" /><input type="hidden" name="_wpcf7_container_post" value="273" /><input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+</fieldset>
+<style></style>
+<div class="bottom-form">
+<div class="col-1">
+<label for="first-name-bt">Name</label>
+<span class="wpcf7-form-control-wrap" data-name="your-name-bt"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="first-name-bt" aria-required="true" aria-invalid="false" placeholder="Name*" value="" type="text" name="your-name-bt" /></span>
+</div>
+<div class="col-2">
+<label for="your-email-bt">Email</label>
+<span class="wpcf7-form-control-wrap" data-name="your-email-bt"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email" id="your-email-bt" aria-required="true" aria-invalid="false" placeholder="Email*" value="" type="email" name="your-email-bt" /></span>
+</div>
+<div class="col-3">
+<label for="your-phone-bt">Phone</label>
+<span class="wpcf7-form-control-wrap" data-name="your-phone-bt"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-tel wpcf7-text wpcf7-validates-as-tel" id="your-phone-bt" aria-invalid="false" placeholder="Phone" value="" type="tel" name="your-phone-bt" /></span>
+</div>
+<div class="col-4">
+<label for="your-message-bt">Your Message*</label>
+<span class="wpcf7-form-control-wrap" data-name="your-message-bt"><textarea cols="40" rows="10" maxlength="2000" minlength="20" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" id="your-message-bt" aria-required="true" aria-invalid="false" placeholder="Your Message*" name="your-message-bt"></textarea></span>
+</div>
+<div class="col-5">
+<div class="bst-way">
+<label>Best Way to Reply:</label>
+<span class="wpcf7-form-control-wrap" data-name="bst-way-bt"><span class="wpcf7-form-control wpcf7-radio"><span class="wpcf7-list-item first"><label><input type="radio" name="bst-way-bt" value="Email" checked="checked" /><span class="wpcf7-list-item-label">Email</span></label></span><span class="wpcf7-list-item"><label><input type="radio" name="bst-way-bt" value="Phone" /><span class="wpcf7-list-item-label">Phone</span></label></span><span class="wpcf7-list-item last"><label><input type="radio" name="bst-way-bt" value="Text" /><span class="wpcf7-list-item-label">Text</span></label></span></span></span>
+</div>
+<input class="wpcf7-form-control wpcf7-submit has-spinner" type="submit" value="Send" />
+</div>
+</div><div class="wpcf7-response-output" aria-hidden="true"></div>
+</form>
+</div>
+
+		</div>
+		<div class="titlecol">
+			<div>Phil Reese, CBI &#8211; Arizona Business Broker</div>
+			<em>West USA Realty</em>
+			14350 N. 87th St. Ste. 180 <br>
+			Scottsdale, AZ 85260.<br>
+			Cell : <a href="tel:+14807077721">480-707-7721</a><br>
+			Fax : <a href="tel:+14806074435">480-607-4435</a><br>
+			Email: <a href="/cdn-cgi/l/email-protection#5e2e3637321e2e3637322d3b32322d3c3724703d3133"><span class="__cf_email__" data-cfemail="ea9a828386aa9a828386998f868699888390c4898587">[email&#160;protected]</span></a><br>
+			Website: <a href="https://philsellsbiz.com">https://philsellsbiz.com</a><br>
+			<p>Servicing: Scottsdale, Arizona<br>
+			Your privacy is always important. Your information will not be shared, sold or exchanged with anyone else.</p>
+		</div>
+	</div>
+</section>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#business",
+		"name": "Phil Reese Business Broker"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Deirdre Marovich"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Professional Guidance Throughout the Business Sale Process",
+      "reviewBody": "My husband and I recently completed the sale of our business with Phil as our broker. He was professional, knowledgeable and kept us informed every step of the process. Phil treated us like family and always had our best interest top of mind. Phil has a great sense of humor and shared many of his prior experiences and success stories with us which made us feel very comfortable. We highly recommend Phil as a business broker.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://maps.app.goo.gl/gayycSR8M3MVPYzo8"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#business"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Rickey Woolfolk"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Exceptional Business Broker Experience in Arizona",
+      "reviewBody": "Working with Phil Reese was truly an exceptional experience. From the very first consultation to the final closing, Phil went above and beyond to make selling my business smooth, stress-free, and successful. His expertise in the Arizona market is unmatched. He knew exactly how to position my business to attract the right buyers and negotiated a deal that exceeded my expectations. Phil is incredibly professional, responsive, and genuinely cares about his clients. He took the time to answer all my questions, kept me updated every step of the way, and always made me feel like a top priority. His honesty and integrity gave me complete peace of mind throughout the entire process. If you are considering selling or buying a business in Arizona, I cannot recommend Phil Reese enough.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pVd1p6QjVZbFJCVjI5elpFbDJTRGhJTVZWcVMwRRAB!2m1!1s0x0:0x777d85f1a062a70!3m1!1s2@1:CAIQACodChtycF9oOjUwZzB5YlRBV29zZEl2SDhIMVVqS0E%7C0cOkj1WiSBN%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#business"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Jonothan Cruz"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Trusted Local Business Broker with Proven Expertise",
+      "reviewBody": "When you want to sell your business, Phil Reese is the person to call. He is a Certified Business Intermediary which shows he has the education and skills to sell businesses. He has over 14 years of experience selling businesses and many testimonials from satisfied clients. Being located in Scottsdale allows him to provide a level of service that out-of-state brokers cannot match. He stays in contact with his clients throughout the listing period and provides excellent support from start to finish.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSUNROGJqYkFREAE!2m1!1s0x0:0x777d85f1a062a70!3m1!1s2@1:CIHM0ogKEICAgICQ8bjbAQ%7CCgwI__ePuAUQwJKmiwM%7C?hl=en-US"
+    }
+  ]
+}
+</script></div>
+
+
+
+
+</div> <!-- end columns-->
+
+<footer data-wpr-lazyrender="1" class="main-footer">
+		<div  class="menu-footer">
+			<div class="menu-menu-remodel-2026-container"><ul id="menu-menu-remodel-2027" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-5115"><a href="https://www.philsellsbiz.com/">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4447"><a href="https://www.philsellsbiz.com/about/">About Phil</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4448"><a href="https://www.philsellsbiz.com/what-is-a-cbi/">What Is A CBI?</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4449"><a href="https://www.philsellsbiz.com/business-sellers/">For Sellers</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4450"><a href="https://www.philsellsbiz.com/business-buyers/">For Buyers</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4451"><a href="https://www.philsellsbiz.com/testimonials/">Testimonials</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4452"><a href="https://www.philsellsbiz.com/listings/">Listings</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4453"><a href="https://www.philsellsbiz.com/blog/">Blog</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4454"><a href="https://www.philsellsbiz.com/faq/">FAQ</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4455"><a href="https://www.philsellsbiz.com/contact/">Contact Phil</a></li>
+</ul></div>		</div>
+		<div  class="ftr-wrp">
+			<div class="ftr-col1">
+				<a href="/">
+					<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201621%20329'%3E%3C/svg%3E" alt="" width="1621" height="329" class="alignnone size-full wp-image-5174"  role="img" data-lazy-src="/wp-content/uploads/2026/05/Full-Logo-Phill-Reese-MCBI-1-1.svg" /><noscript><img src="/wp-content/uploads/2026/05/Full-Logo-Phill-Reese-MCBI-1-1.svg" alt="" width="1621" height="329" class="alignnone size-full wp-image-5174"  role="img" /></noscript>
+				</a>
+				<div class="social-links">
+					<div class="icon-item"><a href="https://www.youtube.com/c/Philsellsbiz" target="_blank"><svg height="64" viewBox="0 0 512 512" width="64" xmlns="http://www.w3.org/2000/svg" id="fi_1384012"><path d="m224.113281 303.960938 83.273438-47.960938-83.273438-47.960938zm0 0"></path><path d="m256 0c-141.363281 0-256 114.636719-256 256s114.636719 256 256 256 256-114.636719 256-256-114.636719-256-256-256zm159.960938 256.261719s0 51.917969-6.585938 76.953125c-3.691406 13.703125-14.496094 24.507812-28.199219 28.195312-25.035156 6.589844-125.175781 6.589844-125.175781 6.589844s-99.878906 0-125.175781-6.851562c-13.703125-3.6875-24.507813-14.496094-28.199219-28.199219-6.589844-24.769531-6.589844-76.949219-6.589844-76.949219s0-51.914062 6.589844-76.949219c3.6875-13.703125 14.757812-24.773437 28.199219-28.460937 25.035156-6.589844 125.175781-6.589844 125.175781-6.589844s100.140625 0 125.175781 6.851562c13.703125 3.6875 24.507813 14.496094 28.199219 28.199219 6.851562 25.035157 6.585938 77.210938 6.585938 77.210938zm0 0"></path></svg></a></div>
+					<div class="icon-item"><a href="https://www.linkedin.com/in/philreeseaz" target="_blank"><svg height="64" viewBox="0 0 512 512" width="64" xmlns="http://www.w3.org/2000/svg" id="fi_1384014"><path d="m256 0c-141.363281 0-256 114.636719-256 256s114.636719 256 256 256 256-114.636719 256-256-114.636719-256-256-256zm-74.390625 387h-62.347656v-187.574219h62.347656zm-31.171875-213.1875h-.40625c-20.921875 0-34.453125-14.402344-34.453125-32.402344 0-18.40625 13.945313-32.410156 35.273437-32.410156 21.328126 0 34.453126 14.003906 34.859376 32.410156 0 18-13.53125 32.402344-35.273438 32.402344zm255.984375 213.1875h-62.339844v-100.347656c0-25.21875-9.027343-42.417969-31.585937-42.417969-17.222656 0-27.480469 11.601563-31.988282 22.800781-1.648437 4.007813-2.050781 9.609375-2.050781 15.214844v104.75h-62.34375s.816407-169.976562 0-187.574219h62.34375v26.558594c8.285157-12.78125 23.109375-30.960937 56.1875-30.960937 41.019531 0 71.777344 26.808593 71.777344 84.421874zm0 0"></path></svg></a></div>
+					<div class="icon-item"><a href="https://www.facebook.com/pages/Phil-Reese-Arizona-Business-Broker/417372185078780" target="_blank"><svg title="Facebook" id="fi_1384005" enable-background="new 0 0 512 512" height="64" viewBox="0 0 512 512" width="64" xmlns="http://www.w3.org/2000/svg"><path d="m512 256c0-141.4-114.6-256-256-256s-256 114.6-256 256 114.6 256 256 256c1.5 0 3 0 4.5-.1v-199.2h-55v-64.1h55v-47.2c0-54.7 33.4-84.5 82.2-84.5 23.4 0 43.5 1.7 49.3 2.5v57.2h-33.6c-26.5 0-31.7 12.6-31.7 31.1v40.8h63.5l-8.3 64.1h-55.2v189.5c107-30.7 185.3-129.2 185.3-246.1z"></path></svg></a></div>
+					<div class="icon-item"><a href="https://www.yelp.com/biz/phil-reese-arizona-business-broker-scottsdale-3" target="_blank"><svg height="64" viewBox="0 0 176 176" width="64" xmlns="http://www.w3.org/2000/svg" id="fi_3670073"><g id="Layer_2" data-name="Layer 2"><g id="_29.yelp" data-name="29.yelp"><path id="icon" d="m88 0a88 88 0 1 0 88 88 88 88 0 0 0 -88-88zm-41 103.82a50.7 50.7 0 0 1 .07-10.21c.4-4.1 1.18-9.85 5.19-9.61 1 0 14.42 5.65 24.22 9.69 3.68 1.49 4 7.82-.32 9.14-.21.07-23.47 7.8-24.88 7.8-3.28-.19-4-3.53-4.28-6.81zm40.94 36.65a3.81 3.81 0 0 1 -3.07 2.44q-3.25.56-11-2.33c-4.73-1.77-12.19-4.7-10.6-9.28.6-1.5 11.05-13.71 16.61-20.43 2.58-3.31 8.56-1.2 8.38 3.08.03 1.05.07 25.4-.34 26.52zm-9.5-59.37-22.85-36.67a3.92 3.92 0 0 1 1.14-3.79c3.35-3.64 21.36-8.64 26.11-7.44a3.71 3.71 0 0 1 3 2.75c.28 1.81 2.47 36.53 2.77 42 .39 8.37-5.5 10.61-10.17 3.15zm18.26 6.13c.79-.8 14.16-20.16 15.64-21.16a3.72 3.72 0 0 1 3.93-.14c4 1.92 11.85 13.77 12.34 18.47a4.08 4.08 0 0 1 -1.61 3.84c-1.21.8-23.82 6.15-25.38 6.68l.06-.13c-3.86 1.02-7.58-4.04-4.98-7.56zm32.48 29.53c-.58 4.5-9.56 16-13.71 17.68a3.54 3.54 0 0 1 -3.8-.44c-1.08-.76-13.28-21.19-14-22.32-2.35-3.53 1.46-8.69 5.5-7.25 0 0 23.75 7.8 24.65 8.6a3.73 3.73 0 0 1 1.36 3.73z"></path></g></g></svg></a></div>
+					<div class="icon-item"><a href="https://maps.google.com/?cid=538136583464168048" target="_blank"><svg id="fi_10110386" height="64" viewBox="0 0 32 32" width="64" xmlns="http://www.w3.org/2000/svg"><g id="OUTLINE_copy_2"><g><path d="m16 0c-8.837 0-16 7.164-16 16s7.163 16 16 16c8.836 0 16-7.164 16-16s-7.163-16-16-16zm.173 24.596c-4.749 0-8.596-3.847-8.596-8.596s3.847-8.596 8.596-8.596c2.321 0 4.261.855 5.748 2.24l-2.423 2.423v-.005c-.902-.86-2.047-1.3-3.325-1.3-2.836 0-5.141 2.396-5.141 5.232s2.305 5.238 5.141 5.238c2.573 0 4.325-1.472 4.685-3.492h-4.685v-3.353h8.085c.107.574.166 1.177.166 1.805 0 4.912-3.288 8.404-8.251 8.404z"></path></g></g></svg></a></div>
+				</div>
+				<a href="https://www.bbb.org/us/az/scottsdale/profile/business-brokers/phil-reese-arizona-business-broker-1126-1000041576" target="_blank" class="bbb-logo">
+					<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20187%2047'%3E%3C/svg%3E" alt="BBB Accredited Business A+" width="187" height="47" class="alignnone size-full wp-image-1290" data-lazy-src="/wp-content/uploads/2018/03/BBB.png" /><noscript><img src="/wp-content/uploads/2018/03/BBB.png" alt="BBB Accredited Business A+" width="187" height="47" class="alignnone size-full wp-image-1290" /></noscript>
+				</a>
+			</div>
+						
+			<div class="addresses">
+				<h3 class="adr-title"><a href="/scottsdale-business-broker/">Phil Reese, Arizona Business Broker</a></h3>
+				<div class="contactinfo"><span>480-707-7721</span><br /><a href="/cdn-cgi/l/email-protection#17677f7e7b57677f7e7b64727b7b64757e6d3974787a"><span class="__cf_email__" data-cfemail="dcacb4b5b09cacb4b5b0afb9b0b0afbeb5a6f2bfb3b1">[email&#160;protected]</span></a></div>14350 N. 87th St., Ste. 180 <br />Scottsdale, AZ 85260
+				<br><div><a href="https://maps.app.goo.gl/QnK7Zak7uVcRkRK2A" target="_blank" rel="noopener">View Map</a> | <a href="https://www.google.com/maps/place/Phil+Reese,+Arizona+Business+Broker/@33.6153927,-111.8973442,17z/data=!4m6!3m5!1s0x872b741555a9a769:0x777d85f1a062a70!8m2!3d33.6153883!4d-111.8947693!16s%2Fg%2F11b7qv8nb5?entry=ttu" target="_blank" rel="noopener">Get Directions</a></div>
+			</div>
+			<div class="addresses">
+				<h3 class="adr-title"><a href="/phoenix-business-broker/" >Phil Reese, Arizona Business Broker</a></h3><div class="contactinfo"><span>480-428-8010</span><br /><a href="/cdn-cgi/l/email-protection#d6a6bebfba96a6bebfbaa5b3babaa5b4bfacf8b5b9bb"><span class="__cf_email__" data-cfemail="5c2c3435301c2c3435302f3930302f3e3526723f3331">[email&#160;protected]</span></a></div>
+				4505 E. Chandler Blvd. #170-A,<br />Phoenix, AZ 85048
+				<br><div><a href="https://www.google.com/maps/place/Phil+Reese,+Arizona+Business+Broker/@33.304201,-111.986351,15z/data=!4m2!3m1!1s0x0:0xd59527a5c7d15195?sa=X&ved=0ahUKEwiJ7rHgnovTAhXJhFQKHXiNCcAQ_BIIUzAK" target="_blank" rel="noopener">View Map</a> | <a href="https://www.google.com/maps/dir//Phil+Reese,+Arizona+Business+Broker,+4505+E.+Chandler+Blvd.+%23170-A,+Phoenix,+AZ+85048/@33.304201,-111.9885397,17z/data=!4m15!1m6!3m5!1s0x872b046f30d349df:0xd59527a5c7d15195!2sPhil+Reese,+Arizona+Business+Broker!8m2!3d33.304201!4d-111.986351!4m7!1m0!1m5!1m1!1s0x872b046f30d349df:0xd59527a5c7d15195!2m2!1d-111.986351!2d33.304201?hl=en-US" target="_blank" rel="noopener">Get Directions</a></div>
+			</div>
+			<div class="addresses">
+				<h3 class="adr-title"><a href="/mesa-business-broker/">Phil Reese, Arizona Business Broker</a></h3>
+				<div class="contactinfo"><span>480-702-3606</span><br /><a href="/cdn-cgi/l/email-protection#fe8e969792be8e9697928d9b92928d9c9784d09d9193"><span class="__cf_email__" data-cfemail="710119181d310119181d02141d1d0213180b5f121e1c">[email&#160;protected]</span></a></div>1640 S Stapley Dr #124, <br />Mesa, AZ 85204
+				<br><div><a href="https://maps.app.goo.gl/4LFyoJZJhWnvUtgH9" target="_blank" rel="noopener">View Map</a> | <a href="https://www.google.com/maps/dir//Phil+Reese,+Arizona+Business+Broker,+1640+S+Stapley+Dr+%23124,+Mesa,+AZ+85204,+Estados+Unidos/@33.383213,-111.810877,17z/data=!4m17!1m7!3m6!1s0x872ba9667a2eb073:0x5050683fa73067b5!2sPhil+Reese,+Arizona+Business+Broker!8m2!3d33.3832085!4d-111.8083021!16s%2Fg%2F11n414kh8q!4m8!1m0!1m5!1m1!1s0x872ba9667a2eb073:0x5050683fa73067b5!2m2!1d-111.8083021!2d33.3832085!3e4?entry=ttu&g_ep=EgoyMDI2MDIyNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Get Directions</a></div>
+			</div>
+			<div class="addresses">
+				<h3 class="adr-title"><a href="/phoenix-business-broker/" >Phoenix Business Broker</a></h3><div class="contactinfo"><span>480-493-4751</span><br /><a href="/cdn-cgi/l/email-protection#25554d4c4965554d4c495640494956474c5f0b464a48"><span class="__cf_email__" data-cfemail="f2829a9b9eb2829a9b9e81979e9e81909b88dc919d9f">[email&#160;protected]</span></a></div>
+				2355 E Utopia Rd Ste #100, <br />Phoenix, AZ 85027
+				<br><div><a href="https://maps.app.goo.gl/ZJnXdtEL4YGrsRMW7" target="_blank" rel="noopener">View Map</a> | <a href="https://www.google.com/maps/dir//2355+E+Utopia+Rd+%23100,+Phoenix,+AZ+85024,+EE.+UU./@33.6634477,-112.0351289,16z/data=!4m17!1m7!3m6!1s0x872b71ccefeb2fad:0x923837f5369dfba1!2s2355+E+Utopia+Rd+%23100,+Phoenix,+AZ+85024,+EE.+UU.!3b1!8m2!3d33.6624922!4d-112.031642!4m8!1m0!1m5!1m1!1s0x872b71ccefeb2fad:0x923837f5369dfba1!2m2!1d-112.031642!2d33.6624922!3e4?entry=ttu&g_ep=EgoyMDI2MDIyNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Get Directions</a></div>
+			</div>
+			<div class="copyright">©2026  Phil Reese, PLC | All Rights Reserved | <a href="/privacy-policy/">Privacy Policy</a> | <a href="/sitemap/">Sitemap</a> | <a href="https://myfavoritewebdesigns.com/" target="_blank">Design and SEO by My Favorite Web Designs</a></div>
+		</div>
+</footer>
+	<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/newtheme/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/rocketlazyloadscript" data-cfasync="false">var bU="https://www.philsellsbiz.com/wp-content/plugins/wp-youtube-lyte/lyte/";var mOs=navigator.userAgent.match(/(iphone|ipad|ipod|android)/i);style = document.createElement("style");style.type = "text/css";rules = document.createTextNode(".lyte-wrapper-audio div, .lyte-wrapper div {margin:0px; overflow:hidden;} .lyte,.lyMe{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background-color:#777;} .fourthree .lyMe, .fourthree .lyte {padding-bottom:75%;} .lidget{margin-bottom:5px;} .lidget .lyte, .widget .lyMe {padding-bottom:0!important;height:100%!important;} .lyte-wrapper-audio .lyte{height:38px!important;overflow:hidden;padding:0!important} .lyMe iframe, .lyte iframe,.lyte .pL{position:absolute !important;top:0;left:0;width:100%;height:100%!important;background:no-repeat scroll center #000;background-size:cover;cursor:pointer} .tC{left:0;position:absolute;top:0;width:100%} .tC{background-image:linear-gradient(to bottom,rgba(0,0,0,0.6),rgba(0,0,0,0))} .tT{color:#FFF;font-family:Roboto,sans-serif;font-size:16px;height:auto;text-align:left;padding:5px 10px 50px 10px} .play{background:no-repeat scroll 0 0 transparent;width:88px;height:63px;position:absolute;left:43%;left:calc(50% - 44px);left:-webkit-calc(50% - 44px);top:38%;top:calc(50% - 31px);top:-webkit-calc(50% - 31px);} .widget .play {top:30%;top:calc(45% - 31px);top:-webkit-calc(45% - 31px);transform:scale(0.6);-webkit-transform:scale(0.6);-ms-transform:scale(0.6);} .lyte:hover .play{background-position:0 -65px;} .lyte-audio .pL{max-height:38px!important} .lyte-audio iframe{height:438px!important} .lyte .ctrl{background:repeat scroll 0 -220px rgba(0,0,0,0.3);width:100%;height:40px;bottom:0px;left:0;position:absolute;} .lyte-wrapper .ctrl{display:none}.Lctrl{background:no-repeat scroll 0 -137px transparent;width:158px;height:40px;bottom:0;left:0;position:absolute} .Rctrl{background:no-repeat scroll -42px -179px transparent;width:117px;height:40px;bottom:0;right:0;position:absolute;padding-right:10px;}.lyte-audio .play{display:none}.lyte-audio .ctrl{background-color:rgba(0,0,0,1)}.lyte .hidden{display:none} .lyte-align.aligncenter{display:flex;flex-direction:column;align-items:center}.lyte-align.alignwide > *{width:auto !important}.lyte-align.alignfull > *{width:auto !important}");if(style.styleSheet) { style.styleSheet.cssText = rules.nodeValue;} else {style.appendChild(rules);}document.getElementsByTagName("head")[0].appendChild(style);</script><script type="text/rocketlazyloadscript" data-cfasync="false" async data-rocket-src="https://www.philsellsbiz.com/wp-content/plugins/wp-youtube-lyte/lyte/lyte-min.js?wyl_version=1.7.30"></script><script type="text/rocketlazyloadscript" async data-wp-strategy="async" fetchpriority="low" id="comment-reply-js" data-rocket-src="https://www.philsellsbiz.com/wp-includes/js/comment-reply.min.js?ver=7.0"></script>
+<script id="pt-cv-content-views-script-js-extra">
+var PT_CV_PUBLIC = {"_prefix":"pt-cv-","page_to_show":"5","_nonce":"ef3c1c41b4","is_admin":"","is_mobile":"","ajaxurl":"https://www.philsellsbiz.com/wp-admin/admin-ajax.php","lang":"","loading_image_src":"data:image/gif;base64,R0lGODlhDwAPALMPAMrKygwMDJOTkz09PZWVla+vr3p6euTk5M7OzuXl5TMzMwAAAJmZmWZmZszMzP///yH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCgAPACwAAAAADwAPAAAEQvDJaZaZOIcV8iQK8VRX4iTYoAwZ4iCYoAjZ4RxejhVNoT+mRGP4cyF4Pp0N98sBGIBMEMOotl6YZ3S61Bmbkm4mAgAh+QQFCgAPACwAAAAADQANAAAENPDJSRSZeA418itN8QiK8BiLITVsFiyBBIoYqnoewAD4xPw9iY4XLGYSjkQR4UAUD45DLwIAIfkEBQoADwAsAAAAAA8ACQAABC/wyVlamTi3nSdgwFNdhEJgTJoNyoB9ISYoQmdjiZPcj7EYCAeCF1gEDo4Dz2eIAAAh+QQFCgAPACwCAAAADQANAAAEM/DJBxiYeLKdX3IJZT1FU0iIg2RNKx3OkZVnZ98ToRD4MyiDnkAh6BkNC0MvsAj0kMpHBAAh+QQFCgAPACwGAAAACQAPAAAEMDC59KpFDll73HkAA2wVY5KgiK5b0RRoI6MuzG6EQqCDMlSGheEhUAgqgUUAFRySIgAh+QQFCgAPACwCAAIADQANAAAEM/DJKZNLND/kkKaHc3xk+QAMYDKsiaqmZCxGVjSFFCxB1vwy2oOgIDxuucxAMTAJFAJNBAAh+QQFCgAPACwAAAYADwAJAAAEMNAs86q1yaWwwv2Ig0jUZx3OYa4XoRAfwADXoAwfo1+CIjyFRuEho60aSNYlOPxEAAAh+QQFCgAPACwAAAIADQANAAAENPA9s4y8+IUVcqaWJ4qEQozSoAzoIyhCK2NFU2SJk0hNnyEOhKR2AzAAj4Pj4GE4W0bkJQIAOw=="};
+var PT_CV_PAGINATION = {"first":"\u00ab","prev":"\u2039","next":"\u203a","last":"\u00bb","goto_first":"Go to first page","goto_prev":"Go to previous page","goto_next":"Go to next page","goto_last":"Go to last page","current_page":"Current page is","goto_page":"Go to page"};
+//# sourceURL=pt-cv-content-views-script-js-extra
+</script>
+<script type="text/rocketlazyloadscript" data-minify="1" id="pt-cv-content-views-script-js" data-rocket-src="https://www.philsellsbiz.com/wp-content/cache/min/1/wp-content/plugins/content-views-query-and-display-post-page/public/assets/js/cv.js?ver=1781291795" data-rocket-defer defer></script>
+<script type="text/rocketlazyloadscript" id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+//# sourceURL=rocket-browser-checker-js-after
+</script>
+<script id="rocket-preload-links-js-extra">
+var RocketPreloadLinksConfig = {"excludeUris":"/(?:.+/)?feed(?:/(?:.+/?)?)?$|/(?:.+/)?embed/|/(index.php/)?(.*)wp-json(/.*|$)|/refer/|/go/|/recommend/|/recommends/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https://www.philsellsbiz.com","onHoverDelay":"100","rateThrottle":"3"};
+//# sourceURL=rocket-preload-links-js-extra
+</script>
+<script type="text/rocketlazyloadscript" id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+
+//# sourceURL=rocket-preload-links-js-after
+</script>
+<script id="rocket_lazyload_css-js-extra">
+var rocket_lazyload_css_data = {"threshold":"300"};
+//# sourceURL=rocket_lazyload_css-js-extra
+</script>
+<script id="rocket_lazyload_css-js-after">
+!function o(n,c,a){function u(t,e){if(!c[t]){if(!n[t]){var r="function"==typeof require&&require;if(!e&&r)return r(t,!0);if(s)return s(t,!0);throw(e=new Error("Cannot find module '"+t+"'")).code="MODULE_NOT_FOUND",e}r=c[t]={exports:{}},n[t][0].call(r.exports,function(e){return u(n[t][1][e]||e)},r,r.exports,o,n,c,a)}return c[t].exports}for(var s="function"==typeof require&&require,e=0;e<a.length;e++)u(a[e]);return u}({1:[function(e,t,r){"use strict";{const c="undefined"==typeof rocket_pairs?[]:rocket_pairs,a=(("undefined"==typeof rocket_excluded_pairs?[]:rocket_excluded_pairs).map(t=>{var e=t.selector;document.querySelectorAll(e).forEach(e=>{e.setAttribute("data-rocket-lazy-bg-"+t.hash,"excluded")})}),document.querySelector("#wpr-lazyload-bg-container"));var o=rocket_lazyload_css_data.threshold||300;const u=new IntersectionObserver(e=>{e.forEach(t=>{t.isIntersecting&&c.filter(e=>t.target.matches(e.selector)).map(t=>{var e;t&&((e=document.createElement("style")).textContent=t.style,a.insertAdjacentElement("afterend",e),t.elements.forEach(e=>{u.unobserve(e),e.setAttribute("data-rocket-lazy-bg-"+t.hash,"loaded")}))})})},{rootMargin:o+"px"});function n(){0<(0<arguments.length&&void 0!==arguments[0]?arguments[0]:[]).length&&c.forEach(t=>{try{document.querySelectorAll(t.selector).forEach(e=>{"loaded"!==e.getAttribute("data-rocket-lazy-bg-"+t.hash)&&"excluded"!==e.getAttribute("data-rocket-lazy-bg-"+t.hash)&&(u.observe(e),(t.elements||=[]).push(e))})}catch(e){console.error(e)}})}n(),function(){const r=window.MutationObserver;return function(e,t){if(e&&1===e.nodeType)return(t=new r(t)).observe(e,{attributes:!0,childList:!0,subtree:!0}),t}}()(document.querySelector("body"),n)}},{}]},{},[1]);
+//# sourceURL=rocket_lazyload_css-js-after
+</script>
+<script type="text/rocketlazyloadscript" id="wp-hooks-js" data-rocket-src="https://www.philsellsbiz.com/wp-includes/js/dist/hooks.min.js?ver=7496969728ca0f95732d"></script>
+<script type="text/rocketlazyloadscript" id="wp-i18n-js" data-rocket-src="https://www.philsellsbiz.com/wp-includes/js/dist/i18n.min.js?ver=781d11515ad3d91786ec"></script>
+<script type="text/rocketlazyloadscript" id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script type="text/rocketlazyloadscript" data-minify="1" id="swv-js" data-rocket-src="https://www.philsellsbiz.com/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=1781291795" data-rocket-defer defer></script>
+<script type="text/rocketlazyloadscript" id="contact-form-7-js-before">
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/www.philsellsbiz.com\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    },
+    "cached": 1
+};
+//# sourceURL=contact-form-7-js-before
+</script>
+<script type="text/rocketlazyloadscript" data-minify="1" id="contact-form-7-js" data-rocket-src="https://www.philsellsbiz.com/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/js/index.js?ver=1781291795" data-rocket-defer defer></script>
+<script>window.lazyLoadOptions=[{elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}},{elements_selector:".rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,}];window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.philsellsbiz.com/wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js"></script><script>function lazyLoadThumb(e,alt,l){var t='<img data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript><img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"></noscript>',a='<button class="play" aria-label="Play Youtube video"></button>';if(l){t=t.replace('data-lazy-','');t=t.replace('loading="lazy"','');t=t.replace(/<noscript>.*?<\/noscript>/g,'');}t=t.replace('alt=""','alt="'+alt+'"');return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.parentNode.dataset.query.length?"":"&"+this.parentNode.dataset.query;e.setAttribute("src",t.replace("ID",this.parentNode.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow","accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.parentNode.replaceChild(e,this.parentNode)}document.addEventListener("DOMContentLoaded",function(){var exclusions=[];var e,t,p,u,l,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)(e=document.createElement("div")),(u='https://i.ytimg.com/vi/ID/hqdefault.jpg'),(u=u.replace('ID',a[t].dataset.id)),(l=exclusions.some(exclusion=>u.includes(exclusion))),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query",a[t].dataset.query),e.setAttribute("data-src",a[t].dataset.src),(e.innerHTML=lazyLoadThumb(a[t].dataset.id,a[t].dataset.alt,l)),a[t].appendChild(e),(p=e.querySelector(".play")),(p.onclick=lazyLoadYoutubeIframe)});</script>	</body>
+</html>
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1781306082 -->

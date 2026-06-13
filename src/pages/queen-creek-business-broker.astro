@@ -1,0 +1,570 @@
+---
+/* -----------------------------------------------------------------------
+   Queen Creek Business Broker — faithful "close-enough" clone of
+   https://www.philsellsbiz.com/queen-creek-business-broker/
+   Body markup/copy verbatim from reference/_queen-creek-business-broker-body.html;
+   section CSS lifted verbatim from the live page's inlined used-CSS
+   (reference/_queen-creek-business-broker-sections.css + extras).
+   Sections in DOM order (11):
+     1. title-bar      — H1 band
+     2. top-banner     — subhead + photo + two intro text columns
+     3. test-sctn-alt  — reviews header + 6 review boxes
+     4. what-is-sctn   — "What Is A CBI?" text + img + 5 directory badges
+     5. video-sctn     — copy + valuation video + checklist
+     6. img-sctn-1     — "Is Now The Right Time" text + img
+     7. img-sctn-2     — "How We Evaluate" img + text
+     8. faq-sctn       — 7 FAQ <details> (dark maroon card)
+     9. lctn-sctn      — 5 neighborhood location cards
+    10. contact-sctn   — contact form + info column
+   Notes:
+   - Video rebuilt with the lite-youtube web component (videoid 75l7CluKwIg).
+   - Form reuses the homepage CF7 field names → /api/contact handler.
+   - JSON-LD @types match live: WebPage/ImageObject/BreadcrumbList +
+     FinancialService + FAQPage + Review graph (verbatim from live).
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL, replyMethods } from "../config/site";
+
+import webGraph from "../../reference/schema-queen-creek-business-broker-webgraph.json";
+import financialServiceSchema from "../../reference/schema-queen-creek-business-broker-financialservice.json";
+import faqPageSchema from "../../reference/schema-queen-creek-business-broker-faqpage.json";
+import reviewsGraph from "../../reference/schema-queen-creek-business-broker-reviews.json";
+
+/* Live <title> + meta description, verbatim */
+const pageTitle = "Top-Rated Business Broker in Queen Creek, AZ";
+const pageDescription =
+  "Get professional advice from an expert business broker in Queen Creek, AZ. Phil Reese specializes in dealing with commercial sales and negotiations.";
+
+const ogImage = `${SITE_URL}/images/queen-creek-business-broker/og-queen-creek.jpg`;
+
+const structuredData = [webGraph, financialServiceSchema, faqPageSchema, reviewsGraph];
+
+/* ---------- test-sctn-alt review boxes (verbatim) ---------- */
+const reviews = [
+  { name: "Santino DeFranco", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21weVp6RjJVM2t5Wm5KSlJYVlpYMUZqZW1kNU9WRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CAIQACodChtycF9oOmpyZzF2U3kyZnJJRXVZX1Fjemd5OVE%7C0dL4EeHNStH%7C?hl=en-US", text: "Phil is amazing! Ive purchased two of his listed companies now (well, one wasnt even listed yet), and he helped me through the process seamlessly. Easy to work with. Super knowledgeable. And has great connections (banks, escrow etc). I cannot recommend him highly enough." },
+  { name: "Jim J", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURxbU1iSDFBRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDqmMbH1AE%7CCgwIp_vihgYQiLjxhwM%7C?hl=en-US", text: "I would highly recommend Phil.  This is my first time selling (or buying) a business and Phil has been excellent.  He has walked me through compiling the correct information and then processing it in a manner that will lead to the best outcome for  my business." },
+  { name: "Kale Huycke", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURjaHNta1R3EAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDchsmkTw%7CCgwIhcz59gUQ-I3y3AE%7C?hl=en-US", text: "Phil was exceptional throughout the entire process. We highly recommend him to help sell or buy a small business." },
+  { name: "VICKI HANNA", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURjclpEblZnEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDcrZDnVg%7CCgwIjril9wUQ-MDEuQI%7C?hl=en-US", text: "In shopping around for a broker, Phil was the best fit for us. He is a good and kind man, and thoughtful.  He listens and he gets things done.  He was quick to take care of any needs we had and was not surprised when we got our full asking. All aspects of the sale were answered prayer.  We would use him again but retirement looks pretty good!" },
+  { name: "Bobby Pierce", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNmeF8yUXNnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICfx_2QsgE%7CCgwIstfYuwYQiMut5AI%7C?hl=en-US", text: "Phil is honest and trustworthy.  He quickly earned my trust with his professionalism, clear communication, and consistently excellent guidance.  He was instrumental in getting our deal done.  Highly recommend!" },
+  { name: "Lacey Kilfoyl", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSUN3aGJqVVhBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICwhbjUXA%7CCgwIpsjWzgUQwICyiQM%7C?hl=en-US", text: "Trustworthy, professional and hardworking." },
+];
+
+/* ---------- what-is-sctn directory badges (verbatim) ---------- */
+const dirBadges = [
+  { href: "https://www.google.com/maps/place/Phil+Reese,+Arizona+Business+Broker/@33.6204098,-111.9286278,15z/data=!4m5!3m4!1s0x0:0x777d85f1a062a70!8m2!3d33.6204098!4d-111.9286278", img: "dir-google-maps.png", alt: "Find Phil Reese Business Broker In Queen Creek On Google", target: "new", rel: "noopener noreferrer", title: undefined },
+  { href: "https://www.yelp.com/biz/phil-reese-arizona-business-broker-scottsdale-7", img: "dir-yelp.png", alt: "Find Phil Reese Business Broker In Queen Creek On Yelp", target: "new", rel: "noopener noreferrer", title: undefined },
+  { href: "https://www.bing.com/maps?q=Phil+Reese+Scottsdale&qs=n&form=QBLH&sp=-1&pq=phil+reese+scottsdale&sc=0-21&sk=&cvid=0A5BEE29D0DF4A4893F688B5083CC69A", img: "dir-bing.png", alt: "Find Phil Reese Business Broker In Queen Creek On Bing", target: "new", rel: "noopener noreferrer", title: undefined },
+  { href: "https://www.hotfrog.com/company/1099478479065088/phil-reese-arizona-business-broker/scottsdale/business-financial-services", img: "dir-hotfrog.png", alt: "Find Phil Reese Business Broker In Queen Creek On Hotfrog", target: "_blank", rel: "noopener noreferrer", title: "Local Glendale Business Broker on Hotfrog" },
+  { href: "http://www.manta.com/c/mx61w9v/phil-reese-arizona-business-broker", img: "dir-manta.png", alt: "Find Phil Reese Business Broker In Queen Creek On Manta", target: "_blank", rel: "noopener noreferrer", title: "Local Glendale Business Broker on Manta" },
+];
+
+/* ---------- video-sctn checklist (verbatim) ---------- */
+const checklist = [
+  "Seasoned Broker For Big And Small Businesses",
+  "Skilled Business Broker For Online Companies",
+  "Certified Business Intermediary For Franchise Businesses",
+  "Business Broker Experienced In Beauty & Hair Salons Sales",
+  "Sell Or Buy Contracting Companies With The Help Of A CBI ",
+  "Highly Qualified Broker For Manufacturing Companies",
+];
+
+/* ---------- faq-sctn (verbatim; some answers have 2 paragraphs) ---------- */
+const faqs = [
+  { q: "What Paperwork Is Needed To Sell A Business In Queen Creek?", a: ["Selling a business requires organized documentation. Typically, you’ll need financial statements, tax records, a list of assets, lease agreements, employee details, and any relevant licenses. The better your paperwork is prepared, the smoother the process will go. A local broker can help ensure everything aligns with Queen Creek and Arizona requirements."] },
+  { q: "How Long Does It Usually Take To Sell A Small Business?", a: ["The timeframe varies depending on the business type, market demand, and how ready your documentation is. Some businesses find buyers quickly, while others take longer due to industry specifics or negotiation stages. Working with an experienced broker helps streamline the timeline and avoids unnecessary delays."] },
+  { q: "What Factors Are Used To Determine A Business’s Value?", a: ["A business’s value is based on several elements, including its financial performance, customer base, operational stability, and position in the market. In Queen Creek, local competition, community demographics, and broader economic conditions also influence valuation. Industry trends, future growth potential, and how reliant the business is on the owner’s involvement can further impact the final estimate provided by a professional business broker."] },
+  { q: "What Are The Key Steps To List A Company For Sale?", a: ["The process starts with a full assessment of the business to ensure it’s ready and properly valued. From there, key documents such as tax records, leases, and contracts are gathered, a confidential marketing plan is developed, and the business is discreetly introduced to vetted buyers. The broker manages buyer inquiries, coordinates meetings, handles paperwork, and supports negotiations through to a successful closing."] },
+  { q: "What Information Do Buyers Look For Before Making An Offer?", a: ["Before making an offer, serious buyers want to understand your business inside and out. They’ll review financial statements, daily operations, employee structure, customer retention, and any active contracts or leases. They also want to know why you’re selling.", "Your business broker will guide you through gathering and presenting this information clearly and professionally."] },
+  { q: "Will I Owe Taxes After Selling My Business In Arizona?", a: ["Tax obligations depend on how your business is structured and the nature of the sale. While we don’t offer legal or tax advice, we strongly recommend working with a local accountant or tax professional in Arizona to understand what applies in your situation. We can also help coordinate with your financial team during the sale."] },
+  { q: "How Much Time And Effort Is Involved In The Selling Process?", a: ["Selling a business does take commitment. From preparing documents to answering buyer questions and negotiating terms, the process can be detailed. That’s why working with a knowledgeable Queen Creek broker is so valuable. We handle the heavy lifting so you can stay focused on your business."] },
+];
+
+/* ---------- lctn-sctn neighborhood cards (verbatim) ---------- */
+const locations = [
+  { img: "location-1.jpg", alt: "Business Broker For Companies in Hasting Farms", title: "Looking To Sell Your Company In Hastings Farms?", sub: "Let’s Talk!", body: "We understand the unique character of businesses in Hastings Farms. Our team offers the best guidance to help you prepare, value, and confidentially list your company!" },
+  { img: "location-2.jpg", alt: "Business Broker For Companies in Montelena", title: "Thinking Of Exiting Your Business In Montelena?", sub: "Reach Out Today!", body: "When it’s time to step away from your Montelena business, count on us. We provide expert guidance, and support you through every phase of the sale." },
+  { img: "location-3.jpg", alt: "Business Broker For Companies in Cortina", title: "Need A Discreet Sale In Cortina?", sub: "We Handle It With Full Confidentiality", body: "Selling your business doesn’t have to draw attention. We specialize in discreet sales across Cortina, protecting your privacy while connecting you with serious, qualified buyers." },
+  { img: "location-4.jpg", alt: "Business Broker For Companies in Emperor Estates", title: "Ready To List Your Business In Emperor Estates?", sub: "Call Now For A Consultation", body: "We can create a plan to position your Emperor Estates business for the best possible sale! We’ll guide you with honesty, keeping your needs and goals in mind." },
+  { img: "location-5.jpg", alt: "Business Broker For Companies in Villages", title: "Interested In Buying A Business In Villages At Queen Creek?", sub: "Contact Us", body: "Looking for a discreet sale because you don’t want to draw attention? Don’t worry. We’ll protect your privacy and connect you with serious, qualified buyers." },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/queen-creek-business-broker/"
+  ogImage={ogImage}
+  ogImageAlt="Phil Reese, CBI Queen Creek Business Broker"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.css"
+  />
+  <script
+    slot="head"
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.js"
+    defer></script>
+
+  <!-- 1. title-bar -->
+  <section class="section title-bar">
+    <div class="section-wrap">
+      <h1 class="maintitle h1-style">Top-Rated Queen Creek Business Broker</h1>
+    </div>
+  </section>
+
+  <!-- 2. top-banner -->
+  <section class="top-banner section">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h2 class="subtitle">Call Phil Reese When You’re Ready to Sell Your Business in Queen Creek</h2>
+        <hr />
+      </div>
+      <div class="img-col">
+        <img fetchpriority="high" decoding="async" src="/images/queen-creek-business-broker/Queen-Creek.jpg" alt="Phil Reese, CBI Queen Creek Business Broker" width="400" height="250" class="alignnone size-full" />
+      </div>
+      <div class="text-col-1">
+        <p>If you’re considering selling your business in Queen Creek, it’s important to weigh several key factors before moving forward. You’ll want to evaluate current market conditions, clarify your reasons for selling, understand your business’s true market value, and develop a solid plan for what comes next.</p>
+        <p>Working with an experienced Queen Creek business broker like Phil Reese can give you the clarity and guidance needed to make the right decision at the right time.</p>
+      </div>
+      <div class="text-col-2">
+        <p>Phil Reese is a trusted and experienced business broker who knows the Queen Creek market and understands what it takes to sell a business successfully. With a history of five-star client reviews and proven results, Phil offers more than just brokerage services. He provides honest guidance, clear communication, and support throughout every step of the selling process.</p>
+        <p>Unlike brokers who focus only on closing deals, Phil takes the time to understand your goals and whether selling is truly the right move for you. His expertise, training, and deep knowledge of the local market make him especially qualified to value and market your Queen Creek business the right way.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. test-sctn-alt — reviews -->
+  <section class="section test-sctn test-sctn-alt">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="subtitle h3-style">Read Reviews From Our Clients</h3>
+        <h4 class="h4-style">Queen Creek Business Broker With 5-Star Rated Reviews</h4>
+      </div>
+      <div class="google-col">
+        <svg id="XMLID_1_" xmlns="http://www.w3.org/2000/svg" width="156.629" height="51.349" viewBox="0 0 156.629 51.349"><path d="M38.522,18.218H20.235v5.419H33.188c-.635,7.62-6.985,10.837-12.954,10.837A14.263,14.263,0,0,1,5.927,20.038,14.259,14.259,0,0,1,20.235,5.518a14.1,14.1,0,0,1,9.779,3.937l3.81-3.937A19.3,19.3,0,0,0,20.065.1,20.194,20.194,0,0,0,0,19.911,20.2,20.2,0,0,0,20.362,39.892c10.668,0,18.457-7.323,18.457-18.118a17.8,17.8,0,0,0-.3-3.556Z" transform="translate(0 -0.1)" fill="#4285f4"/><path d="M108.769,33.6A12.806,12.806,0,1,0,121.6,46.427c.042-8.466-6.646-12.827-12.827-12.827Zm.085,5.038c3.683,0,7.2,2.963,7.2,7.789a7.381,7.381,0,0,1-7.2,7.747c-4.064,0-7.323-3.26-7.323-7.789,0-4.445,3.175-7.747,7.323-7.747Z" transform="translate(-55.303 -19.419)" fill="#ea4335"/><path d="M174.969,33.6A12.806,12.806,0,1,0,187.8,46.427c0-8.466-6.689-12.827-12.827-12.827Zm.042,5.038c3.683,0,7.2,2.963,7.2,7.789a7.381,7.381,0,0,1-7.2,7.747c-4.064,0-7.323-3.26-7.323-7.789a7.4,7.4,0,0,1,7.323-7.747Z" transform="translate(-93.48 -19.419)" fill="#fbbc05"/><path d="M240.676,33.6c-6.9,0-12.276,6.011-12.276,12.784a12.639,12.639,0,0,0,12.192,12.827,8.516,8.516,0,0,0,7.027-3.09v2.54c0,4.4-2.667,7.069-6.731,7.069a7.133,7.133,0,0,1-6.561-4.572l-4.911,2.074c1.736,3.683,5.249,7.535,11.514,7.535,6.858,0,12.065-4.318,12.065-13.335V34.362h-5.376v2.159a9.41,9.41,0,0,0-6.943-2.921Zm.466,5.038c3.387,0,6.858,2.879,6.858,7.789,0,5-3.471,7.747-6.9,7.747-3.683,0-7.069-2.963-7.069-7.7-.042-4.911,3.514-7.831,7.112-7.831Z" transform="translate(-131.713 -19.419)" fill="#4285f4"/><path d="M326.438,33.5c-6.477,0-11.938,5.165-11.938,12.784a12.4,12.4,0,0,0,12.573,12.869,12.942,12.942,0,0,0,10.71-5.63l-4.445-2.963a7.13,7.13,0,0,1-6.265,3.514,6.57,6.57,0,0,1-6.265-3.895l17.187-7.069-.889-2.074A11.613,11.613,0,0,0,326.438,33.5Zm.254,4.953a5.082,5.082,0,0,1,4.741,2.752l-11.472,4.784c-.508-3.725,3.006-7.535,6.731-7.535Z" transform="translate(-181.365 -19.361)" fill="#ea4335"/><path d="M295.2,40.86h5.63V3.1H295.2Z" transform="translate(-170.235 -1.83)" fill="#34a853"/></svg>
+        <div>
+          <p>Over 60 reviews</p>
+          <span>5.0 <span class="strs">★★★★★</span></span>
+        </div>
+      </div>
+      <div class="rvw-wrapper">
+        {reviews.map((r) => (
+          <div class="rvw-box">
+            <p>{r.text}</p>
+            <div class="rvw-bx">
+              <p class="name"><span class="bold"><a href={r.url} target="_blank" rel="noopener nofollow">{r.name}</a></span></p>
+              <span class="strs">★★★★★</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. what-is-sctn -->
+  <section class="what-is-sctn section">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle">What Is A Certified Business Intermediary?</h3>
+        <hr />
+      </div>
+      <div class="text-col">
+        <p>A Certified Business Intermediary (CBI) is a business broker who has completed advanced training and passed exams through the International Business Brokers Association (IBBA). The certification requires over 60 hours of coursework and demonstrates a solid understanding of how to value, market, and sell businesses the right way.</p>
+        <p>The CBI designation helps ensure you’re working with someone who’s not just experienced, but also fully equipped to guide you through a smooth, successful sale.</p>
+        <p>Working with a Certified Business Intermediary (CBI) means you&#8217;re partnering with someone who’s committed to doing things the right way, someone who takes your goals as seriously as their own. If you&#8217;re thinking about selling your business, let&#8217;s talk. I’ll walk you through what to expect, and answer your questions.</p>
+      </div>
+      <div class="img-col">
+        <img decoding="async" src="/images/queen-creek-business-broker/what-is-a-cbi.jpg" alt="Queen Creek Certified Business Intermediary" width="393" height="224" class="alignnone size-full" loading="lazy" />
+      </div>
+      <div class="badge-col">
+        {dirBadges.map((b) => (
+          <a href={b.href} target={b.target} rel={b.rel} title={b.title}>
+            <img decoding="async" style="box-shadow: 0px 0px 0px;" src={`/images/queen-creek-business-broker/${b.img}`} alt={b.alt} width="95" height="95" class="alignnone size-full" loading="lazy" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. video-sctn -->
+  <section class="section video-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle">Professional Business Broker Providing Services Near Queen Creek</h3>
+        <hr />
+        <p>If you&#8217;re looking to sell your business in Queen Creek, Phil Reese is a proven business broker with the experience and local market knowledge to help you succeed. As one of the top sales agents at West USA Realty, Phil offers professional guidance backed by a trusted name in Arizona real estate. West USA Realty has been helping business owners since 1986, with strong exposure across the Phoenix metro area, including Queen Creek and surrounding communities.</p>
+        <p>Phil and his team understand how to accurately value a business and position it for a successful sale. From the initial consultation to marketing and negotiation, you’ll receive honest advice, clear communication, and expert support every step of the way. Contact Phil Reese today to learn how he can help you sell your Queen Creek business with confidence.</p>
+      </div>
+      <div class="video-col">
+        <div class="lyte-wrapper" style="width:853px;max-width:100%;margin:5px;">
+          <lite-youtube
+            videoid="75l7CluKwIg"
+            title="Phil Reese CBI-Arizona Business Broker"
+            style="background-image:url('/images/queen-creek-business-broker/yt-75l7CluKwIg.jpg');"
+          >
+            <a href="https://youtu.be/75l7CluKwIg" class="lite-yt-fallback" rel="nofollow">Watch this video on YouTube</a>
+          </lite-youtube>
+        </div>
+      </div>
+      <div class="list-col">
+        <h4 class="subtitle">What Can A Local Business Broker With Experience Do For You</h4>
+        <ul class="list-checks">
+          {checklist.map((item) => <li><h5>{item}</h5></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. img-sctn-1 — Is Now The Right Time -->
+  <section class="img-sctn img-sctn-1 section">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle">Is Now The Right Time To Sell Your Queen Creek Business?</h3>
+        <hr />
+      </div>
+      <div class="text-col">
+        <p>Selling a business is a big decision, and for many owners in Queen Creek, it marks the start of an exciting new chapter. Whether you’re planning for retirement, thinking about a career shift, or simply exploring new opportunities, timing plays a key role in getting the best outcome. Strong market conditions, solid financials, and growing buyer interest can all work in your favor—especially when you have the right guidance. A knowledgeable broker can help you navigate the process with confidence and ensure that your business is represented in the best possible light.</p>
+      </div>
+      <div class="img-col">
+        <img decoding="async" src="/images/queen-creek-business-broker/right-time-to-sell.jpg" alt="Business Broker Explaining Right Time To Sell A Business in Queen Creek" width="410" height="373" class="alignnone size-full" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. img-sctn-2 — How We Evaluate -->
+  <section class="img-sctn img-sctn-2 section">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle">How We Evaluate The Value Of Your Queen Creek Business</h3>
+        <h4 class="subtitle">A Closer Look At Business Valuation For Queen Creek Companies</h4>
+        <hr />
+      </div>
+      <div class="img-col">
+        <img decoding="async" src="/images/queen-creek-business-broker/how-we-evaluate.jpg" alt="Business Broker Explaining the Value Evaluation Of A Business" width="409" height="373" class="alignnone size-full" loading="lazy" />
+      </div>
+      <div class="text-col">
+        <p>Determining the value of your business involves more than just looking at revenue. We take into account owner involvement, customer retention, brand reputation, industry outlook, and growth potential. These factors help tell the full story behind your business. Not just the numbers! Every aspect matters in building a strong valuation. Revenue alone doesn&#8217;t tell the full story. We consider recurring income, customer loyalty, unique assets, and brand recognition.</p>
+        <p>Our valuation process uses market comparables, buyer trends, and proven analysis tools to set a price that attracts qualified buyers while maximizing your return. Accurate pricing is key to avoiding long delays or missed opportunities in the selling process.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. faq-sctn -->
+  <section class="faq-sctn section">
+    <div class="section-wrap">
+      <h3 class="maintitle">Frequent Questions Asked To Our Business Broker</h3>
+      <div class="faq-main-col">
+        {faqs.map((f) => (
+          <details>
+            <summary><h4>{f.q}</h4></summary>
+            {f.a.map((para) => <p>{para}</p>)}
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. lctn-sctn — neighborhood cards -->
+  <section class="lctn-sctn section">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle">Leading Business Broker Serving The Queen Creek Area</h3>
+        <h4 class="subtitle">Supporting Business Owners Across Queen Creek With Professional Sale Services</h4>
+        <hr />
+      </div>
+      {locations.map((l, i) => (
+        <div class={`lctn-col lctn-col-${i + 1}`}>
+          <div class="col-img">
+            <img decoding="async" src={`/images/queen-creek-business-broker/${l.img}`} alt={l.alt} width="169" height="235" class="alignnone size-full" loading="lazy" />
+          </div>
+          <div class="col-text">
+            <h4 class="title">{l.title} <span class="sp-sub">{l.sub}</span></h4>
+            <p>{l.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 10. contact-sctn -->
+  <section class="section contact-sctn">
+    <div class="section-wrap">
+      <div class="form-col">
+        <div class="wpcf7">
+          <form
+            class="wpcf7-form"
+            action="/api/contact"
+            method="post"
+            aria-label="Contact form"
+            data-pr-contact-form
+            data-form-id="queen-creek"
+          >
+            <input type="text" name="_honeypot" value="" tabindex="-1" autocomplete="off" aria-hidden="true" class="pr-hp" />
+            <div class="bottom-form">
+              <div class="col-1">
+                <label for="first-name-bt">Name</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="text" name="your-name-bt" id="first-name-bt" class="wpcf7-form-control wpcf7-text" maxlength="400" placeholder="Name*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-2">
+                <label for="your-email-bt">Email</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="email" name="your-email-bt" id="your-email-bt" class="wpcf7-form-control wpcf7-email wpcf7-text" maxlength="400" placeholder="Email*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-3">
+                <label for="your-phone-bt">Phone</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="tel" name="your-phone-bt" id="your-phone-bt" class="wpcf7-form-control wpcf7-tel wpcf7-text" maxlength="400" placeholder="Phone" />
+                </span>
+              </div>
+              <div class="col-4">
+                <label for="your-message-bt">Your Message*</label>
+                <span class="wpcf7-form-control-wrap">
+                  <textarea name="your-message-bt" id="your-message-bt" class="wpcf7-form-control wpcf7-textarea" cols="40" rows="10" maxlength="2000" minlength="20" placeholder="Your Message*" required aria-required="true"></textarea>
+                </span>
+              </div>
+              <div class="col-5">
+                <div class="bst-way">
+                  <label>Best Way to Reply:</label>
+                  <span class="wpcf7-form-control-wrap">
+                    <span class="wpcf7-form-control wpcf7-radio">
+                      {replyMethods.map((method, i) => (
+                        <span class={`wpcf7-list-item${i === 0 ? " first" : ""}${i === replyMethods.length - 1 ? " last" : ""}`}>
+                          <label>
+                            <input type="radio" name="bst-way-bt" value={method} checked={i === 0} />
+                            <span class="wpcf7-list-item-label">{method}</span>
+                          </label>
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </div>
+                <button type="submit" class="wpcf7-form-control wpcf7-submit">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="info-col">
+        <h3 class="maintitle">Schedule a Consultation Today</h3>
+        <h4 class="subtitle">Connect With an Experienced Business Broker in Queen Creek</h4>
+        <div class="info-inn">
+          <p>Phil Reese, CBI – Arizona Business Broker West USA Realty</p>
+          <p>Phone:(480) 428-8010<br />
+          Email: <a href="mailto:phil@philsellsbiz.com">phil@philsellsbiz.com</a></p>
+          <p>Serving Queen Creek and surrounding areas.<br />
+          Office Hours: <time datetime="Mo,Tu,We,Th,Fri,Sat,Sun 8:00-20:00">Daily: 8:00 am &#8211; 8:00 pm</time></p>
+          <p>Your privacy is always important. Your information will not be shared, sold or exchanged with anyone else.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Section CSS — verbatim from the live page's inlined used-CSS
+     (reference/_queen-creek-business-broker-sections.css + extras). -->
+<style is:global>
+  /* ---------- 1. title-bar ---------- */
+  .section.title-bar { padding-top: 52px; padding-bottom: 52px; background-color: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); z-index: 2; }
+  .title-bar .maintitle { margin: 0; color: var(--red); text-align: center; }
+
+  /* ---------- 2. top-banner ---------- */
+  .top-banner.section { padding-top: clamp(32px,6%,60px); padding-bottom: 32px; }
+  .top-banner .title-col { width: 100%; }
+  .top-banner .maintitle { text-align: center; padding-bottom: 8px; color: #410408; font-size: 25px; }
+  .top-banner .subtitle { text-align: center; font-size: 22px; padding-bottom: 16px; font-weight: 400; }
+  .top-banner hr { width: 20%; }
+  .top-banner .img-col img { width: 100%; height: auto; }
+  .top-banner .text-col-2 { width: 100%; }
+  @media (min-width: 621px) {
+    .top-banner .img-col { width: 47%; }
+    .top-banner .text-col-1 { display: flex; align-items: center; flex-direction: column; }
+    .top-banner .title-col { margin-bottom: 32px; }
+  }
+
+  /* ---------- 3. test-sctn / test-sctn-alt ---------- */
+  .test-sctn { padding-top: 40px; padding-bottom: 40px; }
+  section.section.test-sctn { overflow: hidden; }
+  .test-sctn .title-col { flex-grow: 1; max-width: 750px; padding-right: 20px; margin-left: auto; }
+  .test-sctn .maintitle { margin: 0; font-family: sans-serif; font-weight: 400; color: var(--red); }
+  .test-sctn .subtitle { margin: 0; color: var(--secondary); font-size: clamp(28px, 3vw, 42px); }
+  .test-sctn .google-col { display: flex; align-items: center; gap: 20px; background: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); padding: 20px; margin-right: -40px; width: 44%; border-radius: 7px; }
+  .test-sctn .section-wrap { align-items: center; gap: 20px; margin-bottom: 32px; }
+  .test-sctn .google-col div p { margin-top: 0; text-transform: uppercase; color: var(--primary); margin-bottom: 0; font-weight: 600; font-size: 16px; }
+  .test-sctn .google-col div span { font-weight: 900; color: var(--primary); }
+  .test-sctn .google-col div span span.strs { color: #ffb300; font-size: 20px; }
+  .test-sctn-alt .rvw-wrapper { column-count: unset; display: flex; flex-wrap: wrap; column-gap: unset; gap: 20px; }
+  .test-sctn-alt .rvw-wrapper .rvw-box { margin-bottom: 0; width: calc(33.33% - 20px); }
+  .rvw-box { background: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); border-radius: 5px; padding: 30px; align-self: stretch; display: flex; flex-direction: column; }
+  .rvw-box > p { margin: 0 0 20px; }
+  .rvw-box .rvw-bx { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
+  .rvw-box .rvw-bx .name { margin: 0; }
+  .rvw-box .rvw-bx .name .bold a { color: var(--red); font-weight: 700; }
+  @media (max-width: 1024px) {
+    .test-sctn .section-wrap { justify-content: center; column-gap: 20px; }
+    .test-sctn .title-col { padding: 0; width: 100%; text-align: center; margin-bottom: 30px; margin-right: auto; }
+    .test-sctn .google-col { width: 100%; margin-right: 0; justify-content: center; max-width: 400px; }
+    section.section.test-sctn { padding-top: 50px; padding-bottom: 50px; }
+    .test-sctn-alt .rvw-wrapper .rvw-box { width: calc(50% - 20px); }
+  }
+  @media (max-width: 500px) {
+    .test-sctn .google-col { flex-wrap: wrap; text-align: center; padding: 15px; }
+    .test-sctn-alt .rvw-wrapper .rvw-box { width: 100%; }
+  }
+
+  /* ---------- 4. what-is-sctn ---------- */
+  .what-is-sctn.section { padding-bottom: 32px; }
+  .what-is-sctn .title-col { width: 100%; }
+  .what-is-sctn .maintitle { color: #410408; font-size: 25px; text-align: center; }
+  .what-is-sctn hr { width: 20%; }
+  .what-is-sctn .img-col img { height: 100%; width: 100%; object-fit: cover; }
+  .what-is-sctn .badge-col { width: 100%; display: flex; justify-content: center; gap: 20px; align-items: center; padding-top: 5%; }
+  .what-is-sctn .badge-col > br { display: none; }
+  .what-is-sctn .badge-col img { width: auto; }
+  @media (min-width: 621px) {
+    .what-is-sctn .title-col { margin-bottom: 32px; }
+    .what-is-sctn .text-col { width: 48%; display: flex; align-items: center; padding-right: 5%; flex-direction: column; }
+    .what-is-sctn .img-col { width: 47%; }
+    .what-is-sctn .badge-col img { min-height: 95px; }
+  }
+  @media (max-width: 620px) {
+    .what-is-sctn .badge-col img { min-height: 60px; max-height: 60px; width: 100%; min-width: 60px !important; object-fit: contain; }
+    .what-is-sctn .badge-col { flex-wrap: wrap; }
+    .what-is-sctn .badge-col a { width: 25%; }
+  }
+
+  /* ---------- 5. video-sctn ---------- */
+  .section.video-sctn { padding-bottom: 32px; padding-top: 32px; }
+  .video-sctn .title-col { width: 100%; }
+  .video-sctn .maintitle { color: #410408; font-size: 25px; text-align: center; }
+  .video-sctn hr { width: 20%; }
+  .video-sctn .title-col p { text-align: center; }
+  .video-sctn .subtitle { font-size: clamp(18px, 1.9vw, 21px); padding-bottom: 16px; font-weight: 400; text-align: center; margin-bottom: 0; }
+  .video-sctn li h5 { font-size: 16px; }
+  ul.list-checks { padding: 0; max-width: 486px; margin: 0 auto; }
+  .list-checks > li::marker { content: "✓"; color: #410408; font-weight: 700; }
+  .list-checks > li h5 { padding-left: 8px; }
+  @media (max-width: 1024px) { .list-checks { margin-bottom: 5%; } }
+  @media (min-width: 621px) {
+    .video-sctn .video-col { width: 100%; order: 1; max-width: 500px; }
+    .video-sctn .list-col { width: 100%; justify-content: center; flex-direction: column; }
+  }
+  @media (max-width: 620px) {
+    .video-sctn .video-col { width: 100%; }
+    .video-sctn .video-col .lyte-wrapper { width: 280px !important; }
+    .video-sctn .list-col { padding-top: 20px; }
+  }
+
+  /* ---------- 6/7. img-sctn ---------- */
+  .img-sctn.section { padding-top: 32px; padding-bottom: 32px; }
+  .img-sctn .maintitle { color: #410408; font-size: 25px; text-align: center; }
+  .img-sctn hr { width: 20%; }
+  .img-sctn .subtitle { text-align: center; font-size: 22px; padding-bottom: 16px; font-weight: 400; }
+  .img-sctn .title-col { width: 100%; }
+  @media (min-width: 621px) {
+    .img-sctn .text-col { width: 48%; display: flex; flex-direction: column; justify-content: center; }
+    .img-sctn .img-col { width: 47%; }
+    .img-sctn-1 .text-col { padding-right: 5%; }
+    .img-sctn-2 .text-col { padding-left: 5%; }
+    .img-sctn .title-col { margin-bottom: 32px; }
+    .img-sctn .img-col img { width: 100%; height: 100%; object-fit: cover; }
+  }
+  @media (max-width: 620px) {
+    .img-sctn .img-col { width: 100%; }
+    .img-sctn .img-col img { width: 100%; }
+  }
+
+  /* ---------- 8. faq-sctn (dark maroon card) ---------- */
+  .faq-sctn.section { padding-top: 32px; padding-bottom: 32px; }
+  .faq-sctn .section-wrap { max-width: 1100px; background-color: #410408; color: #fff; border-radius: 32px; padding: 32px 16px; justify-content: center; }
+  .faq-sctn .maintitle { width: 100%; color: #fff; max-width: 910px; font-size: 25px; padding-bottom: 32px !important; }
+  .faq-sctn .faq-main-col { max-width: 910px; width: 100%; }
+  .faq-sctn details { border-bottom: 2px solid #fff; margin-bottom: 10px; padding-bottom: 6px; width: 100%; }
+  .faq-sctn details summary::-webkit-details-marker { display: none; }
+  .faq-sctn details summary { list-style: none !important; counter-increment: none !important; list-style-type: none !important; display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; gap: 4px; }
+  .faq-sctn summary:hover { cursor: pointer; }
+  .faq-sctn summary::after { content: "+"; font-size: 32px; line-height: 7px; color: #fff; font-weight: 400; height: 25px; min-width: 25px; display: flex; align-items: center; justify-content: center; }
+  .faq-sctn details[open] > summary::after { content: "-"; }
+  .faq-sctn p { color: #fff; text-align: left; }
+  .faq-sctn h4 { text-align: left; margin-bottom: 0; }
+
+  /* ---------- 9. lctn-sctn ---------- */
+  .lctn-sctn.section { padding-top: 32px; }
+  .lctn-sctn .section-wrap { justify-content: space-between; }
+  .lctn-sctn .section-wrap > p { display: none; }
+  .lctn-sctn .maintitle { color: #410408; font-size: 25px; }
+  .lctn-sctn .subtitle { font-size: 22px; font-weight: 400; }
+  .lctn-sctn .title { color: #410408; font-size: 18px; }
+  .lctn-sctn .title .sp-sub { display: block; color: #000; }
+  .lctn-sctn .lctn-col > p { display: none; }
+  .lctn-sctn .lctn-col .col-text p { padding: 0; }
+  @media (min-width: 621px) {
+    .lctn-sctn.section { padding-bottom: 32px; }
+    .lctn-sctn .section-wrap { gap: 32px; }
+    .lctn-sctn .lctn-col, .lctn-sctn .title-col { width: 45%; display: flex; }
+    .lctn-sctn .lctn-col { gap: 20px; }
+    .lctn-sctn .title-col { flex-direction: column; justify-content: center; }
+    .lctn-sctn .maintitle { text-align: left; }
+    .lctn-sctn .subtitle { padding-bottom: 0; margin-bottom: 10px; }
+    .lctn-sctn hr { width: 100%; }
+    .lctn-sctn .lctn-col .col-img { width: 40%; }
+    .lctn-sctn .lctn-col .col-text { width: 60%; display: flex; flex-direction: column; justify-content: center; padding-top: 12px; padding-bottom: 12px; }
+    .lctn-sctn .col-img img { height: 100%; width: 100%; object-fit: cover; }
+  }
+  @media (max-width: 620px) {
+    .lctn-sctn .lctn-col { padding-bottom: 32px; }
+  }
+
+  /* ---------- 10. contact-sctn ---------- */
+  .contact-sctn { padding-top: 32px; padding-bottom: 60px; }
+  .contact-sctn .section-wrap { justify-content: space-between; align-items: center; gap: 32px; }
+  .contact-sctn .form-col { width: 100%; }
+  .info-col { background-color: #fff; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06); color: #000; margin-top: 40px; margin-bottom: 40px; text-align: center; }
+  .info-col .maintitle { font-size: 1.5rem; color: var(--primary); margin: 0 0 8px; font-weight: 700; line-height: 1.2; }
+  .info-col .subtitle { font-size: 16px; color: #000; margin: 0 0 24px; font-weight: 500; line-height: 1.4; }
+  @media (min-width: 901px) {
+    .contact-sctn .form-col { width: 55%; }
+    .contact-sctn .info-col { width: 40%; }
+  }
+
+  /* Honeypot */
+  .pr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+  .pr-form-banner { width: 100%; margin-top: 14px; font-weight: 600; font-family: var(--font-family--h4); }
+  .pr-form-banner[data-state="success"] { color: var(--primary); }
+  .pr-form-banner[data-state="error"] { color: var(--red); }
+
+  /* ---------- shared contact-form (.bottom-form) ---------- */
+  .contact-sctn .wpcf7 { width: 100%; }
+  .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+  .bottom-form input:not([type=submit]) { background-color: transparent; border: none; border-bottom: 2px solid var(--primary); max-width: 100%; width: 100%; min-height: 43px; min-width: 13px; }
+  .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; border-bottom: 2px solid var(--primary); min-height: 98px; background: #3104071c; }
+  .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
+  .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .bottom-form .col-4 { width: 100%; }
+  .bottom-form .col-4 .wpcf7-form-control-wrap, .bottom-form .col-5 .wpcf7-form-control-wrap { width: 100%; }
+  .bottom-form .col-5 { display: flex; justify-content: space-between; position: relative; text-align: left; width: 100%; gap: 4px; align-items: center; }
+  .bottom-form .col-5 .wpcf7-list-item.first { margin-left: 0; }
+  .bottom-form .col-5 .wpcf7-list-item-label { font-size: 14px; }
+  .bottom-form .col-5 .bst-way > label { width: 100%; display: block; }
+  .bottom-form .wpcf7-list-item { margin-left: 4px; }
+  .bottom-form .wpcf7-list-item label { display: flex; align-items: center; }
+  .bottom-form .wpcf7-radio { display: flex; gap: 8px; }
+  .bottom-form .bst-way { color: var(--red); text-transform: uppercase; font-weight: 600; display: flex; gap: 12px; align-items: center; }
+  .bottom-form input::placeholder, .bottom-form textarea::placeholder { color: #000; }
+  .bottom-form input[type=submit], .bottom-form button[type=submit] { border: 0; color: #fff; padding: 10px 20px; border-radius: 100px; width: 100%; max-width: 180px; background-color: var(--primary); font-weight: 700; text-transform: uppercase; min-width: fit-content; font-size: var(--font-size--body); cursor: pointer; }
+  @media (max-width: 600px) {
+    .bottom-form .col-5 { flex-direction: column; text-align: center; }
+    .bottom-form .wpcf7-radio { justify-content: center; }
+    .bottom-form input[type=submit], .bottom-form button[type=submit] { width: 100%; }
+    .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: 100%; }
+    .bottom-form .bst-way { gap: 4px; flex-direction: column; align-items: center; }
+  }
+</style>

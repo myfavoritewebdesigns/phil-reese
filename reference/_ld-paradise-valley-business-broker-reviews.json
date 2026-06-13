@@ -1,0 +1,150 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix",
+        "name": "Phil Reese Business Broker"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Pam P."
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Multiple Offers within Weeks",
+      "reviewBody": "My husband and I were prepared to wait months for our business to sell after we listed it with Phil, so we were pleasantly shocked when we had multiple offers within a matter of weeks!  Phil has extensive skills in business evaluations and sales and graciously imparted his knowledge and experience to us with ongoing communication throughout the process until closing.  The ease and speed of the entire transaction was unexpected but very much appreciated and wholly attributable to Phil's expertise.  We'd wholeheartedly recommend working with him.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21KcFdHaG1SMjB5UW5aUWNWOTRPVlZYT1RGWWNrRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CAIQACodChtycF9oOmJpWGhmR20yQnZQcV94OVVXOTFYckE%7C%7C?hl=en"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Santino DeFranco"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Seamless Process for Multiple Purchases",
+      "reviewBody": "Phil is amazing! Ive purchased two of his listed companies now (well, one wasnt even listed yet), and he helped me through the process seamlessly. Easy to work with. Super knowledgeable. And has great connections (banks, escrow etc). I cannot recommend him highly enough.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21weVp6RjJVM2t5Wm5KSlJYVlpYMUZqZW1kNU9WRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CAIQACodChtycF9oOmpyZzF2U3kyZnJJRXVZX1Fjemd5OVE%7C0dL4EeHNStH%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Mike Williams"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Brightest Expert for Complex Endeavors",
+      "reviewBody": "If you have ever bought or sold a company, you know that it's an incredibly complex endeavor, sometimes with many unexpected twists and turns along the way. The smart person soon learns this is not something you should take on without the help of an expert to guide you. Phil Reese may well be the best and brightest expert you can find.  Phil was amazing to work with throughout the entire process of selling our company. He was always highly professional and available to answer every kind of question or concern. We really don't know how we could have gotten through the tedious, roller-coaster process without him. And best of all, his guidance assured us the best possible results with an excellent buyer and top-level offer at the end of the day. We highly recommend Phil Reese!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURXdFpxSzJnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDWtZqK2gE%7CCgwI0PaSkgYQoI3VtgE%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "VICKI HANNA"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Thoughtful Broker Who Gets Things Done",
+      "reviewBody": "In shopping around for a broker, Phil was the best fit for us. He is a good and kind man, and thoughtful.  He listens and he gets things done.  He was quick to take care of any needs we had and was not surprised when we got our full asking. All aspects of the sale were answered prayer.  We would use him again but retirement looks pretty good!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURjclpEblZnEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDcrZDnVg%7CCgwIjril9wUQ-MDEuQI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Shannon Kriloff"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Arizona's Best Business Broker",
+      "reviewBody": "Phil is the best business broker in Arizona. He goes above and beyond for his clients.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSUQ1cVBpWmV3EAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgID5qPiZew%7CCgwIydHFqQYQuJmtzwE%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Ilene Price"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Pleasant Experience under Stressful Circumstances",
+      "reviewBody": "Very professional with attention to detail.  Very pleasant to work with even under stressful circumstances . I would definitely use Phil again .",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURVX3BiTFhBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDU_pbLXA%7CCgwIh-yH6wUQkPyUhwM%7C?hl=en-US"
+    }
+  ]
+}

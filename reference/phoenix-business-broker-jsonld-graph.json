@@ -1,0 +1,63 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.philsellsbiz.com/phoenix-business-broker/",
+      "url": "https://www.philsellsbiz.com/phoenix-business-broker/",
+      "name": "Phoenix Business Broker | Phil Reese Sells Businesses",
+      "isPartOf": {
+        "@id": "https://www.philsellsbiz.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://www.philsellsbiz.com/phoenix-business-broker/#primaryimage"
+      },
+      "image": {
+        "@id": "https://www.philsellsbiz.com/phoenix-business-broker/#primaryimage"
+      },
+      "thumbnailUrl": "https://www.philsellsbiz.com/wp-content/uploads/2021/02/phoenix-business-broker.jpg",
+      "datePublished": "2015-02-27T19:58:38+00:00",
+      "dateModified": "2026-06-12T23:13:19+00:00",
+      "description": "Top Phoenix Business Broker Phil Reese ensures you get compensated fairly. Representing local buyers and sellers in the Phoenix Area.",
+      "breadcrumb": {
+        "@id": "https://www.philsellsbiz.com/phoenix-business-broker/#breadcrumb"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "ReadAction",
+          "target": [
+            "https://www.philsellsbiz.com/phoenix-business-broker/"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "ImageObject",
+      "inLanguage": "en-US",
+      "@id": "https://www.philsellsbiz.com/phoenix-business-broker/#primaryimage",
+      "url": "https://www.philsellsbiz.com/wp-content/uploads/2021/02/phoenix-business-broker.jpg",
+      "contentUrl": "https://www.philsellsbiz.com/wp-content/uploads/2021/02/phoenix-business-broker.jpg",
+      "width": 1200,
+      "height": 1200,
+      "caption": "Thinking about selling your business in Phoenix? When an entrepreneur starts a business in Arizona, that person is doing the work of many employees. There are many trials and errors that an entrepreneur goes through when starting and selling a business."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.philsellsbiz.com/phoenix-business-broker/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "AZ Business Broker",
+          "item": "https://www.philsellsbiz.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Phoenix Business Broker"
+        }
+      ]
+    }
+  ]
+}

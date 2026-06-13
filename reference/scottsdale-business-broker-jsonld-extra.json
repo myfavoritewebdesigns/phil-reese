@@ -1,0 +1,78 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#business",
+		"name": "Phil Reese Business Broker"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Deirdre Marovich"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Professional Guidance Throughout the Business Sale Process",
+      "reviewBody": "My husband and I recently completed the sale of our business with Phil as our broker. He was professional, knowledgeable and kept us informed every step of the process. Phil treated us like family and always had our best interest top of mind. Phil has a great sense of humor and shared many of his prior experiences and success stories with us which made us feel very comfortable. We highly recommend Phil as a business broker.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://maps.app.goo.gl/gayycSR8M3MVPYzo8"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#business"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Rickey Woolfolk"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Exceptional Business Broker Experience in Arizona",
+      "reviewBody": "Working with Phil Reese was truly an exceptional experience. From the very first consultation to the final closing, Phil went above and beyond to make selling my business smooth, stress-free, and successful. His expertise in the Arizona market is unmatched. He knew exactly how to position my business to attract the right buyers and negotiated a deal that exceeded my expectations. Phil is incredibly professional, responsive, and genuinely cares about his clients. He took the time to answer all my questions, kept me updated every step of the way, and always made me feel like a top priority. His honesty and integrity gave me complete peace of mind throughout the entire process. If you are considering selling or buying a business in Arizona, I cannot recommend Phil Reese enough.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pVd1p6QjVZbFJCVjI5elpFbDJTRGhJTVZWcVMwRRAB!2m1!1s0x0:0x777d85f1a062a70!3m1!1s2@1:CAIQACodChtycF9oOjUwZzB5YlRBV29zZEl2SDhIMVVqS0E%7C0cOkj1WiSBN%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#business"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Jonothan Cruz"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Trusted Local Business Broker with Proven Expertise",
+      "reviewBody": "When you want to sell your business, Phil Reese is the person to call. He is a Certified Business Intermediary which shows he has the education and skills to sell businesses. He has over 14 years of experience selling businesses and many testimonials from satisfied clients. Being located in Scottsdale allows him to provide a level of service that out-of-state brokers cannot match. He stays in contact with his clients throughout the listing period and provides excellent support from start to finish.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSUNROGJqYkFREAE!2m1!1s0x0:0x777d85f1a062a70!3m1!1s2@1:CIHM0ogKEICAgICQ8bjbAQ%7CCgwI__ePuAUQwJKmiwM%7C?hl=en-US"
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix",
+        "name": "Phil Reese Business Broker"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Santino DeFranco"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Seamless Process for Multiple Purchases",
+      "reviewBody": "Phil is amazing! Ive purchased two of his listed companies now (well, one wasnt even listed yet), and he helped me through the process seamlessly. Easy to work with. Super knowledgeable. And has great connections (banks, escrow etc). I cannot recommend him highly enough.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21weVp6RjJVM2t5Wm5KSlJYVlpYMUZqZW1kNU9WRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CAIQACodChtycF9oOmpyZzF2U3kyZnJJRXVZX1Fjemd5OVE%7C0dL4EeHNStH%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Jim J"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Excellent Walkthrough for First-Time Sellers",
+      "reviewBody": "I would highly recommend Phil.  This is my first time selling (or buying) a business and Phil has been excellent.  He has walked me through compiling the correct information and then processing it in a manner that will lead to the best outcome for  my business.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURxbU1iSDFBRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDqmMbH1AE%7CCgwIp_vihgYQiLjxhwM%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Kale Huycke"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Highly Recommended for Small Businesses",
+      "reviewBody": "Phil was exceptional throughout the entire process. We highly recommend him to help sell or buy a small business.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURjaHNta1R3EAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDchsmkTw%7CCgwIhcz59gUQ-I3y3AE%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "VICKI HANNA"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Thoughtful Broker Who Gets Things Done",
+      "reviewBody": "In shopping around for a broker, Phil was the best fit for us. He is a good and kind man, and thoughtful.  He listens and he gets things done.  He was quick to take care of any needs we had and was not surprised when we got our full asking. All aspects of the sale were answered prayer.  We would use him again but retirement looks pretty good!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURjclpEblZnEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDcrZDnVg%7CCgwIjril9wUQ-MDEuQI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Bobby Pierce"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Instrumental Guidance for Closing Deals",
+      "reviewBody": "Phil is honest and trustworthy.  He quickly earned my trust with his professionalism, clear communication, and consistently excellent guidance.  He was instrumental in getting our deal done.  Highly recommend!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNmeF8yUXNnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICfx_2QsgE%7CCgwIstfYuwYQiMut5AI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Lacey Kilfoyl"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Trustworthy, Professional and Hardworking",
+      "reviewBody": "Trustworthy, professional and hardworking.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSUN3aGJqVVhBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICwhbjUXA%7CCgwIpsjWzgUQwICyiQM%7C?hl=en-US"
+    }
+  ]
+}

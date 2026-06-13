@@ -1,0 +1,150 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix",
+        "name": "Phil Reese Business Broker"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Mike Williams"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Brightest Expert for Complex Endeavors",
+      "reviewBody": "If you have ever bought or sold a company, you know that it's an incredibly complex endeavor, sometimes with many unexpected twists and turns along the way. The smart person soon learns this is not something you should take on without the help of an expert to guide you. Phil Reese may well be the best and brightest expert you can find.  Phil was amazing to work with throughout the entire process of selling our company. He was always highly professional and available to answer every kind of question or concern. We really don't know how we could have gotten through the tedious, roller-coaster process without him. And best of all, his guidance assured us the best possible results with an excellent buyer and top-level offer at the end of the day. We highly recommend Phil Reese!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURXdFpxSzJnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDWtZqK2gE%7CCgwI0PaSkgYQoI3VtgE%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Mark Wdowiak"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Outstanding Personalized Service and Results",
+      "reviewBody": "To anyone looking to buy or sell a business, do yourself a HUGE favor and use the services of Phil Reese! We had used other business brokers in the past and had less than desired results. In 2015 Phil listed and sold our multi-million dollar business in 6 months. His knowledge, support, enthusiasm, professionalism and his personalized service is outstanding! Listing our business with Phil was absolutely the best decision we could have made! We love him and so will you! Mark and Juanita Wdowiak",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURRbDRucmdRRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDQl4nrgQE%7CCgwI04_q0gUQwJ6YuwI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Tonia Khouri"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Smooth Closing in Just Three Weeks",
+      "reviewBody": "We used Phil to close on a business in Phoenix, AZ. He understood what we were looking for and was very accommodating to both us and the Seller. Everything went so smoothly, we closed in 3 weeks. I would highly recommend Phil.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUR5enFmNHd3RRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDyzqf4wwE%7CCgoIzvSUggYQ-Iht%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Valerie Mapua"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Finding the Right Buyer Promptly",
+      "reviewBody": "Highly recommend Phil he’s the best at finding you the right buyer for your business. Always available to answer your questions promptly returns calls! Knows the laws and trustworthy.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VNcjE0S1R4b01iSFNREAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEMr14KTxoMbHSQ%7CCgwI3PLIwQYQ-L3K4QI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "karen benedek"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Kind and Professional Consulting",
+      "reviewBody": "I had a question regarding my business, and Phil was very kind, taking his time to converse with me, even though I didn't use his service. He was awesome, and I will definitely keep his information and refer him to clients. A very professional gentleman.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURqdy1EanZ3RRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDjw-DjvwE%7CCgwI9r3lsQYQiMry2wI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Doug L"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Competent Documentation and Follow-Through",
+      "reviewBody": "Phil was very professional in facilitating our transaction.  He knew what he was doing and is quite competent in following through with documenting the transaction and keeping all parties to the deal on track.  I'd recommend him to anyone seeking a competent business broker.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUR3M082MDJnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDw3O602gE%7CCgwI4cuJ3gUQ2KC98wI%7C?hl=en-US"
+    }
+  ]
+}

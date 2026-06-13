@@ -1,0 +1,150 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix",
+        "name": "Phil Reese Business Broker"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Bobby Pierce"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Instrumental Guidance for Closing Deals",
+      "reviewBody": "Phil is honest and trustworthy. He quickly earned my trust with his professionalism, clear communication, and consistently excellent guidance. He was instrumental in getting our deal done. Highly recommend!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNmeF8yUXNnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICfx_2QsgE%7CCgwIstfYuwYQiMut5AI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Gary Campbell"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "10-Star Service",
+      "reviewBody": "Would recommend Phil Reese in a heartbeat He gives his all in selling your business. He listed ours and sold it within 2 months. Everything went so so smooth and he took care of everything. I give him 10 stars.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURxeU4zSTZBRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDqyN3I6AE%7CCgwIoJLfhgYQqPes0gM%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Joanne Manning"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Going Out of the Way to Help",
+      "reviewBody": "Phil came highly recommended to us after selling a friend of ours business. So we gave him a call and Phil did a great job selling our business. He was there every step of the way going out of his way to help in all areas. I would and will recommend him to anyone wanting to sell their business.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSUR5OFktUVZnEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDy8Y-QVg%7CCgwIs8yoggYQsPS01AM%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Kale Huycke"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Highly Recommended for Small Businesses",
+      "reviewBody": "Phil was exceptional throughout the entire process. We highly recommend him to help sell or buy a small business.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURjaHNta1R3EAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDchsmkTw%7CCgwIhcz59gUQ-I3y3AE%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Doug L"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Competent Documentation and Follow-Through",
+      "reviewBody": "Phil was very professional in facilitating our transaction. He knew what he was doing and is quite competent in following through with documenting the transaction and keeping all parties to the deal on track. I'd recommend him to anyone seeking a competent business broker.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUR3M082MDJnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDw3O602gE%7CCgwI4cuJ3gUQ2KC98wI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Lacey Kilfoyl"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Trustworthy, Professional and Hardworking",
+      "reviewBody": "Trustworthy, professional and hardworking.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSUN3aGJqVVhBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICwhbjUXA%7CCgwIpsjWzgUQwICyiQM%7C?hl=en-US"
+    }
+  ]
+}

@@ -1,0 +1,271 @@
+---
+/* -----------------------------------------------------------------------
+   Phoenix Business Broker — faithful ("close enough") clone of
+   https://www.philsellsbiz.com/phoenix-business-broker/
+   CITY local-SEO page (the largest of the three). Content body verbatim from
+   the live page (reference/_phoenix-business-broker-content.html — de-lazified,
+   images localized, CF7 form swapped for /api/contact, wp-youtube-lyte swapped
+   for lite-youtube). Section CSS from the live used-CSS + shared city-page
+   section vocabulary.
+   Sections in DOM order (12 live sections):
+     1. banner-sctn      — H1 + checkmark eyebrow list + 2 intro paras
+     2. map-sctn         — "Serving All of the Phoenix Metro Area", 4 office maps
+     3. vid-sctn         — contact form + Phil contact info column
+     4. philo-sctn       — "Sell your Phoenix Business" copy + photo + directory badges
+     5. text-sctn        — "Buying a Business in Phoenix"
+     6. test-sctn-alt    — Google rating + 6 reviews
+     7. text-sctn        — "Agent for Buying & Selling" + related-posts widget
+     8. video-aalt-sctn  — "Should I Sell" video + valuation copy
+     9. cbi-info-section — 6 badge-cards (industries served)
+    10. text-sctn        — "PHX Business Broker Near Me"
+    11. areas-sctn       — 6 city service-area links
+   JSON-LD = live Yoast @graph (WebPage/ImageObject/BreadcrumbList) +
+   standalone FinancialService + the live Review @graph (6 reviews), verbatim.
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL } from "../config/site";
+import bodyHtml from "../../reference/_phoenix-business-broker-content.html?raw";
+import jsonldGraph from "../../reference/phoenix-business-broker-jsonld-graph.json";
+import financialServiceSchema from "../../reference/phoenix-business-broker-jsonld-financialservice.json";
+import reviewGraph from "../../reference/phoenix-business-broker-jsonld-extra.json";
+
+/* Live <title> + meta description, verbatim from reference/phoenix-business-broker-raw.html */
+const pageTitle = "Phoenix Business Broker | Phil Reese Sells Businesses";
+const pageDescription =
+  "Top Phoenix Business Broker Phil Reese ensures you get compensated fairly. Representing local buyers and sellers in the Phoenix Area.";
+
+const ogImage = `${SITE_URL}/images/phoenix-business-broker/og-phoenix-business-broker.jpg`;
+
+/* Live page emits: Yoast @graph (WebPage/ImageObject/BreadcrumbList) +
+   standalone FinancialService + a Review @graph. Replicated verbatim
+   (Layout already injects the global LocalBusiness + WebSite nodes). */
+const structuredData = [jsonldGraph, financialServiceSchema, reviewGraph];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/phoenix-business-broker/"
+  ogImage={ogImage}
+  ogImageAlt="Phoenix Business Broker Phil Reese"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <!-- lite-youtube web component — replaces the live wp-youtube-lyte lazy embed. -->
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.css"
+  />
+  <script
+    slot="head"
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.js"
+    defer></script>
+
+  <!-- City page body — verbatim live content (images localized, form -> /api/contact). -->
+  <Fragment set:html={bodyHtml} />
+</Layout>
+
+<!-- Lazy-load the 4 Google Map office embeds the same way live (WP Rocket) does. -->
+<script is:inline>
+  (function () {
+    var frames = document.querySelectorAll("iframe[data-lazy-src]");
+    if (!frames.length) return;
+    function load(frame) {
+      if (frame.dataset.loaded) return;
+      frame.dataset.loaded = "1";
+      frame.src = frame.dataset.lazySrc;
+    }
+    if (!("IntersectionObserver" in window)) { frames.forEach(load); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { load(entry.target); io.unobserve(entry.target); }
+      });
+    }, { rootMargin: "400px 0px" });
+    frames.forEach(function (f) { io.observe(f); });
+  })();
+</script>
+
+<!-- Section CSS — lifted from the live used-CSS + shared city-page vocabulary.
+     is:global because the content arrives via set:html. -->
+<style is:global>
+  /* ---------- WP alignment helpers (live theme-style.css) ---------- */
+  .alignnone { max-width: 100%; height: auto; }
+  .aligncenter { display: block; margin-left: auto; margin-right: auto; max-width: 100%; height: auto; }
+  .alignleft { float: left; margin-right: 40px; }
+
+  /* ---------- 1. banner-sctn (+ checkmark eyebrow list) ---------- */
+  .banner-sctn { padding-top: 80px; padding-bottom: 80px; background: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); z-index: 1; }
+  .banner-sctn .maintitle { font-weight: 500; color: var(--primary); font-size: clamp(24px, 4vw, 54px); }
+  .banner-sctn .one-col { text-align: center; }
+  .banner-sctn .one-col > p { max-width: 1200px; color: var(--primary); text-align: justify; }
+  .checkmark { column-count: 3; column-width: 200px; margin: 0 auto 20px; max-width: 760px; list-style: none; padding: 0; text-align: left; }
+  .checkmark li { display: flex; align-items: baseline; margin-left: 0 !important; gap: 6px; color: var(--primary); font-weight: 600; }
+  .checkmark li:before { content: '✓'; font-size: 24px; font-weight: 700; color: var(--red); }
+  @media (max-width: 600px) { .checkmark { column-count: 2; } }
+  @media (max-width: 500px) { .banner-sctn { padding-bottom: 40px; padding-left: 20px; padding-right: 20px; } .checkmark { column-count: 1; } }
+  @media (max-width: 400px) { section.section.banner-sctn { padding-top: 45px; } }
+
+  /* ---------- 2. map-sctn (4 office maps, 4-col) ---------- */
+  .map-sctn { padding-top: 60px; padding-bottom: 60px; background: linear-gradient(360deg,#e8e8e8 0,#e7e7e7 30%,#e7e7E700 100%) no-repeat padding-box; }
+  .map-sctn .titlecol { margin-right: auto; width: 100%; text-align: center; margin-bottom: 50px; }
+  .map-sctn .titlecol .maintitle { margin-bottom: 12px; color: var(--red); font-size: clamp(32px, 3vw, 57px); line-height: 1; }
+  .map-sctn .titlecol .subtitle { font-family: sans-serif; font-weight: 500; font-size: 28px; color: var(--primary); }
+  .map-sctn .section-wrap { justify-content: space-between; }
+  .mapcol { width: calc(25% - 20px); text-align: center; }
+  .mapcol iframe { max-width: 100%; height: auto; aspect-ratio: 16/10; width: 100%; border: 0; }
+  .mapcol .adr-title { text-align: center; margin-bottom: 20px; }
+  .map-sctn .btns.btns-alt { display: flex; justify-content: center; max-width: none; gap: 10px; margin-top: 16px; }
+  .map-sctn .btns.btns-alt a { font-size: 15px; padding: 5px; background: var(--secondary); color: #fff; border-radius: 5px; }
+  @media (max-width: 1024px) { .map-sctn .mapcol { width: calc(50% - 20px); margin-bottom: 40px; } }
+  @media (max-width: 600px) { .map-sctn .mapcol { width: calc(50% - 10px); margin-bottom: 20px; } }
+  @media (max-width: 500px) { .map-sctn .mapcol { width: 100%; max-width: 400px; margin: 0 auto 50px; } }
+
+  /* ---------- 3. vid-sctn (contact form + contact info) ---------- */
+  .vid-sctn { background: #d3d3d3; padding-top: 50px; padding-bottom: 50px; border-bottom: 5px solid var(--red); }
+  .vid-sctn .section-wrap { align-items: center; justify-content: space-between; }
+  .vid-sctn .vid-col { width: 60%; }
+  .vid-sctn .titlecol { padding: 40px 30px; width: 38%; color: var(--secondary); font-size: 17px; line-height: 1.7; }
+  .vid-sctn .titlecol > div:first-child { font-weight: 700; color: var(--primary); }
+  .vid-sctn .titlecol a { color: var(--red); font-weight: 600; }
+  .vid-sctn .titlecol p { font-size: 13px; color: #4e4e4e; margin-top: 16px; }
+  @media (max-width: 800px) {
+    .vid-sctn .vid-col { width: 100%; order: 1; margin-top: 30px; }
+    .vid-sctn .titlecol { width: 100%; padding: 0; text-align: center; }
+    section.section.vid-sctn { padding-top: 40px; }
+  }
+
+  /* ---------- 4. philo-sctn (one-col copy + photo + directory badges) ---------- */
+  .philo-sctn { padding-top: 80px; padding-bottom: 80px; }
+  .philo-sctn .section-wrap { align-items: center; }
+  .philo-sctn .one-col, .philo-sctn .txt-col { width: 100%; }
+  .philo-sctn h3 { color: var(--primary); font-size: clamp(29px, 4vw, 48px); }
+  .philo-sctn p { line-height: 1.5; font-size: 18px; color: var(--secondary); }
+  .philo-sctn img.aligncenter { margin: 24px auto; }
+  .philo-sctn a img.alignleft { box-shadow: 0 0 0; margin: 6px 8px 6px 0; width: 65px; height: 67px; }
+  @media (max-width: 500px) { .philo-sctn { padding-top: 40px; padding-bottom: 40px; } }
+
+  /* ---------- 5/7/10. text-sctn ---------- */
+  .section.text-sctn { padding-top: 52px; padding-bottom: 52px; text-align: center; background: #e8e8e8; }
+  .section.text-sctn h3 { color: var(--primary); }
+  .section.text-sctn p { font-size: 18px; line-height: 1.55; max-width: 1000px; margin-left: auto; margin-right: auto; }
+  .section.text-sctn .related { text-align: left; }
+
+  /* related-posts widget (Content Views pt-cv) */
+  .pt-cv-thumbnail { height: auto; max-width: 100% !important; margin-top: 0 !important; margin-bottom: 10px !important; }
+  .pt-cv-thumbnail.pull-left { float: left; margin-right: 15px !important; }
+  .pt-cv-title { margin-top: 0 !important; }
+  h4.pt-cv-title { font-size: 18px; }
+  .pt-cv-title a { font-weight: 600; border-bottom: none; color: var(--primary); }
+  .pt-cv-readmore { color: #fff; margin: 10px 0; max-width: 100%; display: inline-block; }
+  .related ._self.pt-cv-readmore.btn, .pt-cv-readmore.btn { background: var(--primary); border: 0; border-radius: 0; font-size: 13px; padding: 6px 14px; }
+  .text-sctn .related .pt-cv-content-item { overflow: hidden; margin-bottom: 24px; }
+
+  /* ---------- 6. test-sctn / test-sctn-alt (google-col + 6 reviews) ---------- */
+  .test-sctn { background: linear-gradient(360deg,#e8e8e8 0,#e7e7e7 30%,#e7e7E700 100%) no-repeat padding-box; padding-top: 32px; padding-bottom: 50px; }
+  section.section.test-sctn { overflow: hidden; }
+  .test-sctn .title-col { flex-grow: 1; max-width: 750px; padding-right: 20px; margin-left: auto; }
+  .test-sctn .subtitle { margin: 0; color: var(--secondary); font-size: clamp(28px, 3vw, 42px); }
+  .test-sctn .h4-style { margin-bottom: 0; color: var(--red); }
+  .test-sctn .google-col { display: flex; align-items: center; gap: 20px; background: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); padding: 20px; margin-right: -40px; width: 44%; border-radius: 7px; }
+  .test-sctn .google-col svg { width: 60px; height: auto; flex: 0 0 auto; }
+  .test-sctn .google-col div p { margin-top: 0; text-transform: uppercase; color: var(--primary); margin-bottom: 0; font-weight: 600; font-size: 16px; }
+  .test-sctn .google-col div span { font-weight: 900; color: var(--primary); }
+  .test-sctn .google-col div span span.strs { color: #ffb300; font-size: 20px; }
+  .test-sctn .section-wrap { align-items: center; gap: 20px; max-width: none; }
+  .test-sctn-alt .rvw-wrapper { display: flex; flex-wrap: wrap; gap: 20px; width: 100%; margin-top: 30px; justify-content: center; }
+  .test-sctn-alt .rvw-wrapper .rvw-box { margin-bottom: 0; width: calc(33.33% - 20px); }
+  .rvw-box { background: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); border-radius: 5px; padding: 30px; align-self: stretch; display: flex; flex-direction: column; }
+  .rvw-box > p { margin: 0 0 20px; }
+  .rvw-box .rvw-bx { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
+  .rvw-box .rvw-bx .name { margin: 0; }
+  .rvw-box .rvw-bx .name .bold a, .rvw-box .name a { color: var(--red); font-weight: 700; }
+  .strs { color: #ffb300; }
+  @media (max-width: 1024px) {
+    .test-sctn .section-wrap { justify-content: center; column-gap: 20px; }
+    .test-sctn .title-col { padding: 0; width: 100%; text-align: center; margin-bottom: 30px; }
+    .test-sctn .google-col { width: 100%; margin-right: 0; justify-content: center; max-width: 400px; }
+    .test-sctn-alt .rvw-wrapper .rvw-box { width: calc(50% - 20px); }
+  }
+  @media (max-width: 500px) {
+    .test-sctn .google-col { flex-wrap: wrap; text-align: center; padding: 15px; }
+    .test-sctn-alt .rvw-wrapper .rvw-box { width: 100%; }
+  }
+
+  /* ---------- 8. video-aalt-sctn (with lite-youtube) ---------- */
+  .video-aalt-sctn { padding-top: 80px; padding-bottom: 80px; }
+  .video-aalt-sctn .img-col { width: 50%; }
+  .video-aalt-sctn .txt-col { width: 50%; padding-left: 5%; }
+  .video-aalt-sctn .title-col { width: 100%; text-align: center; margin-top: 32px; }
+  .video-aalt-sctn .section-wrap { align-items: center; }
+  .video-aalt-sctn .tc { text-align: center; color: var(--primary); }
+  .video-aalt-sctn p { line-height: 1.5; font-size: 18px; color: var(--secondary); }
+  .video-aalt-sctn .lyte-wrapper { filter: drop-shadow(2px 4px 6px rgba(0,0,0,.4)); }
+  .video-aalt-sctn lite-youtube { width: 100%; max-width: 100%; border-radius: 4px; }
+  @media (max-width: 1024px) {
+    .video-aalt-sctn .img-col { width: 100%; }
+    .video-aalt-sctn .txt-col { width: 100%; text-align: center; padding: 0 15px; }
+  }
+  @media (max-width: 500px) {
+    .video-aalt-sctn .txt-col { padding: 0; }
+    .video-aalt-sctn { padding-top: 40px; padding-bottom: 40px; }
+  }
+
+  /* ---------- 9. cbi-info-section (6 badge-cards) ---------- */
+  .cbi-info-section { padding: clamp(60px,8vw,100px) 0; color: var(--black); background: #d3d3d3; text-align: center; }
+  .cbi-badge-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+  .badge-card { background: var(--white); border: 1px solid var(--light-gray); border-radius: 12px; padding: 30px; max-width: 450px; box-shadow: 0 10px 30px rgba(0,0,0,.05); transition: transform .3s ease, box-shadow .3s ease; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .badge-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(16,33,77,.1); border-color: var(--primary); }
+  .badge-card img { width: 64px; height: 64px; }
+  .badge-card h4 { font-size: var(--font-size--h4); color: var(--secondary); margin-bottom: 15px; max-width: 308px; }
+  .badge-card .p-style { line-height: 1.5; font-size: 18px; color: var(--secondary); }
+  @media (min-width: 801px) { .badge-card { width: calc(33% - 30px); } }
+  @media (max-width: 1024px) { .cbi-info-section { padding-left: 20px; padding-right: 20px; } }
+  @media (max-width: 800px) { .badge-card { width: 100%; } }
+  @media (max-width: 768px) { .badge-card { max-width: 100%; } }
+  @media (max-width: 500px) { .badge-card { padding: 21px; } }
+
+  /* ---------- 11. areas-sctn ---------- */
+  .areas-sctn { color: var(--primary); padding: 80px 20px; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); }
+  .areas-sctn .maintitle { font-size: clamp(28px, 4vw, 40px); font-family: var(--font-family--h3); display: flex; width: 100%; align-items: center; gap: 20px; font-weight: 400; text-align: center; }
+  .areas-sctn .maintitle:before,
+  .areas-sctn .maintitle:after { content: ''; flex-grow: 1; background: var(--primary); height: 2px; }
+  .links-inn { display: flex; flex-wrap: wrap; width: 100%; gap: 20px 5%; justify-content: center; list-style: none; padding: 0; margin: 0; }
+  .links-inn a { color: var(--primary); text-decoration: underline; font-size: 18px; font-weight: 700; }
+  @media (max-width: 800px) { .areas-sctn { padding-top: 32px; padding-bottom: 32px; } }
+
+  /* ---------- shared contact-form (.bottom-form) — city --primary bg variant ---------- */
+  .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; background: var(--primary); padding: 36px 30px; color: #fff; border-radius: 6px; }
+  .bottom-form input:not([type=submit]) { background: #fff; border: none; border-bottom: 2px solid var(--red); max-width: 100%; width: 100%; min-height: 31px; padding: 10px 13px; }
+  .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; min-height: 98px; }
+  .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
+  .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .bottom-form .col-4 { width: 100%; }
+  .bottom-form .col-4 .wpcf7-form-control-wrap, .bottom-form .col-5 .wpcf7-form-control-wrap { width: 100%; }
+  .bottom-form .col-5 { display: flex; justify-content: space-between; position: relative; text-align: left; width: 100%; gap: 4px; align-items: center; }
+  .bottom-form .col-5 .wpcf7-list-item.first { margin-left: 0; }
+  .bottom-form .col-5 .wpcf7-list-item-label { font-size: 12px; }
+  .bottom-form .col-5 .bst-way > label { width: 100%; display: block; }
+  .bottom-form .wpcf7-list-item { margin-left: 4px; }
+  .bottom-form .wpcf7-list-item label { display: flex; align-items: center; }
+  .bottom-form .wpcf7-radio { display: flex; gap: 8px; }
+  .bottom-form .bst-way { color: #fff; text-transform: uppercase; font-weight: 600; display: flex; gap: 12px; align-items: center; font-size: 12px; }
+  .bottom-form input::placeholder, .bottom-form textarea::placeholder { color: #555; }
+  .bottom-form button[type=submit] { border: 0; color: var(--primary); padding: 6px 20px; border-radius: 100px; width: 100%; max-width: 180px; background: #fff; font-weight: 700; text-transform: uppercase; min-width: fit-content; cursor: pointer; }
+  @media (max-width: 600px) {
+    .bottom-form .col-5 { flex-direction: column; text-align: center; }
+    .bottom-form .wpcf7-radio { justify-content: center; }
+    .bottom-form button[type=submit] { width: 100%; }
+    .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: 100%; }
+    .bottom-form .bst-way { gap: 4px; flex-direction: column; align-items: center; }
+  }
+
+  /* Honeypot + form status banner */
+  .pr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+  .pr-form-banner { width: 100%; margin-top: 14px; font-weight: 600; }
+  .pr-form-banner[data-state="success"] { color: #fff; }
+  .pr-form-banner[data-state="error"] { color: #ffd9d9; }
+</style>

@@ -1,0 +1,150 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix",
+        "name": "Phil Reese Business Broker"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Valerie Mapua"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Finding the Right Buyer Promptly",
+      "reviewBody": "Highly recommend Phil he’s the best at finding you the right buyer for your business. Always available to answer your questions promptly returns calls! Knows the laws and trustworthy.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VNcjE0S1R4b01iSFNREAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEMr14KTxoMbHSQ%7CCgwI3PLIwQYQ-L3K4QI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "ken meleleu"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Attentive and Spot-On Buyer Evaluation",
+      "reviewBody": "Phil was always available to talk or sit with me, he was very attentive to me the seller and to the potential buyers that were looking at my business. I found Phil to be pleasant during the complete process. Phil knew what to do and when it needed to be done. Phil's evaluation of buyers was spot-on, we wasted no time on non-qualified buyers. If I need a Business Broker again, I will go straight to Phil.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURobW9mNkxREAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDhmof6LQ%7CCgsIo82YoAYQ4I7Zdg%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Terri La France"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "20+ Years of Instrumental Experience",
+      "reviewBody": "We have had a great experience selling our business with Phil Reese as our broker. He completed the sale of our business. His 20+ years of experience were instrumental guiding our decision-making process to be successful. We highly recommend choosing Phil as your broker.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNtbWJIRHV3RRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICmmbHDuwE%7CCgwI4N_HjgYQ-Pu47gI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "VICKI HANNA"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Thoughtful Broker Who Gets Things Done",
+      "reviewBody": "In shopping around for a broker, Phil was the best fit for us. He is a good and kind man, and thoughtful. He listens and he gets things done. He was quick to take care of any needs we had and was not surprised when we got our full asking. All aspects of the sale were answered prayer. We would use him again but retirement looks pretty good!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURjclpEblZnEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDcrZDnVg%7CCgwIjril9wUQ-MDEuQI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Joe Mangum"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Detail-Oriented and No-Nonsense Broker",
+      "reviewBody": "We worked with Phil in selling our business and from day one we could tell he was a no nonsense and very detail oriented broker. He made sure we only dealt with pre-screened, qualified buyers and assisted with our questions at each step of the arduous and sometimes confusing process. I would recommend Phil to anyone looking to buy/sell a business.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURVdjgtbVhREAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDUv8-mXQ%7CCgwIupnb6wUQgML3yAI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Mike Cerreta"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Honest and Professional Service",
+      "reviewBody": "phil was very good to work with . very honest very professional!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tZMFowSXlRV2RIV2tVMFpHTmxSM1psYzJkcVQwRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CAIQACodChtycF9oOkY0Z0IyQWdHWkU0ZGNlR3Zlc2dqT0E%7C0d4vzJMKmYn%7C?hl=en-US"
+    }
+  ]
+}

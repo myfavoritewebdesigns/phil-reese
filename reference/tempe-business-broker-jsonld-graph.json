@@ -1,0 +1,63 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.philsellsbiz.com/tempe-business-broker/",
+      "url": "https://www.philsellsbiz.com/tempe-business-broker/",
+      "name": "Tempe Business Broker Phil Reese",
+      "isPartOf": {
+        "@id": "https://www.philsellsbiz.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://www.philsellsbiz.com/tempe-business-broker/#primaryimage"
+      },
+      "image": {
+        "@id": "https://www.philsellsbiz.com/tempe-business-broker/#primaryimage"
+      },
+      "thumbnailUrl": "https://www.philsellsbiz.com/wp-content/uploads/2021/02/tempe-business-broker.jpg",
+      "datePublished": "2015-05-20T22:11:54+00:00",
+      "dateModified": "2026-05-05T19:36:05+00:00",
+      "description": "If you would like to sell your Tempe business, call our expert Tempe business broker. The Tempe business sales market is up and now is the time to sell.",
+      "breadcrumb": {
+        "@id": "https://www.philsellsbiz.com/tempe-business-broker/#breadcrumb"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "ReadAction",
+          "target": [
+            "https://www.philsellsbiz.com/tempe-business-broker/"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "ImageObject",
+      "inLanguage": "en-US",
+      "@id": "https://www.philsellsbiz.com/tempe-business-broker/#primaryimage",
+      "url": "https://www.philsellsbiz.com/wp-content/uploads/2021/02/tempe-business-broker.jpg",
+      "contentUrl": "https://www.philsellsbiz.com/wp-content/uploads/2021/02/tempe-business-broker.jpg",
+      "width": 1200,
+      "height": 1200,
+      "caption": "If you would like to sell your Tempe business, I can help. As an experienced Arizona business broker, I see that the Tempe business sales market is on the upswing and now is a prime time to sell."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.philsellsbiz.com/tempe-business-broker/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "AZ Business Broker",
+          "item": "https://www.philsellsbiz.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tempe Business Broker"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix",
+        "name": "Phil Reese Business Broker"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Russ K"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Valuable Advice for Complex Valuations",
+      "reviewBody": "I contacted Phil regarding a family member who was having issues with his business partner and was thinking about selling his half of the company. Phil did a valuation of the business and gave my family member very valuable advice.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25kNVpuVm5OV3BoUW5SUmRFcE9Uek5UTXpsTU9HYxAB!2m1!1s0x0:0x5050683fa73067b5!3m1!1s2@1:CAIQACodChtycF9oOnd5ZnVnNWphQnRRdEpOTzNTMzlMOGc%7C%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Novella Wellington"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Consistent and Communicative Engagement",
+      "reviewBody": "Phil has proven over the years that he can be relied on for confidentially. Many of his clients appreciate his consistent weekly updates, which keep them informed throughout the process. He's not the type of broker who lists a business and then disappears - he stays engaged and communicative from start to finish.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21GcGRsWkRlVVZ0TWxWeWJYWlZNelZqYms1V1RuYxAB!2m1!1s0x0:0x5050683fa73067b5!3m1!1s2@1:CAIQACodChtycF9oOmFpdlZDeUVtMlVybXZVMzVjbk5WTnc%7C%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Shannon Kriloff"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Above and Beyond for Arizona Clients",
+      "reviewBody": "Phil is the best business broker in Arizona. He goes above and beyond for his clients.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tJMVVXZHdiVmQ2YTFCVmExSldZWGRsVWxaMmQxRRAB!2m1!1s0x0:0x5050683fa73067b5!3m1!1s2@1:CAIQACodChtycF9oOkI1UWdwbVd6a1BVa1JWYXdlUlZ2d1E%7C%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Terri La France"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "20+ Years of Instrumental Experience",
+      "reviewBody": "We have had a great experience selling our business with Phil Reese as our broker. He completed the sale of our business. His 20+ years of experience were instrumental guiding our decision-making process to be successful. We highly recommend choosing Phil as your broker.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNtbWJIRHV3RRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICmmbHDuwE%7CCgwI4N_HjgYQ-Pu47gI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Joe Mangum"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Detail-Oriented and No-Nonsense Broker",
+      "reviewBody": "We worked with Phil in selling our business and from day one we could tell he was a no nonsense and very detail oriented broker. He made sure we only dealt with pre-screened, qualified buyers and assisted with our questions at each step of the arduous and sometimes confusing process. I would recommend Phil to anyone looking to buy/sell a business.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURVdjgtbVhREAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDUv8-mXQ%7CCgwIupnb6wUQgML3yAI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Doug L"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Competent Documentation and Follow-Through",
+      "reviewBody": "Phil was very professional in facilitating our transaction. He knew what he was doing and is quite competent in following through with documenting the transaction and keeping all parties to the deal on track. I'd recommend him to anyone seeking a competent business broker.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUR3M082MDJnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDw3O602gE%7CCgwI4cuJ3gUQ2KC98wI%7C?hl=en-US"
+    }
+  ]
+}

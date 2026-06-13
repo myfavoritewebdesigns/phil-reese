@@ -1,0 +1,517 @@
+---
+/* -----------------------------------------------------------------------
+   Fountain Hills Business Broker — faithful clone of
+   https://www.philsellsbiz.com/fountain-hills-business-broker/
+   City local-SEO page. Markup/copy verbatim from
+   reference/fountain-hills-business-broker-raw.html; section CSS verbatim from
+   the live WP-Rocket used-CSS (reference/_fh-inline.css) +
+   reference/_peoria-business-broker-sections.css.
+   Live DOM (the outer test-sctn wraps several nested sections, replicated):
+     1. banner-sctn       — H1 + subtitle + 3 paragraphs + BBB rating row
+     2. vid-sctn          — "CONTACT ME" contact form
+     3. test-sctn (wrapper)
+        ├─ title-col + google-col (reviews header)
+        ├─ test-sctn-alt — 6 reviews
+        ├─ philo-sctn    — "What Does A CBI Do" + contract image
+        ├─ cbi-info-section — cbi-header (text + video) + 3 service cards
+        ├─ areas-sctn    — 4 city links
+        ├─ faq-sctn      — 8 FAQ <details>
+        └─ map-sctn      — banner img + title + Google Map iframe
+   JSON-LD = live Yoast @graph (Layout) + FinancialService + FAQPage + Reviews
+   (verbatim) + a city Service node per task spec.
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL, contact, replyMethods } from "../config/site";
+import googleGLogoSvg from "../../reference/google-g-logo-svg.html?raw";
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+import faqSchema from "../../reference/_ld-fountain-hills-business-broker-faq.json";
+import reviewsSchema from "../../reference/_ld-fountain-hills-business-broker-reviews.json";
+
+const pageTitle = "Sell Your Business with Phil Reese, Fountain Hills Broker";
+const pageDescription =
+  "Sell your business in Fountain Hills with expert broker Phil Reese for seamless mergers, confidential negotiations, & expert deal structuring.";
+
+const ogImage = `${SITE_URL}/images/fountain-hills-business-broker/og-fountain-hills.jpg`;
+const IMG = "/images/fountain-hills-business-broker";
+
+/* ---------- Page JSON-LD ---------- */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/fountain-hills-business-broker/`,
+  url: `${SITE_URL}/fountain-hills-business-broker/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/fountain-hills-business-broker/#primaryimage` },
+  image: { "@id": `${SITE_URL}/fountain-hills-business-broker/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2024-03-08T21:19:44+00:00",
+  dateModified: "2026-06-12T21:34:36+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/fountain-hills-business-broker/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/fountain-hills-business-broker/`] }],
+};
+
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/fountain-hills-business-broker/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+  caption: `Fountain Hills Business Broker ${SITE_URL}/`,
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/fountain-hills-business-broker/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Fountain Hills Business Broker" },
+  ],
+};
+
+const serviceSchema = {
+  "@type": "Service",
+  "@id": `${SITE_URL}/fountain-hills-business-broker/#service`,
+  name: "Fountain Hills Business Broker",
+  serviceType: "Business Brokerage — Selling a Business in Fountain Hills",
+  description: pageDescription,
+  areaServed: { "@type": "City", name: "Fountain Hills", containedInPlace: { "@type": "State", name: "Arizona" } },
+  provider: {
+    "@type": "ProfessionalService",
+    name: "Phil Reese, Arizona Business Broker",
+    "@id": `${SITE_URL}/`,
+    url: `${SITE_URL}/`,
+  },
+};
+
+const structuredData = [
+  { "@context": "https://schema.org", "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema, serviceSchema] },
+  financialServiceSchema,
+  faqSchema,
+  reviewsSchema,
+];
+
+/* ---------- Reviews (test-sctn-alt), verbatim ---------- */
+const reviews = [
+  { text: "If you have ever bought or sold a company, you know that it's an incredibly complex endeavor, sometimes with many unexpected twists and turns along the way. The smart person soon learns this is not something you should take on without the help of an expert to guide you. Phil Reese may well be the best and brightest expert you can find. Phil was amazing to work with throughout the entire process of selling our company. He was always highly professional and available to answer every kind of question or concern. We really don't know how we could have gotten through the tedious, roller-coaster process without him. And best of all, his guidance assured us the best possible results with an excellent buyer and top-level offer at the end of the day. We highly recommend Phil Reese!", name: "Mike Williams", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURXdFpxSzJnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDWtZqK2gE%7CCgwI0PaSkgYQoI3VtgE%7C?hl=en-US" },
+  { text: "To anyone looking to buy or sell a business, do yourself a HUGE favor and use the services of Phil Reese! We had used other business brokers in the past and had less than desired results. In 2015 Phil listed and sold our multi-million dollar business in 6 months. His knowledge, support, enthusiasm, professionalism and his personalized service is outstanding! Listing our business with Phil was absolutely the best decision we could have made! We love him and so will you! Mark and Juanita Wdowiak", name: "Mark Wdowiak", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURRbDRucmdRRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDQl4nrgQE%7CCgwI04_q0gUQwJ6YuwI%7C?hl=en-US" },
+  { text: "We used Phil to close on a business in Phoenix, AZ. He understood what we were looking for and was very accommodating to both us and the Seller. Everything went so smoothly, we closed in 3 weeks. I would highly recommend Phil.", name: "Tonia Khouri", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUR5enFmNHd3RRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDyzqf4wwE%7CCgoIzvSUggYQ-Iht%7C?hl=en-US" },
+  { text: "Highly recommend Phil he’s the best at finding you the right buyer for your business. Always available to answer your questions promptly returns calls! Knows the laws and trustworthy.", name: "Valerie Mapua", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VNcjE0S1R4b01iSFNREAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEMr14KTxoMbHSQ%7CCgwI3PLIwQYQ-L3K4QI%7C?hl=en-US" },
+  { text: "I had a question regarding my business, and Phil was very kind, taking his time to converse with me, even though I didn't use his service. He was awesome, and I will definitely keep his information and refer him to clients. A very professional gentleman.", name: "karen benedek", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURqdy1EanZ3RRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDjw-DjvwE%7CCgwI9r3lsQYQiMry2wI%7C?hl=en-US" },
+  { text: "Phil was very professional in facilitating our transaction. He knew what he was doing and is quite competent in following through with documenting the transaction and keeping all parties to the deal on track. I'd recommend him to anyone seeking a competent business broker.", name: "Doug L", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUR3M082MDJnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDw3O602gE%7CCgwI4cuJ3gUQ2KC98wI%7C?hl=en-US" },
+];
+
+/* ---------- "What Does A CBI Do" (philo-sctn), verbatim ---------- */
+const philoParas = [
+  "As a proud member of the Arizona Business Brokers Association (AZBBA), I embrace the opportunity to collaborate with fellow members. This collaboration significantly broadens the pool of potential buyers, improving the opportunities of finding the perfect match for your business. What’s more, I’m honored to be recognized as an award-winning agent, standing as one of the most highly qualified professionals in my field.",
+  "My credentials speak volumes about my expertise and dedication. As a Certified Business Intermediary (CBI), a distinction held by only a select few in Arizona—just eight, to be precise—I’ve undergone rigorous testing mandated by the International Business Brokers Association. This certification attests to my comprehensive knowledge and extensive experience in facilitating business sales, providing you with the assurance of working with a seasoned professional.",
+  "In affiliation with West USA Realty, boasting the largest Business Broker group in Arizona, your business listing is guaranteed maximum exposure within the local market.",
+];
+
+/* ---------- cbi-header copy (cbi-info-section), verbatim ---------- */
+const cbiHeaderTop = [
+  "As a highly-rated business broker in Fountain Hills, I have earned a reputation for my exceptional skill in facilitating successful company sales and acquisitions. With a deep understanding of both the local and international business landscapes, I bring a wealth of knowledge and a robust network of contacts to every transaction. Whether you’re looking to sell your company or acquire a new one, partnering with me is a strategic decision.",
+  "When it comes to selling your company, my approach starts with a thorough business valuation to determine its market worth. I’ll then guide you through the process of preparing your business for sale, helping you gather the necessary financial documents, and showcasing your company in the best possible light to attract potential buyers.",
+];
+const cbiHeaderBottom = [
+  "Throughout the sales journey, I serve as a skilled negotiator, advocating for your interests and striving to secure the most favorable deal possible. From managing due diligence to coordinating with legal and financial experts, I ensure that every aspect of the transaction aligns with your goals.",
+  "On the flip side, if you’re seeking to acquire a business in Fountain Hills, I’m here to help you pinpoint suitable opportunities that fit your criteria. Leveraging my market expertise, I’ll scout out businesses that align with your objectives and budget. I’ll also assist in evaluating these prospects, conducting thorough financial analyses, and assessing their growth potential.",
+  "Consider me your dedicated partner, committed to guiding you through every phase of the process, from our initial consultation to the final closing. My dedication to professionalism, combined with my extensive experience and sterling reputation in the business community, make me an indispensable resource for anyone considering a company sale or purchase. Choose me as your trusted business broker, and navigate the complexities of the business transaction process with confidence and success.",
+];
+
+/* ---------- 3 service cards (cbi-badge-container), verbatim ---------- */
+const serviceCards = [
+  { img: "local-buy-sell-mesa-business-broker.png", alt: "Local Buy And Sell Business Broker", h4: "Local Sell & Buy Business Broker In Fountain Hills", p: "Choose Phil Reese as your Fountain Hills business broker for seamless local buying and selling transactions. With his extensive understanding of the Fountain Hills business scene and a proven history of successful deals, Phil stands as your reliable ally in navigating the intricacies of the local market. Reach out to us today for further details on how Phil can assist you." },
+  { img: "valuation-mesa-business.png", alt: "Fountain Hills Company Valuation", h4: "Valuation Of Your Fountain Hills Business", p: "Phil Reese is your go-to expert for meticulous and precise business valuations tailored to local companies. Drawing on his in-depth knowledge of the Fountain Hills market, industry dynamics, and financial analytics, Phil delivers comprehensive assessments of your business’s value. Whether you’re contemplating a sale, exploring financing options, or strategizing for the future, Phil’s valuation services offer invaluable insights to guide your decision-making process." },
+  { img: "buyer-representation-mesa-arizona.png", alt: "Buyer Representation By Phil Reese Broker In Fountain Hills, AZ", h4: "Buyer Representation", p: "Phil Reese brings a profound understanding of the Fountain Hills market to the table, assisting you in pinpointing ideal acquisition opportunities. From thorough due diligence to negotiating advantageous terms, Phil guides you through every step of the buying process with expertise and dedication. Trust Phil to be your ideal partner in achieving your business acquisition goals in Tempe." },
+];
+
+/* ---------- areas-sctn city links, verbatim ---------- */
+const areaLinks = [
+  { href: "/phoenix-business-broker/", label: "Phoenix Business Broker" },
+  { href: "/scottsdale-business-broker/", label: "Scottsdale Business Broker" },
+  { href: "/tempe-business-broker/", label: "Tempe Business Broker" },
+  { href: "/mesa-business-broker/", label: "Mesa Business Broker" },
+];
+
+/* ---------- FAQ (faq-sctn), verbatim ---------- */
+const faqs = [
+  { q: "What Documentation Is Necessary For The Sale Of Your Business?", a: "When it comes to selling your business, having the right documentation is crucial for a smooth and successful transaction. While specific requirements may vary based on factors such as the nature of your business and local regulations, you still need a few basic documents to get started, including financial statements, tax returns, customer contracts, leases, employee agreements, inventory lists, equipment inventories, and any relevant permits or licenses. These documents provide potential buyers with essential information about the financial health, legal status, and operational aspects of your business. Don’t worry, I’ll work closely with you to ensure that all necessary documentation is in order." },
+  { q: "Q: Typically, How Long Is The Process Of Selling A Business?", a: "On average it takes 6-8 months to sell a business. A lot depends on the price, location and type of business." },
+  { q: "Q: How long does it take to sell a business?", a: "The process of selling a business can vary significantly depending on various factors such as the size and complexity of your business, market conditions, industry trends, and the negotiation process. On average, selling a business can take anywhere from several months to a year or more to complete. It typically involves several key stages, including business valuation, preparation, marketing, due diligence, negotiations, and closing. I understand the importance of time and work diligently to expedite the process while ensuring that every step is handled meticulously to achieve the best possible outcome for you as the business owner." },
+  { q: "Q: How Is A Business Value Determined?", a: "Determining the value of a business is a complex process that involves analyzing multiple factors to arrive at a fair and accurate assessment of its worth. While there are various methods and approaches used in business valuation, the most common ones include income-based, market-based, and asset-based approaches. Income-based methods focus on the business’s earning potential and cash flow, while market-based methods look at comparable sales and transactions in the industry. Asset-based methods, on the other hand, assess the value of the business’s assets and liabilities. Fortunately, I can conduct a thorough analysis of your business, taking into account its financial performance, market conditions, industry trends, and other relevant factors to determine its value accurately." },
+  { q: "Q: What Are The Sequential Steps Involved In Preparing A Company For Sale?", a: "Preparing a sale company involves a series of steps that maximize its value and appeal to potential buyers. These steps typically include assessing the business’s financial health, identifying areas for improvement, organizing documentation, enhancing curb appeal, and developing a comprehensive marketing strategy. I will work closely with you throughout each stage of the process, providing valuable guidance and support to ensure that your business is well-positioned for a successful sale. By taking a proactive approach to preparation, I can help you attract the right buyers and achieve the best possible outcome for your business sale." },
+  { q: "Q: Do You Limit Business Sale Advertising to Local Markets?", a: "No, I believe in maximizing exposure for your business by using a comprehensive advertising strategy that targets local, national, and even international markets. While local advertising can be effective for reaching potential buyers in your area, we understand the importance of casting a wider net to attract a diverse range of interested parties. Our marketing approach includes a combination of online and offline channels, including social media, industry publications, business networks, and targeted outreach to potential buyers. By leveraging my extensive network and resources, I can guarantee that your business receives maximum visibility, increasing the likelihood of finding the right buyer at the best possible price." },
+  { q: "Q: What Tax Obligations Are Associated With Buying Or Selling A Business?", a: "Buying or selling a business can have significant tax implications, and it’s essential to understand them before proceeding with the transaction. The specific tax obligations associated with buying or selling a business can vary depending on factors such as the structure of the transaction, the type of business, and applicable tax laws. Common tax considerations include capital gains tax, income tax, sales tax, and transfer tax. Additionally, there may be opportunities for tax deductions and incentives that can help minimize your tax burden. I can assess your situation and help you develop a tax strategy that aligns with your goals and objectives." },
+  { q: "Q: How Much Personal Time Investment Is Required Throughout The Business Selling Process?", a: "Selling a business can be a time-consuming process that requires careful planning, preparation, and execution. While the amount of personal time investment required can vary depending on factors such as the size and complexity of your business, your level of involvement, and the efficiency of the broker, it’s essential to be prepared to dedicate time and effort to the process. Luckily, you can count on me to minimize your workload and streamline the process as much as possible by handling the majority of the work on your behalf. However, as a business owner, you may still need to invest time in providing information, making decisions, and participating in key aspects of the sale process." },
+];
+
+const mapEmbed = "https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d150406.56611047644!2d-111.90293826870737!3d33.59111011098913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x872b989061a57cd1%3A0xbeacef3478713137!2sFountain%20Hills%2C%20AZ%2C%20USA!3m2!1d33.6042079!2d-111.7256936!4m5!1s0x872b741555a9a769%3A0x777d85f1a062a70!2sPhil%20Reese%2C%20Arizona%20Business%20Broker%2C%207077%20E%20Marilyn%20Rd%20%23200%2C%20Scottsdale%2C%20AZ%2085254%2C%20United%20States!3m2!1d33.6204098!2d-111.9286278!5e0!3m2!1sen!2sec!4v1709935994370!5m2!1sen!2sec";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/fountain-hills-business-broker/"
+  ogImage={ogImage}
+  ogImageAlt="Fountain Hills Business Broker"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <link slot="head" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.css" />
+  <script slot="head" is:inline src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.js" defer></script>
+
+  <!-- 1. banner-sctn -->
+  <section class="section banner-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h1 class="maintitle h1-style">Call Fountain Hills Business Broker Phil Reese When You Are Ready to Sell Your Business!</h1>
+        <h2 class="subtitle h5-style">Leading Fountain Hills’ Business Broker Serving Company Owners</h2>
+        <p>If you’re considering selling your Fountain Hills business, you’re in the right place. With my experience as an Arizona business broker, I can see that the market for selling businesses in Fountain Hills is thriving, making it an ideal time to seize this opportunity. Fountain Hills is a highly coveted location for business ventures, which is why I’m actively engaged with numerous buyers eager to invest in profitable businesses.</p>
+        <p>When it comes to selling your business in this area, having the support of a skilled business broker can make all the difference. The process involves navigating various legal intricacies, some of which could have significant consequences if overlooked. However, legal matters are just one piece of the puzzle; effective marketing of your business is equally crucial. You can trust me to handle both aspects with utmost care since I prioritize extensive and discreet marketing for your business while maintaining confidentiality until the buyer signs a confidentiality agreement.</p>
+        <p>Moreover, my marketing efforts extend far beyond the local scope – reaching worldwide. With my help, your business will receive global exposure.</p>
+        <div class="bnr-inn">
+          <div>
+            <Fragment set:html={googleGLogoSvg} />
+            <span class="strs">★★★★★</span>
+          </div>
+          <img src={`${IMG}/BBB.png`} alt="BBB Accredited Business A+" width="187" height="47" class="alignnone size-full" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. vid-sctn — CONTACT ME contact form -->
+  <section class="section vid-sctn">
+    <div class="section-wrap">
+      <div class="vid-col">
+        <h3 class="maintitle h3-style">CONTACT ME</h3>
+        <div class="wpcf7">
+          <form class="wpcf7-form" action="/api/contact" method="post" aria-label="Contact form" data-pr-contact-form data-form-id="fountain-hills">
+            <input type="text" name="_honeypot" value="" tabindex="-1" autocomplete="off" aria-hidden="true" class="pr-hp" />
+            <div class="bottom-form">
+              <div class="col-1">
+                <label for="first-name-bt">Name</label>
+                <span class="wpcf7-form-control-wrap"><input type="text" name="your-name-bt" id="first-name-bt" class="wpcf7-form-control wpcf7-text" maxlength="400" placeholder="Name*" required aria-required="true" /></span>
+              </div>
+              <div class="col-2">
+                <label for="your-email-bt">Email</label>
+                <span class="wpcf7-form-control-wrap"><input type="email" name="your-email-bt" id="your-email-bt" class="wpcf7-form-control wpcf7-email wpcf7-text" maxlength="400" placeholder="Email*" required aria-required="true" /></span>
+              </div>
+              <div class="col-3">
+                <label for="your-phone-bt">Phone</label>
+                <span class="wpcf7-form-control-wrap"><input type="tel" name="your-phone-bt" id="your-phone-bt" class="wpcf7-form-control wpcf7-tel wpcf7-text" maxlength="400" placeholder="Phone" /></span>
+              </div>
+              <div class="col-4">
+                <label for="your-message-bt">Your Message*</label>
+                <span class="wpcf7-form-control-wrap"><textarea name="your-message-bt" id="your-message-bt" class="wpcf7-form-control wpcf7-textarea" cols="40" rows="10" maxlength="2000" minlength="20" placeholder="Your Message*" required aria-required="true"></textarea></span>
+              </div>
+              <div class="col-5">
+                <div class="bst-way">
+                  <label>Best Way to Reply:</label>
+                  <span class="wpcf7-form-control-wrap">
+                    <span class="wpcf7-form-control wpcf7-radio">
+                      {replyMethods.map((method, i) => (
+                        <span class={`wpcf7-list-item${i === 0 ? " first" : ""}${i === replyMethods.length - 1 ? " last" : ""}`}>
+                          <label><input type="radio" name="bst-way-bt" value={method} checked={i === 0} /><span class="wpcf7-list-item-label">{method}</span></label>
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </div>
+                <button type="submit" class="wpcf7-form-control wpcf7-submit">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. test-sctn wrapper — reviews + nested sections -->
+  <section class="section test-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="subtitle h3-style">Our Clients’ Reviews</h3>
+        <h4 class="h4-style">Fountain Hills Business Broker With 5-Star Rated Reviews</h4>
+      </div>
+      <div class="google-col">
+        <Fragment set:html={googleGLogoSvg} />
+        <div>
+          <p>Over 60 reviews</p>
+          <span>5.0 <span class="strs">★★★★★</span></span>
+        </div>
+      </div>
+
+      <section class="section test-sctn test-sctn-alt">
+        <div class="rvw-wrapper">
+          {reviews.map((r) => (
+            <div class="rvw-box">
+              <p>{r.text}</p>
+              <div class="rvw-bx">
+                <p class="name"><span class="bold"><a href={r.url} target="_blank" rel="noopener">{r.name}</a></span></p>
+                <span class="strs">★★★★★</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- nested philo-sctn — What Does A CBI Do -->
+      <section class="section philo-sctn">
+        <div class="section-wrap">
+          <div class="txt-col">
+            <h3 class="maintitle h3-style">What Does A Certified Business Intermediary Do During A Business Sale?</h3>
+            {philoParas.map((p) => <p>{p}</p>)}
+          </div>
+          <div class="img-col">
+            <img src={`${IMG}/business-people-and-lawyers-discussing-contract-papers-sitting-at-the-table.jpg`} alt="Fountain Hills Business Broker Explaining What Is A Certified Business Intermediary" width="400" height="300" class="alignnone size-full" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
+      <!-- nested cbi-info-section — when-to-sell + video + 3 service cards -->
+      <section class="section cbi-info-section">
+        <div class="section-wrap">
+          <div class="cbi-header">
+            <div class="txt-col">
+              <h3 class="h1-style maintitle">When To Sell Your Fountain Hills Business</h3>
+              <h3 class="h2-style subtitle">Determining How Much Your Fountain Hills Business Is Worth</h3>
+              {cbiHeaderTop.map((p) => <p class="p-style">{p}</p>)}
+            </div>
+            <div class="lyte-vid">
+              <div class="lyte-wrapper" style="max-width:100%;margin:5px;">
+                <lite-youtube videoid="te_eUAp9Itg" title="Tempe Business Broker | Phil Reese" style={`background-image:url('${IMG}/yt-te_eUAp9Itg.jpg');`}>
+                  <a href="https://youtu.be/te_eUAp9Itg" class="lite-yt-fallback" rel="nofollow">Watch this video on YouTube</a>
+                </lite-youtube>
+              </div>
+            </div>
+          </div>
+          {cbiHeaderBottom.map((p) => <p class="p-style">{p}</p>)}
+          <h3 class="h2-style subtitle trusted-title">Why We’re Fountain Hills’ Most Trusted Business Broker</h3>
+          <div class="cbi-badge-container">
+            {serviceCards.map((c) => (
+              <article class="badge-card">
+                <img src={`${IMG}/${c.img}`} alt={c.alt} width="64" height="64" class="alignnone size-full" loading="lazy" />
+                <h4 class="h3-style">{c.h4}</h4>
+                <p class="p-style">{c.p}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- nested areas-sctn -->
+      <section class="section areas-sctn">
+        <div class="section-wrap">
+          <h3 class="maintitle">Some of the areas we serve</h3>
+          <div class="links-inn">
+            {areaLinks.map((a) => <a href={a.href}>{a.label}</a>)}
+          </div>
+        </div>
+      </section>
+
+      <!-- nested faq-sctn -->
+      <section class="section faq-sctn">
+        <div class="section-wrap">
+          <div class="one-col">
+            {faqs.map((f, i) => (
+              <details>
+                <summary><h3 class="h5-style faq-title">{f.q}</h3></summary>
+                <p><b>A: </b>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- nested map-sctn -->
+      <section class="section map-sctn">
+        <div class="section-wrap">
+          <div class="title-col">
+            <img src={`${IMG}/expert-mesa-arizona-business-brokers.jpg`} alt="Peoria, Arizona" width="900" height="164" class="aligncenternew" loading="lazy" />
+            <h3 class="h3-style">Visit Our Business Broker Office Near Fountain Hills</h3>
+            <h3 class="h4-style">My Scottsdale Office Is Just A Short Drive From Fountain Hills</h3>
+          </div>
+          <iframe
+            src="about:blank"
+            data-lazy-src={mapEmbed}
+            width="600"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Google Map — Phil Reese, Arizona Business Broker near Fountain Hills"
+          ></iframe>
+        </div>
+      </section>
+    </div>
+  </section>
+</Layout>
+
+<!-- Lazy-load the Google Map iframe like live (WP Rocket). -->
+<script is:inline>
+  (function () {
+    var frames = document.querySelectorAll("iframe[data-lazy-src]");
+    if (!frames.length) return;
+    function load(frame) { if (frame.dataset.loaded) return; frame.dataset.loaded = "1"; frame.src = frame.dataset.lazySrc; }
+    if (!("IntersectionObserver" in window)) { frames.forEach(load); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { load(e.target); io.unobserve(e.target); } });
+    }, { rootMargin: "400px 0px" });
+    frames.forEach(function (f) { io.observe(f); });
+  })();
+</script>
+
+<!-- Section CSS — verbatim from live used-CSS (reference/_fh-inline.css +
+     _peoria-business-broker-sections.css). is:global for set:html SVG nodes. -->
+<style is:global>
+  /* ---------- 1. banner-sctn ---------- */
+  .banner-sctn { padding-top: 80px; padding-bottom: 80px; background: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); z-index: 1; }
+  .banner-sctn .maintitle { font-weight: 500; color: var(--primary); font-size: clamp(24px, 4vw, 54px); }
+  .banner-sctn .one-col { text-align: center; }
+  .banner-sctn .subtitle { color: var(--primary); font-weight: 400; font-size: 30px; margin-bottom: 0; }
+  .banner-sctn .one-col > p { max-width: 1200px; font-weight: 700; color: var(--primary); text-align: center; }
+  .banner-sctn .bnr-inn { display: flex; gap: 29px; width: 100%; justify-content: center; align-items: center; margin-top: 10px; }
+  .banner-sctn .bnr-inn > div { display: flex; align-items: center; gap: 10px; }
+  .banner-sctn .bnr-inn > div .strs { font-size: 25px; }
+  .banner-sctn .bnr-inn > div svg { width: 114px; height: auto; }
+  .banner-sctn .bnr-inn > img { width: 187px; height: 47px; flex: 0 0 auto; object-fit: contain; }
+  @media (max-width: 700px) { .banner-sctn .bnr-inn { flex-wrap: wrap; } }
+  @media (max-width: 500px) {
+    .banner-sctn { padding-bottom: 40px; padding-left: 20px; padding-right: 20px; }
+    .banner-sctn .subtitle { font-size: 26px; }
+    .banner-sctn .bnr-inn { gap: 18px; align-items: center; }
+    .banner-sctn .bnr-inn > div { flex-direction: column; gap: 0; width: 40%; max-width: 79px; }
+    .banner-sctn .bnr-inn > div svg { max-width: 100%; }
+    .banner-sctn .bnr-inn > div .strs { font-size: 15px; }
+    .banner-sctn .bnr-inn > img { width: 40%; height: auto; max-width: 150px; }
+  }
+  @media (max-width: 400px) { section.section.banner-sctn { padding-top: 45px; } }
+
+  /* ---------- 2. vid-sctn (CONTACT ME form) ---------- */
+  .vid-sctn { background: #ebebeb; padding-top: 50px; padding-bottom: 50px; border-bottom: 5px solid var(--red); }
+  .vid-sctn .vid-col { width: 100%; max-width: 760px; margin: 0 auto; }
+  .vid-sctn .vid-col .maintitle { color: var(--red); text-align: center; margin-bottom: 24px; }
+  .vid-sctn .wpcf7 { width: 100%; }
+
+  /* ---------- 3. test-sctn wrapper ---------- */
+  .test-sctn { background: linear-gradient(360deg, #e8e8e8 0, #e7e7e7 30%, #e7e7E700 100%) no-repeat padding-box; padding-top: 80px; padding-bottom: 80px; }
+  section.section.test-sctn { overflow: hidden; }
+  .test-sctn > .section-wrap { max-width: var(--container-site); }
+  .test-sctn .title-col { flex-grow: 1; max-width: 750px; padding-right: 20px; margin-left: auto; }
+  .test-sctn .subtitle { margin: 0; color: var(--secondary); font-size: clamp(28px, 3vw, 42px); }
+  .test-sctn .h4-style { margin-bottom: 0; }
+  .test-sctn .google-col { display: flex; align-items: center; gap: 20px; background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); padding: 20px; margin-right: -40px; width: 44%; border-radius: 7px; }
+  .test-sctn .google-col svg { width: 60px; height: auto; flex: 0 0 auto; }
+  .test-sctn .section-wrap { align-items: center; max-width: none; gap: 20px; }
+  .test-sctn .google-col div p { margin-top: 0; text-transform: uppercase; color: var(--primary); margin-bottom: 0; font-weight: 600; font-size: 16px; }
+  .test-sctn .google-col div span { font-weight: 900; color: var(--primary); }
+  .test-sctn .google-col div span span.strs { color: #ffb300; font-size: 20px; }
+  .test-sctn-alt .rvw-wrapper { column-count: unset; display: flex; flex-wrap: wrap; column-gap: unset; gap: 20px; width: 100%; justify-content: center; }
+  section.section.test-sctn.test-sctn-alt { padding: 30px 0; width: 100%; }
+  .test-sctn-alt .rvw-wrapper .rvw-box { margin-bottom: 0; width: calc(33.33% - 20px); }
+  .rvw-box { background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); border-radius: 5px; padding: 30px; align-self: stretch; display: flex; flex-direction: column; text-align: left; }
+  .rvw-box > p { margin: 0 0 20px; }
+  .rvw-box .rvw-bx { display: flex; align-items: flex-end; gap: 10px; margin-top: auto; }
+  .rvw-box .name { font-weight: 700; color: var(--primary); margin: 0; max-width: 250px; }
+  .rvw-box .name .bold a { color: var(--primary); text-decoration: none; }
+  .rvw-box .strs { color: #ffb300; }
+
+  /* ---------- nested philo-sctn ---------- */
+  .test-sctn .philo-sctn { width: 100%; padding-top: 60px; padding-bottom: 20px; }
+  .philo-sctn .section-wrap { align-items: center; }
+  .philo-sctn .txt-col { width: 55%; padding-right: 5%; }
+  .philo-sctn .img-col { display: flex; width: 45%; }
+  .philo-sctn .img-col img { width: 100%; height: auto; }
+  .philo-sctn .txt-col .maintitle { color: var(--primary); font-size: clamp(29px, 4vw, 38px); }
+  .philo-sctn .txt-col p { line-height: 1.5; font-size: 18px; color: var(--secondary); }
+  @media (max-width: 1024px) {
+    .philo-sctn .img-col { max-width: 360px; width: 100%; }
+    .philo-sctn .txt-col { width: 100%; text-align: center; padding: 0 15px; }
+  }
+
+  /* ---------- nested cbi-info-section ---------- */
+  .test-sctn .cbi-info-section { width: 100%; padding: clamp(60px, 8vw, 100px) 0; background: #d3d3d3; }
+  .cbi-info-section .cbi-header { max-width: none; display: flex; flex-wrap: wrap; margin: 0 auto 30px; align-items: center; }
+  .cbi-info-section .cbi-header .txt-col { width: 50%; text-align: left; }
+  .cbi-info-section .cbi-header .txt-col .maintitle { color: var(--red); margin-bottom: 0; }
+  .cbi-info-section .cbi-header .txt-col .subtitle { margin: 0; font-size: 21px; color: var(--secondary); }
+  .cbi-info-section .cbi-header .lyte-vid { width: 50%; padding-left: 20px; }
+  .cbi-info-section .p-style { text-align: left; color: var(--secondary); font-size: 18px; line-height: 1.5; }
+  .cbi-info-section .cbi-badge-container { display: flex; gap: 30px; justify-content: center; margin-top: 40px; flex-wrap: wrap; width: 100%; }
+  .cbi-info-section .badge-card { background: #fff; border: 1px solid #e2e2e2; border-radius: 12px; padding: 30px; width: calc(33.33% - 20px); max-width: 450px; box-shadow: 0 10px 30px rgba(0, 0, 0, .05); display: flex; flex-direction: column; align-items: center; text-align: center; transition: transform .3s ease, box-shadow .3s ease; }
+  .cbi-info-section .badge-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(16, 33, 77, .1); border-color: var(--primary); }
+  .cbi-info-section .badge-card img { width: 64px; height: 64px; }
+  .cbi-info-section .cbi-badge-container .badge-card .h3-style { font-size: 22px; margin-top: 10px; margin-bottom: 0; color: var(--red); }
+  .cbi-info-section .cbi-badge-container .badge-card .p-style { font-size: 15px; line-height: 1.4; text-align: center; }
+  @media (max-width: 1024px) {
+    .cbi-info-section .cbi-header .txt-col { text-align: center; width: 100%; }
+    .cbi-info-section .cbi-header .lyte-vid { width: 100%; padding: 0; text-align: center; max-width: 500px; margin: 20px auto 0; }
+    .cbi-info-section .p-style { text-align: center; }
+    .cbi-info-section .badge-card { width: 100%; max-width: 100%; padding: 21px; }
+  }
+
+  /* ---------- nested areas-sctn ---------- */
+  .test-sctn .areas-sctn { width: 100%; color: var(--primary); padding: 80px 20px; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); }
+  .areas-sctn .maintitle { font-size: clamp(28px, 4vw, 40px); font-family: var(--font-family--h3); display: flex; width: 100%; align-items: center; gap: 20px; font-weight: 400; }
+  .areas-sctn .maintitle:before, .areas-sctn .maintitle:after { content: ''; flex-grow: 1; background: var(--primary); height: 2px; }
+  .areas-sctn .links-inn { display: flex; flex-wrap: wrap; width: 100%; gap: 20px 5%; justify-content: center; list-style: none; }
+  .areas-sctn .links-inn a { color: var(--primary); text-decoration: underline; font-size: 18px; font-weight: 700; }
+  @media (max-width: 800px) { .areas-sctn { padding-top: 32px; padding-bottom: 32px; } .areas-sctn .maintitle { text-align: center; } }
+
+  /* ---------- nested faq-sctn ---------- */
+  .test-sctn .faq-sctn { width: 100%; padding-top: 80px; padding-bottom: 32px; }
+  .faq-sctn .one-col { max-width: 910px; align-items: stretch; }
+  .faq-sctn .maintitle.tc { text-align: center; color: var(--primary); }
+  .faq-sctn details { border-bottom: 2px solid #d3d3d3; margin-bottom: 10px; padding-bottom: 6px; width: 100%; }
+  .faq-sctn summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 4px; border-bottom: 2px solid var(--red); padding-bottom: 13px; cursor: pointer; }
+  .faq-sctn summary::-webkit-details-marker { display: none; }
+  .faq-sctn .faq-title { margin: 0; font-size: 21px; font-weight: 700; color: var(--primary); text-align: left; }
+  .faq-sctn p { text-align: left; }
+
+  /* ---------- nested map-sctn ---------- */
+  .test-sctn .map-sctn { width: 100%; padding-bottom: calc(3% + 32px); padding-top: 0; }
+  .map-sctn .section-wrap { flex-direction: column; align-items: center; }
+  .map-sctn .title-col { background-color: var(--primary); text-align: center; color: #fff; width: 100%; padding-bottom: 20px; }
+  .map-sctn .title-col img { width: 100%; max-width: 900px; height: auto; }
+  .map-sctn .title-col .h3-style { margin-top: 32px; margin-bottom: 8px; }
+  .map-sctn .title-col h3 { padding-right: 20px; padding-left: 20px; }
+  .map-sctn iframe { width: 100%; max-width: 1100px; height: 450px; border: 0; margin-top: 20px; }
+
+  /* ---------- Shared form CSS ---------- */
+  .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; background: var(--primary); padding: 36px 30px; color: #fff; border-radius: 6px; }
+  .bottom-form input:not([type=submit]) { background: #fff; border: none; border-bottom: 2px solid var(--red); max-width: 100%; width: 100%; min-height: 31px; padding: 10px 13px; }
+  .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; min-height: 98px; }
+  .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
+  .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .bottom-form .col-4 { width: 100%; }
+  .bottom-form .col-4 .wpcf7-form-control-wrap, .bottom-form .col-5 .wpcf7-form-control-wrap { width: 100%; }
+  .bottom-form .col-5 { display: flex; justify-content: space-between; position: relative; text-align: left; width: 100%; gap: 4px; align-items: center; }
+  .bottom-form .col-5 .wpcf7-list-item.first { margin-left: 0; }
+  .bottom-form .col-5 .wpcf7-list-item-label { font-size: 12px; }
+  .bottom-form .col-5 .bst-way > label { width: 100%; display: block; }
+  .bottom-form .wpcf7-list-item { margin-left: 4px; }
+  .bottom-form .wpcf7-list-item label { display: flex; align-items: center; }
+  .bottom-form .wpcf7-radio { display: flex; gap: 8px; }
+  .bottom-form .bst-way { color: #fff; text-transform: uppercase; font-weight: 600; display: flex; gap: 12px; align-items: center; font-size: 12px; }
+  .bottom-form input::placeholder, .bottom-form textarea::placeholder { color: #555; }
+  .bottom-form button[type=submit] { border: 0; color: var(--primary); padding: 6px 20px; border-radius: 100px; width: 100%; max-width: 180px; background: #fff; font-weight: 700; text-transform: uppercase; min-width: fit-content; cursor: pointer; }
+  @media (max-width: 600px) {
+    .bottom-form .col-5 { flex-direction: column; text-align: center; }
+    .bottom-form .wpcf7-radio { justify-content: center; }
+    .bottom-form button[type=submit] { width: 100%; }
+    .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: 100%; }
+    .bottom-form .bst-way { gap: 4px; flex-direction: column; align-items: center; }
+  }
+  .pr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+  .pr-form-banner { width: 100%; margin-top: 14px; font-weight: 600; }
+  .pr-form-banner[data-state="success"] { color: #fff; }
+  .pr-form-banner[data-state="error"] { color: #ffd9d9; }
+</style>

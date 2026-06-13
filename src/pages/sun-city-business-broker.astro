@@ -1,0 +1,602 @@
+---
+/* -----------------------------------------------------------------------
+   Sun City Business Broker — faithful clone of
+   https://www.philsellsbiz.com/sun-city-business-broker/
+   City local-SEO page (newer "split-section" template). Markup/copy verbatim
+   from reference/sun-city-business-broker-raw.html; section CSS verbatim from
+   the live WP-Rocket used-CSS (reference/_suncity-inline.css) +
+   reference/_queen-creek-business-broker-sections.css (its template twin).
+   Sections in DOM order (9 live sections):
+     1. title-bar          — H1 band
+     2. test-sctn-alt      — reviews header + 6 review cards
+     3. what-is-sctn       — "What Is A CBI" text + image + directory badges
+     4. video-sctn         — lite-youtube + "Why Choose Phil" check list
+     5. img-sctn-1         — "Is Now The Right Time" text + image
+     6. img-sctn-2         — "Business Valuation" text + image
+     7. faq-sctn           — 7 FAQ <details> (dark rounded panel, FAQPage schema)
+     8. lctn-sctn          — 5 neighborhood location cards
+     9. contact-sctn       — form + "Schedule A Consultation" info column
+   NOTE: this WP page was cloned from the Queen Creek page; several image
+   filenames/alts still say "Queen Creek" on live — kept VERBATIM per the
+   project's fidelity policy. The contact column also carries the Phoenix
+   office number (480-428-8010) and "Serving Queen Creek" line verbatim.
+   JSON-LD = live Yoast @graph (Layout) + FinancialService + FAQPage + Reviews
+   (verbatim) + a city Service node per task spec.
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL, contact, replyMethods } from "../config/site";
+import googleGLogoSvg from "../../reference/google-g-logo-svg.html?raw";
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+import faqSchema from "../../reference/_ld-sun-city-business-broker-faq.json";
+import reviewsSchema from "../../reference/_ld-sun-city-business-broker-reviews.json";
+
+const pageTitle = "Top-Rated Business Broker in Sun City, AZ";
+const pageDescription =
+  "Looking to sell your business in Sun City, AZ? Phil Reese provides expert valuations, marketing, and confidential sales support";
+
+const ogImage = `${SITE_URL}/images/sun-city-business-broker/og-sun-city.jpg`;
+const IMG = "/images/sun-city-business-broker";
+
+/* ---------- Page JSON-LD ---------- */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/sun-city-business-broker/`,
+  url: `${SITE_URL}/sun-city-business-broker/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/sun-city-business-broker/#primaryimage` },
+  image: { "@id": `${SITE_URL}/sun-city-business-broker/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2025-08-17T18:11:00+00:00",
+  dateModified: "2026-06-12T21:29:21+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/sun-city-business-broker/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/sun-city-business-broker/`] }],
+};
+
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/sun-city-business-broker/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+  caption: "Sun City Business Broker Featured Image",
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/sun-city-business-broker/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Top-Rated Sun City Business Broker" },
+  ],
+};
+
+const serviceSchema = {
+  "@type": "Service",
+  "@id": `${SITE_URL}/sun-city-business-broker/#service`,
+  name: "Sun City Business Broker",
+  serviceType: "Business Brokerage — Selling a Business in Sun City",
+  description: pageDescription,
+  areaServed: { "@type": "City", name: "Sun City", containedInPlace: { "@type": "State", name: "Arizona" } },
+  provider: {
+    "@type": "ProfessionalService",
+    name: "Phil Reese, Arizona Business Broker",
+    "@id": `${SITE_URL}/`,
+    url: `${SITE_URL}/`,
+  },
+};
+
+const structuredData = [
+  { "@context": "https://schema.org", "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema, serviceSchema] },
+  financialServiceSchema,
+  faqSchema,
+  reviewsSchema,
+];
+
+/* ---------- Reviews (test-sctn-alt), verbatim ---------- */
+const reviews = [
+  { text: "We have had a great experience selling our business with Phil Reese as our broker. He completed the sale of our business. His 20+ years of experience were instrumental guiding our decision-making process to be successful. We highly recommend choosing Phil as your broker.", name: "Terri La France", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNtbWJIRHV3RRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICmmbHDuwE%7CCgwI4N_HjgYQ-Pu47gI%7C?hl=en-US" },
+  { text: "I wish I could give 10 stars. Phil was an absolute professional to work with. He would answer any questions we had in a timely manner, let us know the status on a regular basis and always kept our best interest at top of his list. The top two traits I can think of to describe him are Professionalism and Integrity. You will not go wrong with choosing Phil.", name: "Steve Sweeney", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VMTzl3NlROXzV2NUh3EAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKELO9w6TN_5v5Hw%7CCgwI09GRwgYQyPmU_wE%7C?hl=en-US" },
+  { text: "I recently had the pleasure of working with Phil to sell my business. He was very responsive from the beginning. Phil is very knowledgeable in his field, easy to work with, and patient with educating those of us who have never sold a business. We were able to list and sell within 3 months at a full price offer. Phil is very attentive to his clients and I would recommend him to anyone wishing to sell their business.", name: "Rene Overleese", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURlcTYyNEZBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDeq624FA%7CCgsIhafBmgYQwMCbWA%7C?hl=en-US" },
+  { text: "In shopping around for a broker, Phil was the best fit for us. He is a good and kind man, and thoughtful. He listens and he gets things done. He was quick to take care of any needs we had and was not surprised when we got our full asking. All aspects of the sale were answered prayer. We would use him again but retirement looks pretty good!", name: "VICKI HANNA", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURjclpEblZnEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDcrZDnVg%7CCgwIjril9wUQ-MDEuQI%7C?hl=en-US" },
+  { text: "We were very pleased with Phil Reese, he is a real pro. We highly recommend his services.", name: "Tim Ransom", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURzbUwtbVdBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDsmL-mWA%7CCgsI077G8gUQkKyxKw%7C?hl=en-US" },
+  { text: "We worked with Phil in selling our business and from day one we could tell he was a no nonsense and very detail oriented broker. He made sure we only dealt with pre-screened, qualified buyers and assisted with our questions at each step of the arduous and sometimes confusing process. I would recommend Phil to anyone looking to buy/sell a business.", name: "Joe Mangum", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURVdjgtbVhREAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDUv8-mXQ%7CCgwIupnb6wUQgML3yAI%7C?hl=en-US" },
+];
+
+/* ---------- Directory badges (what-is-sctn .badge-col), verbatim (Queen Creek alts kept) ---------- */
+const directories = [
+  { img: "google-maps.png", alt: "Find Phil Reese Business Broker In Queen Creek On Google", href: "https://www.google.com/maps/place/Phil+Reese,+Arizona+Business+Broker/@33.6204098,-111.9286278,15z/data=!4m5!3m4!1s0x0:0x777d85f1a062a70!8m2!3d33.6204098!4d-111.9286278" },
+  { img: "yelp.png", alt: "Find Phil Reese Business Broker In Queen Creek On Yelp", href: "https://www.yelp.com/biz/phil-reese-arizona-business-broker-scottsdale-7" },
+  { img: "bing.png", alt: "Find Phil Reese Business Broker In Queen Creek On Bing", href: "https://www.bing.com/maps?q=Phil+Reese+Scottsdale&qs=n&form=QBLH&sp=-1&pq=phil+reese+scottsdale&sc=0-21&sk=&cvid=0A5BEE29D0DF4A4893F688B5083CC69A" },
+  { img: "hotfrog-az.png", alt: "Find Phil Reese Business Broker In Queen Creek On Hotfrog", href: "https://www.hotfrog.com/company/1099478479065088/phil-reese-arizona-business-broker/scottsdale/business-financial-services" },
+  { img: "manta.png", alt: "Find Phil Reese Business Broker In Queen Creek On Manta", href: "http://www.manta.com/c/mx61w9v/phil-reese-arizona-business-broker" },
+];
+
+/* ---------- "Why Choose Phil" check list (video-sctn), verbatim ---------- */
+const whyList = [
+  "Helping Business Owners Sell In Sun City For Over 24 Years",
+  "Trusted Advisor For Small & Corporate Sales",
+  "Broker For Buying Or Selling Online Businesses",
+  "Franchise Sales In Sun City",
+  "Hair & Beauty Industry Business Sales",
+  "Contracting & Construction Firm Sales",
+  "Manufacturing & Industrial Company Sales",
+];
+
+/* ---------- FAQ (faq-sctn), verbatim ---------- */
+const faqs = [
+  { q: "What Paperwork Is Needed To Sell A Business In Sun City?", a: "Common paperwork includes financial statements, tax returns, lease agreements, employee records, and a list of assets. Buyers also expect detailed operational information, contracts, and any legal documents tied to the business. With a broker, you can organize these to keep the process smooth and confidential." },
+  { q: "How Long Does It Take To Sell A Small Business?", a: "On average, selling a small business can take six to twelve months. The timeline depends on factors like industry, asking price, market demand, and how prepared the seller is with documentation. Working with an experienced broker often helps speed up the process." },
+  { q: "What Factors Determine A Business’s Value?", a: "Value depends on profitability, financial history, customer base, industry trends, and growth potential. Tangible assets like equipment and inventory, as well as intangible factors like reputation and contracts, also influence pricing. A professional valuation ensures your Sun City business is accurately positioned in the market." },
+  { q: "What Are The Steps To List A Company For Sale?", a: "The process includes preparing financial records, conducting a business valuation, creating marketing materials, and listing confidentially to attract buyers. From there, negotiations begin, due diligence is completed, and final closing paperwork is handled." },
+  { q: "What Information Do Buyers Want Before An Offer?", a: "Buyers usually want recent financial statements, tax records, details about employees, lease agreements, customer contracts, and an overview of operations. They also look for information about growth opportunities and risks. The clearer and more organized this information is, the more attractive the business becomes." },
+  { q: "Will I Owe Taxes After Selling My Business In Arizona?", a: "Yes, taxes are typically owed after selling, depending on your business structure, profit, and sale terms. Capital gains taxes may apply. Consulting with an accountant or tax advisor is essential to understand your specific obligations and minimize liability when selling in Arizona." },
+  { q: "How Much Time And Effort Is Involved In The Selling Process?", a: "Selling requires consistent effort in gathering documents, meeting with potential buyers, and managing negotiations. With a broker’s guidance, much of the workload is handled professionally, reducing stress for the seller. On average, expect several months of preparation, communication, and review before reaching the closing table." },
+];
+
+/* ---------- Neighborhood location cards (lctn-sctn), verbatim ---------- */
+const lctnCards = [
+  { img: "location-Queen-Creek-1.jpg", alt: "Business Broker For Companies in Hasting Farms", pre: "Sell Your Company In Sun", sub: "City Grand", body: "Phil Reese helps owners in Sun City Grand prepare, market, and sell their companies with strategies designed to maximize value and attract serious buyers." },
+  { img: "location-Queen-Creek-2.jpg", alt: "Business Broker For Companies in Montelena", pre: "Exit Your Business In Sun", sub: "City West", body: "When it’s time to step away, we guide Sun City West business owners through valuations, negotiations, and sales to achieve a stress-free exit." },
+  { img: "location-Queen-Creek-3.jpg", alt: "Business Broker For Companies in Cortina", pre: "Confidential Sales In", sub: "Ventana Lakes", body: "We specialize in confidential business sales in Ventana Lakes, ensuring your privacy while discreetly connecting you with qualified buyers." },
+  { img: "location-Queen-Creek-4.jpg", alt: "Business Broker For Companies in Emperor Estates", pre: "List Your Business In", sub: "Arizona Traditions", body: "Business owners in Arizona Traditions can trust Phil’s proven expertise to list, market, and sell their companies effectively and confidentially." },
+  { img: "location-Queen-Creek-5.jpg", alt: "Business Broker For Companies in Villages", pre: "Buy A Business In Sun", sub: "City Festival", body: "Looking to invest? Phil connects buyers with opportunities in Sun City Festival, guiding them through evaluation and purchase with professionalism." },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/sun-city-business-broker/"
+  ogImage={ogImage}
+  ogImageAlt="Sun City Business Broker Featured Image"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <link slot="head" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.css" />
+  <script slot="head" is:inline src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.js" defer></script>
+
+  <!-- 1. title-bar -->
+  <section class="section title-bar">
+    <div class="section-wrap">
+      <h1 class="maintitle h1-style">Top-Rated Sun City Business Broker</h1>
+    </div>
+  </section>
+
+  <!-- 2. top-banner — intro (H2 + Sun-City.jpg + 2 text columns) -->
+  <section class="section top-banner">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h2 class="subtitle">Helping Business Owners Sell In Sun City For Over 24 Years</h2>
+        <hr />
+      </div>
+      <div class="img-col">
+        <img src={`${IMG}/Sun-City.jpg`} alt="Phil Reese, CBI Queen Creek Business Broker" width="400" height="250" class="alignnone size-full" loading="lazy" />
+      </div>
+      <div class="text-col-1">
+        <p>Selling a business is one of the biggest decisions an owner can make, and having the right broker by your side can make all the difference. For more than 24 years, Phil Reese has been helping business owners in Sun City successfully navigate the selling process with confidence and peace of mind.</p>
+        <p>As a Certified Business Intermediary (CBI) and trusted Arizona business broker, Phil understands the unique needs of local entrepreneurs and brings a proven track record of getting deals done.</p>
+      </div>
+      <div class="text-col-2">
+        <p>From preparing your business for sale to confidentially marketing it to qualified buyers, Phil focuses on protecting your hard work while maximizing its value. With a personalized approach and deep knowledge of the Sun City market, Phil is ready to guide owners through each step, making the process as smooth and stress-free as possible. If you’re ready to move forward, trust the top-rated Sun City business broker who’s been helping owners achieve their goals for over two decades.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. test-sctn-alt — reviews -->
+  <section class="section test-sctn test-sctn-alt">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="subtitle h3-style">Read Reviews From Our Clients</h3>
+        <h4 class="h4-style">Sun City Business Broker With 5-Star Rated Reviews</h4>
+      </div>
+      <div class="google-col">
+        <Fragment set:html={googleGLogoSvg} />
+        <div>
+          <p>Over 60 reviews</p>
+          <span>5.0 <span class="strs">★★★★★</span></span>
+        </div>
+      </div>
+      <div class="rvw-wrapper">
+        {reviews.map((r) => (
+          <div class="rvw-box">
+            <p>{r.text}</p>
+            <div class="rvw-bx">
+              <p class="name"><span class="bold"><a href={r.url} target="_blank" rel="noopener">{r.name}</a></span></p>
+              <span class="strs">★★★★★</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. what-is-sctn — What Is A CBI + image + directory badges -->
+  <section class="section what-is-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle">What Is A Certified Business Intermediary &amp; How It Helps You Sell</h3>
+        <hr />
+      </div>
+      <div class="text-col">
+        <p>A Certified Business Intermediary (CBI) is a professional designation awarded by the International Business Brokers Association (IBBA) to brokers who meet strict education, experience, and ethical standards.</p>
+        <p>Simply put, it’s the gold standard in the business brokerage industry. Working with a CBI means you’re partnering with someone who understands the ins and outs of valuations, negotiations, and closing deals the right way.</p>
+        <p>Phil Reese is a proud CBI, which gives Sun City business owners peace of mind knowing their sale is handled by a proven expert. From accurately pricing your business to marketing it discreetly and securing qualified buyers, Phil’s CBI training ensures every step of the process is handled with professionalism and integrity.</p>
+      </div>
+      <div class="img-col">
+        <img src={`${IMG}/What-Is-A-Certified-Business-Intermediary.jpg`} alt="Queen Creek Certified Business Intermediary" width="393" height="224" class="alignnone size-full" loading="lazy" />
+      </div>
+      <div class="badge-col">
+        {directories.map((d) => (
+          <a href={d.href} target="_blank" rel="noopener">
+            <img src={`${IMG}/${d.img}`} alt={d.alt} width="95" height="95" class="alignnone size-full" loading="lazy" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. video-sctn — lite-youtube + Why Choose Phil list -->
+  <section class="section video-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle">Professional Business Broker Near Sun City</h3>
+        <hr />
+        <p>Working with a professional business broker near Sun City means having an experienced guide to walk you through one of the most important transitions of your life. Phil Reese offers trusted advice, accurate valuations, and confidential marketing strategies that connect sellers with qualified buyers.</p>
+        <p>His expertise ensures that your business is positioned to attract the right attention while you stay focused on your day-to-day operations. Whether you own a small local business or a larger company, Phil’s dedication to honesty and results makes the selling process easier and more profitable.</p>
+      </div>
+      <div class="video-col">
+        <div class="lyte-wrapper" style="max-width:100%;margin:5px;">
+          <lite-youtube videoid="75l7CluKwIg" title="Phil Reese CBI-Arizona Business Broker" style={`background-image:url('${IMG}/yt-75l7CluKwIg.jpg');`}>
+            <a href="https://youtu.be/75l7CluKwIg" class="lite-yt-fallback" rel="nofollow">Watch this video on YouTube</a>
+          </lite-youtube>
+        </div>
+      </div>
+      <div class="list-col">
+        <h3 class="subtitle">Why Choose Phil Reese As Your Sun City Business Broker</h3>
+        <ul class="list-checks">
+          {whyList.map((w) => <li><h4>{w}</h4></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. img-sctn-1 — Is Now The Right Time -->
+  <section class="section img-sctn img-sctn-1">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle">Is Now The Right Time To Sell Your Sun City Business?</h3>
+        <hr />
+      </div>
+      <div class="text-col">
+        <p>Deciding when to sell your business is a major choice, and timing plays a big role in the outcome. Market conditions, industry trends, and the financial performance of your company all influence the value of your business. In Sun City, many business owners look to retirement or lifestyle changes as key motivators to sell. Phil Reese can help you evaluate these factors and determine whether now is the right moment to take the next step.</p>
+      </div>
+      <div class="img-col">
+        <img src={`${IMG}/Is-Now-The-Right-Time-To-Sell-Your-Queen-Creek-Business.jpg`} alt="Business Broker Explaining Right Time To Sell A Business in Queen Creek" width="410" height="373" class="alignnone size-full" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. img-sctn-2 — Business Valuation -->
+  <section class="section img-sctn img-sctn-2">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle">Business Valuation In Sun City</h3>
+        <h4 class="subtitle">How We Value Sun City Companies</h4>
+        <hr />
+      </div>
+      <div class="text-col">
+        <p>Understanding the true value of your business is one of the first steps in selling successfully. A professional business valuation considers factors like revenue, profits, growth potential, industry trends, and even the strength of your customer base. Phil Reese uses proven methods to provide accurate and realistic valuations for Sun City businesses, ensuring you know exactly where you stand in today’s market. This allows you to set realistic expectations, avoid pricing errors, and attract serious buyers.</p>
+        <p>By combining local market knowledge with decades of brokerage experience, Phil delivers valuations that reflect both the financial and strategic appeal of your business. This balanced approach helps owners move forward with confidence.</p>
+      </div>
+      <div class="img-col">
+        <img src={`${IMG}/How-We-Evaluate-The-Value-Of-Your-Queen-Creek-Business.jpg`} alt="Business Broker Explaining the Value Evaluation Of A Business" width="409" height="373" class="alignnone size-full" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. faq-sctn -->
+  <section class="section faq-sctn">
+    <div class="section-wrap">
+      <h3 class="maintitle">Frequently Asked Questions</h3>
+      <div class="faq-main-col">
+        {faqs.map((f) => (
+          <details>
+            <summary><h4>{f.q}</h4></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. lctn-sctn — neighborhood cards -->
+  <section class="section lctn-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle">Business Broker Serving The Sun City Area</h3>
+        <h4 class="subtitle">Helping Business Owners Across Sun City</h4>
+        <hr />
+      </div>
+      {lctnCards.map((c, i) => (
+        <div class={`lctn-col lctn-col-${i + 1}`}>
+          <div class="col-img">
+            <img src={`${IMG}/${c.img}`} alt={c.alt} width="169" height="235" class="alignnone size-full" loading="lazy" />
+          </div>
+          <div class="col-text">
+            <h4 class="title">{c.pre} <span class="sp-sub">{c.sub}</span></h4>
+            <p>{c.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 9. contact-sctn — form + Schedule A Consultation info -->
+  <section class="section contact-sctn">
+    <div class="section-wrap">
+      <div class="form-col">
+        <h3>Get In Touch</h3>
+        <div class="wpcf7">
+          <form class="wpcf7-form" action="/api/contact" method="post" aria-label="Contact form" data-pr-contact-form data-form-id="sun-city">
+            <input type="text" name="_honeypot" value="" tabindex="-1" autocomplete="off" aria-hidden="true" class="pr-hp" />
+            <div class="bottom-form">
+              <div class="col-1">
+                <label for="first-name-bt">Name</label>
+                <span class="wpcf7-form-control-wrap"><input type="text" name="your-name-bt" id="first-name-bt" class="wpcf7-form-control wpcf7-text" maxlength="400" placeholder="Name*" required aria-required="true" /></span>
+              </div>
+              <div class="col-2">
+                <label for="your-email-bt">Email</label>
+                <span class="wpcf7-form-control-wrap"><input type="email" name="your-email-bt" id="your-email-bt" class="wpcf7-form-control wpcf7-email wpcf7-text" maxlength="400" placeholder="Email*" required aria-required="true" /></span>
+              </div>
+              <div class="col-3">
+                <label for="your-phone-bt">Phone</label>
+                <span class="wpcf7-form-control-wrap"><input type="tel" name="your-phone-bt" id="your-phone-bt" class="wpcf7-form-control wpcf7-tel wpcf7-text" maxlength="400" placeholder="Phone" /></span>
+              </div>
+              <div class="col-4">
+                <label for="your-message-bt">Your Message*</label>
+                <span class="wpcf7-form-control-wrap"><textarea name="your-message-bt" id="your-message-bt" class="wpcf7-form-control wpcf7-textarea" cols="40" rows="10" maxlength="2000" minlength="20" placeholder="Your Message*" required aria-required="true"></textarea></span>
+              </div>
+              <div class="col-5">
+                <div class="bst-way">
+                  <label>Best Way to Reply:</label>
+                  <span class="wpcf7-form-control-wrap">
+                    <span class="wpcf7-form-control wpcf7-radio">
+                      {replyMethods.map((method, i) => (
+                        <span class={`wpcf7-list-item${i === 0 ? " first" : ""}${i === replyMethods.length - 1 ? " last" : ""}`}>
+                          <label><input type="radio" name="bst-way-bt" value={method} checked={i === 0} /><span class="wpcf7-list-item-label">{method}</span></label>
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </div>
+                <button type="submit" class="wpcf7-form-control wpcf7-submit">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="info-col">
+        <h4 class="maintitle">Schedule A Consultation</h4>
+        <h4 class="subtitle">Get Expert Help From A Sun City Business Broker Today</h4>
+        <div class="info-inn">
+          <p>Phil Reese, CBI – Arizona Business Broker West USA Realty</p>
+          <p>Phone:<a href="tel:+14804288010">(480) 428-8010</a><br />Email: <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+          <p>Serving Queen Creek and surrounding areas. Office Hours:<br /><time>Daily: 8:00 am – 8:00 pm</time></p>
+          <p>Your privacy is always important. Your information will not be shared, sold or exchanged with anyone else.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Section CSS — verbatim from live used-CSS (reference/_suncity-inline.css +
+     _queen-creek-business-broker-sections.css). is:global for set:html SVG nodes. -->
+<style is:global>
+  /* ---------- 1. title-bar ---------- */
+  .section.title-bar { padding-top: 52px; padding-bottom: 52px; background-color: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); z-index: 2; }
+  .title-bar .maintitle { margin: 0; color: var(--red); text-align: center; }
+
+  /* ---------- 2. top-banner ---------- */
+  .top-banner.section { padding-top: clamp(32px, 6%, 60px); padding-bottom: 32px; }
+  .top-banner .section-wrap { align-items: center; }
+  .top-banner .title-col { width: 100%; margin-bottom: 32px; }
+  .top-banner .subtitle { text-align: center; font-size: 22px; font-weight: 400; margin-bottom: 20px; color: #410408; }
+  .top-banner hr { width: 20%; border: 0; border-top: 2px solid var(--red); margin: 0 auto; }
+  .top-banner .img-col { width: 47%; }
+  .top-banner .img-col img { width: 100%; height: auto; }
+  .top-banner .text-col-1 { display: flex; align-items: center; flex-direction: column; }
+  .top-banner .text-col-2 { width: 100%; }
+  .top-banner p { color: var(--secondary); font-size: 18px; line-height: 1.5; }
+  @media (min-width: 621px) {
+    .top-banner .text-col-1 { width: 50%; padding-left: 5%; }
+  }
+  @media (max-width: 620px) {
+    .top-banner .img-col { width: 100%; }
+  }
+
+  /* ---------- 3. test-sctn-alt ---------- */
+  .test-sctn { background: linear-gradient(360deg, #e8e8e8 0, #e7e7e7 30%, #e7e7E700 100%) no-repeat padding-box; padding-top: 40px; padding-bottom: 40px; }
+  section.section.test-sctn { overflow: hidden; }
+  .test-sctn .title-col { flex-grow: 1; max-width: 750px; padding-right: 20px; margin-left: auto; }
+  .test-sctn .subtitle { margin: 0; color: var(--secondary); font-size: clamp(28px, 3vw, 42px); }
+  .test-sctn .h4-style { margin-bottom: 0; }
+  .test-sctn .google-col { display: flex; align-items: center; gap: 20px; background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); padding: 20px; margin-right: -40px; width: 44%; border-radius: 7px; }
+  .test-sctn .google-col svg { width: 60px; height: auto; flex: 0 0 auto; }
+  .test-sctn .section-wrap { align-items: center; gap: 20px; margin-bottom: 32px; }
+  .test-sctn .google-col div p { margin-top: 0; text-transform: uppercase; color: var(--primary); margin-bottom: 0; font-weight: 600; font-size: 16px; }
+  .test-sctn .google-col div span { font-weight: 900; color: var(--primary); }
+  .test-sctn .google-col div span span.strs { color: #ffb300; font-size: 20px; }
+  .test-sctn-alt .rvw-wrapper { column-count: unset; display: flex; flex-wrap: wrap; column-gap: unset; gap: 20px; width: 100%; justify-content: center; }
+  .test-sctn-alt .rvw-wrapper .rvw-box { margin-bottom: 0; width: calc(33.33% - 20px); }
+  .rvw-box { background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); border-radius: 5px; padding: 30px; align-self: stretch; display: flex; flex-direction: column; text-align: left; }
+  .rvw-box > p { margin: 0 0 20px; }
+  .rvw-box .rvw-bx { display: flex; align-items: flex-end; gap: 10px; margin-top: auto; }
+  .rvw-box .name { font-weight: 700; color: var(--primary); margin: 0; max-width: 250px; }
+  .rvw-box .name .bold a { color: var(--primary); text-decoration: none; }
+  .rvw-box .strs { color: #ffb300; }
+  @media (max-width: 1024px) {
+    .test-sctn .section-wrap { justify-content: center; column-gap: 20px; }
+    .test-sctn .title-col { padding: 0; width: 100%; text-align: center; margin-bottom: 30px; margin-right: auto; }
+    .test-sctn .google-col { width: 100%; margin-right: 0; justify-content: center; max-width: 400px; }
+    .test-sctn-alt .rvw-wrapper .rvw-box { width: calc(50% - 20px); }
+  }
+  @media (max-width: 500px) {
+    .test-sctn .google-col { flex-wrap: wrap; text-align: center; padding: 15px; }
+    .test-sctn-alt .rvw-wrapper .rvw-box { width: 100%; }
+  }
+
+  /* ---------- 3. what-is-sctn ---------- */
+  .what-is-sctn.section { padding-top: 60px; padding-bottom: 32px; }
+  .what-is-sctn .title-col { width: 100%; }
+  .what-is-sctn .maintitle { color: #410408; font-size: 25px; text-align: center; }
+  .what-is-sctn hr { width: 20%; border: 0; border-top: 2px solid var(--red); margin: 16px auto; }
+  .what-is-sctn .text-col p { color: var(--secondary); font-size: 18px; line-height: 1.5; }
+  .what-is-sctn .img-col img { height: 100%; width: 100%; object-fit: cover; }
+  .what-is-sctn .badge-col { width: 100%; display: flex; justify-content: center; gap: 20px; align-items: center; padding-top: 5%; }
+  .what-is-sctn .badge-col img { width: auto; }
+  @media (min-width: 621px) {
+    .what-is-sctn .title-col { margin-bottom: 32px; }
+    .what-is-sctn .text-col { width: 48%; display: flex; align-items: center; padding-right: 5%; flex-direction: column; }
+    .what-is-sctn .img-col { width: 47%; }
+    .what-is-sctn .badge-col img { min-height: 95px; }
+  }
+  @media (max-width: 620px) {
+    .what-is-sctn .badge-col { flex-wrap: wrap; }
+    .what-is-sctn .badge-col a { width: 25%; }
+    .what-is-sctn .badge-col img { min-height: 60px; max-height: 60px; width: 100%; object-fit: contain; }
+  }
+
+  /* ---------- 4. video-sctn ---------- */
+  .section.video-sctn { padding-bottom: 32px; padding-top: 32px; }
+  .video-sctn .title-col { width: 100%; }
+  .video-sctn .maintitle { color: #410408; font-size: 25px; text-align: center; }
+  .video-sctn hr { width: 20%; border: 0; border-top: 2px solid var(--red); margin: 16px auto; }
+  .video-sctn .title-col p { text-align: center; color: var(--secondary); font-size: 18px; line-height: 1.5; }
+  .video-sctn .subtitle { font-size: clamp(18px, 1.9vw, 21px); padding-bottom: 16px; font-weight: 400; text-align: center; color: var(--primary); }
+  .video-sctn .list-checks { list-style: none; padding: 0; max-width: 486px; margin: 0 auto; }
+  .video-sctn .list-checks > li { position: relative; padding-left: 28px; margin-bottom: 10px; }
+  .video-sctn .list-checks > li::before { content: "✓"; color: #410408; font-weight: 700; position: absolute; left: 0; top: 0; }
+  .video-sctn li h4 { font-size: 16px; margin: 0; }
+  @media (min-width: 621px) {
+    .video-sctn .video-col { width: 100%; order: 1; max-width: 500px; margin: 0 auto; }
+    .video-sctn .list-col { width: 100%; display: flex; justify-content: center; flex-direction: column; }
+  }
+  @media (max-width: 620px) {
+    .video-sctn .video-col { width: 100%; }
+    .video-sctn .video-col .lyte-wrapper { width: 280px !important; margin: 0 auto !important; }
+    .video-sctn .list-col { padding-top: 20px; }
+  }
+
+  /* ---------- 5+6. img-sctn ---------- */
+  .img-sctn.section { padding-top: 32px; padding-bottom: 32px; }
+  .img-sctn .maintitle { color: #410408; font-size: 25px; text-align: center; }
+  .img-sctn hr { width: 20%; border: 0; border-top: 2px solid var(--red); margin: 16px auto; }
+  .img-sctn .subtitle { text-align: center; font-size: 22px; padding-bottom: 16px; font-weight: 400; color: var(--primary); }
+  .img-sctn .title-col { width: 100%; }
+  .img-sctn .text-col p { color: var(--secondary); font-size: 18px; line-height: 1.5; }
+  @media (min-width: 621px) {
+    .img-sctn .text-col { width: 48%; display: flex; flex-direction: column; justify-content: center; }
+    .img-sctn .img-col { width: 47%; }
+    .img-sctn-1 .text-col { padding-right: 5%; }
+    .img-sctn-2 .text-col { padding-left: 5%; order: 2; }
+    .img-sctn-2 .img-col { order: 1; }
+    .img-sctn .title-col { margin-bottom: 32px; }
+    .img-sctn .img-col img { width: 100%; height: 100%; object-fit: cover; }
+  }
+  @media (max-width: 620px) {
+    .img-sctn .img-col { width: 100%; }
+    .img-sctn .img-col img { width: 100%; }
+  }
+
+  /* ---------- 7. faq-sctn (dark rounded panel) ---------- */
+  .faq-sctn.section { padding-top: 32px; padding-bottom: 32px; }
+  .faq-sctn .section-wrap { max-width: 1100px; background-color: #410408; color: #fff; border-radius: 32px; padding: 32px 16px; justify-content: center; }
+  .faq-sctn .maintitle { width: 100%; color: #fff; max-width: 910px; font-size: 25px; padding-bottom: 32px !important; text-align: center; }
+  .faq-sctn .faq-main-col { max-width: 910px; width: 100%; }
+  .faq-sctn details { border-bottom: 2px solid #fff; margin-bottom: 10px; padding-bottom: 6px; width: 100%; }
+  .faq-sctn details summary::-webkit-details-marker { display: none; }
+  .faq-sctn details summary { list-style: none !important; display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; gap: 4px; cursor: pointer; }
+  .faq-sctn summary::after { content: "+"; font-size: 32px; line-height: 7px; color: #fff; font-weight: 400; height: 25px; min-width: 25px; display: flex; align-items: center; justify-content: center; }
+  .faq-sctn details[open] > summary::after { content: "-"; }
+  .faq-sctn h4 { text-align: left; margin: 0; }
+  .faq-sctn p { color: #fff; text-align: left; }
+
+  /* ---------- 8. lctn-sctn ---------- */
+  .lctn-sctn.section { padding-top: 32px; padding-bottom: 32px; }
+  .lctn-sctn .section-wrap { justify-content: space-between; }
+  .lctn-sctn .maintitle { color: #410408; font-size: 25px; }
+  .lctn-sctn .subtitle { font-size: 22px; font-weight: 400; color: var(--primary); }
+  .lctn-sctn hr { width: 100%; border: 0; border-top: 2px solid var(--red); margin: 12px 0; }
+  .lctn-sctn .title { color: #410408; font-size: 18px; }
+  .lctn-sctn .title .sp-sub { display: block; color: #000; }
+  .lctn-sctn .lctn-col .col-text p { padding: 0; color: var(--secondary); }
+  @media (min-width: 621px) {
+    .lctn-sctn .lctn-col, .lctn-sctn .title-col { width: 45%; display: flex; }
+    .lctn-sctn .lctn-col { gap: 20px; }
+    .lctn-sctn .title-col { flex-direction: column; justify-content: center; }
+    .lctn-sctn .maintitle { text-align: left; }
+    .lctn-sctn .subtitle { padding-bottom: 0; margin-bottom: 10px; }
+    .lctn-sctn .lctn-col .col-img { width: 40%; }
+    .lctn-sctn .lctn-col .col-text { width: 60%; display: flex; flex-direction: column; justify-content: center; padding: 12px 0; }
+    .lctn-sctn .col-img img { height: 100%; width: 100%; object-fit: cover; }
+  }
+  @media (max-width: 620px) {
+    .lctn-sctn .lctn-col { padding-bottom: 32px; }
+  }
+
+  /* ---------- 9. contact-sctn ---------- */
+  .contact-sctn.section { padding-top: 60px; padding-bottom: 60px; background: #ebebeb; }
+  .contact-sctn .section-wrap { gap: 32px; align-items: stretch; justify-content: center; }
+  .contact-sctn .form-col { width: 55%; }
+  .contact-sctn .form-col h3 { margin-top: 0; text-align: center; color: var(--red); font-size: 28px; }
+  .contact-sctn .info-col { width: 40%; background-color: #fff; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -1px rgba(0, 0, 0, .06); color: #000; text-align: center; }
+  .contact-sctn .info-col .maintitle { font-size: 1.5rem; color: var(--primary); margin: 0 0 8px; font-weight: 700; line-height: 1.2; }
+  .contact-sctn .info-col .subtitle { font-size: 16px; color: #000; margin: 0 0 24px; font-weight: 500; line-height: 1.4; }
+  .contact-sctn .info-inn { display: flex; flex-direction: column; gap: 16px; }
+  .contact-sctn .info-inn p { margin: 0; line-height: 1.6; font-size: 16px; }
+  .contact-sctn .info-inn a { color: var(--red); text-decoration: none; font-weight: 600; }
+  .contact-sctn .info-inn a:hover { text-decoration: underline; }
+  .contact-sctn .info-inn time { font-weight: 500; color: #1a365d; }
+  .contact-sctn .info-inn p:last-child { font-size: .85rem; color: #4e4e4e; margin-top: 8px; border-top: 1px solid #edf2f7; padding-top: 16px; }
+  @media (max-width: 900px) {
+    .contact-sctn .form-col, .contact-sctn .info-col { width: 100%; }
+  }
+
+  /* ---------- Shared form CSS (contact-sctn variant) ---------- */
+  .contact-sctn .wpcf7 { width: 100%; }
+  .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; background: var(--primary); padding: 36px 30px; color: #fff; border-radius: 6px; }
+  .bottom-form input:not([type=submit]) { background: #fff; border: none; border-bottom: 2px solid var(--red); max-width: 100%; width: 100%; min-height: 31px; padding: 10px 13px; }
+  .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; min-height: 98px; }
+  .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
+  .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .bottom-form .col-4 { width: 100%; }
+  .bottom-form .col-4 .wpcf7-form-control-wrap, .bottom-form .col-5 .wpcf7-form-control-wrap { width: 100%; }
+  .bottom-form .col-5 { display: flex; justify-content: space-between; position: relative; text-align: left; width: 100%; gap: 4px; align-items: center; }
+  .bottom-form .col-5 .wpcf7-list-item.first { margin-left: 0; }
+  .bottom-form .col-5 .wpcf7-list-item-label { font-size: 12px; }
+  .bottom-form .col-5 .bst-way > label { width: 100%; display: block; }
+  .bottom-form .wpcf7-list-item { margin-left: 4px; }
+  .bottom-form .wpcf7-list-item label { display: flex; align-items: center; }
+  .bottom-form .wpcf7-radio { display: flex; gap: 8px; }
+  .bottom-form .bst-way { color: #fff; text-transform: uppercase; font-weight: 600; display: flex; gap: 12px; align-items: center; font-size: 12px; }
+  .bottom-form input::placeholder, .bottom-form textarea::placeholder { color: #555; }
+  .bottom-form button[type=submit] { border: 0; color: var(--primary); padding: 6px 20px; border-radius: 100px; width: 100%; max-width: 180px; background: #fff; font-weight: 700; text-transform: uppercase; min-width: fit-content; cursor: pointer; }
+  @media (max-width: 600px) {
+    .bottom-form .col-5 { flex-direction: column; text-align: center; }
+    .bottom-form .wpcf7-radio { justify-content: center; }
+    .bottom-form button[type=submit] { width: 100%; }
+    .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: 100%; }
+    .bottom-form .bst-way { gap: 4px; flex-direction: column; align-items: center; }
+  }
+  .pr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+  .pr-form-banner { width: 100%; margin-top: 14px; font-weight: 600; }
+  .pr-form-banner[data-state="success"] { color: #fff; }
+  .pr-form-banner[data-state="error"] { color: #ffd9d9; }
+</style>

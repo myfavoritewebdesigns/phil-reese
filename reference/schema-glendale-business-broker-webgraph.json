@@ -1,0 +1,63 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.philsellsbiz.com/glendale-business-broker/",
+      "url": "https://www.philsellsbiz.com/glendale-business-broker/",
+      "name": "Glendale Business Broker | Phil Reese",
+      "isPartOf": {
+        "@id": "https://www.philsellsbiz.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://www.philsellsbiz.com/glendale-business-broker/#primaryimage"
+      },
+      "image": {
+        "@id": "https://www.philsellsbiz.com/glendale-business-broker/#primaryimage"
+      },
+      "thumbnailUrl": "https://www.philsellsbiz.com/images/glendale-business-broker/og-glendale.jpg",
+      "datePublished": "2017-10-30T21:59:07+00:00",
+      "dateModified": "2026-06-12T21:15:39+00:00",
+      "description": "Contact Glendale AZ business broker Phil Reese today for help with buying or selling a local business in Glendale Arizona.",
+      "breadcrumb": {
+        "@id": "https://www.philsellsbiz.com/glendale-business-broker/#breadcrumb"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "ReadAction",
+          "target": [
+            "https://www.philsellsbiz.com/glendale-business-broker/"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "ImageObject",
+      "inLanguage": "en-US",
+      "@id": "https://www.philsellsbiz.com/glendale-business-broker/#primaryimage",
+      "url": "https://www.philsellsbiz.com/images/glendale-business-broker/og-glendale.jpg",
+      "contentUrl": "https://www.philsellsbiz.com/images/glendale-business-broker/og-glendale.jpg",
+      "width": 1200,
+      "height": 1200,
+      "caption": "Are you ready to sell your business in Glendale, Arizona? Selling your business is a big choice to make, and should be done with utmost certainty."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.philsellsbiz.com/glendale-business-broker/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "AZ Business Broker",
+          "item": "https://www.philsellsbiz.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Glendale Business Broker"
+        }
+      ]
+    }
+  ]
+}

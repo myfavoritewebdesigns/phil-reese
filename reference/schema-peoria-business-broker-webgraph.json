@@ -1,0 +1,63 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.philsellsbiz.com/peoria-business-broker/",
+      "url": "https://www.philsellsbiz.com/peoria-business-broker/",
+      "name": "Phil Reese: Certified Business Broker In Peoria, AZ",
+      "isPartOf": {
+        "@id": "https://www.philsellsbiz.com/#website"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://www.philsellsbiz.com/peoria-business-broker/#primaryimage"
+      },
+      "image": {
+        "@id": "https://www.philsellsbiz.com/peoria-business-broker/#primaryimage"
+      },
+      "thumbnailUrl": "https://www.philsellsbiz.com/images/peoria-business-broker/og-peoria.jpg",
+      "datePublished": "2024-12-16T16:19:40+00:00",
+      "dateModified": "2026-06-12T21:09:16+00:00",
+      "description": "Experienced Peoria business broker Phil Reese provides expert valuations for clients buying or selling a business or commercial property.",
+      "breadcrumb": {
+        "@id": "https://www.philsellsbiz.com/peoria-business-broker/#breadcrumb"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "ReadAction",
+          "target": [
+            "https://www.philsellsbiz.com/peoria-business-broker/"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "ImageObject",
+      "inLanguage": "en-US",
+      "@id": "https://www.philsellsbiz.com/peoria-business-broker/#primaryimage",
+      "url": "https://www.philsellsbiz.com/images/peoria-business-broker/og-peoria.jpg",
+      "contentUrl": "https://www.philsellsbiz.com/images/peoria-business-broker/og-peoria.jpg",
+      "width": 1200,
+      "height": 1200,
+      "caption": "Peoria Business Broker https://www.philsellsbiz.com/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.philsellsbiz.com/peoria-business-broker/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "AZ Business Broker",
+          "item": "https://www.philsellsbiz.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Peoria Business Broker"
+        }
+      ]
+    }
+  ]
+}

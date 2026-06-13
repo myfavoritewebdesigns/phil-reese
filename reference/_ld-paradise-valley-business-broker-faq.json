@@ -1,0 +1,62 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What Documents Should You Gather For Selling Your business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When you are ready to sell your business, it is important to have the right paperwork ready for your broker. You will need to provide the financial statements for the current and past 2-3 years, a non-disclosure confidentiality agreement, an offer-to-purchase agreement, the current lease agreement, a letter of intent, the existing vendor/client contracts, all employment agreements, your existing insurance policy, and your professional certificates for the business."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How Long Will It Take To Sell A Business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The time needed to sell your business will vary greatly depending on several factors including the type of business it is, the amount it is worth, its location, and the current real estate market. While Phil Reese and the team at West Realty USA cannot guarantee a specific time frame for your business to be sold, you can typically expect the process to take between 6-11 months."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How Is A Business Value Determined?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "During our free business valuation process, we will determine how much your business is worth by totaling your assets and liabilities, assessing your current earnings, and estimating your projected earnings based on the quality of your goods and their market potential. Typically, a business is worth anywhere from one to five times its annual sales."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What Are The Steps To Put A Company For Sale?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There are a few steps in the process to get your business ready to sell. First you will need to determine the value of your company, and get your financials fully cleaned up and organized. Prepare your exit strategy so you know what your next steps are after the business sells. Boost your sales to the best of your ability, and find a business broker to handle the process."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What Do Buyers Want To Know About Your Business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Perhaps the most important thing a potential buyer will want to know about your business is its level of profit. They will want to know that you have a healthy foundation and organized financials, along with a multi-year trend of increasing revenue and increasing potential sales. Buyers will ask about your net worth and want to make sure your licensure is in good standing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What Are The Taxes I Will Have To Pay When Selling My Business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Typically, when a business is sold, the seller will be liable to pay capital gains taxes. In some states, income tax is also a consideration. Your capital gains are calculated by subtracting the original cost basis from your selling price, along with a 20% federal capital gains tax. Consult with your business broker for expert help determining exactly how much you will pay in taxes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How Much Time Will I Have To Put Into The Business Selling Process?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If you choose to hire a business broker to handle the sale of your business, you can expect them to handle the majority of the process. You will need to gather the appropriate paperwork, work on boosting your sales to attract more potential buyers, and keep in close communication with your broker to understand how the process is going. Schedule a consultation with Phil Reese today to learn what we can do for you!"
+      }
+    }
+  ]
+}

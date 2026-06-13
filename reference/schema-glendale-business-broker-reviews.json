@@ -1,0 +1,150 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix",
+        "name": "Phil Reese Business Broker"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Pam P."
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Multiple Offers within Weeks",
+      "reviewBody": "My husband and I were prepared to wait months for our business to sell after we listed it with Phil, so we were pleasantly shocked when we had multiple offers within a matter of weeks!  Phil has extensive skills in business evaluations and sales and graciously imparted his knowledge and experience to us with ongoing communication throughout the process until closing.  The ease and speed of the entire transaction was unexpected but very much appreciated and wholly attributable to Phil's expertise.  We'd wholeheartedly recommend working with him.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21KcFdHaG1SMjB5UW5aUWNWOTRPVlZYT1RGWWNrRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CAIQACodChtycF9oOmJpWGhmR20yQnZQcV94OVVXOTFYckE%7C%7C?hl=en"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Gary Campbell"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "10-Star Service",
+      "reviewBody": "Would recommend Phil Reese in a heartbeat He gives his all in selling your business.  He listed ours and sold it within 2 months.  Everything went so so smooth and he took care of everything.  I give him 10 stars.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURxeU4zSTZBRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDqyN3I6AE%7CCgwIoJLfhgYQqPes0gM%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Rene Overleese"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Full Price Offer within Three Months",
+      "reviewBody": "I recently had the pleasure of working with Phil to sell my business.  He was very responsive from the beginning.  Phil is very knowledgeable in his field, easy to work with, and patient with educating those of us who have never sold a business.  We were able to list and sell within 3 months at a full price offer.  Phil is very attentive to his clients and I would recommend him to anyone wishing to sell their business.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURlcTYyNEZBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDeq624FA%7CCgsIhafBmgYQwMCbWA%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Alicia Elie"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Fantastic Support for Business Purchase",
+      "reviewBody": "Phil was FANTASTIC to work with. So helpful! He was  always quick to be available to answer questions and walk through each step of the purchase of a business. Thank you, again!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUN5MFpianZBRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICy0ZbjvAE%7CCgwIrMDogAYQ4NK5hAI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Ilene Price"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Pleasant Experience under Stressful Circumstances",
+      "reviewBody": "Very professional with attention to detail.  Very pleasant to work with even under stressful circumstances . I would definitely use Phil again .",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURVX3BiTFhBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDU_pbLXA%7CCgwIh-yH6wUQkPyUhwM%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Donatella Polston"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Highly Reliable Broker",
+      "reviewBody": "Highly Reliable Broker",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSUN3eGZLa0xBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICwxfKkLA%7CCgsIvsnp0gUQwL2aLw%7C?hl=en-US"
+    }
+  ]
+}

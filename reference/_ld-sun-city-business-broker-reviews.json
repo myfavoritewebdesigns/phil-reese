@@ -1,0 +1,150 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix",
+        "name": "Phil Reese Business Broker"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Terri La France"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "20+ Years of Instrumental Experience",
+      "reviewBody": "We have had a great experience selling our business with Phil Reese as our broker. He completed the sale of our business.  His 20+ years of experience were instrumental guiding our decision-making process to be successful. We highly recommend choosing Phil as your broker.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNtbWJIRHV3RRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICmmbHDuwE%7CCgwI4N_HjgYQ-Pu47gI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Steve Sweeney"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Professionalism and Integrity Defined",
+      "reviewBody": "I wish I could give 10 stars.  Phil was an absolute professional to work with.  He would answer any questions we had in a timely manner, let us know the status on a regular basis and always kept our best interest at top of his list.  The top two traits I can think of to describe him are Professionalism and Integrity. You will not go wrong with choosing Phil.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VMTzl3NlROXzV2NUh3EAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKELO9w6TN_5v5Hw%7CCgwI09GRwgYQyPmU_wE%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Rene Overleese"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Full Price Offer within Three Months",
+      "reviewBody": "I recently had the pleasure of working with Phil to sell my business.  He was very responsive from the beginning.  Phil is very knowledgeable in his field, easy to work with, and patient with educating those of us who have never sold a business.  We were able to list and sell within 3 months at a full price offer.  Phil is very attentive to his clients and I would recommend him to anyone wishing to sell their business.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURlcTYyNEZBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDeq624FA%7CCgsIhafBmgYQwMCbWA%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "VICKI HANNA"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Thoughtful Broker Who Gets Things Done",
+      "reviewBody": "In shopping around for a broker, Phil was the best fit for us. He is a good and kind man, and thoughtful.  He listens and he gets things done.  He was quick to take care of any needs we had and was not surprised when we got our full asking. All aspects of the sale were answered prayer.  We would use him again but retirement looks pretty good!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURjclpEblZnEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDcrZDnVg%7CCgwIjril9wUQ-MDEuQI%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Tim Ransom"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Real Professionalism and Service",
+      "reviewBody": "We were very pleased with Phil Reese, he is a real pro.  We highly recommend his services.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURzbUwtbVdBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDsmL-mWA%7CCgsI077G8gUQkKyxKw%7C?hl=en-US"
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "ProfessionalService",
+        "@id": "https://www.philsellsbiz.com/#Phoenix"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Joe Mangum"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "name": "Detail-Oriented and No-Nonsense Broker",
+      "reviewBody": "We worked with Phil in selling our business and from day one we could tell he was a no nonsense and very detail oriented broker. He made sure we only dealt with pre-screened, qualified buyers and assisted with our questions at each step of the arduous and sometimes confusing process. I would recommend Phil to anyone looking to buy/sell a business.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      },
+      "url": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURVdjgtbVhREAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDUv8-mXQ%7CCgwIupnb6wUQgML3yAI%7C?hl=en-US"
+    }
+  ]
+}

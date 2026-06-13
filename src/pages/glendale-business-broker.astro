@@ -1,0 +1,423 @@
+---
+/* -----------------------------------------------------------------------
+   Glendale Business Broker — faithful "close-enough" clone of
+   https://www.philsellsbiz.com/glendale-business-broker/
+   Body markup/copy verbatim from reference/_glendale-business-broker-body.html;
+   section CSS lifted verbatim from the live page's inlined used-CSS
+   (reference/_glendale-business-broker-sections.css + extras).
+   Sections in DOM order (7):
+     1. banner-sctn       — uppercase H1 band
+     2. philo-sctn        — intro copy + Glendale photo
+     3. test-sctn         — "Read Reviews From Our Clients" + Google logo
+     4. test-sctn-alt     — 6 review boxes + CBI text-col + 5 directory badges
+     5. video-aalt-sctn   — valuation video + "When To Sell" copy
+     6. cbi-info-section  — 6 badge cards
+     7. vid-sctn          — contact form + "Schedule a Call Today!" details
+   Notes:
+   - Video rebuilt with the lite-youtube web component (videoid 75l7CluKwIg).
+   - Form reuses the homepage CF7 field names → /api/contact handler.
+   - JSON-LD @types match live: WebPage/ImageObject/BreadcrumbList +
+     FinancialService + Review graph (verbatim from live). No FAQ on this page.
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL, replyMethods } from "../config/site";
+
+import webGraph from "../../reference/schema-glendale-business-broker-webgraph.json";
+import financialServiceSchema from "../../reference/schema-glendale-business-broker-financialservice.json";
+import reviewsGraph from "../../reference/schema-glendale-business-broker-reviews.json";
+
+/* Live <title> + meta description, verbatim */
+const pageTitle = "Glendale Business Broker | Phil Reese";
+const pageDescription =
+  "Contact Glendale AZ business broker Phil Reese today for help with buying or selling a local business in Glendale Arizona.";
+
+const ogImage = `${SITE_URL}/images/glendale-business-broker/og-glendale.jpg`;
+
+const structuredData = [webGraph, financialServiceSchema, reviewsGraph];
+
+/* ---------- test-sctn-alt review boxes (verbatim) ---------- */
+const reviews = [
+  { name: "Pam P.", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21KcFdHaG1SMjB5UW5aUWNWOTRPVlZYT1RGWWNrRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CAIQACodChtycF9oOmJpWGhmR20yQnZQcV94OVVXOTFYckE%7C%7C?hl=en", text: "My husband and I were prepared to wait months for our business to sell after we listed it with Phil, so we were pleasantly shocked when we had multiple offers within a matter of weeks!  Phil has extensive skills in business evaluations and sales and graciously imparted his knowledge and experience to us with ongoing communication throughout the process until closing.  The ease and speed of the entire transaction was unexpected but very much appreciated and wholly attributable to Phil's expertise.  We'd wholeheartedly recommend working with him." },
+  { name: "Gary Campbell", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURxeU4zSTZBRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDqyN3I6AE%7CCgwIoJLfhgYQqPes0gM%7C?hl=en-US", text: "Would recommend Phil Reese in a heartbeat He gives his all in selling your business.  He listed ours and sold it within 2 months.  Everything went so so smooth and he took care of everything.  I give him 10 stars." },
+  { name: "Rene Overleese", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURlcTYyNEZBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDeq624FA%7CCgsIhafBmgYQwMCbWA%7C?hl=en-US", text: "I recently had the pleasure of working with Phil to sell my business.  He was very responsive from the beginning.  Phil is very knowledgeable in his field, easy to work with, and patient with educating those of us who have never sold a business.  We were able to list and sell within 3 months at a full price offer.  Phil is very attentive to his clients and I would recommend him to anyone wishing to sell their business." },
+  { name: "Alicia Elie", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUN5MFpianZBRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgICy0ZbjvAE%7CCgwIrMDogAYQ4NK5hAI%7C?hl=en-US", text: "Phil was FANTASTIC to work with. So helpful! He was  always quick to be available to answer questions and walk through each step of the purchase of a business. Thank you, again!" },
+  { name: "Ilene Price", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURVX3BiTFhBEAE!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDU_pbLXA%7CCgwIh-yH6wUQkPyUhwM%7C?hl=en-US", text: "Very professional with attention to detail.  Very pleasant to work with even under stressful circumstances . I would definitely use Phil again ." },
+  { name: "Mike Williams", url: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURXdFpxSzJnRRAB!2m1!1s0x0:0xd59527a5c7d15195!3m1!1s2@1:CIHM0ogKEICAgIDWtZqK2gE%7CCgwI0PaSkgYQoI3VtgE%7C?hl=en-US", text: "If you have ever bought or sold a company, you know that it's an incredibly complex endeavor, sometimes with many unexpected twists and turns along the way. The smart person soon learns this is not something you should take on without the help of an expert to guide you. Phil Reese may well be the best and brightest expert you can find.  Phil was amazing to work with throughout the entire process of selling our company. He was always highly professional and available to answer every kind of question or concern. We really don't know how we could have gotten through the tedious, roller-coaster process without him. And best of all, his guidance assured us the best possible results with an excellent buyer and top-level offer at the end of the day. We highly recommend Phil Reese!" },
+];
+
+/* ---------- directory badges (verbatim) ---------- */
+const dirBadges = [
+  { href: "https://www.google.com/maps/place/Phil+Reese,+Arizona+Business+Broker/@33.6204098,-111.9286278,15z/data=!4m5!3m4!1s0x0:0x777d85f1a062a70!8m2!3d33.6204098!4d-111.9286278", img: "dir-google-maps.png", alt: "Phil Reese Local Directory Listing On Google", w: 97, h: 97, title: undefined, rel: "noopener noreferrer", target: "new" },
+  { href: "https://www.yelp.com/biz/phil-reese-arizona-business-broker-scottsdale-7", img: "dir-yelp.png", alt: "Phil Reese Local Directory Listing On Yelp", w: 110, h: 97, title: undefined, rel: "noopener noreferrer", target: "new" },
+  { href: "https://www.bing.com/maps?q=Phil+Reese+Scottsdale&qs=n&form=QBLH&sp=-1&pq=phil+reese+scottsdale&sc=0-21&sk=&cvid=0A5BEE29D0DF4A4893F688B5083CC69A", img: "dir-bing.png", alt: "Phil Reese Local Directory Listing On Bing", w: 111, h: 97, title: undefined, rel: "noopener noreferrer", target: "new" },
+  { href: "https://www.hotfrog.com/company/1099478479065088/phil-reese-arizona-business-broker/scottsdale/business-financial-services", img: "dir-hotfrog.png", alt: "Phil Reese Local Directory Listing On Hotfrog", w: 113, h: 97, title: "Local Glendale Business Broker on Hotfrog", rel: "noopener noreferrer", target: "_blank" },
+  { href: "http://www.manta.com/c/mx61w9v/phil-reese-arizona-business-broker", img: "dir-manta.png", alt: "Phil Reese Local Directory Listing On Manta", w: 95, h: 95, title: "Local Glendale Business Broker on Manta", rel: "noopener noreferrer", target: "_blank" },
+];
+
+/* ---------- cbi-info-section badge cards (verbatim) ---------- */
+const cards = [
+  { img: "icon-buying-selling.png", alt: "Learn more about buying or selling a Glendale company", w: 66, h: 66, title: "Buying or Selling Your Glendale Company", body: "Phil Reese, designated CBI, can help you buy or sell a business in Glendale, Arizona. He knows the ins and outs of Glendale, and it’s business market, and can give your business the exposure that it needs." },
+  { img: "icon-retail.png", alt: "Learn more about selling your retail business in Glendale", w: 64, h: 64, title: "Sell Your Retail Business in Glendale, AZ", body: "Phil Reese knows the system in Glendale, and can get you the best price for your retail business. He can guarantee the best possible results for your sale, with discreet but extensive market exposure." },
+  { img: "icon-expert.png", alt: "Learn more about the expert Glendale business broker", w: 64, h: 64, title: "Expert Glendale Business Sale Broker Advice", body: "Contact business broker Phil Reese for expert broker sale advice in Glendale. Phil Reese has sold over 50 businesses, and continues to do so every day with over 10 years of professional experience." },
+  { img: "icon-service.png", alt: "Learn more about selling your service business in Glendale", w: 64, h: 64, title: "Selling Service Business in Glendale, Arizona", body: "Service businesses are hot on the market, so offers can come quickly and be overwhelming. But, selling your service business has never been easier, thanks to expert business broker Phil Reese." },
+  { img: "icon-valuation.png", alt: "Learn more about business valuation by a Glendale business broker", w: 64, h: 64, title: "Glendale Business Broker Valuation Services", body: "Don’t try to sell alone; get help with valuating your company from a certified business broker. Phil Reese is an expert in business valuation, and can assure you the best possible price for your business." },
+  { img: "icon-local.png", alt: "Learn more about selling your local Glendale business", w: 64, h: 64, title: "Help With Selling Your Local Glendale Business", body: "Local businesses are known for being appeciated by the community that they’re in, but can be tough to sell. Luckily, help with selling in your local Glendale area is available, from CBI Phil Reese." },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/glendale-business-broker/"
+  ogImage={ogImage}
+  ogImageAlt="Glendale Business Broker Phil Reese"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.css"
+  />
+  <script
+    slot="head"
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.js"
+    defer></script>
+
+  <!-- 1. banner-sctn -->
+  <section class="section banner-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h1 class="maintitle h1-style" style="text-transform: uppercase;margin-bottom:0">CALL GLENDALE BUSINESS BROKER PHIL REESE WHEN YOU ARE READY TO SELL YOUR GLENDALE BUSINESS!</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. philo-sctn -->
+  <section class="section philo-sctn">
+    <div class="section-wrap">
+      <div class="txt-col">
+        <p>Are you ready to sell your business in Glendale, Arizona? Selling your business is a big choice to make, and should be done with utmost certainty. You should do it through a business broker who&#8217;s familiar with Glendale. Attempting to sell a business alone is very risky. There are numerous legal concerns that need management when selling your business, and if any of them are neglected, the fees may end up costing more than hiring a business broker. Selling your business with a business broker not only saves you money &#8211; it also makes the sale easier and faster.</p>
+        <p>I&#8217;m <a href="/about/">Phil Reese</a>, Arizona Business Broker. I have represented business owners around Arizona in selling their businesses. I am a member of the International Business Brokers Association, Past Ethics Chairman of the AZ Business Brokers Association, and one of only a few business brokers in Arizona to be designated as a Certified Business Intermediary (CBI).</p>
+      </div>
+      <div class="img-col">
+        <img fetchpriority="high" decoding="async" src="/images/glendale-business-broker/Glendale.jpg" alt="Glendale Business Broker Phil Reese" width="350" height="210" class="alignleftnew" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. test-sctn — reviews header -->
+  <section class="section test-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="subtitle h3-style">Read Reviews From Our Clients</h3>
+      </div>
+      <div class="google-col">
+        <svg id="XMLID_1_" xmlns="http://www.w3.org/2000/svg" width="156.629" height="51.349" viewBox="0 0 156.629 51.349"><path d="M38.522,18.218H20.235v5.419H33.188c-.635,7.62-6.985,10.837-12.954,10.837A14.263,14.263,0,0,1,5.927,20.038,14.259,14.259,0,0,1,20.235,5.518a14.1,14.1,0,0,1,9.779,3.937l3.81-3.937A19.3,19.3,0,0,0,20.065.1,20.194,20.194,0,0,0,0,19.911,20.2,20.2,0,0,0,20.362,39.892c10.668,0,18.457-7.323,18.457-18.118a17.8,17.8,0,0,0-.3-3.556Z" transform="translate(0 -0.1)" fill="#4285f4"/><path d="M108.769,33.6A12.806,12.806,0,1,0,121.6,46.427c.042-8.466-6.646-12.827-12.827-12.827Zm.085,5.038c3.683,0,7.2,2.963,7.2,7.789a7.381,7.381,0,0,1-7.2,7.747c-4.064,0-7.323-3.26-7.323-7.789,0-4.445,3.175-7.747,7.323-7.747Z" transform="translate(-55.303 -19.419)" fill="#ea4335"/><path d="M174.969,33.6A12.806,12.806,0,1,0,187.8,46.427c0-8.466-6.689-12.827-12.827-12.827Zm.042,5.038c3.683,0,7.2,2.963,7.2,7.789a7.381,7.381,0,0,1-7.2,7.747c-4.064,0-7.323-3.26-7.323-7.789a7.4,7.4,0,0,1,7.323-7.747Z" transform="translate(-93.48 -19.419)" fill="#fbbc05"/><path d="M240.676,33.6c-6.9,0-12.276,6.011-12.276,12.784a12.639,12.639,0,0,0,12.192,12.827,8.516,8.516,0,0,0,7.027-3.09v2.54c0,4.4-2.667,7.069-6.731,7.069a7.133,7.133,0,0,1-6.561-4.572l-4.911,2.074c1.736,3.683,5.249,7.535,11.514,7.535,6.858,0,12.065-4.318,12.065-13.335V34.362h-5.376v2.159a9.41,9.41,0,0,0-6.943-2.921Zm.466,5.038c3.387,0,6.858,2.879,6.858,7.789,0,5-3.471,7.747-6.9,7.747-3.683,0-7.069-2.963-7.069-7.7-.042-4.911,3.514-7.831,7.112-7.831Z" transform="translate(-131.713 -19.419)" fill="#4285f4"/><path d="M326.438,33.5c-6.477,0-11.938,5.165-11.938,12.784a12.4,12.4,0,0,0,12.573,12.869,12.942,12.942,0,0,0,10.71-5.63l-4.445-2.963a7.13,7.13,0,0,1-6.265,3.514,6.57,6.57,0,0,1-6.265-3.895l17.187-7.069-.889-2.074A11.613,11.613,0,0,0,326.438,33.5Zm.254,4.953a5.082,5.082,0,0,1,4.741,2.752l-11.472,4.784c-.508-3.725,3.006-7.535,6.731-7.535Z" transform="translate(-181.365 -19.361)" fill="#ea4335"/><path d="M295.2,40.86h5.63V3.1H295.2Z" transform="translate(-170.235 -1.83)" fill="#34a853"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. test-sctn-alt — review boxes + CBI text-col + directory badges -->
+  <section class="section test-sctn test-sctn-alt">
+    <div class="section-wrap">
+      <div class="rvw-wrapper">
+        {reviews.map((r) => (
+          <div class="rvw-box">
+            <p>{r.text}</p>
+            <div class="rvw-bx">
+              <p class="name"><span class="bold"><a href={r.url} target="_blank" rel="noopener nofollow">{r.name}</a></span></p>
+              <span class="strs">★★★★★</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="text-col">
+      <h3 class="h3-style">What is a Certified Business Intermediary?</h3>
+      <p>A <a href="/what-is-a-cbi/">Certified Business Intermediary (CBI) designation</a> is given by the International Business Brokers Association (IBBA) to Business Brokers who successfully complete multiple classes and tests to prove that they are competent in sales of businesses. It takes a lot of time and effort to attain the CBI designation. I had to travel around the country to attend conferences, and spend several days in mentally taxing classes on how to assist business owners in the transfer and marketing of their companies. I had to take 60 hours of classes, with a test at the end of each class to qualify for the three-hour final exam. Now, I am one of only a few Certified Business Intermediaries in Arizona.</p>
+      <div class="directorydiv badges-col" style="width: 726px; margin: auto;padding-top: 20px;">
+        {dirBadges.map((b) => (
+          <a href={b.href} target={b.target} rel={b.rel} title={b.title}>
+            <img style="box-shadow: 0px 0px 0px;" src={`/images/glendale-business-broker/${b.img}`} alt={b.alt} width={b.w} height={b.h} class="alignleft size-full" loading="lazy" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. video-aalt-sctn — valuation video + "When To Sell" -->
+  <section class="section video-aalt-sctn">
+    <div class="section-wrap">
+      <div class="img-col">
+        <div class="lyte-wrapper" style="width:853px;max-width:100%;margin:5px;">
+          <lite-youtube
+            videoid="75l7CluKwIg"
+            title="Phil Reese CBI-Arizona Business Broker"
+            style="background-image:url('/images/glendale-business-broker/yt-75l7CluKwIg.jpg');"
+          >
+            <a href="https://youtu.be/75l7CluKwIg" class="lite-yt-fallback" rel="nofollow">Watch this video on YouTube</a>
+          </lite-youtube>
+        </div>
+      </div>
+      <div class="txt-col">
+        <h3 class="tc h4-style" style="margin: 30px 0 0;">When To Sell Your Glendale Business</h3>
+        <p style="margin-bottom: 10px;">People sell their companies for various reasons, whether it be for family, financial reasons, or because a better opportunity has come up. The most profitable time to sell your company in Glendale is when your profits and revenue have climbed. Most business owners try to sell their company when profits have dropped, but by then it&#8217;s usually too late. There is also a number of actions which can <a href="/business-sellers/">impede your sale</a>, such as: Keeping poor records, pricing too high, getting emotional about the sale, and trying to sell by yourself.</p>
+        <p style="margin-bottom: 10px;">I am affiliated with <a href="https://westusa.com/agent-roster/entry/5906/" target="_blank">West USA Realty</a>, the largest business broker group in the state of Arizona. This gives your business the greatest amount of exposure possible. At the same time, well over half of my business purchasers are from outside of Arizona, and many are from outside the US. I pledge to you to be honest with you in all of our dealings, and to market your business <a href="/sell-your-business/how-do-you-keep-the-sale-of-my-business-confidential/">extensively and discreetly</a>. I also pledge to negotiate your Glendale business for the best possible price, and to competently see to all of the details.</p>
+      </div>
+      <div class="title-col one-col">
+        <h3 class="tc h4-style">Determining How Much Your Glendale Business Is Worth</h3>
+        <p>You should always determine how much your business is worth in Glendale. Your company&#8217;s reputation, ratings, effectiveness, and usefulness can all affect how much it sells for. One way to determine how much your company is worth, is to compare it to other companies in your area. If you price it too high, your company might not sell. If you price too low, you could lose out on money instead of profit. Hiring a certified business broker, like me, can increase your business&#8217;s exposure, and also make it easier to price your company properly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. cbi-info-section — 6 badge cards -->
+  <section class="section cbi-info-section">
+    <div class="section-wrap">
+      <div class="cbi-badge-container">
+        {cards.map((c) => (
+          <div class="badge-card">
+            <img decoding="async" class="alignnone" src={`/images/glendale-business-broker/${c.img}`} alt={c.alt} width={c.w} height={c.h} loading="lazy" />
+            <h3 class="h5-style">{c.title}</h3>
+            <p class="p-style">{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. vid-sctn — contact form + "Schedule a Call Today!" -->
+  <section class="section vid-sctn">
+    <div class="section-wrap">
+      <div class="vid-col">
+        <div class="wpcf7">
+          <form
+            class="wpcf7-form"
+            action="/api/contact"
+            method="post"
+            aria-label="Contact form"
+            data-pr-contact-form
+            data-form-id="glendale"
+          >
+            <input type="text" name="_honeypot" value="" tabindex="-1" autocomplete="off" aria-hidden="true" class="pr-hp" />
+            <div class="bottom-form">
+              <div class="col-1">
+                <label for="first-name-bt">Name</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="text" name="your-name-bt" id="first-name-bt" class="wpcf7-form-control wpcf7-text" maxlength="400" placeholder="Name*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-2">
+                <label for="your-email-bt">Email</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="email" name="your-email-bt" id="your-email-bt" class="wpcf7-form-control wpcf7-email wpcf7-text" maxlength="400" placeholder="Email*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-3">
+                <label for="your-phone-bt">Phone</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="tel" name="your-phone-bt" id="your-phone-bt" class="wpcf7-form-control wpcf7-tel wpcf7-text" maxlength="400" placeholder="Phone" />
+                </span>
+              </div>
+              <div class="col-4">
+                <label for="your-message-bt">Your Message*</label>
+                <span class="wpcf7-form-control-wrap">
+                  <textarea name="your-message-bt" id="your-message-bt" class="wpcf7-form-control wpcf7-textarea" cols="40" rows="10" maxlength="2000" minlength="20" placeholder="Your Message*" required aria-required="true"></textarea>
+                </span>
+              </div>
+              <div class="col-5">
+                <div class="bst-way">
+                  <label>Best Way to Reply:</label>
+                  <span class="wpcf7-form-control-wrap">
+                    <span class="wpcf7-form-control wpcf7-radio">
+                      {replyMethods.map((method, i) => (
+                        <span class={`wpcf7-list-item${i === 0 ? " first" : ""}${i === replyMethods.length - 1 ? " last" : ""}`}>
+                          <label>
+                            <input type="radio" name="bst-way-bt" value={method} checked={i === 0} />
+                            <span class="wpcf7-list-item-label">{method}</span>
+                          </label>
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </div>
+                <button type="submit" class="wpcf7-form-control wpcf7-submit">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="titlecol">
+        <div>
+          <h3 class="tc h3-style">Schedule a Call Today!</h3>
+          <div>Phil Reese, CBI &#8211; Arizona Business Broker</div>
+          <em>West USA Realty</em><br />
+          Phone:<a href="tel:+14804288010">(480) 428-8010</a><br />
+          Email: <a href="mailto:phil@philsellsbiz.com">phil@philsellsbiz.com</a>
+        </div>
+        <p>Serving Glendale and surrounding areas.<br />
+        Office Hours: <time datetime="Mo,Tu,We,Th,Fri,Sat,Sun 8:00-20:00">Daily: 8:00 am &#8211; 8:00 pm</time><br />
+        Your privacy is always important. Your information will not be shared, sold or exchanged with anyone else.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Section CSS — verbatim from the live page's inlined used-CSS
+     (reference/_glendale-business-broker-sections.css + extras). -->
+<style is:global>
+  /* ---------- 1. banner-sctn ---------- */
+  .banner-sctn { padding-top: 80px; padding-bottom: 80px; background: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); z-index: 1; }
+  .banner-sctn .maintitle { font-weight: 500; color: var(--primary); font-size: clamp(24px, 4vw, 54px); }
+  .banner-sctn .one-col { text-align: center; }
+  .banner-sctn .subtitle { color: var(--primary); font-weight: 400; font-size: 30px; margin-bottom: 0; }
+  .banner-sctn .one-col > p { max-width: 1200px; font-weight: 700; color: var(--primary); }
+  @media (min-width: 1025px) { .banner-sctn .certified-badges { display: none; } }
+  .banner-sctn .certified-badges { padding: 0; }
+  @media (max-width: 500px) {
+    .banner-sctn { padding-bottom: 40px; padding-left: 20px; padding-right: 20px; }
+    .banner-sctn .subtitle { font-size: 26px; margin-bottom: 0; }
+  }
+  @media (max-width: 400px) { section.section.banner-sctn { padding-top: 45px; } }
+
+  /* ---------- 2. philo-sctn ---------- */
+  .philo-sctn { padding-top: 80px; padding-bottom: 80px; }
+  .philo-sctn .txt-col { width: 55%; margin-bottom: 40px; padding-right: 5%; }
+  .philo-sctn .img-col { display: flex; width: 45%; }
+  .philo-sctn .img-col img { width: 100%; }
+  .philo-sctn .section-wrap { align-items: center; }
+  .philo-sctn .txt-col .maintitle { color: var(--primary); font-size: clamp(29px, 4vw, 48px); }
+  .philo-sctn .txt-col p { line-height: 1.5; font-size: 18px; color: var(--secondary); }
+  @media (max-width: 1024px) {
+    .philo-sctn .img-col { max-width: 360px; width: 100%; }
+    .philo-sctn .txt-col { width: 100%; text-align: center; padding: 0 15px; }
+  }
+  @media (max-width: 500px) {
+    .philo-sctn .txt-col { padding: 0; }
+    .philo-sctn { padding-top: 40px; padding-bottom: 40px; }
+  }
+
+  /* ---------- 3. test-sctn ---------- */
+  .test-sctn { background: linear-gradient(360deg,#e8e8e8 0,#e7e7e7 30%,#e7e7E700 100%) no-repeat padding-box; padding-top: 80px; padding-bottom: 80px; }
+  section.section.test-sctn { overflow: hidden; }
+  .test-sctn .title-col { flex-grow: 1; max-width: 750px; padding-right: 20px; margin-left: auto; }
+  .test-sctn .maintitle { margin: 0; font-family: sans-serif; font-weight: 400; color: var(--red); }
+  .test-sctn .subtitle { margin: 0; color: var(--secondary); font-size: clamp(28px, 3vw, 42px); }
+  .test-sctn .google-col { display: flex; align-items: center; gap: 20px; background: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); padding: 20px; margin-right: -40px; width: 44%; border-radius: 7px; }
+  .test-sctn .section-wrap { align-items: center; max-width: none; gap: 20px; }
+  .test-sctn .google-col div p { margin-top: 0; text-transform: uppercase; color: var(--primary); margin-bottom: 0; font-weight: 600; font-size: 16px; }
+  .test-sctn .google-col div span { font-weight: 900; color: var(--primary); }
+  .test-sctn .google-col div span span.strs { color: #ffb300; font-size: 20px; }
+  .test-sctn .text-col { text-align: center; max-width: 800px; margin-right: auto; margin-left: auto; width: 100%; }
+  .test-sctn .h4-style { margin-bottom: 0; }
+  @media (max-width: 1024px) { .test-sctn .section-wrap { justify-content: center; column-gap: 20px; } }
+  @media (max-width: 800px) {
+    .test-sctn .title-col { padding: 0; width: 100%; text-align: center; margin-bottom: 30px; }
+    .test-sctn .google-col { width: 100%; margin-right: 0; justify-content: center; max-width: 400px; }
+    section.section.test-sctn { padding-top: 50px; padding-bottom: 50px; }
+  }
+  @media (max-width: 500px) { .test-sctn .google-col { flex-wrap: wrap; text-align: center; padding: 15px; } }
+
+  /* ---------- 4. test-sctn-alt review boxes + directory badges ---------- */
+  .rvw-wrapper { display: flex; flex-wrap: wrap; justify-content: center; }
+  .test-sctn-alt .rvw-wrapper { column-count: unset; display: flex; flex-wrap: wrap; column-gap: unset; gap: 20px; }
+  .test-sctn-alt .rvw-wrapper .rvw-box { margin-bottom: 0; width: calc(33.33% - 20px); }
+  .rvw-box { background: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); border-radius: 5px; padding: 30px; align-self: stretch; display: flex; flex-direction: column; }
+  .rvw-box > p { margin: 0 0 20px; }
+  .rvw-box .rvw-bx { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
+  .rvw-box .rvw-bx .name { margin: 0; }
+  .rvw-box .rvw-bx .name .bold a { color: var(--red); font-weight: 700; }
+  @media (max-width: 800px) { .test-sctn-alt .rvw-wrapper .rvw-box { width: calc(50% - 20px); } }
+  @media (max-width: 500px) { .test-sctn-alt .rvw-wrapper .rvw-box { width: 100%; } }
+  .badges-col { width: 100% !important; }
+  .directorydiv.badges-col { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-evenly; gap: 20px; max-width: 100%; }
+  .directorydiv.badges-col img { margin: 0; }
+  @media (max-width: 1100px) {
+    .directorydiv.badges-col img { width: 80px !important; margin: 0; }
+    .directorydiv.badges-col { display: flex; align-items: center; justify-content: space-evenly; gap: 20px; }
+  }
+  @media (max-width: 620px) { .directorydiv.badges-col { flex-wrap: wrap; } }
+
+  /* ---------- 5. video-aalt-sctn ---------- */
+  .video-aalt-sctn { padding-top: 80px; padding-bottom: 80px; }
+  .video-aalt-sctn .txt-col { width: 50%; padding-left: 5%; }
+  .video-aalt-sctn .img-col { width: 50%; }
+  .video-aalt-sctn .title-col { width: 100%; text-align: center; margin-top: 32px; }
+  .video-aalt-sctn .title-col .h4-style { margin-bottom: 0; }
+  .video-aalt-sctn .section-wrap { align-items: center; }
+  .video-aalt-sctn .txt-col .maintitle { color: var(--primary); font-size: clamp(29px, 4vw, 48px); }
+  .video-aalt-sctn p { line-height: 1.5; font-size: 18px; color: var(--secondary); }
+  @media (max-width: 1024px) {
+    .video-aalt-sctn .img-col { max-width: 360px; width: 100%; }
+    .video-aalt-sctn .txt-col { width: 100%; text-align: center; padding: 0 15px; }
+  }
+  @media (max-width: 500px) {
+    .video-aalt-sctn .txt-col { padding: 0; }
+    .video-aalt-sctn { padding-top: 40px; padding-bottom: 40px; }
+  }
+
+  /* ---------- 6. cbi-info-section ---------- */
+  .cbi-info-section { padding: clamp(60px,8vw,100px) 0; color: var(--black); background: #d3d3d3; }
+  .cbi-info-section .section-wrap { flex-direction: column; align-items: center; gap: 40px; }
+  .cbi-badge-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+  .badge-card { background: var(--white); border: 1px solid var(--light-gray); border-radius: 12px; padding: 30px; max-width: 450px; box-shadow: 0 10px 30px rgba(0,0,0,.05); transition: transform .3s ease, box-shadow .3s ease; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .badge-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(16,33,77,.1); border-color: var(--primary); }
+  .badge-card h3 { font-size: var(--font-size--h4); color: var(--secondary); margin-bottom: 15px; max-width: 308px; }
+  @media (min-width: 801px) { .badge-card { width: calc(33% - 30px); } }
+  @media (max-width: 1024px) { .cbi-info-section { padding-left: 20px; padding-right: 20px; } }
+  @media (max-width: 800px) { .badge-card { width: 100%; } }
+  @media (max-width: 768px) { .badge-card { max-width: 100%; } }
+  @media (max-width: 500px) { .badge-card { padding: 21px; } }
+
+  /* ---------- 7. vid-sctn (contact form variant) ---------- */
+  .vid-sctn { background: #d3d3d3; padding-bottom: 50px; border-bottom: 5px solid var(--red); padding-top: 50px; }
+  .vid-sctn .vid-col { width: 60%; margin-top: 0; }
+  .vid-sctn .vid-col iframe { max-width: 100%; }
+  .vid-sctn .titlecol { padding: 40px 30px; width: 38%; }
+  .vid-sctn .section-wrap { align-items: center; justify-content: space-between; }
+  .vid-sctn .titlecol .maintitle { color: var(--secondary); font-size: clamp(30px, 3vw, 42px); margin: 0; }
+  @media (max-width: 800px) {
+    .vid-sctn .vid-col { width: 100%; order: 1; margin-top: 30px; text-align: center; }
+    .vid-sctn .titlecol { width: 100%; padding: 0; text-align: center; }
+    section.section.vid-sctn { padding-top: 40px; }
+    .vid-sctn .titlecol .maintitle { font-size: 26px; }
+    .vid-sctn .vid-col iframe { height: 200px; }
+  }
+
+  /* Honeypot */
+  .pr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+  .pr-form-banner { width: 100%; margin-top: 14px; font-weight: 600; font-family: var(--font-family--h4); }
+  .pr-form-banner[data-state="success"] { color: var(--primary); }
+  .pr-form-banner[data-state="error"] { color: var(--red); }
+
+  /* ---------- shared contact-form (.bottom-form) ---------- */
+  .vid-sctn .wpcf7 { width: 100%; }
+  .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+  .bottom-form input:not([type=submit]) { background-color: transparent; border: none; border-bottom: 2px solid var(--primary); max-width: 100%; width: 100%; min-height: 43px; min-width: 13px; }
+  .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; border-bottom: 2px solid var(--primary); min-height: 98px; background: #3104071c; }
+  .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
+  .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .bottom-form .col-4 { width: 100%; }
+  .bottom-form .col-4 .wpcf7-form-control-wrap, .bottom-form .col-5 .wpcf7-form-control-wrap { width: 100%; }
+  .bottom-form .col-5 { display: flex; justify-content: space-between; position: relative; text-align: left; width: 100%; gap: 4px; align-items: center; }
+  .bottom-form .col-5 .wpcf7-list-item.first { margin-left: 0; }
+  .bottom-form .col-5 .wpcf7-list-item-label { font-size: 14px; }
+  .bottom-form .col-5 .bst-way > label { width: 100%; display: block; }
+  .bottom-form .wpcf7-list-item { margin-left: 4px; }
+  .bottom-form .wpcf7-list-item label { display: flex; align-items: center; }
+  .bottom-form .wpcf7-radio { display: flex; gap: 8px; }
+  .bottom-form .bst-way { color: var(--red); text-transform: uppercase; font-weight: 600; display: flex; gap: 12px; align-items: center; }
+  .bottom-form input::placeholder, .bottom-form textarea::placeholder { color: #000; }
+  .bottom-form input[type=submit], .bottom-form button[type=submit] { border: 0; color: #fff; padding: 10px 20px; border-radius: 100px; width: 100%; max-width: 180px; background-color: var(--primary); font-weight: 700; text-transform: uppercase; min-width: fit-content; font-size: var(--font-size--body); cursor: pointer; }
+  @media (max-width: 600px) {
+    .bottom-form .col-5 { flex-direction: column; text-align: center; }
+    .bottom-form .wpcf7-radio { justify-content: center; }
+    .bottom-form input[type=submit], .bottom-form button[type=submit] { width: 100%; }
+    .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: 100%; }
+    .bottom-form .bst-way { gap: 4px; flex-direction: column; align-items: center; }
+  }
+</style>
