@@ -1,0 +1,220 @@
+---
+/* -----------------------------------------------------------------------
+   Testimonials — faithful clone of https://www.philsellsbiz.com/testimonials/
+   Archetype B (reference/SEO page): no PageHero, light "Testimonials"
+   title-bar, then (in DOM order):
+     1. title-bar           — H1 "Testimonials"
+     2. tst-sctn            — "WHAT PEOPLE SAY ABOUT WORKING WITH ME": 8 photo
+                              testimonials (.test-bx = text + closing photo)
+     3. test-sctn           — "Read What My Past Clients Have Said" Google-review
+                              masonry (.rvw-wrapper / .rvw-box), CSS columns
+     4. vid-sctn            — Scottsdale office Google Map embed
+     5. test-sctn           — more Google-review boxes
+     6. vid-sctn            — Phoenix (Chandler Blvd) office map
+     7. test-sctn           — more review boxes
+     8. vid-sctn            — Mesa office map
+     9. test-sctn test-sctn-alt — 3 linked Google reviews (flex, not columns)
+    10. vid-sctn            — Phoenix (Utopia) office map
+    11. test-sctn           — final review boxes
+   The live page uses the wp-customer-reviews plugin; here every review is
+   rendered STATICALLY (the live HTML is already fully server-rendered static
+   markup — no client JS builds the cards). The "vid-sctn" blocks are Google
+   Maps office embeds (same embed URLs as the homepage map-sctn), wired with
+   the same lazy-swap (about:blank -> data-lazy-src) as the homepage.
+   Markup verbatim from reference/_testimonials-content.html; all 8 closing
+   photos localized to /images/testimonials/. Section CSS copied from the live
+   page's WP-Rocket used-CSS (reference/_testimonials-sectioncss.css).
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL } from "../config/site";
+import testimonialsBody from "../../reference/_testimonials-content.html?raw";
+/* Live page's standalone FinancialService schema (3 office nodes), verbatim —
+   identical to the block the live testimonials page emits (and the homepage). */
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+
+/* Live <title> + meta description, verbatim from reference/testimonials-raw.html */
+const pageTitle = "Testimonials For Phoenix AZ Business Broker Phil Reese";
+const pageDescription =
+  "Testimonials for Business Broker Phil Reese, who has served as a Business Broker to many business owners in AZ looking to sell their businesses.";
+
+/* Live page's primaryimage (Yoast og/schema image), localized. */
+const ogImage = `${SITE_URL}/images/testimonials/testimonials.jpg`;
+
+/* ---------- Page JSON-LD — mirrors the live Yoast @graph for this route ----------
+   (Layout already injects the global LocalBusiness + WebSite nodes.)
+   WebPage + primaryimage ImageObject + BreadcrumbList, then the live page's
+   standalone FinancialService office schema (verbatim). datePublished /
+   dateModified copied from the live graph. */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/testimonials/#webpage`,
+  url: `${SITE_URL}/testimonials/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/testimonials/#primaryimage` },
+  image: { "@id": `${SITE_URL}/testimonials/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2014-11-28T21:11:56+00:00",
+  dateModified: "2026-05-28T20:10:39+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/testimonials/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/testimonials/`] }],
+};
+
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/testimonials/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+  caption:
+    "If you are in need of a true professional to assist with getting your business properly packaged and marketed in the right places so that it garners the best price, then Phil Reese is your best choice.",
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/testimonials/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Testimonials" },
+  ],
+};
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema],
+  },
+  financialServiceSchema,
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/testimonials/"
+  ogImage={ogImage}
+  ogImageAlt="Testimonials for Phil Reese, Arizona Business Broker"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <!-- Testimonials + Google reviews + office maps copied verbatim from the live
+       page (reference/_testimonials-content.html); photos localized to
+       /images/testimonials/. Map iframes start at about:blank and swap in their
+       data-lazy-src when scrolled near (script below). -->
+  <Fragment set:html={testimonialsBody} />
+</Layout>
+
+<!-- Lazy-load the Google Maps office embeds the same way the live page
+     (WP Rocket) does: iframes start at about:blank, swap in data-lazy-src
+     when scrolled near. Identical to the homepage map-sctn behavior. -->
+<script is:inline>
+  (function () {
+    var frames = document.querySelectorAll("iframe[data-lazy-src]");
+    if (!frames.length) return;
+    function load(frame) {
+      if (frame.dataset.loaded) return;
+      frame.dataset.loaded = "1";
+      frame.src = frame.dataset.lazySrc;
+    }
+    if (!("IntersectionObserver" in window)) {
+      frames.forEach(load);
+      return;
+    }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            load(entry.target);
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "400px 0px" }
+    );
+    frames.forEach(function (f) { io.observe(f); });
+  })();
+</script>
+
+<!-- Section CSS — copied verbatim from the live used-CSS blob
+     (reference/_testimonials-sectioncss.css). is:global because the content
+     arrives via set:html (no Astro scope hash on those nodes). -->
+<style is:global>
+  .section.title-bar { padding-top: 52px; padding-bottom: 52px; background-color: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); z-index: 2; }
+  .title-bar .maintitle { margin: 0; color: var(--red); text-align: center; }
+
+  /* tst-sctn — photo testimonials */
+  .tst-sctn { background: linear-gradient(88deg, #eeeeee00 0, #eee 1%, #e2e2e2a3 23%, #d3d3d3b0 52%, #d3d3d3a3 53%, #d3d3d385 73%, #d3d3d396 92%, #d3d3d38a 100%) 0 padding-box; padding-top: 100px; padding-bottom: 80px; overflow: hidden; }
+  .tst-sctn .maintitle { display: flex; align-items: center; justify-content: center; color: var(--primary); width: 100%; }
+  .tst-sctn .maintitle::before { content: ''; flex-grow: 1; height: 2px; display: block; background-color: var(--primary); margin-right: 15px; margin-left: -27%; }
+  .tst-sctn .maintitle::after { content: ''; flex-grow: 1; height: 2px; display: block; background-color: var(--primary); margin-left: 15px; margin-right: -27%; }
+  .tst-sctn .test-bx { display: flex; margin-bottom: 40px; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); margin-top: 20px; }
+  .tst-sctn .test-bx .text-bx { background: #fff; flex-grow: 1; width: 70%; padding: 20px 40px; display: flex; flex-direction: column; justify-content: center; font-size: 18px; line-height: 1.5; }
+  .tst-sctn .test-bx .text-bx .testimonial-title { margin-bottom: 0; font-weight: 700; }
+  .tst-sctn .test-bx .text-bx .name { font-weight: 900; font-size: 17px; }
+  .tst-sctn .test-bx .text-bx .name > span { font-weight: 400; }
+  .tst-sctn .test-bx .text-bx .name > b { display: block; }
+  .tst-sctn .test-bx .img-tst { display: flex; justify-content: flex-end; }
+  .tst-sctn .test-bx .img-tst img { object-fit: cover; }
+
+  /* test-sctn — Google reviews masonry */
+  .test-sctn { background: linear-gradient(360deg, #e8e8e8 0, #e7e7e7 30%, #e7e7E700 100%) no-repeat padding-box; padding-top: 80px; padding-bottom: 80px; }
+  .test-sctn .maintitle { margin: 0; font-family: sans-serif; font-weight: 400; color: var(--red); }
+  .test-sctn .section-wrap { align-items: center; justify-content: flex-start; max-width: none; gap: 20px; }
+  section.section.test-sctn { overflow: hidden; padding-bottom: 147px; }
+
+  .rvw-wrapper { column-count: 3; column-gap: 1.5rem; }
+  .rvw-box { background: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); border-radius: 5px; padding: 30px; display: inline-block; width: 100%; margin-bottom: 1.5rem; break-inside: avoid; }
+  .rvw-box p { margin: 0; }
+  .rvw-box > p { margin-bottom: 20px; }
+  .rvw-box .name { font-weight: 700; color: var(--primary); }
+  .rvw-box div .name { color: var(--secondary); max-width: 250px; }
+  .rvw-box div .name span { display: block; font-size: 12px; }
+  .rvw-box .rvw-bx { display: flex; align-items: flex-end; gap: 10px; margin-top: auto; }
+  .strs { color: #ffb300; }
+
+  .test-sctn-alt .rvw-wrapper { column-count: unset; display: flex; flex-wrap: wrap; column-gap: unset; gap: 20px; }
+  .test-sctn-alt .rvw-wrapper .rvw-box { margin-bottom: 0; width: calc(33.33% - 20px); }
+
+  /* vid-sctn — office map embeds */
+  .vid-sctn { background: #d3d3d3; padding-bottom: 50px; border-bottom: 5px solid var(--red); }
+  .vid-sctn .vid-col { width: 43%; margin-top: -61px; }
+  .vid-sctn .vid-col iframe { max-width: 100%; }
+  .vid-sctn .titlecol { width: 56%; padding-left: 30px; }
+  .vid-sctn .section-wrap { align-items: center; justify-content: space-between; }
+  .vid-sctn .titlecol .maintitle { color: var(--secondary); font-size: clamp(30px, 3vw, 42px); margin: 0; }
+
+  @media (max-width: 1200px) {
+    .tst-sctn .test-bx .img-tst img { height: auto; object-fit: cover; }
+  }
+  @media (max-width: 1024px) { .test-sctn .section-wrap { justify-content: center; column-gap: 20px; } }
+  @media (max-width: 800px) {
+    section.section.test-sctn { padding-top: 50px; padding-bottom: 50px; }
+    .vid-sctn .vid-col iframe { height: 200px; }
+    .rvw-wrapper { column-count: 2; }
+    .test-sctn-alt .rvw-wrapper .rvw-box { width: calc(50% - 20px); }
+    .vid-sctn .vid-col { width: 100%; order: 1; margin-top: 30px; text-align: center; }
+    .vid-sctn .titlecol { width: 100%; padding: 0; text-align: center; }
+    section.section.vid-sctn { padding-top: 40px; }
+    .vid-sctn .titlecol .maintitle { font-size: 26px; }
+    .tst-sctn .test-bx { flex-wrap: wrap; justify-content: center; box-shadow: none; max-width: 337px; }
+    .tst-sctn .test-bx .img-tst { width: 100%; justify-content: center; }
+    .tst-sctn .test-bx .text-bx p { margin-top: 0; font-size: 15px; line-height: 1.2; }
+    .tst-sctn .test-bx .text-bx .name { font-size: 16px; }
+    .tst-sctn .section-wrap { justify-content: space-around; flex-direction: column; align-items: center; }
+    .tst-sctn .test-bx .text-bx { justify-content: flex-start; }
+  }
+  @media (max-width: 500px) {
+    .rvw-wrapper { column-count: 1; }
+    .test-sctn-alt .rvw-wrapper .rvw-box { width: 100%; }
+    .tst-sctn .maintitle::after, .tst-sctn .maintitle::before { display: none; }
+    .tst-sctn .maintitle { text-align: center; }
+    .tst-sctn { padding-top: 50px; }
+    .tst-sctn .test-bx { margin-bottom: 10px; margin-top: 10px; text-align: center; }
+    .tst-sctn .test-bx .text-bx { padding: 20px; }
+  }
+</style>

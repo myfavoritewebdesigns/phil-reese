@@ -1,0 +1,87 @@
+
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+
+
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+
+
+:root { --wp-internal-comment: "Placeholder for wp_hoist_late_printed_styles() to replace with the block styles printed at wp_footer." }
+/*# sourceURL=wp-block-styles-placeholder-inline-css */
+
+
+:root { --wp-internal-comment: "Placeholder for wp_hoist_late_printed_styles() to replace with the global-styles printed at wp_footer." }
+/*# sourceURL=wp-global-styles-placeholder-inline-css */
+
+
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player:focus-within{outline: 2px solid currentColor;outline-offset: 5px;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:100%;width:100%;left:0;top:0;position:absolute;background:var(--wpr-bg-2a0ec2b9-0333-4856-beab-bc2878d3d053) no-repeat center;background-color: transparent !important;cursor:pointer;border:none;}
+/*# sourceURL=rocket-lazyload-inline-css */
+
+
+/*Blog*/ 
+
+@media screen and (max-width:800px){
+ #leftcolumn img.photo-blog-firm{
+margin-top: 5px;
+max-width: 150px!important;    
+display: block;
+margin-bottom: 15px;}
+}
+
+/* Menu Mobile Icon Fix */
+ #rmp_menu_trigger-2916 .responsive-menu-pro-inner::before {
+    top: 10px;
+}
+
+ #rmp_menu_trigger-2916 .responsive-menu-pro-inner::after {
+    bottom: 10px;
+}
+
+.photo-shoot img {box-shadow: 1px 1px 3px #333;}
+
+.hlpr-sect {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+.yarpp-related {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+@media (max-width: 1200px) {
+.hlpr-sect {
+  width: 100%;
+}
+}
+fieldset.hidden-fields-container {
+  display: none;
+}
+
+.rll-youtube-player, [data-lazy-src]{display:none !important;}
+
+
+div.wpcr3_rating_style1_base{--wpr-bg-fa349f6c-ab99-4715-9776-a52871046cd4: url('https://www.philsellsbiz.com/wp-content/plugins/wp-customer-reviews/css/newstars.png');}div.wpcr3_rating_style1_average{--wpr-bg-a973fbba-4256-4514-9f0e-b051c359be97: url('https://www.philsellsbiz.com/wp-content/plugins/wp-customer-reviews/css/newstars.png');}div.wpcr3_rating_style1_score{--wpr-bg-4dc0e119-5a78-4ee2-9297-0dcf9d61b4c4: url('https://www.philsellsbiz.com/wp-content/plugins/wp-customer-reviews/css/newstars.png');}div.wpcr3_rating_style1_score div:hover{--wpr-bg-17cd37e9-ef51-44c1-8568-bff73438962d: url('https://www.philsellsbiz.com/wp-content/plugins/wp-customer-reviews/css/newstars.png');}.rll-youtube-player .play{--wpr-bg-2a0ec2b9-0333-4856-beab-bc2878d3d053: url('https://www.philsellsbiz.com/wp-content/plugins/wp-rocket/assets/img/youtube.png');}
+
+    .section.title-bar {
+        padding-top:52px;
+        padding-bottom:52px;
+        background-color:#f9f9f9;
+		box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.25);
+		z-index:2;
+    }
+    .title-bar .maintitle{
+        margin:0;
+        color:var(--red);
+        text-align:center;
+    }
+    
+
+.faq-sctn {padding-top: 80px;padding-bottom: 80px;}
+.faq-sctn .maintitle {text-align:center}
+.faq-sctn .faq-title {margin: 0;font-size: 21px;font-weight: bold;color: vaR(--primary);text-transform:capitalize}
+.faq-sctn summary {border-bottom: 2px solid var(--red);padding-bottom: 13px;}
+.faq-sctn summary:after {display:none}
+.fq-inn{margin-bottom:30px}

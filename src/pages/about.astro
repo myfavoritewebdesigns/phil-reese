@@ -1,0 +1,973 @@
+---
+/* -----------------------------------------------------------------------
+   About — faithful clone of https://www.philsellsbiz.com/about/
+   Markup/copy verbatim from reference/about-raw.html (cleaned of WP-Rocket
+   lazy-load placeholders → reference/_about-body.html); section CSS lifted
+   verbatim from the live page's inlined used-CSS (reference/_about-sections.css).
+   Sections in DOM order:
+     1. title-bar   — "About Phil Reese" H1 band
+     2. phil-sctn   — portrait + intro
+     3. philo-sctn  — My Philosophy
+     4. yrs-sctn    — 20 years experience + stat boxes + medals
+     5. sold-sctn   — Some of the Businesses I have sold (3 cols)
+     6. social-sctn — Videos with Phil (12 lite-youtube embeds)
+     7. awards-sctn — Awards & Track Record + Industry Recognitions grid
+     8. awards-grid — Year-by-year award timeline (2 columns)
+     9. background-experience-section — Licenses/Education/Experience/Publications
+    10. ctc-sctn    — Contact form (CF7 field names → /api/contact)
+   Notes:
+   - The live site lazy-loads the 12 videos via wp-youtube-lyte; rebuilt here
+     with the same lite-youtube web component the homepage uses.
+   - Form reuses the homepage's field names + shared contact-form.ts handler.
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL, contact, offices, replyMethods, socialSameAs } from "../config/site";
+
+/* Live <title> + meta description, verbatim from reference/about-raw.html */
+const pageTitle = "All about Phoenix Arizona Business Broker Phil Reese";
+const pageDescription =
+  "Phil Reese is an Arizona Business Broker and Certified Business Intermediary, serving business sellers and buyers in the Phoenix metro area, Tucson and Northern AZ.";
+
+/* Live og:image (localized) */
+const ogImage = `${SITE_URL}/images/about/og-about.jpg`;
+
+/* ---------- Page JSON-LD ---------- */
+/* Yoast WebPage @graph — verbatim values from the live about page. */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/about/`,
+  url: `${SITE_URL}/about/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/about/#primaryimage` },
+  image: { "@id": `${SITE_URL}/about/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2014-11-28T20:58:02+00:00",
+  dateModified: "2026-05-21T16:35:53+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/about/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/about/`] }],
+};
+
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/about/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+  caption:
+    "I have the background, skills, education and determination that make me especially qualified to value and market Phoenix businesses for sale.",
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/about/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "About Phil" },
+  ],
+};
+
+/* Person schema — Phil + every office as a workLocation Place */
+function officePlace(o: (typeof offices)[number]) {
+  const [locality, regionZip = ""] = o.cityLine.split(/,\s*/);
+  const [region = "AZ", postalCode = ""] = regionZip.trim().split(/\s+/);
+  return {
+    "@type": "Place",
+    name: o.title,
+    telephone: o.phone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: o.street.replace(/,$/, ""),
+      addressLocality: locality,
+      addressRegion: region,
+      postalCode,
+      addressCountry: "US",
+    },
+  };
+}
+
+const personSchema = {
+  "@type": "Person",
+  "@id": `${SITE_URL}/#person`,
+  name: "Phil Reese",
+  jobTitle: "Arizona Business Broker",
+  honorificSuffix: "MCBI",
+  description:
+    "Master Certified Business Intermediary (MCBI) and former Ethics Chairman of the Arizona Business Brokers Association (AZBBA), helping Arizona business owners sell their companies since 2001.",
+  url: `${SITE_URL}/about/`,
+  image: `${SITE_URL}/images/about/MrPhil-1.png`,
+  telephone: contact.telDashed,
+  email: contact.email,
+  worksFor: { "@id": `${SITE_URL}/` },
+  sameAs: [...socialSameAs],
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: "University of Phoenix" },
+    { "@type": "CollegeOrUniversity", name: "Mesa Community College" },
+  ],
+  workLocation: offices.map(officePlace),
+};
+
+/* Live page's standalone FinancialService office schema, verbatim (reused from home). */
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema, personSchema],
+  },
+  financialServiceSchema,
+];
+
+/* ---------- "Some of the Businesses I have sold" (sold-sctn), verbatim ---------- */
+const soldCols = [
+  {
+    headline: "$31,500,000",
+    type: "Precision Metal Fabricator",
+    items: [
+      "$3,355,000 Auto Body Shop",
+      "$2,700,000 Telecom Company",
+      "$2,700,000 Third Party MVD Office",
+      "$2,450,000 Packaging & Shipping Co.",
+      "$1,865,000 Commercial Property Maint Co.",
+      "$1,700,000 Architecture Firm",
+      "$1,500,000 Grief Support Co.",
+      "$1,420,000 Coffee Equipment Service Co.",
+      "$1,350,000 SEO & Web Design Co.",
+      "$1,125,000 Niche Storage Business",
+      "$1,100,000 Showerhead Manufacturer",
+      "$1,100,000 Sign Manufacturer",
+      "$1,050,000 Magazine Publisher",
+      "$1,000,000 Auto Glass Products",
+      "$963,000 High-End Wig Boutique",
+      "$950,000 Pharmacy",
+      "$900,000 Fire Equipment Company",
+      "$880,000 Construction Clean Up",
+      "$861,500 Truck Accessories Retailer",
+      "$850,000 HVAC Company $810,000 Electrical Contractor",
+      "$800,000 Party & Event Rental Co.",
+      "$750,000 Niche Wood Product Co.",
+      "$675,000 Landscape Company ",
+      "$580,000 Wholesale Coffee Roasting Co.",
+      "$550,000 Fireplace & Accessories Dealer",
+    ],
+  },
+  {
+    headline: "$7,100,000",
+    type: "Landscape Company",
+    items: [
+      "$535,000 Cabinet Manufacturer",
+      "$500,000 Commercial Hood Cleaning Co.",
+      "$500,000 Metal Manufacturing Company",
+      "$500,000 Third Party MVD Provider",
+      "$499,000 Scale Dealer/Calibration Lab",
+      "$475,000 Concrete Coating",
+      "$460,000 Sign Company",
+      "$455,000 High End Salon",
+      "$450,000 E-Commerce Retailer",
+      "$442,000 Mobile Sandblasting Co.",
+      "$440,000 Interior Plantscaping & Maint. Co.",
+      "$422,000 Uniform Supplier",
+      "$401,100 Courier Service",
+      "$400,000 Salon & Day Spa",
+      "$400,000 Plastics Fabricator",
+      "$345,000 Bathtub Repair",
+      "$342,500 Dental lab",
+      "$325,000 Truck Accessories Retailer",
+      "$300,000 Electrical Contractor",
+      "$300,000 Wedding Guide",
+      "$300,000 Salon & Day Spa",
+      "$300,000 Industrial Sales Co.",
+      "$289,500 Sunscreen Company",
+      "$275,000 Electrical Contractor",
+      "$250,000 Lawn Sprinkler Company",
+      "$225,000 Beauty Salon",
+    ],
+  },
+  {
+    headline: "$3,720,000",
+    type: "Grocery Store",
+    items: [
+      "$225,000 Pizza Restaurant",
+      "$225,000 Landscape Company",
+      "$212,800 Wholesale Electronics Dist.",
+      "$205,000 Trophy Shop",
+      "$200,000 Glass Company",
+      "$200,000 Flooring Contractor",
+      "$200,000 Fitness Gym",
+      "$200,000 Auto Body Shop",
+      "$190,000 Photo Shop",
+      "$185,500 Hair Salon",
+      "$185,000 Franchise Hair Salon",
+      "$175,000 Commercial Janitorial Co.",
+      "$170,000 Beauty Salon",
+      "$160,000 Preschool",
+      "$160,000 Electrical Contractor",
+      "$159,500 Preschool",
+      "$155,000 Semi-Conductor Parts",
+      "$150,000 Landscape Company",
+      "$125,000 Coffee Cafe",
+      "$125,000 HVAC Contractor",
+      "$115,500 Tanning Salon",
+      "$115,000 Pool Fence Company",
+      "$115,000 Beauty Salon",
+      "$105,000 Beauty Salon",
+      "$100,000 Plastics Fabricator",
+      "$100,000 Carpet Cleaner",
+    ],
+  },
+];
+
+/* ---------- Videos with Phil (social-sctn), verbatim ID + title list ---------- */
+const videos = [
+  { id: "4RioZyms8HY", title: "Networking Arizona Radio Interview | Part 2" },
+  { id: "ZvvVy-3H-So", title: "Networking Arizona Radio Interview | Part 1" },
+  { id: "jtWr9-N2vSc", title: "Interview with Mark Imperial" },
+  { id: "ajTOke4_h9A", title: "How I Perform Business Valuations" },
+  { id: "lO-69mbpj_o", title: "What is a CBI (Certified Business Intermediary)?" },
+  { id: "rR4oXc5vr1g", title: "Are You Considering Selling Your Business?" },
+  { id: "yK7nllaXN4M", title: "Expert Arizona Business Broker" },
+  { id: "Gclk5dZQR8I", title: "Certified Phoenix Business Intermediary" },
+  { id: "-a5Q9NMAV3Q", title: "Certified Scottsdale Business Intermediary" },
+  { id: "S2MEv8XLgKo", title: "Proper Valuation of Your Scottsdale Business" },
+  { id: "_hXlR94431c", title: "Should I Sell My Phoenix Business" },
+  { id: "IpB_Fq6om1c", title: "How To Choose a Tempe Business Broker" },
+];
+
+/* ---------- Industry Recognitions grid (awards-sctn .awards-col), verbatim ---------- */
+const awardImgs = [
+  { src: "2025-West-Top-1-Top-Busines-Opportunity.jpg", w: 391, h: 471 },
+  { src: "2025-AZBBA-Platinum-Chairmans-Award-Pic-2.jpg", w: 400, h: 533 },
+  { src: "2024-Multi-Million-Dollar-Producer-Certificate-300x232-1.png", w: 176, h: 136 },
+  { src: "MultiMillionDollarProducers_Badge_2024-300x286-1.png", w: 184, h: 175 },
+  { src: "Top1Percent_Badge_2023.png", w: 173, h: 185 },
+  { src: "PHIL-REESE-certi-new.png", w: 163, h: 126 },
+  { src: "award-2023-1-250x300-1.png", w: 133, h: 159 },
+  { src: "PHIL-REESE-certi-2022.png", w: 162, h: 125 },
+  { src: "award-2022-1-250x300-1.png", w: 131, h: 158 },
+  { src: "award-2021-1-250x300-1.png", w: 132, h: 158 },
+  { src: "2021-West-USA-Top-Producer-Award-225x300.jpg.png", w: 111, h: 148 },
+  { src: "PHIL-REESE-Multi-Million-Dollar-Producer-2021-West-USA-1-300x232.jpg.png", w: 162, h: 125 },
+  { src: "2019-award-certificate-top-1-percent-and-top-producer-300x231-1.jpg.png", w: 159, h: 122 },
+  { src: "PHIL-REESE_Multi_Million-Dollar-Producer_2020-1-300x232.jpg.png", w: 162, h: 125 },
+  { src: "largest-single-transaction-phil-reese-2019-200x253-1.jpg.png", w: 120, h: 152 },
+  { src: "largest-sales-volume-phil-reese-2019-200x253-1.jpg.png", w: 122, h: 154 },
+  { src: "azbba-outstanding-producer-certificate-2019-300x226.jpg.png", w: 166, h: 125 },
+  { src: "azbba-outstanding-producer-certificate-2018-300x231.jpg.png", w: 159, h: 122 },
+  { src: "ibba-chairmans-circle-award-certificate-2018-300x231.jpg.png", w: 159, h: 122 },
+  { src: "PHIL-REESE_Multi_Million-Dollar-Producer_2018-Certificate-300x231.jpg.png", w: 163, h: 125 },
+  { src: "2017-AZBBA-Outstanding-Producer-Certificate-300x232.jpg.png", w: 158, h: 122 },
+  { src: "phil-reese-2016-certificate-of-achievement-business-broker-award.png.png", w: 165, h: 125 },
+  { src: "phil-reese-2016-azbba-certification.jpg.png", w: 159, h: 119 },
+  { src: "west-usa-realty-top-2015-producer-business-broker-phil-reese-az.png.png", w: 105, h: 147 },
+  { src: "outstanding-phoenix-business-broker-producer-phil-reese-2015.jpg.png", w: 116, h: 147 },
+  { src: "phil-reese-2015-ibba-award.jpg.png", w: 163, h: 122 },
+  { src: "phil-reese-certificate-of-achievment.png.png", w: 165, h: 125 },
+];
+
+/* ---------- Year-by-year award timeline (awards-grid), verbatim ---------- */
+const awardColumnA = [
+  {
+    year: "2025",
+    items: [
+      "West USA Realty Top 1% Overall Company Award",
+      "West USA Realty President’s Circle Award – Multi-Million Dollar Producer",
+      "IBBA Chairman’s Circle Award",
+      "AZBBA Award – Platinum Chairman’s Circle Award",
+    ],
+  },
+  {
+    year: "2024",
+    items: [
+      "West USA Realty President’s Circle Award – Multi-Million Dollar Producer",
+      "IBBA Chairman’s Circle Award",
+      "AZBBA Award – Outstanding Producer Award",
+    ],
+  },
+  {
+    year: "2023",
+    items: [
+      "West USA Realty Top 1% Overall Company Award",
+      "AZBBA Award – Platinum Chairman’s Circle Award",
+      "West USA Realty President’s Circle – Multi-Million Dollar Producer",
+      "IBBA Chairman’s Circle Award",
+      "AZBBA Award – Platinum Chairman’s Circle Award",
+    ],
+  },
+  {
+    year: "2022",
+    items: [
+      "AZBBA Award – Platinum Chairman’s Circle Award",
+      "West USA Realty President’s Circle – Multi-Million Dollar Producer",
+      "West USA Realty Top Producer – Top Business Opportunity (Units)",
+      "IBBA Chairman’s Circle Award",
+    ],
+  },
+  {
+    year: "2021",
+    items: [
+      "West USA Top Producer Award – Top Business Opportunity (Units)",
+      "AZBBA Award Outstanding Producer",
+      "West USA Realty President’s Circle – Multi-Million Dollar Producer",
+      "IBBA Chairman’s Circle Award",
+    ],
+  },
+];
+
+const awardColumnB = [
+  {
+    year: "2020",
+    items: ["West USA Realty President’s Circle – Multi-Million Dollar Producer"],
+  },
+  {
+    year: "2019",
+    items: [
+      "West USA Realty Top 1% Company Overall Top Business Opportunity (Volume)",
+      "AZBBA Highest Sales Volume – Individual",
+      "AZBBA Largest Single Transaction",
+      "West USA Realty President’s Circle – Multi-Million Dollar Producer",
+    ],
+  },
+  {
+    year: "2018",
+    items: [
+      "IBBA Chairman’s Circle Award",
+      "AZBBA Central Chapter Outstanding Producer Platinum Level",
+      "West USA Realty President’s Circle – Multi-Million Dollar Producer",
+    ],
+  },
+  {
+    year: "2017",
+    items: ["AZBBA Central Chapter Outstanding Producer Platinum Level"],
+  },
+  {
+    year: "2016",
+    items: [
+      "West USA Realty President’s Circle – Multi-Million Dollar Producer",
+      "AZBBA Central Chapter Outstanding Producer Platinum Level",
+    ],
+  },
+  {
+    year: "2015",
+    items: [
+      "West USA Realty Top Producer – Top Business Opportunity (Volume)",
+      "AZBBA Outstanding Producer – Dollar Amount – Sales",
+      "IBBA Chairman’s Circle Award",
+      "West USA Realty President’s Circle – Multi-Million Dollar Producer",
+    ],
+  },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/about/"
+  ogImage={ogImage}
+  ogImageAlt="About Phil Reese, Arizona Business Broker"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <!-- lite-youtube web component — replaces the live wp-youtube-lyte embeds. -->
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.css"
+  />
+  <script
+    slot="head"
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.js"
+    defer></script>
+
+  <!-- 1. title-bar -->
+  <section class="section title-bar">
+    <div class="section-wrap">
+      <h1 class="maintitle h1-style">About Phil Reese</h1>
+    </div>
+  </section>
+
+  <!-- 2. phil-sctn -->
+  <section class="section phil-sctn">
+    <div class="section-wrap">
+      <div class="img-col">
+        <img
+          fetchpriority="high"
+          src="/images/about/MrPhil-1.png"
+          alt=""
+          width="417"
+          height="588"
+          class="alignnone size-full"
+          srcset="/images/about/MrPhil-1.png 417w, /images/about/MrPhil-1-213x300.png 213w"
+          sizes="(max-width: 417px) 100vw, 417px"
+        />
+      </div>
+      <div class="txt-col">
+        <p>Selling a business is one of the most important—and emotional—financial decisions an owner will ever make. I know that firsthand, because before I ever represented business owners, I was one. </p>
+        <p>In 1995, my partner and I started First Impression Security Doors out of our garage in Mesa, Arizona. Over the years, we built it into a company that, at the time we sold it, operated out of our own manufacturing facility and had thirteen employees. Today that business is the largest ornamental iron company in the state of Arizona.</p>
+        <p>We sold the company through a local Business Broker in 2001. My transition into the Business Broker industry came about when the President of the firm asked me to join his company. I accepted his offer and quickly became one of the top sales agents in the company.</p>
+        <p>I am now affiliated with West USA and I focus on helping Arizona business owners sell their companies quietly, at the right time, and for the best possible price. West USA is the #1 Independently Owned Brokerage in Arizona and has one of the largest Business Broker groups in the state. The company was formed in 1986 and has 23 offices around the state, including 10 in the Phoenix metro area. This gives our businesses for sale listings excellent exposure.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. philo-sctn -->
+  <section class="section philo-sctn">
+    <div class="section-wrap">
+      <div class="txt-col">
+        <h3 class="maintitle h3-style">My Philosophy</h3>
+        <p>I don’t chase listings—I focus on outcomes. I focus on quality, not quantity. Some business brokers will list any business regardless of the quality just to be able to brag that they have more listings than anyone. I turn down the majority of potential listings that come my way because I want to be able to spend the proper amount of time with each of my clients. It takes a lot of time and effort to get a deal done.</p>
+        <p>I will give you a clear, honest assessment of value, timing, and expectations, even when it’s not what you hoped to hear.</p>
+        <p>If you’re thinking about selling your business, the first step is understanding what you have and what your options are. That initial conversation is always confidential, no-pressure, and educational.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. yrs-sctn -->
+  <section class="section yrs-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h3 class="maintitle h3-style">I have over 20 years’ experience helping people sell their businesses.</h3>
+      </div>
+      <div class="awards-inn">
+        <div class="award-bx">
+          <h4 class="subtitle h4-style"><span class="spn1">100+</span> <span class="spn2">Closed Transactions</span></h4>
+        </div>
+        <div class="award-bx award-bx-3">
+          <h4 class="subtitle h4-style"><span class="spn1">$97M+</span> <span class="spn2">In Business Sales</span></h4>
+        </div>
+        <div class="award-bx award-bx-2">
+          <h4 class="subtitle h4-style"><span class="spn1"><span class="spn1-inn">Master</span>CBI</span> <span class="spn2">1 Of Only 4 In The Entire State</span></h4>
+        </div>
+        <div class="award-bx award-bx-4">
+          <h4 class="subtitle h4-style"><span class="spn1">#1</span> <span class="spn2">Top 1% West USA Realty</span></h4>
+        </div>
+      </div>
+      <div class="medals-col">
+        <div>
+          <div class="medal-bx">
+            <div><img src="/images/about/AZBBA.jpg" alt="" width="142" height="162" class="alignnone size-full" loading="lazy" /></div>
+            <p>I am an active member of the Arizona Business Brokers Association, and I previously served as their Ethics Chairman. I took that role seriously because this industry only works when business owners can trust the business broker sitting across the table from them. That trust is something I’ve worked to earn with every client and every transaction for over twenty years.</p>
+          </div>
+          <div class="medal-bx">
+            <div><img src="/images/about/IBBA-01-Vertical-2.png" alt="" width="180" height="164" class="alignnone size-full" loading="lazy" /></div>
+            <p>I am an active member of the International Business Brokers Association. The IBBA is the organization behind the Master CBI designation, which I’m one of only four brokers in Arizona to hold. Earning it took years of closed transactions, advanced coursework, and a real commitment to the standards the IBBA sets for its members.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. sold-sctn -->
+  <section class="section sold-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle h3-style">Some of the Businesses I have sold</h3>
+      </div>
+      {soldCols.map((col) => (
+        <div class="sold-col">
+          <h4 class="subtitle h4-style">{col.headline} <span>{col.type}</span></h4>
+          <ul>
+            {col.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 6. social-sctn — Videos with Phil -->
+  <section class="section social-sctn">
+    <div class="section-wrap">
+      <div class="meet">
+        <h4 class="subtitle h4-style sptmn">Videos with Phil</h4>
+        {videos.map((v) => (
+          <div class="vid-col">
+            <div class="lyte-wrapper" style="width:853px;max-width:100%;margin:5px;">
+              <lite-youtube
+                videoid={v.id}
+                title={v.title}
+                style={`background-image:url('/images/about/yt-${v.id}.jpg');`}
+              >
+                <a href={`https://youtu.be/${v.id}`} class="lite-yt-fallback" rel="nofollow">Watch this video on YouTube</a>
+              </lite-youtube>
+            </div>
+            <h4 class="h4-style vid-tle">{v.title}</h4>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. awards-sctn -->
+  <section class="section awards-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h3 class="maintitle h3-style">AWARDS &amp; TRACK RECORD</h3>
+        <p>Results matter, especially when selling a business. My approach to accurate valuation, disciplined buyer screening, and hands-on deal management has led to consistent recognition at both the local and national levels. Rather than listing every award since I began in 2001, below are highlights from my years with West USA Realty, home to one of the largest business brokerage groups in Arizona.</p>
+        <h4 class="subtitle h4-style sptmn">By the Numbers</h4>
+      </div>
+      <div class="txtbox">
+        <p><span>$97 Million +</span>
+        In Closed Business Sale Transactions</p>
+      </div>
+      <div class="txtbox txtbox-2">
+        <p><span>100 +</span>
+        Businesses Successfully Sold</p>
+      </div>
+      <ul class="chklst">
+        <li>Multiple years ranked Top 1% Overall Company-Wide</li>
+        <li>Repeated Multi-Million Dollar Producer recognition</li>
+        <li>Honors for Highest Sales Volume and Largest Single Transaction</li>
+      </ul>
+      <div class="one-col">
+        <h3 class="maintitle h3-style">INDUSTRY RECOGNITIONS</h3>
+        <hr />
+      </div>
+      <div class="awards-col">
+        {awardImgs.map((img) => (
+          <img src={`/images/about/${img.src}`} alt="" width={img.w} height={img.h} class="alignnone size-full" loading="lazy" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. awards-grid — Year-by-year award timeline -->
+  <div class="awards-grid">
+    <div class="awards-column">
+      {awardColumnA.map((yr) => (
+        <section class="year-section">
+          <div class="year-header">
+            <span class="year-number">{yr.year}</span>
+            <div class="year-line"></div>
+          </div>
+          <ul class="award-list">
+            {yr.items.map((it) => <li class="award-item">{it}</li>)}
+          </ul>
+        </section>
+      ))}
+    </div>
+    <div class="awards-column">
+      {awardColumnB.map((yr) => (
+        <section class="year-section">
+          <div class="year-header">
+            <span class="year-number">{yr.year}</span>
+            <div class="year-line"></div>
+          </div>
+          <ul class="award-list">
+            {yr.items.map((it) => <li class="award-item">{it}</li>)}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </div>
+
+  <!-- 9. background-experience-section -->
+  <div class="background-experience-section">
+    <div class="experience-header-banner">
+      <h2>Phil’s Background &amp; Experience</h2>
+    </div>
+    <div class="experience-content">
+      <div class="education-panel">
+        <h3 class="section-title">Licenses &amp; Certifications</h3>
+        <ul class="licenses-list">
+          <li class="license-item">
+            <strong>Master Certified Business Intermediary</strong>
+            <span>Arizona Business Brokers Association</span>
+          </li>
+          <li class="license-item">
+            <strong>Certified Business Intermediary</strong>
+            <span>International Business Brokers Association</span>
+          </li>
+          <li class="license-item">
+            <strong>Certified Business Broker</strong>
+            <span>Arizona Business Brokers Association</span>
+          </li>
+        </ul>
+        <hr class="education-hr" />
+        <h3 class="section-title">Education</h3>
+        <ul class="education-list">
+          <li class="education-item">
+            <strong>Bachelor of Science in Business Administration</strong>
+            <span>University of Phoenix</span>
+          </li>
+          <li class="education-item">
+            <strong>Associate of Arts, Business Administration</strong>
+            <span>Mesa Community College</span>
+          </li>
+        </ul>
+      </div>
+      <div class="experience-column">
+        <h3 class="section-title">Experience</h3>
+        <ul class="experience-list">
+          <li class="experience-item">
+            <strong>Business Broker | West USA Realty</strong>
+            <span>2015 – Present</span>
+          </li>
+          <li class="experience-item">
+            <strong>Business Broker | First Choice Business Brokers</strong>
+            <span>2003 – 2015</span>
+          </li>
+          <li class="experience-item">
+            <strong>Business Broker | VR Business Brokers</strong>
+            <span>2001 – 2003</span>
+          </li>
+          <li class="experience-item">
+            <strong>Co-Owner | First Impression Security Doors</strong>
+            <span>1995 – 2001</span>
+          </li>
+        </ul>
+        <hr class="experience-hr" />
+      </div>
+      <div class="publications-column">
+        <h3 class="section-title">Publications</h3>
+        <ul class="publications-list">
+          <li class="publication-card">
+            <a href="#">
+              <p>Buying and Selling a Construction or Home Service Business</p>
+            </a>
+          </li>
+          <li class="publication-card">
+            <a href="#">
+              <p>How To Successfully Negotiate The Price Gap Between Business Buyers &amp; Sellers</p>
+            </a>
+          </li>
+          <li class="publication-card">
+            <a href="#">
+              <p>Optimizing Your Receivables For A Successful Business Sale</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. ctc-sctn — Contact form (CF7 field names preserved → /api/contact) -->
+  <section class="section ctc-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h3 class="maintitle h3-style">Contact Phil for Your Free Confidential Valuation</h3>
+        <hr />
+        <div class="wpcf7">
+          <form
+            class="wpcf7-form"
+            action="/api/contact"
+            method="post"
+            aria-label="Contact form"
+            data-pr-contact-form
+            data-form-id="about"
+          >
+            <!-- Honeypot — bots fill it, /api/contact silently drops those -->
+            <input
+              type="text"
+              name="_honeypot"
+              value=""
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              class="pr-hp"
+            />
+            <div class="bottom-form">
+              <div class="col-1">
+                <label for="first-name-bt">Name</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="text" name="your-name-bt" id="first-name-bt" class="wpcf7-form-control wpcf7-text" maxlength="400" placeholder="Name*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-2">
+                <label for="your-email-bt">Email</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="email" name="your-email-bt" id="your-email-bt" class="wpcf7-form-control wpcf7-email wpcf7-text" maxlength="400" placeholder="Email*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-3">
+                <label for="your-phone-bt">Phone</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="tel" name="your-phone-bt" id="your-phone-bt" class="wpcf7-form-control wpcf7-tel wpcf7-text" maxlength="400" placeholder="Phone" />
+                </span>
+              </div>
+              <div class="col-4">
+                <label for="your-message-bt">Your Message*</label>
+                <span class="wpcf7-form-control-wrap">
+                  <textarea name="your-message-bt" id="your-message-bt" class="wpcf7-form-control wpcf7-textarea" cols="40" rows="10" maxlength="2000" minlength="20" placeholder="Your Message*" required aria-required="true"></textarea>
+                </span>
+              </div>
+              <div class="col-5">
+                <div class="bst-way">
+                  <label>Best Way to Reply:</label>
+                  <span class="wpcf7-form-control-wrap">
+                    <span class="wpcf7-form-control wpcf7-radio">
+                      {replyMethods.map((method, i) => (
+                        <span class={`wpcf7-list-item${i === 0 ? " first" : ""}${i === replyMethods.length - 1 ? " last" : ""}`}>
+                          <label>
+                            <input type="radio" name="bst-way-bt" value={method} checked={i === 0} />
+                            <span class="wpcf7-list-item-label">{method}</span>
+                          </label>
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </div>
+                <button type="submit" class="wpcf7-form-control wpcf7-submit">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Section CSS — copied verbatim from the live page's inlined used-CSS
+     (reference/_about-sections.css). is:global so it matches the markup
+     and the lite-youtube web component children. -->
+<style is:global>
+  /* ---------- 1. title-bar ---------- */
+  .section.title-bar { padding-top: 52px; padding-bottom: 52px; background-color: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); z-index: 2; }
+  .title-bar .maintitle { margin: 0; color: var(--red); text-align: center; }
+
+  /* ---------- 2. phil-sctn ---------- */
+  .phil-sctn { padding-top: 80px; padding-bottom: 38px; }
+  .phil-sctn .txt-col { width: 75%; margin-bottom: 20px; }
+  .phil-sctn .img-col { display: flex; padding-right: 48px; width: 25%; border-bottom: 4px solid var(--red); }
+  .phil-sctn .section-wrap { align-items: center; }
+  .phil-sctn .maintitle { margin-bottom: 0; color: var(--red); font-size: clamp(30px, 3vw, 50px); }
+  .phil-sctn .txt-col p { font-size: 18px; }
+  @media (min-width: 1025px) {
+    .phil-sctn .txt-col { text-align: justify; }
+  }
+  @media (max-width: 1200px) {
+    .phil-sctn .section-wrap { align-items: flex-end; }
+  }
+  @media (max-width: 900px) {
+    .phil-sctn .img-col { width: 100%; padding: 0; justify-content: center; max-width: 306px; border-bottom: 4px solid var(--red); margin-bottom: 30px; order: 2; }
+    .phil-sctn .txt-col { width: 100%; text-align: center; }
+    .phil-sctn { padding-top: 50px; }
+  }
+
+  /* ---------- 3. philo-sctn ---------- */
+  .philo-sctn { padding-top: 0; }
+  .philo-sctn .txt-col { width: 100%; margin-bottom: 40px; }
+  .philo-sctn .section-wrap { align-items: center; gap: 20px; }
+  .philo-sctn .txt-col .maintitle { color: var(--primary); font-size: clamp(29px, 4vw, 38px); }
+  .philo-sctn .txt-col p { line-height: 1.5; font-size: 18px; }
+  @media (max-width: 1024px) {
+    .philo-sctn .txt-col { width: 100%; text-align: center; padding: 0 15px; }
+  }
+  @media (max-width: 500px) {
+    .philo-sctn .txt-col { padding: 0; }
+    .philo-sctn { padding-top: 40px; }
+  }
+
+  /* ---------- 4. yrs-sctn ---------- */
+  .yrs-sctn { background: linear-gradient(172deg, #dfdddd 0, #cfcccc 24%, #c7c7c722 64%, #e7e7E700 100%) no-repeat padding-box; padding-top: 80px; padding-bottom: 80px; }
+  .yrs-sctn:before { content: ''; width: 50%; height: 2px; background: var(--primary); position: absolute; left: 0; max-width: 1200px; top: 0; }
+  .yrs-sctn .one-col .maintitle { width: 100%; color: var(--primary); font-size: clamp(28px, 3vw, 43px); }
+  .yrs-sctn .awards-inn { width: 100%; display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 50px; }
+  .yrs-sctn .awards-inn .award-bx { display: flex; width: calc(25% - 16px); background: #fff; padding: 12px 20px; align-items: center; justify-content: center; }
+  .yrs-sctn .awards-inn .award-bx .subtitle { margin: 0; display: flex; align-items: center; gap: 10px; color: var(--primary); }
+  .yrs-sctn .awards-inn .award-bx .subtitle .spn1 { font-size: 2em; }
+  .yrs-sctn .awards-inn .award-bx .subtitle .spn1 .spn1-inn { font-size: 21px; }
+  .yrs-sctn .awards-inn .award-bx .subtitle .spn2 { font-size: 20px; max-width: 180px; }
+  .yrs-sctn .awards-inn .award-bx .subtitle .spn1:has(.spn1-inn) { display: flex; flex-direction: column; line-height: .8; }
+  .yrs-sctn .medals-col { margin-top: 50px; background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); padding: 25px 8%; margin-left: -5%; margin-right: -5%; position: relative; border-radius: 0 0 8px 8px; }
+  .yrs-sctn .one-col p { font-size: 18px; line-height: 1.4; color: var(--secondary); }
+  .yrs-sctn .medals-col > div { display: flex; }
+  .yrs-sctn .medals-col > div .medal-bx { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
+  .yrs-sctn .medals-col > div .medal-bx p { flex: 1; line-height: 1.2; font-size: 16px; padding: 10px 43px 10px 20px; color: var(--secondary); }
+  .yrs-sctn .medals-col:before { content: ''; width: 120%; height: 2px; position: absolute; background: var(--primary); left: -10%; top: 0; max-width: 100vw; }
+  @media (max-width: 1440px) {
+    .yrs-sctn .medals-col:before { left: 0; width: 100%; }
+    .yrs-sctn .medals-col { margin-left: 0; margin-right: 0; padding: 25px 5%; }
+  }
+  @media (max-width: 900px) {
+    .yrs-sctn .awards-inn .award-bx { width: calc(50% - 10px); }
+    .yrs-sctn .one-col .maintitle { text-align: center; }
+    .yrs-sctn .medals-col > div { flex-wrap: wrap; gap: 20px; max-width: 613px; }
+  }
+  @media (max-width: 800px) {
+    .yrs-sctn { padding-top: 50px; padding-bottom: 60px; }
+    .yrs-sctn .one-col p { text-align: center; }
+  }
+  @media (max-width: 500px) {
+    .yrs-sctn .awards-inn .award-bx { width: 100%; max-width: 300px; margin: 0 auto; }
+    .yrs-sctn .medals-col > div .medal-bx p { padding: 14px; }
+  }
+  @media (max-width: 475px) {
+    .yrs-sctn .medals-col > div .medal-bx { flex-direction: column; text-align: center; }
+  }
+
+  /* ---------- 5. sold-sctn ---------- */
+  .sold-sctn { background: var(--secondary); padding-top: 85px; padding-bottom: 85px; color: #fff; }
+  .sold-sctn .title-col { width: 100%; }
+  .sold-sctn .title-col .maintitle { font-size: clamp(28px, 3vw, 45px); }
+  .sold-col { width: 33%; padding: 0 10px; }
+  .sold-col .subtitle { font-size: 45px; }
+  .sold-col .subtitle span { display: block; font-size: 18px; font-weight: 400; }
+  .sold-col ul { list-style: none; margin: 0; padding: 0; }
+  .sold-col ul > li { padding: 7px 0; }
+  @media (max-width: 800px) {
+    .sold-sctn .sold-col { width: 50%; margin-bottom: 20px; }
+    .sold-sctn .section-wrap { justify-content: space-between; }
+    .sold-sctn { padding-left: 30px; padding-right: 30px; padding-top: 50px; }
+    .sold-sctn .title-col .maintitle { font-size: 32px; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .sold-sctn .sold-col { width: 100%; text-align: center; }
+    section.section.sold-sctn { padding-left: 20px; padding-right: 20px; }
+    .sold-sctn .title-col .maintitle { font-size: 28px; }
+  }
+
+  /* ---------- 6. social-sctn — Videos with Phil ---------- */
+  .social-sctn { background: #ebebeb; padding-top: 80px; padding-bottom: 80px; }
+  .social-sctn .section-wrap { align-items: center; }
+  .social-sctn .meet { display: flex; flex-wrap: wrap; margin-top: 60px; justify-content: space-between; margin-bottom: 60px; }
+  .meet .vid-col .vid-tle { margin-bottom: 20px; font-size: 18px; text-align: center; padding: 10px 10px 0; }
+  .social-sctn .sptmn { display: flex; align-items: center; justify-content: center; color: var(--primary); width: 100%; font-size: 24px; }
+  .social-sctn .sptmn::before { content: ''; flex-grow: 1; height: 2px; display: block; background-color: var(--primary); margin-right: 15px; }
+  .social-sctn .sptmn::after { content: ''; flex-grow: 1; height: 2px; display: block; background-color: var(--primary); margin-left: 15px; }
+  .social-sctn .vid-col { width: calc(33.33% - 20px); margin-bottom: 20px; }
+  .social-sctn .name { font-weight: 700; }
+  @media (max-width: 900px) {
+    .social-sctn .meet { order: 3; width: 100%; }
+  }
+  @media (max-width: 800px) {
+    .social-sctn .vid-col { width: calc(50% - 10px); }
+    .social-sctn .sptmn { max-width: 100vw; }
+  }
+  @media (max-width: 500px) {
+    .social-sctn .sptmn { text-align: center; }
+  }
+  @media (max-width: 425px) {
+    .social-sctn .vid-col { width: calc(50% - 5px); }
+    .social-sctn .vid-col .lyte-wrapper { margin: 0 !important; }
+    .meet .vid-col .vid-tle { padding: 5px 5px 0; font-size: 15px; }
+  }
+
+  /* ---------- 7. awards-sctn ---------- */
+  .awards-sctn { padding-top: 80px; }
+  .awards-sctn .maintitle { color: var(--primary); }
+  .awards-sctn .one-col p { text-align: center; line-height: 1.5; color: var(--secondary); font-size: 18px; }
+  .awards-sctn .sptmn { display: flex; align-items: center; justify-content: center; font-family: var(--font-family--body); color: var(--red); width: 100%; margin-top: 51px; }
+  .awards-sctn .sptmn::before { content: ''; flex-grow: 1; height: 2px; display: block; background-color: var(--red); margin-right: 15px; }
+  .awards-sctn .sptmn::after { content: ''; flex-grow: 1; height: 2px; display: block; background-color: var(--red); margin-left: 15px; }
+  .awards-sctn .txtbox { background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); display: flex; padding: 20px; max-width: 266px; }
+  .awards-sctn .txtbox p { margin: 0; text-align: center; color: var(--secondary); font-weight: 700; }
+  .awards-sctn .txtbox p span { color: var(--red); font-weight: 700; font-size: 35px; display: block; }
+  .awards-sctn .txtbox.txtbox-2 { max-width: 200px; }
+  .awards-sctn .section-wrap { justify-content: center; column-gap: 20px; align-items: center; }
+  .awards-sctn .chklst { color: var(--secondary); display: flex; flex-direction: column; gap: 20px; font-size: 18px; }
+  .awards-sctn .one-col { margin-top: 30px; }
+  .awards-sctn .awards-col { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; justify-content: center; margin-bottom: 80px; }
+  .awards-sctn .awards-col > img { width: calc(20% - 16px); background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); padding: 20px; aspect-ratio: 1/1; object-fit: contain; }
+  @media (max-width: 800px) {
+    section.section.awards-sctn { padding-top: 40px; }
+    .awards-sctn .sptmn { margin-top: 15px; }
+    .awards-sctn .awards-col > img { padding: 14px; }
+  }
+  @media (max-width: 600px) {
+    .awards-sctn .awards-col > img { width: calc(33.33% - 7px); padding: 10px; }
+    .awards-sctn .awards-col { gap: 10px; }
+    .awards-sctn .txtbox.txtbox-2 { margin-top: 20px; }
+    .awards-sctn .maintitle { text-align: center; }
+  }
+
+  /* ---------- 8. awards-grid — Year timeline ---------- */
+  .awards-grid { max-width: 1250px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; column-gap: 60px; row-gap: 10px; color: inherit; padding: 0 30px 80px; }
+  .year-section { margin-bottom: 25px; }
+  .year-header { display: flex; align-items: center; margin-bottom: 12px; }
+  .year-number { font-size: 20px; font-weight: 700; color: var(--red); margin-right: 15px; }
+  .year-line { flex-grow: 1; height: 1px; background-color: #d3d3d3; }
+  .award-list { list-style: none; padding: 0; margin: 0; }
+  .award-item { position: relative; padding-left: 20px; margin-bottom: 6px; line-height: 1.4; font-size: 16px; color: var(--secondary); }
+  .award-item::before { content: "•"; position: absolute; left: 0; font-weight: 700; }
+  @media (max-width: 768px) {
+    .awards-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- 9. background-experience-section ---------- */
+  .background-experience-section { --text-gray: #4d4d4d; --border-color: #d3d3d3; --bg-gray: #f2f2f2; background-color: var(--bg-gray); color: var(--text-gray); line-height: 1.6; padding: 0; margin: 0; }
+  .experience-header-banner { color: #000; padding: 60px 20px 12px; text-align: center; width: 100%; }
+  .experience-header-banner h2 { font-family: var(--font-family--h3); font-size: 2.2rem; margin: 0; font-weight: 900; margin-left: auto; text-align: center; }
+  .experience-content { max-width: 1250px; margin: 0 auto; padding: 60px 20px 80px; display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 40px; row-gap: 30px; }
+  .section-title { font-family: var(--font-family--h3); color: #000; font-size: 1.6rem; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #6d1d12; font-weight: 700; }
+  .education-panel { background-color: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, .1); padding: 30px; }
+  .education-list, .licenses-list { list-style: none; padding: 0; margin: 0; }
+  .education-item, .license-item { margin-bottom: 20px; }
+  .education-item strong, .license-item strong { color: var(--primary); display: block; font-size: 1.1rem; margin-bottom: 5px; line-height: 1; }
+  .education-item span, .license-item span { font-size: .95rem; color: var(--text-gray); }
+  .experience-column { padding-top: 0; }
+  .experience-list { list-style: none; padding: 0; margin: 0; }
+  .experience-item { margin-bottom: 20px; }
+  .experience-item strong { color: var(--primary); display: block; font-size: 1.1rem; margin-bottom: 5px; line-height: 1; }
+  .experience-item span { font-size: .95rem; color: var(--text-gray); }
+  .publications-column { padding-top: 0; }
+  .publication-card { background-color: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, .1); padding: 0; margin-bottom: 20px; overflow: hidden; transition: transform .3s ease; }
+  .publication-card:hover { transform: translateY(-5px); }
+  .publication-card a { display: flex; flex-direction: column; text-decoration: none; color: var(--text-gray); height: 100%; }
+  .publication-card p { padding: 20px; margin: 0; font-size: 1rem; line-height: 1.4; color: var(--text-gray); }
+  .publications-list { list-style: none; padding: 0; margin: 0; }
+  .education-hr, .experience-hr { border: 0; border-top: 1px solid var(--border-color); margin: 24px 0; }
+  @media (max-width: 992px) {
+    .experience-content { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .experience-content { grid-template-columns: 1fr; }
+    .experience-header-banner h2 { font-size: 1.8rem; }
+    .education-panel { box-shadow: none; border: 1px solid var(--border-color); }
+  }
+
+  /* ---------- 10. ctc-sctn + form ---------- */
+  .ctc-sctn { padding-top: 100px; padding-bottom: 100px; background-color: var(--secondary); }
+  .ctc-sctn .one-col { background: #ffffffc9; padding: 30px 40px; }
+  .ctc-sctn .one-col .maintitle { margin: 0; color: var(--red); font-size: clamp(30px, 3vw, 50px); max-width: 574px; text-align: center; }
+  .ctc-sctn .one-col .wpcf7 { max-width: 659px; }
+  .ctc-sctn .one-col form.wpcf7-form { display: flex; flex-wrap: wrap; }
+  .ctc-sctn .one-col hr { width: 100%; height: 4px; background: var(--primary); margin-bottom: 29px; border: 0; }
+  .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+  .bottom-form input:not([type=submit]) { background-color: transparent; border: none; border-bottom: 2px solid var(--primary); max-width: 100%; width: 100%; min-height: 43px; min-width: 13px; }
+  .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; border-bottom: 2px solid var(--primary); min-height: 98px; }
+  .ctc-sctn .bottom-form textarea { background: #3104071c; }
+  .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
+  .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .bottom-form .col-4 { width: 100%; }
+  .bottom-form .col-4 .wpcf7-form-control-wrap, .bottom-form .col-5 .wpcf7-form-control-wrap { width: 100%; }
+  .bottom-form .col-5 { display: flex; justify-content: space-between; position: relative; text-align: left; width: 100%; gap: 4px; align-items: center; }
+  .bottom-form .col-5 .wpcf7-list-item.first { margin-left: 0; }
+  .bottom-form .col-5 .wpcf7-list-item-label { font-size: 14px; }
+  .bottom-form .col-5 .bst-way > label { width: 100%; display: block; }
+  .bottom-form .wpcf7-list-item { margin-left: 4px; }
+  .bottom-form .wpcf7-list-item label { display: flex; align-items: center; }
+  .bottom-form .wpcf7-radio { display: flex; gap: 8px; }
+  .bottom-form .bst-way { color: var(--red); text-transform: uppercase; font-weight: 600; display: flex; gap: 12px; align-items: center; }
+  .bottom-form input::placeholder, .ctc-sctn .bottom-form textarea::placeholder { color: #000; }
+  /* Live styles input[type=submit]; we use a <button> so the shared handler
+     can disable it during submit — same selectors, same look. */
+  .bottom-form input[type=submit], .bottom-form button[type=submit] { border: 0; color: #fff; padding: 10px 20px; border-radius: 100px; width: 100%; max-width: 180px; background-color: var(--primary); font-weight: 700; text-transform: uppercase; min-width: fit-content; font-size: var(--font-size--body); cursor: pointer; }
+  .bottom-form input[type=submit]:hover, .bottom-form button[type=submit]:hover { background-color: var(--primary); }
+  @media (max-width: 600px) {
+    .bottom-form .col-5 { flex-direction: column; text-align: center; }
+    .bottom-form .wpcf7-radio { justify-content: center; }
+    .bottom-form input[type=submit], .bottom-form button[type=submit] { width: 100%; }
+    .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: 100%; }
+    .bottom-form .bst-way { gap: 4px; flex-direction: column; align-items: center; }
+  }
+  @media (max-width: 500px) {
+    section.section.ctc-sctn { padding-top: 40px; padding-bottom: 40px; }
+    .ctc-sctn .one-col { padding: 30px 20px; }
+    .ctc-sctn .one-col .wpcf7 { max-width: 100%; }
+    .ctc-sctn .one-col .maintitle { font-size: 26px; }
+  }
+
+  /* Honeypot — visually removed, still in the DOM for bots */
+  .pr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+  /* Status banner appended by src/scripts/contact-form.ts */
+  .pr-form-banner { width: 100%; margin-top: 14px; font-weight: 600; font-family: var(--font-family--h4); }
+  .pr-form-banner[data-state="success"] { color: var(--primary); }
+  .pr-form-banner[data-state="error"] { color: var(--red); }
+</style>

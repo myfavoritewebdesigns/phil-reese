@@ -1,0 +1,95 @@
+---
+/* -----------------------------------------------------------------------
+   Awards — faithful clone of https://www.philsellsbiz.com/awards/
+   Archetype B (reference/SEO page): no PageHero, straight from header to a
+   light "Awards & Track Record" title-bar, then the awards-sctn (By the
+   Numbers stats + INDUSTRY RECOGNITIONS certificate gallery) and the
+   awards-grid (per-year award lists).
+   The page's entire CSS is inlined by the live theme inside the content body
+   (no separate WP-Rocket used-CSS blob existed for this route), so the body
+   captured in reference/_awards-content.html carries its own <style> blocks.
+   Markup + CSS verbatim from the live page; every certificate image localized
+   to /images/awards/ (de-lazied: data-lazy-src -> src, srcset localized).
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL } from "../config/site";
+import awardsBody from "../../reference/_awards-content.html?raw";
+/* Live page's standalone FinancialService schema (3 office nodes), verbatim —
+   identical to the block the live awards page emits (and the homepage). */
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+
+/* Live <title> + meta description, verbatim from reference/awards-raw.html */
+const pageTitle = "Awards Phoenix Arizona Business Broker Phil Reese";
+const pageDescription =
+  "Phil Reese is an Arizona Business Broker and Certified Business Intermediary, serving business sellers and buyers in the Phoenix metro area, Tucson and Northern AZ.";
+
+/* Live page's primaryimage (Yoast og/schema image), localized. */
+const ogImage = `${SITE_URL}/images/awards/about-me.jpg`;
+
+/* ---------- Page JSON-LD — mirrors the live Yoast @graph for this route ----------
+   (Layout already injects the global LocalBusiness + WebSite nodes.)
+   WebPage + primaryimage ImageObject + BreadcrumbList, then the live page's
+   standalone FinancialService office schema (verbatim). */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/awards/#webpage`,
+  url: `${SITE_URL}/awards/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/awards/#primaryimage` },
+  image: { "@id": `${SITE_URL}/awards/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2021-06-22T21:06:05+00:00",
+  dateModified: "2026-04-24T17:36:00+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/awards/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/awards/`] }],
+};
+
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/awards/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+  caption:
+    "I have the background, skills, education and determination that make me especially qualified to value and market Phoenix businesses for sale.",
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/awards/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Awards" },
+  ],
+};
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema],
+  },
+  financialServiceSchema,
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/awards/"
+  ogImage={ogImage}
+  ogImageAlt="Phil Reese, Arizona Business Broker"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <!-- Body markup + its own <style> blocks copied verbatim from the live page
+       (reference/_awards-content.html); images localized to /images/awards/.
+       Rendered via set:html because the inline <style> blocks and certificate
+       <img>s carry the original WP class names (no Astro scope hash). -->
+  <Fragment set:html={awardsBody} />
+</Layout>

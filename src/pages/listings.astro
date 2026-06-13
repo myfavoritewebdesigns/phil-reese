@@ -1,0 +1,150 @@
+---
+/* -----------------------------------------------------------------------
+   Listings — faithful clone of https://www.philsellsbiz.com/listings/
+   Archetype B (reference/SEO page): no PageHero, light "Listings" title-bar,
+   then a single test-sctn holding 13 STATIC listing cards (.rvw-box: photo +
+   business name + status badge + listing#/price/nets + description), followed
+   by an areas-sctn of city-broker links.
+   IMPORTANT: the live listings are STATIC HTML cards rendered by the WP theme
+   — NOT an embedded external feed/iframe (no BizBuySell widget, no <iframe>).
+   So this is a verbatim clone of the static cards, not a replicated feed.
+   Markup verbatim from reference/_listings-content.html; all 13 card images
+   localized to /images/listings/ (de-lazied + srcset localized). Section CSS
+   copied from the live page's WP-Rocket used-CSS (reference/_listings-sectioncss.css).
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL } from "../config/site";
+import listingsBody from "../../reference/_listings-content.html?raw";
+/* Live page's standalone FinancialService schema (3 office nodes), verbatim —
+   identical to the block the live listings page emits (and the homepage). */
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+
+/* Live <title> + meta description, verbatim from reference/listings-raw.html */
+const pageTitle = "Listings of AZ Businesses For Sale";
+const pageDescription =
+  "Listings of Featured Arizona Businesses for Sale. Browse through our businesses for sale, feel free to call us if you have any question.";
+
+/* Live page's primaryimage (Yoast og/schema image), localized. */
+const ogImage = `${SITE_URL}/images/listings/listings.jpg`;
+
+/* ---------- Page JSON-LD — mirrors the live Yoast @graph for this route ----------
+   (Layout already injects the global LocalBusiness + WebSite nodes.)
+   The live route uses Yoast's CollectionPage @type for the page node, plus a
+   primaryimage ImageObject + BreadcrumbList, then the live page's standalone
+   FinancialService office schema (verbatim). */
+const collectionPageSchema = {
+  /* The live Yoast graph emits this listings route's page node as a plain
+     "WebPage" (NOT CollectionPage). Kept as "WebPage" for strict live-diff
+     JSON-LD parity (the audit does an exact @type multiset match). The route
+     is functionally a collection of business listings, but matching the live
+     site's actual output is the higher priority here. */
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/listings/#webpage`,
+  url: `${SITE_URL}/listings/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/listings/#primaryimage` },
+  image: { "@id": `${SITE_URL}/listings/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2014-11-28T21:24:51+00:00",
+  dateModified: "2026-06-13T00:31:01+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/listings/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/listings/`] }],
+};
+
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/listings/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+  caption: `Listings of AZ Businesses For Sale ${SITE_URL}/`,
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/listings/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Listings" },
+  ],
+};
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [collectionPageSchema, primaryImageSchema, breadcrumbSchema],
+  },
+  financialServiceSchema,
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/listings/"
+  ogImage={ogImage}
+  ogImageAlt="Listings of AZ businesses for sale"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <!-- Static listing cards copied verbatim from the live page
+       (reference/_listings-content.html); images localized to /images/listings/. -->
+  <Fragment set:html={listingsBody} />
+</Layout>
+
+<!-- Section CSS — copied verbatim from the live used-CSS blob
+     (reference/_listings-sectioncss.css). is:global because the cards arrive
+     via set:html (no Astro scope hash on those nodes). -->
+<style is:global>
+  .section.title-bar { padding-top: 52px; padding-bottom: 52px; background-color: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); z-index: 2; }
+  .title-bar .maintitle { margin: 0; color: var(--red); text-align: center; }
+
+  /* areas-sctn */
+  .areas-sctn { color: var(--primary); padding: 80px 20px; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); }
+  .areas-sctn .maintitle { font-size: clamp(28px, 4vw, 40px); font-family: var(--font-family--h3); display: flex; width: 100%; align-items: center; gap: 20px; font-weight: 400; }
+  .areas-sctn .maintitle:after { content: ''; flex-grow: 1; background: var(--primary); height: 2px; }
+  .links-inn { display: flex; flex-wrap: wrap; width: 100%; gap: 20px 5%; justify-content: center; list-style: none; }
+  .links-inn a { color: var(--primary); text-decoration: underline; font-size: 18px; font-weight: 700; }
+
+  /* test-sctn — listings grid */
+  .test-sctn { background: linear-gradient(360deg, #e8e8e8 0, #e7e7e7 30%, #e7e7E700 100%) no-repeat padding-box; padding-top: 80px; padding-bottom: 80px; }
+  .test-sctn .maintitle { margin: 0; font-family: sans-serif; font-weight: 400; color: var(--red); }
+  .test-sctn .section-wrap { align-items: center; justify-content: flex-start; max-width: 1560px; gap: 20px; }
+  section.section.test-sctn { overflow: hidden; padding-bottom: 147px; }
+
+  .rvw-wrapper { column-gap: 3rem; }
+
+  .rvw-box { background: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); border-radius: 5px; width: 100%; margin-bottom: 2.5rem; align-self: stretch; display: flex; padding: 0; }
+  .rvw-box img { width: 100%; max-width: 258px; object-fit: cover; }
+  .rvw-box > div { display: flex; flex-direction: column; padding: 21px 25px; }
+  .rvw-box p { margin: 0; font-size: 15px; }
+  .rvw-box > p { margin-bottom: 20px; }
+  .rvw-box .name { font-weight: 700; color: var(--primary); }
+  .rvw-box div .name { color: var(--secondary); max-width: 250px; }
+  .rvw-box div .name span { display: block; font-size: 12px; }
+  .rvw-box div .name-red.name, .rvw-box div h3.name { font-size: 16px; max-width: none; margin-bottom: 6px; }
+  .rvw-box div h3.name { font-weight: 900; }
+  .rvw-box .rvw-bx { display: flex; margin-top: 20px; margin-bottom: 20px; flex-direction: column; align-items: flex-start; }
+  .rvw-box .rvw-bx .name:before { content: '- '; }
+  .strs { color: #ffb300; }
+
+  @media (max-width: 1440px) { .rvw-wrapper { column-gap: 1.5rem; } }
+  @media (max-width: 1024px) { .test-sctn .section-wrap { justify-content: center; column-gap: 20px; } }
+  @media (max-width: 800px) {
+    section.section.test-sctn { padding-top: 50px; padding-bottom: 50px; }
+    .areas-sctn .maintitle:before { content: ''; flex-grow: 1; background: var(--primary); height: 2px; }
+    .links-inn { justify-content: center; }
+    .areas-sctn .maintitle { text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .rvw-box { flex-direction: column; text-align: center; align-items: center; }
+    .rvw-box .rvw-bx { max-width: 138px; margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 500px) { .rvw-box > div { padding: 20px; } }
+</style>

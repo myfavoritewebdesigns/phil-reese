@@ -1,0 +1,51 @@
+.links-inn {display:flex;flex-wrap:wrap;width:100%;gap:20px 5%;justify-content:center;list-style:none}
+.links-inn a {color:var(--primary);text-decoration:underline;font-size:18px;font-weight:700}
+@media (max-width:800px) { .links-inn {justify-content:center} }
+.section.title-bar {padding-top:52px;padding-bottom:52px;background-color:#f9f9f9;box-shadow:0 0 15px 0 rgba(0,0,0,.25);z-index:2}
+.title-bar .maintitle {margin:0;color:var(--red);text-align:center}
+@media (min-width:801px) { .areas-sctn-2 {background-image:url(https://www.philsellsbiz.com/wp-content/uploads/2026/04/maps-background.jpg);background-size:cover} }
+@media (min-width:801px) { .only-mob {display:none} }
+.ctc-sctn {padding-top:100px;padding-bottom:100px;background-color:var(--secondary)}
+.ctc-sctn .one-col {background:#ffffffc9;padding:30px 40px;border-radius:22px}
+.ctc-sctn .one-col .maintitle {margin:0;color:var(--red);font-size:clamp(30px, 3vw, 50px);max-width:574px;text-align:center}
+.ctc-sctn .one-col .wpcf7 {max-width:659px}
+.ctc-sctn .one-col form.wpcf7-form.init {display:flex;flex-wrap:wrap}
+.ctc-sctn .one-col hr {width:100%;height:4px;background:var(--primary);margin-bottom:29px}
+.ctc-sctn .bottom-form textarea {background:#3104071c}
+.ctc-sctn .contact-inn {background:rgba(255,255,255,.84);padding:30px;display:flex;flex-direction:column;width:30%;border-radius:8px;gap:5px}
+.ctc-sctn .one-col.form-col {width:calc(70% - 40px);border-radius:8px;background:rgba(255,255,255,.84)}
+.ctc-sctn .section-wrap {justify-content:space-between}
+.ctc-sctn .contact-inn .subtitle {margin-bottom:5px;font-size:21px;color:var(--red)}
+.ctc-sctn .contact-inn p {margin:0}
+.ctc-info {display:flex;flex-direction:column;margin:20px 0;gap:10px}
+.ctc-sctn .contact-inn .sub-text {color:var(--red);font-size:13px;font-family:var(--font-family--h4);font-weight:700}
+.ctc-sctn .bottom-form textarea {height:150px}
+.ctc-link {display:flex;gap:10px;align-items:center}
+.ctc-link>svg {width:16px}
+.ctc-link span,.ctc-sctn .contact-inn p {color:var(--secondary)}
+.ctc-sctn .one-col .wpcf7 {max-width:none}
+.areas-sctn-2 {padding-top:100px;padding-bottom:100px;height:600px}
+.areas-sctn-2 .section-wrap {align-items:center}
+.maps-inn {width:54%;margin-right:auto}
+.maps-inn .maintitle {margin-bottom:0;font-size:clamp(30px, 4vw, 55px);color:var(--primary)}
+.maps-inn .subtitle {font-family:var(--font-family--body);font-weight:400;margin-bottom:60px}
+.maps-inn .subtitle-2 {margin-bottom:0;font-family:var(--font-family--body);font-weight:400;color:var(--primary)}
+.maps-inn hr {color:var(--primary);height:2px;background:var(--primary);border:0;margin-bottom:24px}
+.maps-inn .links-inn {gap:20px 5px;justify-content:flex-start}
+.maps-inn .links-inn a {text-decoration:none;font-size:13px;width:calc(33.33% - 4px);display:flex;gap:5px}
+@media (max-width:1440px) { .areas-sctn-2 {background-position:25%} }
+@media (max-width:1024px) { .areas-sctn-2 {background-position:62%} }
+@media (max-width:800px) { .ctc-sctn .contact-inn {width:100%;order:1;max-width:473px;text-align:center;margin:35px auto 0} }
+@media (max-width:800px) { .ctc-sctn .one-col.form-col {width:100%} }
+@media (max-width:800px) { .ctc-link {justify-content:center} }
+@media (max-width:800px) { .areas-sctn-2 {height:auto} }
+@media (max-width:800px) { .areas-sctn-2 {padding-top:50px;padding-bottom:50px} }
+@media (max-width:800px) { .maps-inn {width:100%;text-align:center} }
+@media (max-width:800px) { .maps-inn .maps-image {max-width:500px;margin:44px auto 0} }
+@media (max-width:500px) { section.section.ctc-sctn {padding-top:40px;padding-bottom:40px} }
+@media (max-width:500px) { .ctc-sctn .one-col {padding:30px 20px} }
+@media (max-width:500px) { .ctc-sctn .one-col .wpcf7 {max-width:100%} }
+@media (max-width:500px) { .ctc-sctn .one-col .maintitle {font-size:26px} }
+@media (max-width:500px) { .maps-inn .links-inn a {text-align:left;width:calc(50% - 4px)} }
+.bottom-form input::-webkit-input-placeholder,.bottom-form input::placeholder,.ctc-sctn .bottom-form textarea::-webkit-input-placeholder,.ctc-sctn .bottom-form textarea::placeholder {color:#000}
+.areas-sctn-2 {--wpr-bg-0cbdc381-7209-48e1-9f5e-b22af0edd88b: url('https://www.philsellsbiz.com/wp-content/uploads/2026/04/maps-background.jpg');}

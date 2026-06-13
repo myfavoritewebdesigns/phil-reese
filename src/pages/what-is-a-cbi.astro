@@ -1,0 +1,274 @@
+---
+/* -----------------------------------------------------------------------
+   What Is A CBI? — faithful clone of
+   https://www.philsellsbiz.com/what-is-a-cbi/
+   Archetype B (reference/SEO page): no photo hero — header sits over a light
+   band, page goes straight into the article body.
+   Markup/copy verbatim from reference/what-is-a-cbi-raw.html (cleaned →
+   reference/_cbi-body.html); section CSS lifted verbatim from the live page's
+   inlined used-CSS (reference/_cbi-sections.css).
+   Sections in DOM order:
+     1. cbi-info-section  — H1 lede + two badge cards (CBI / MCBI) + closing para
+     2. cbi-info-section-2 — "Why hire…" H2 + 5 benefit items + video
+   Notes:
+   - The two large credential badge SVGs are imported via ?raw (set:html), like
+     the homepage badge SVGs, to keep this file readable.
+   - The single video (wp-youtube-lyte on live) is rebuilt with the same
+     lite-youtube web component the homepage/about use.
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL } from "../config/site";
+import cbiBadge1 from "../../reference/cbi-badge-1-svg.html?raw";
+import cbiBadge2 from "../../reference/cbi-badge-2-svg.html?raw";
+import checkSvg from "../../reference/cbi-check-svg.html?raw";
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+
+/* Live <title> + meta description, verbatim */
+const pageTitle = "What Is A Certified Business Intermediary (CBI)?";
+const pageDescription =
+  "What is A Certified Business Intermediary? Phoenix Business Broker Phil Reese examines the advantages of using a CBI to sell or buy a business in Arizona.";
+
+const ogImage = `${SITE_URL}/images/what-is-a-cbi/og-what-is-a-cbi.jpg`;
+
+/* ---------- Page JSON-LD ---------- */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/what-is-a-cbi/`,
+  url: `${SITE_URL}/what-is-a-cbi/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/what-is-a-cbi/#primaryimage` },
+  image: { "@id": `${SITE_URL}/what-is-a-cbi/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2014-11-28T17:07:10+00:00",
+  dateModified: "2026-05-28T19:47:40+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/what-is-a-cbi/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/what-is-a-cbi/`] }],
+};
+
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/what-is-a-cbi/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/what-is-a-cbi/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "What Is A CBI?" },
+  ],
+};
+
+/* Article schema (per build spec for /what-is-a-cbi/) */
+const articleSchema = {
+  "@type": "Article",
+  "@id": `${SITE_URL}/what-is-a-cbi/#article`,
+  headline:
+    "Why You Should Only Hire a Business Broker who has the CBI & MCBI Designations to Sell Your Arizona Business.",
+  description: pageDescription,
+  image: ogImage,
+  datePublished: "2014-11-28T17:07:10+00:00",
+  dateModified: "2026-05-28T19:47:40+00:00",
+  inLanguage: "en-US",
+  mainEntityOfPage: { "@id": `${SITE_URL}/what-is-a-cbi/` },
+  author: { "@type": "Person", name: "Phil Reese", url: `${SITE_URL}/about/` },
+  publisher: { "@id": `${SITE_URL}/` },
+};
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema, articleSchema],
+  },
+  financialServiceSchema,
+];
+
+/* Benefit items (cbi-info-section-2 .benefit-item), verbatim headings */
+const benefits = [
+  "Higher-Level Deal Expertise",
+  "Stronger Negotiation Skills",
+  "Proven Track Record",
+  "Reduced Risk for you",
+  "The best chance of getting a deal done",
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/what-is-a-cbi/"
+  ogImage={ogImage}
+  ogImageAlt="What Is A Certified Business Intermediary (CBI)?"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  ogType="article"
+  publishedTime="2014-11-28T17:07:10+00:00"
+  modifiedTime="2026-05-28T19:47:40+00:00"
+  structuredData={structuredData}
+>
+  <!-- lite-youtube web component — replaces the live wp-youtube-lyte embed. -->
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.css"
+  />
+  <script
+    slot="head"
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.js"
+    defer></script>
+
+  <!-- 1. cbi-info-section -->
+  <section class="section cbi-info-section">
+    <div class="section-wrap">
+      <section class="cbi-header">
+        <h1 class="h1-style maintitle">Why You Should Only Hire a Business Broker who has the CBI &amp; MCBI Designations to Sell Your Arizona Business.</h1>
+        <p class="p-style">Most business sales never close. Industry data puts the closing rate at roughly 20 percent across the brokerage industry. Four out of five owners who list with a broker never see a closing table. That's the real reason credentials matter when you're picking who's going to handle the biggest financial transaction of your life. The International Business Brokers Association is the largest trade group in this industry. They award two of the most respected industry designations. The Certified Business Intermediary (CBI) and The Master Certified Business Intermediary (MCBI) designations. I hold both. I'm one of only 10 brokers in Arizona with the CBI, and one of only 4 in the state with the MCBI.</p>
+        <p class="p-style"><b>Here's what each one means and why it matters when it's your business at stake.</b></p>
+      </section>
+
+      <div class="cbi-badge-container">
+        <article class="badge-card">
+          <div class="badge-icon2" set:html={cbiBadge1} />
+          <h3 class="h3-style">Certified Business Intermediary</h3>
+          <p class="p-style">The CBI designation demonstrates that a broker has invested the time and effort to master the knowledge required to properly represent business owners. <br />I am one of only 10 business brokers in Arizona who have earned the CBI designation.</p>
+          <p class="p-style earn">Earning the Certified Business Intermediary required:</p>
+          <ul style="text-align: left; margin-bottom: 20px; padding-left: 20px;">
+            <li>Over 60 hours of advanced coursework covering business valuation, confidential marketing, deal structure, negotiations and a lot more.</li>
+            <li>Multiple intensive training programs through the IBBA.</li>
+            <li>A series of exams ending with a comprehensive final exam.</li>
+          </ul>
+          <p class="p-style">The exams aren't a formality. They have a real failure rate. Earning the credential takes serious time and study. What the CBI proves is that the broker understands the technical side of selling a business. That's a meaningful baseline. Most people calling themselves business brokers in Arizona don't have it. It's also not enough by itself. Knowing how a deal is supposed to work and having actually closed over a hundred of them are two different things. That's where the MCBI comes in.</p>
+        </article>
+
+        <article class="badge-card">
+          <div class="badge-icon2" set:html={cbiBadge2} />
+          <h3 class="h3-style">Master Certified Business Intermediary</h3>
+          <p class="p-style">The Master Certified Business Intermediary is the IBBA's highest designation. The IBBA awards it sparingly because the requirements aren't just about coursework, they're about real world experience and closed deals:</p>
+          <p class="p-style earn">Earning the Certified Business Intermediary required:</p>
+          <ul style="text-align: left; margin-bottom: 20px; padding-left: 20px;">
+            <li>A documented history of successfully completed transactions.</li>
+            <li>Significant real-world deal experience across multiple industries and deal structures.</li>
+            <li>Completion of 11 four-hour advanced-level courses over a 10-month collegiate-style training program.</li>
+            <li>A long-standing record of professional and ethical conduct, reviewed before the credential is issued.</li>
+          </ul>
+          <p class="p-style earn">The MCBI curriculum focuses on high-level transaction skills, including: </p>
+          <ul style="text-align: left; margin-bottom: 20px; padding-left: 20px;">
+            <li>Advanced business valuation and analysis.</li>
+            <li>Pre-due diligence and transaction structuring.</li>
+            <li>Identifying and working with high-value, qualified buyers.</li>
+            <li>Complex legal, ethical, and negotiation issues.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="one-col">
+        <p class="p-style">The reason the credential is rare is that most business brokers who earn the CBI never accumulate the deal volume or the closing record to qualify for the MCBI. Since 2001, I've closed over $97 million in business sales across more than 100 transactions. Those deals have ranged from a $100,000 carpet cleaning company up to a $31.5 million precision metal fabricator, with everything in between: HVAC companies, electrical contractors, salons, landscape companies, manufacturers, e-commerce businesses, retailer stores, and auto body shops. I'm a top 1% producer at West USA Realty, a multi-year IBBA Chairman's Circle Award winner, and former Ethics Chairman of the Arizona Business Brokers Association. I bring all of that up because credentials without numbers behind them don't mean much.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. cbi-info-section-2 -->
+  <section class="section cbi-info-section cbi-info-section-2">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h2 class="h2-style textalign-center">Why hire a business broker with the CBI &amp; MCBI designations?</h2>
+        <p class="p-style">You’re taking a chance hiring a Business Broker to sell your business who doesn’t take their career serious enough to spend the time and money to make sure they are as up to date and educated as possible in the process of selling businesses. I take my position as a Business Broker very seriously. I know what it’s like to go through the often stressful and complicated process of selling a business, because I went through it myself. By going with me, you are going with an experienced, proven professional whose claim of competence is supported and documented. I have the proven skills necessary to handle the marketing, negotiations and complex details involved in the sale of your business.</p>
+
+        <p class="p-style earn">When you work with someone like me who holds both the CBI and MCBI designations, you benefit from:</p>
+
+        <div class="benefits-grid">
+          {benefits.map((b) => (
+            <div class="benefit-item">
+              <Fragment set:html={checkSvg} />
+              <h4>{b}</h4>
+            </div>
+          ))}
+        </div>
+
+        <div class="video-col">
+          <div class="lyte-wrapper" title="Thinking of Selling or Buying a Business?" style="width:853px;max-width:100%;margin:5px;">
+            <lite-youtube
+              videoid="CQp4Vt6o8Js"
+              title="Thinking of Selling or Buying a Business?"
+              style="background-image:url('/images/what-is-a-cbi/yt-CQp4Vt6o8Js.jpg');"
+            >
+              <a href="https://youtu.be/CQp4Vt6o8Js" class="lite-yt-fallback" rel="nofollow">Watch this video on YouTube</a>
+            </lite-youtube>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Section CSS — copied verbatim from the live page's inlined used-CSS
+     (reference/_cbi-sections.css). is:global so it matches the badge SVGs and
+     checkmark SVGs that arrive via set:html. -->
+<style is:global>
+  .cbi-info-section { padding: clamp(60px, 8vw, 100px) 0; background-color: var(--white); color: var(--black); }
+  .section.cbi-info-section { padding-bottom: 50px; }
+  .cbi-header { text-align: center; max-width: 900px; margin: 0 auto var(--margin-bottom--title); }
+  .cbi-header h2 { color: var(--secondary); margin-bottom: 16px; }
+  .cbi-badge-container { display: flex; gap: 30px; justify-content: center; margin-bottom: 50px; flex-wrap: wrap; }
+  .badge-card { background: var(--white); border: 1px solid var(--light-gray); border-radius: 12px; padding: 30px; width: 100%; max-width: 690px; box-shadow: 0 10px 30px rgba(0, 0, 0, .05); transition: transform .3s ease, box-shadow .3s ease; display: flex; flex-direction: column; align-items: center; }
+  .badge-card ul { max-width: 426px; display: flex; flex-direction: column; gap: 5px; }
+  .badge-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(16, 33, 77, .1); border-color: var(--primary); }
+  .badge-card h3 { font-size: var(--font-size--h4); color: var(--secondary); margin-bottom: 15px; max-width: 308px; font-family: var(--font-family--body); }
+  .badge-card .h3-style { text-align: center; }
+  .badge-card .p-style { margin-top: 0; }
+  .badge-icon2 { width: 100px; fill: var(--red); }
+  p.p-style.earn { margin-top: 0; margin-bottom: 0; color: var(--red); font-weight: 700; }
+
+  section.section.cbi-info-section.cbi-info-section-2 { padding-top: 0; }
+  .cbi-info-section-2 .h2-style.textalign-center { margin-bottom: 0; }
+
+  .benefits-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px 50px; max-width: 940px; width: 100%; margin-top: 30px; margin-bottom: 86px; }
+  .benefit-item { border: 0; padding: 0; display: flex; gap: 10px; width: calc(33.33% - 50px); max-width: 300px; align-items: flex-start; }
+  .benefit-item:last-child { min-width: 333px; }
+  .benefit-item > svg { fill: var(--red); min-width: 16px; }
+  .benefit-item h4 { color: var(--secondary); margin: 0; font-size: 16px; }
+
+  .video-col > div { max-width: 80vw !important; }
+
+  @media (max-width: 1200px) {
+    section.section.cbi-info-section { padding-left: 20px; padding-right: 20px; }
+    section.section.cbi-info-section.cbi-info-section-2 .p-style { text-align: center; }
+  }
+  @media (max-width: 1024px) {
+    .cbi-info-section { padding-left: 20px; padding-right: 20px; }
+    .p-style { text-align: center; }
+    .benefit-item .p-style { text-align: left; }
+  }
+  @media (max-width: 800px) {
+    .cbi-info-section-2 .h2-style.textalign-center { font-size: 25px; }
+    .benefit-item:last-child { min-width: unset; }
+    .benefit-item { width: calc(33.33% - 14px); }
+    .benefits-grid { gap: 20px; }
+  }
+  @media (max-width: 768px) {
+    .badge-card { max-width: 100%; }
+  }
+  @media (max-width: 600px) {
+    .benefit-item { width: calc(50% - 14px); }
+    .benefit-item:last-child { min-width: 337px; }
+  }
+  @media (max-width: 500px) {
+    .badge-card { padding: 21px; }
+  }
+  @media (max-width: 475px) {
+    .benefit-item:last-child { min-width: unset; }
+    .benefit-item { max-width: none; width: 100%; }
+    .benefits-grid { max-width: 328px; }
+  }
+  @media (max-width: 350px) {
+    .benefits-grid { max-width: 250px; }
+  }
+</style>

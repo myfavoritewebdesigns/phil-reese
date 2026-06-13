@@ -1,0 +1,212 @@
+---
+/* -----------------------------------------------------------------------
+   FAQ — faithful clone of https://www.philsellsbiz.com/faq/
+   Archetype B (reference/SEO page): no photo hero — light title band then a
+   visible Q&A list.
+   Markup/copy verbatim from reference/faq-raw.html (cleaned → reference/_faq-body.html);
+   section CSS lifted verbatim from the live page's inlined used-CSS
+   (reference/_faq-sections.css).
+   Sections in DOM order:
+     1. title-bar  — "FAQ" H1 band
+     2. faq-sctn   — six Q&A blocks (visible list; FAQPage schema mirrors it)
+     3. areas-sctn — "Some of the areas we serve" city-broker links
+   Note: the live FAQPage JSON-LD (reference/faq-faqpage-schema.json) is emitted
+   verbatim — its answer copy differs slightly from the on-page answers, matching
+   how the live site ships both.
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL } from "../config/site";
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+/* Live FAQPage schema, verbatim (already carries its own @context). */
+import faqPageSchema from "../../reference/faq-faqpage-schema.json";
+
+/* Live <title> + meta description, verbatim */
+const pageTitle = "FAQ For Buyers & Sellers Of Businesses";
+const pageDescription =
+  "Questions frequently asked when selling or buying a business in Arizona, answered by Certified Business Intermediary and Business Broker Phil Reese.";
+
+const ogImage = `${SITE_URL}/images/faq/og-faq.jpg`;
+
+/* ---------- Page JSON-LD ---------- */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/faq/`,
+  url: `${SITE_URL}/faq/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/faq/#primaryimage` },
+  image: { "@id": `${SITE_URL}/faq/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2014-11-28T22:15:24+00:00",
+  dateModified: "2026-05-21T16:28:41+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/faq/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/faq/`] }],
+};
+
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/faq/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/faq/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "FAQ" },
+  ],
+};
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema],
+  },
+  faqPageSchema,
+  financialServiceSchema,
+];
+
+/* "Some of the areas we serve" links (areas-sctn), verbatim */
+const areaLinks = [
+  { label: "Glendale Business Broker", href: "/glendale-business-broker/" },
+  { label: "Paradise Valley Business Broker", href: "/paradise-valley-business-broker/" },
+  { label: "Queen Creek Business Broker", href: "/queen-creek-business-broker/" },
+  { label: "Mesa Business Broker", href: "/mesa-business-broker/" },
+  { label: "Peoria Business Broker", href: "/peoria-business-broker/" },
+  { label: "Tempe Business Broker", href: "/tempe-business-broker/" },
+];
+
+/* Cities list in the "What cities do you sell businesses in?" answer, verbatim.
+   A few have linked city-broker landing pages on live. */
+const faqCities: { name: string; href?: string; title?: string }[] = [
+  { name: "Anthem" },
+  { name: "Apache Junction" },
+  { name: "Avondale" },
+  { name: "Buckeye" },
+  { name: "Carefree" },
+  { name: "Cave Creek" },
+  { name: "Chandler" },
+  { name: "El Mirage" },
+  { name: "Fountain Hills" },
+  { name: "Gilbert" },
+  { name: "Glendale" },
+  { name: "Gold Canyon" },
+  { name: "Goodyear" },
+  { name: "Higley" },
+  { name: "Laveen" },
+  { name: "Litchfield Park" },
+  { name: "Maricopa" },
+  { name: "Mesa", href: "/mesa-business-broker/", title: "Get Help with Selling your Mesa Business today" },
+  { name: "Paradise Valley" },
+  { name: "Peoria" },
+  { name: "Phoenix", href: "/phoenix-business-broker/", title: "Learn more about how we can sell your business in Phoenix" },
+  { name: "Queen Creek" },
+  { name: "San Tan Valley" },
+  { name: "Scottsdale", href: "/scottsdale-business-broker/", title: "Learn more about how we can help you sell or by a business in Scottsdale" },
+  { name: "Sun City" },
+  { name: "Sun City West" },
+  { name: "Sun Lakes" },
+  { name: "Surprise" },
+  { name: "Tempe", href: "/tempe-business-broker/", title: "Assistance with buying or selling businesses in Tempe AZ" },
+  { name: "Tolleson" },
+  { name: "Youngtown" },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/faq/"
+  ogImage={ogImage}
+  ogImageAlt="FAQ For Buyers & Sellers Of Businesses"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <!-- 1. title-bar -->
+  <section class="section title-bar">
+    <div class="section-wrap">
+      <h1 class="maintitle h1-style">FAQ</h1>
+    </div>
+  </section>
+
+  <!-- 2. faq-sctn -->
+  <section class="section faq-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <div class="answer">
+          <h3 class="h5-style faq-title">Q: How much is your commission?</h3>
+          <p><b>A: </b>That depends on the size of your business. The higher the listing price, the lower the commission. Regardless of the percentage, I do not charge valuation fees or up-front retainer fees. I only charge a success fee. This means you only pay a commission if your business is sold. After I conduct a valuation of your business, I can give you the exact amount for your business.</p>
+        </div>
+        <div class="answer">
+          <h3 class="h5-style faq-title">Q: How long does it take to sell a business?</h3>
+          <p><b>A: </b>On average it takes 6-8 months to sell a business. A lot depends on the price, location and type of business.</p>
+        </div>
+        <div class="answer">
+          <h3 class="h5-style faq-title">Q: How do you protect my identity?</h3>
+          <p><b>A: </b>All of my advertisements for listings are done on a blind basis, meaning your company’s name &amp; address is never divulged. Before I release any detailed information about your company to any potential buyers, I make them sign a CONFIDENTIALITY/ NON-DISCLOSURE AGREEMENT. IF they refuse to sign it, they don’t get any confidential information on your business.</p>
+        </div>
+        <div class="answer">
+          <h3 class="h5-style faq-title">Q: Do you only advertise locally?</h3>
+          <p><b>A: </b>No. I will advertise your business all over the world. Half of my buyers are from out of state and some are even from other countries. People from other countries can acquire an E2 Visa by purchasing a business in the USA.</p>
+        </div>
+        <div class="answer">
+          <h3 class="h5-style faq-title">Q: Why shouldn’t I just hire a Realtor to sell my business?</h3>
+          <p><b>A: </b>Realtors sell houses not businesses. There is a big difference between selling a house and a business. It takes a different skill set to <a href="https://www.philsellsbiz.com">sell an Arizona business</a>. I wouldn’t attempt to sell a house, even though I am a licensed real estate agent, because I don’t have that skill set. I focus on selling businesses only.</p>
+        </div>
+        <div class="answer">
+          <h3 class="h5-style faq-title">Q: What cities do you sell businesses in?</h3>
+          <p><b>A: </b>I sell businesses in the following cities:</p>
+          <ul>
+            {faqCities.map((c) => (
+              <li>{c.href ? <a href={c.href} title={c.title}>{c.name}</a> : c.name}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. areas-sctn -->
+  <section class="section areas-sctn">
+    <div class="section-wrap">
+      <h3 class="maintitle">Some of the areas we serve</h3>
+      <div class="links-inn">
+        {areaLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Section CSS — copied verbatim from the live page's inlined used-CSS
+     (reference/_faq-sections.css). is:global to match the rebuild's section
+     markup conventions. -->
+<style is:global>
+  /* ---------- 1. title-bar ---------- */
+  .section.title-bar { padding-top: 52px; padding-bottom: 52px; background-color: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); z-index: 2; }
+  .title-bar .maintitle { margin: 0; color: var(--red); text-align: center; }
+
+  /* ---------- 2. faq-sctn ---------- */
+  .faq-sctn { padding-top: 80px; padding-bottom: 80px; }
+  .faq-sctn .faq-title { margin: 0; font-size: 21px; font-weight: 700; color: var(--primary); }
+  .answer { width: 100%; margin-bottom: 30px; }
+
+  /* ---------- 3. areas-sctn ---------- */
+  .areas-sctn { color: var(--primary); padding: 80px 20px; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); }
+  .areas-sctn .maintitle { font-size: clamp(28px, 4vw, 40px); font-family: var(--font-family--h3); display: flex; width: 100%; align-items: center; gap: 20px; font-weight: 400; }
+  .areas-sctn .maintitle:after { content: ''; flex-grow: 1; background: var(--primary); height: 2px; }
+  .links-inn { display: flex; flex-wrap: wrap; width: 100%; gap: 20px 5%; justify-content: center; list-style: none; }
+  .links-inn a { color: var(--primary); text-decoration: underline; font-size: 18px; font-weight: 700; }
+  @media (max-width: 800px) {
+    .areas-sctn .maintitle:before { content: ''; flex-grow: 1; background: var(--primary); height: 2px; }
+    .links-inn { justify-content: center; }
+    .areas-sctn .maintitle { text-align: center; }
+  }
+</style>

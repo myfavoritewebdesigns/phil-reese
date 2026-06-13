@@ -1,14 +1,14 @@
 old_url,new_url,status,title,meta_description,h1,canonical,schema_type,notes
 /,/,planned,,,,,"ProfessionalService,Person","Homepage. Multi-office business broker. LocalBusiness/Person schema + sameAs socials"
-/about/,/about/,planned,,,,,"AboutPage,Person",About Phil Reese (CBI)
-/business-sellers/,/business-sellers/,planned,,,,,Service,Sell-side service page
-/business-buyers/,/business-buyers/,planned,,,,,Service,Buy-side service page
-/listings/,/listings/,planned,,,,,CollectionPage,Active business listings — confirm if dynamic/external feed
-/testimonials/,/testimonials/,planned,,,,,WebPage,Uses wp-customer-reviews plugin; Review/AggregateRating schema candidate
-/awards/,/awards/,planned,,,,,WebPage,
-/what-is-a-cbi/,/what-is-a-cbi/,planned,,,,,Article,Explainer: Certified Business Intermediary
-/faq/,/faq/,planned,,,,,FAQPage,FAQ schema
-/contact/,/contact/,planned,,,,,ContactPage,Contact Form 7 form — map fields in form-map.csv
+/about/,/about/,built,All about Phoenix Arizona Business Broker Phil Reese,"Phil Reese is an Arizona Business Broker and Certified Business Intermediary, serving business sellers and buyers in the Phoenix metro area, Tucson and Northern AZ.",About Phil Reese,/about/,"WebPage,Person",Person schema + Yoast graph (kept live WebPage @type)
+/business-sellers/,/business-sellers/,built,Brokering Deals For Sellers Of Arizona Businesses,"Phil Reese is an Arizona Business Broker and Certified Business Intermediary, serving business sellers in the Phoenix metro area, Tucson And Northern AZ.",For Sellers,/business-sellers/,"WebPage,Service",9 Money-Losing Mistakes content
+/business-buyers/,/business-buyers/,built,Services For Buyers Of AZ Businesses,"Phil Reese is an Arizona Business Broker and Certified Business Intermediary, serving business buyers in the Phoenix metro area, Tucson And Northern AZ.",For Buyers,/business-buyers/,"WebPage,Service",Live featured img + CTA are HTML-commented out; omitted faithfully
+/listings/,/listings/,built,Listings of AZ Businesses For Sale,"Listings of Featured Arizona Businesses for Sale. Browse through our businesses for sale, feel free to call us if you have any question.",Listings,/listings/,WebPage,13 static listing cards (NOT an external feed)
+/testimonials/,/testimonials/,built,Testimonials For Phoenix AZ Business Broker Phil Reese,"Testimonials for Business Broker Phil Reese, who has served as a Business Broker to many business owners in AZ looking to sell their businesses.",Testimonials,/testimonials/,WebPage,"8 photo testimonials + 101 review boxes + 4 office maps, all static"
+/awards/,/awards/,built,Awards Phoenix Arizona Business Broker Phil Reese,"Phil Reese is an Arizona Business Broker and Certified Business Intermediary, serving business sellers and buyers in the Phoenix metro area, Tucson and Northern AZ.",Awards & Track Record,/awards/,WebPage,27 certificates + year timeline; live emits WebPage not CollectionPage
+/what-is-a-cbi/,/what-is-a-cbi/,built,What Is A Certified Business Intermediary (CBI)?,What is A Certified Business Intermediary? Phoenix Business Broker Phil Reese examines the advantages of using a CBI to sell or buy a business in Arizona.,Why You Should Only Hire a Business Broker who has the CBI & MCBI Designations to Sell Your Arizona Business.,/what-is-a-cbi/,"WebPage,Article",Reference page (Archetype B)
+/faq/,/faq/,built,FAQ For Buyers & Sellers Of Businesses,"Questions frequently asked when selling or buying a business in Arizona, answered by Certified Business Intermediary and Business Broker Phil Reese.",FAQ,/faq/,"WebPage,FAQPage","FAQ schema (live answer copy differs from on-page, replicated)"
+/contact/,/contact/,built,Contact Business Broker Phil Reese,"Contact Phil Reese today! 14350 N. 87th St., Ste. 180 Scottsdale, AZ 85260",Contact Phil for Your Free Confidential Valuation,/contact/,"WebPage,ContactPage",CF7 fields your-name-bt/your-email-bt/your-phone-bt/your-message-bt/bst-way-bt; fax 623-888-3796 inline
 /blog/,/blog/,planned,,,,,Blog,Blog index (Archetype C)
 /sitemap/,/sitemap/,planned,,,,,WebPage,HTML sitemap page (not the XML one)
 /phoenix-business-broker/,/phoenix-business-broker/,planned,,,,,Service,City landing page (local SEO) — preserve URL exactly

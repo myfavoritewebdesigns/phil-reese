@@ -1,0 +1,54 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much is your commission?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That depends on the size of your business. The higher the listing price, the lower the commission. Our company offers two commission structures. The first option is a straight success fee, which means you only pay if your business is sold. The second option is an upfront retainer fee plus a smaller success fee. After conducting a valuation of your business, I can give you the exact commission amount."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to sell a business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On average, it takes 6-8 months to sell a business. The timeline depends on factors like price, location, and the type of business."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you protect my identity?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All listings are advertised on a blind basis, so your company’s name and address are never revealed. Potential buyers must sign a Confidentiality Agreement before receiving any detailed information. For local inquiries, I require an in-person meeting at my office to filter out unqualified buyers or competitors."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you only advertise locally?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, I advertise your business nationally and internationally. Many buyers are from out of state or other countries. International buyers can even acquire an E2 Visa by purchasing a business in the USA."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why shouldn’t I just hire a Realtor to sell my business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Realtors specialize in selling homes, not businesses. Selling a business requires a different skill set. Although I’m a licensed real estate agent, I focus exclusively on selling businesses in Arizona."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What cities do you sell businesses in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I sell businesses in the following cities: Anthem, Apache Junction, Avondale, Buckeye, Carefree, Cave Creek, Chandler, El Mirage, Fountain Hills, Gilbert, Glendale, Gold Canyon, Goodyear, Higley, Laveen, Litchfield Park, Maricopa, Mesa, Paradise Valley, Peoria, Phoenix, Queen Creek, San Tan Valley, Scottsdale, Sun City, Sun City West, Sun Lakes, Surprise, Tempe, Tolleson, and Youngtown."
+      }
+    }
+  ]
+}

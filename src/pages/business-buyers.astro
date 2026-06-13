@@ -1,0 +1,183 @@
+---
+/* -----------------------------------------------------------------------
+   For Buyers — faithful clone of https://www.philsellsbiz.com/business-buyers/
+   Markup/copy verbatim from reference/business-buyers-raw.html; section CSS
+   verbatim from the live per-page used-CSS (reference/_business-buyers-allcss.css).
+   3 live sections (DOM order): title-bar · cbi-sctn (text-col prose) ·
+   areas-sctn (6 city text links).
+   NOTE: live cbi-sctn has a featured image AND a closing CTA paragraph that are
+   both HTML-commented-out in the source — neither renders, so neither is built
+   here (faithful to the rendered page). Zero images in main content on live.
+   Live JSON-LD = Yoast @graph (WebPage/ImageObject/BreadcrumbList/WebSite) +
+   standalone FinancialService. Per task spec we also add a Service node
+   (provider = Phil / ProfessionalService).
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL } from "../config/site";
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+
+/* Live <title> + meta description, verbatim from reference/business-buyers-raw.html */
+const pageTitle = "Services For Buyers Of AZ Businesses";
+const pageDescription =
+  "Phil Reese is an Arizona Business Broker and Certified Business Intermediary, serving business buyers in the Phoenix metro area, Tucson And Northern AZ.";
+
+/* Live page's real og:image = its own primary image (downloaded → local). */
+const ogImage = `${SITE_URL}/images/business-buyers/og-business-buyers.jpg`;
+
+/* ---------- Page JSON-LD (Layout already injects LocalBusiness + WebSite) ---------- */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/business-buyers/`,
+  url: `${SITE_URL}/business-buyers/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/business-buyers/#primaryimage` },
+  image: { "@id": `${SITE_URL}/business-buyers/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2014-11-28T17:08:13+00:00",
+  dateModified: "2026-05-28T19:51:02+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/business-buyers/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/business-buyers/`] }],
+};
+
+/* Primary image (Yoast #primaryimage), verbatim caption from live. */
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/business-buyers/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+  caption:
+    "Believe it or not, Buyers have a BAD name in our industry. Not real Buyers mind you because without them I would be out of business. Its the pretend Buyers that cause the problem.",
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/business-buyers/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "For Buyers" },
+  ],
+};
+
+/* Service node — task spec: buyers → Service, provider = Phil/ProfessionalService */
+const serviceSchema = {
+  "@type": "Service",
+  "@id": `${SITE_URL}/business-buyers/#service`,
+  name: "Business Buying Services",
+  serviceType: "Business Brokerage — Buying a Business",
+  description: pageDescription,
+  areaServed: { "@type": "State", name: "Arizona" },
+  provider: {
+    "@type": "ProfessionalService",
+    name: "Phil Reese, Arizona Business Broker",
+    "@id": `${SITE_URL}/`,
+    url: `${SITE_URL}/`,
+  },
+};
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema, serviceSchema],
+  },
+  financialServiceSchema,
+];
+
+/* ---------- areas-sctn city links (shared across these pages), verbatim ---------- */
+const areaLinks = [
+  { href: "/glendale-business-broker/", label: "Glendale Business Broker" },
+  { href: "/paradise-valley-business-broker/", label: "Paradise Valley Business Broker" },
+  { href: "/queen-creek-business-broker/", label: "Queen Creek Business Broker" },
+  { href: "/mesa-business-broker/", label: "Mesa Business Broker" },
+  { href: "/peoria-business-broker/", label: "Peoria Business Broker" },
+  { href: "/tempe-business-broker/", label: "Tempe Business Broker" },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/business-buyers/"
+  ogImage={ogImage}
+  ogImageAlt="For Buyers"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <!-- 1. title-bar -->
+  <section class="section title-bar">
+    <div class="section-wrap">
+      <h1 class="maintitle h1-style">For Buyers</h1>
+    </div>
+  </section>
+
+  <!-- 2. cbi-sctn — buyer guidance prose -->
+  <section class="section cbi-sctn">
+    <div class="section-wrap">
+      <div class="text-col">
+        <p>Believe it or not, Buyers have a BAD name in our industry. Not real Buyers mind you because without them I would be out of business. It’s the pretend Buyers that cause the problem. We <a href="/">Arizona Business Brokers</a> are fairly leery when someone calls us about a listing. The main reason is because only 5% of people calling regarding a Business For Sale in&nbsp;Arizona ever buy a business. That means 95%, for whatever reason, don’t. Those are pretty low odds. Why would someone call in unless they were serious about buying a Business For Sale in Arizona? A lot of them are competitors or employees trying to find out who’s selling.</p>
+
+        <p>Here are some other reasons why Buyers have a BAD name and how you, if you are really serious about buying, can avoid any misunderstandings.</p>
+
+        <p>First off, all information about our listings is VERY CONFIDENTIAL!!! If the word gets out that a company is for sale it can really spook the employees and if the competition finds out, they will use this info to their advantage to try and lure customers away. So calling in and asking, Where is the business located? or What is the name of the business? is highly suspect.</p>
+
+        <p>Before I, or any competent&nbsp;Arizona Business Broker, will release detailed information on a listing, you will need to sign a Confidentiality Agreement form a.k.a. a Non-Disclosure Agreement (NDA). The NDA is a promise, signed by you, that you won’t discuss the business with anyone or divulge confidential information to anyone. It does not mean you have to buy the business. It is just to protect our clients. If you are not prepared to sign this form, we will not be able to do business.</p>
+
+        <p>We also request, insist, that you fill out a Buyer Questionnaire Profile form. A lot of our Sellers won’t even consider talking to you unless this form is filled out. The Profile helps all parties concerned see if you are a right fit for the business. A lot of times we may have another listing that may be much better for you or, if we can’t find a match at the time, one could show up in the near future and by having your profile in our records, we can contact you.</p>
+
+        <p>Here is another “Buyer” problem. Some Buyers don’t realize how much cash they are going to need to buy and operate a business. Some just assume they can get a loan to buy the business. Getting an SBA loan is not an easy proposition. To qualify, a Buyer will typically need industry or transferable experience in the type of business they are buying, a 10-20% cash down payment, and great credit. Also, the business they are buying will have to qualify by providing the bank with three years of tax returns to prove the income of the business.</p>
+
+        <p>So when I ask you how much cash you have to invest, don’t be insulted. This is information the Seller and I need to know. In fact, some of my Sellers will not allow me to release info about their business unless I get written proof that a Buyer has the necessary funds to purchase.</p>
+
+        <p>Buying an&nbsp;Arizona Business can be one of your most satisfying transactions ever, but you have to jump thru a few hoops before it will happen. One last thing, please know that just because you inquire about one of my listings, it doesn’t mean that I expect you to buy it. I only expect that you will follow the proper procedures so we can do business together.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. areas-sctn — city links -->
+  <section class="section areas-sctn">
+    <div class="section-wrap">
+      <h3 class="maintitle">Some of the areas we serve</h3>
+      <div class="links-inn">
+        {areaLinks.map((a) => <a href={a.href}>{a.label}</a>)}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Section CSS — verbatim from the live per-page used-CSS
+     (reference/_business-buyers-allcss.css). -->
+<style>
+  /* ---------- 1. title-bar ---------- */
+  .section.title-bar {
+    padding-top: 52px;
+    padding-bottom: 52px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.25);
+    z-index: 2;
+  }
+  .title-bar .maintitle { margin: 0; color: var(--red); text-align: center; }
+
+  /* ---------- 2. cbi-sctn ---------- */
+  .cbi-sctn { padding: 50px 0; background-color: #fff; }
+  .text-col { color: #333; line-height: 1.7; font-size: 16px; }
+  .text-col p { margin-bottom: 20px; }
+  .text-col a { color: var(--primary); text-decoration: underline; font-weight: 600; }
+  .text-col a:hover { color: var(--red); text-decoration: none; }
+
+  /* ---------- 3. areas-sctn ---------- */
+  .areas-sctn { color: var(--primary); padding: 80px 20px; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); }
+  .areas-sctn .maintitle { font-size: clamp(28px, 4vw, 40px); font-family: var(--font-family--h3); display: flex; width: 100%; align-items: center; gap: 20px; font-weight: 400; text-align: center; }
+  .areas-sctn .maintitle:before { content: ''; flex-grow: 1; background: var(--primary); height: 2px; }
+  .areas-sctn .maintitle:after { content: ''; flex-grow: 1; background: var(--primary); height: 2px; }
+  .links-inn { display: flex; flex-wrap: wrap; width: 100%; gap: 20px 5%; justify-content: center; list-style: none; }
+  .links-inn a { color: var(--primary); text-decoration: underline; font-size: 18px; font-weight: 700; }
+  @media (max-width: 800px) {
+    .links-inn { justify-content: center; }
+  }
+</style>

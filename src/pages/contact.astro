@@ -1,0 +1,362 @@
+---
+/* -----------------------------------------------------------------------
+   Contact — faithful clone of https://www.philsellsbiz.com/contact/
+   Markup/copy verbatim from reference/contact-raw.html; section CSS verbatim
+   from the live per-page used-CSS (reference/_contact-allcss.css).
+   3 live sections (DOM order): title-bar · ctc-sctn (contact-inn + CF7 form) ·
+   areas-sctn-2 (maps-inn: titles, area links w/ pin SVGs, mobile-only image).
+   Form: live CF7 field names preserved (your-name-bt / your-email-bt /
+   your-phone-bt / your-message-bt / bst-way-bt) → /api/contact via the shared
+   contact-form.ts handler. Honeypot + data-pr-contact-form + data-form-id="contact".
+   Submit is a <button> (lets the shared handler disable it on submit; identical
+   look — same pattern + decision-log row as the homepage form).
+   Live JSON-LD = Yoast @graph (WebPage/ImageObject/BreadcrumbList/WebSite) +
+   standalone FinancialService. Per task spec the page node is ContactPage.
+   Contact-inn surfaces a FAX number (623-888-3796) that is page-specific (not a
+   reusable NAP value) — kept verbatim here; FLAGGED in the build report.
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL, contact, hrefs, replyMethods } from "../config/site";
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+
+/* Live <title> + meta description, verbatim from reference/contact-raw.html */
+const pageTitle = "Contact Business Broker Phil Reese";
+const pageDescription =
+  "Contact Phil Reese today! 14350 N. 87th St., Ste. 180Scottsdale, AZ 85260";
+
+/* Live page's real og:image = its own primary image (downloaded → local). */
+const ogImage = `${SITE_URL}/images/contact/og-contact.jpg`;
+
+/* Page-specific fax (only appears on this page; not part of the reusable NAP). */
+const faxDisplay = "623-888-3796";
+const faxTel = "tel:+16238883796";
+
+/* ---------- Page JSON-LD (Layout already injects LocalBusiness + WebSite) ---------- */
+/* Live Yoast types the page node WebPage — kept verbatim for @type parity. */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/contact/`,
+  url: `${SITE_URL}/contact/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  about: { "@id": `${SITE_URL}/` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/contact/#primaryimage` },
+  image: { "@id": `${SITE_URL}/contact/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2014-11-28T22:06:58+00:00",
+  dateModified: "2026-06-02T19:24:16+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/contact/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/contact/`] }],
+};
+
+/* Task spec: /contact/ → ContactPage. Added as a distinct node so the live
+   WebPage @type parity is preserved while the page also self-identifies as a
+   ContactPage (richer than live's bare WebPage). */
+const contactPageSchema = {
+  "@type": "ContactPage",
+  "@id": `${SITE_URL}/contact/#contactpage`,
+  url: `${SITE_URL}/contact/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  about: { "@id": `${SITE_URL}/` },
+  inLanguage: "en-US",
+};
+
+/* Primary image (Yoast #primaryimage), verbatim caption from live. */
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/contact/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+  caption:
+    "Your privacy is always important. Your information will not be shared, sold or exchanged with anyone else.",
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/contact/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Contact Phil for Your Free Confidential Valuation" },
+  ],
+};
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema, contactPageSchema],
+  },
+  financialServiceSchema,
+];
+
+/* ---------- areas-sctn-2 city links (with pin SVG, verbatim) ---------- */
+const areaLinks = [
+  { href: "/glendale-business-broker/", label: "Glendale Business Broker" },
+  { href: "/paradise-valley-business-broker/", label: "Paradise Valley Business Broker" },
+  { href: "/queen-creek-business-broker/", label: "Queen Creek Business Broker" },
+  { href: "/mesa-business-broker/", label: "Mesa Business Broker" },
+  { href: "/peoria-business-broker/", label: "Peoria Business Broker" },
+  { href: "/tempe-business-broker/", label: "Tempe Business Broker" },
+];
+
+/* Map-pin SVG used before each area link (verbatim from live). */
+const pinSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="12.988" height="15.874" viewBox="0 0 12.988 15.874"><g id="Layer_2" data-name="Layer 2" transform="translate(-3.001 -0.999)"><path id="Trazado_12" data-name="Trazado 12" d="M13.62,2.478A6.492,6.492,0,1,0,5.542,12.64a11,11,0,0,1,2.829,3.043l.505.84a.722.722,0,0,0,1.237,0l.484-.807a9.178,9.178,0,0,1,2.582-2.886,6.487,6.487,0,0,0,.442-10.355Zm-4.126,7.9A2.886,2.886,0,1,1,12.38,7.493,2.886,2.886,0,0,1,9.494,10.38Z" transform="translate(0 0)" fill="#2f0004"/></g></svg>`;
+
+/* Contact-link icons (smartphone / fax / mail), verbatim from live. */
+const phoneSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="8.944" height="15.793" viewBox="0 0 8.944 15.793"><g id="smartphone" transform="translate(-6.87)"><path id="Trazado_11" data-name="Trazado 11" d="M14.664,0H8.019A1.149,1.149,0,0,0,6.87,1.151V14.644a1.149,1.149,0,0,0,1.149,1.149h6.645a1.151,1.151,0,0,0,1.15-1.149V1.151A1.151,1.151,0,0,0,14.664,0Zm.288,12.8H7.732V1.941h7.22ZM12.882,1.168H9.8V.832h3.081v.336ZM14.2,1.014A.295.295,0,1,1,13.906.72.295.295,0,0,1,14.2,1.014ZM12.744,14.567H9.938V13.7h2.806Z" fill="#6d1d12"/></g></svg>`;
+const faxSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><g id="Fax" transform="translate(-1 -1)"><path id="Trazado_7" data-name="Trazado 7" d="M26,3.13H24.783a.914.914,0,0,1-.913-.913V1H19.609A.609.609,0,0,0,19,1.609V4.652h7Z" transform="translate(-12.522)" fill="#6d1d12"/><path id="Trazado_8" data-name="Trazado 8" d="M37.3,2.522h1.217L37,1V2.217A.3.3,0,0,0,37.3,2.522Z" transform="translate(-25.043)" fill="#6d1d12"/><rect id="Rectángulo_18" data-name="Rectángulo 18" width="2.429" height="8.501" rx="1.214" transform="translate(2.856 4.643)" fill="#6d1d12"/><path id="Trazado_9" data-name="Trazado 9" d="M22,21h5.783v1.217H22Z" transform="translate(-14.609 -13.913)" fill="#6d1d12"/><path id="Trazado_10" data-name="Trazado 10" d="M14.087,15H5.87v7.609a1.219,1.219,0,0,1-1.217,1.217H3.13a1.219,1.219,0,0,1-1.217-1.217V15A.914.914,0,0,0,1,15.913v7.913a.914.914,0,0,0,.913.913H14.087A.914.914,0,0,0,15,23.826V15.913A.914.914,0,0,0,14.087,15ZM8.3,23.217H6.783V22H8.3Zm0-2.435H6.783V19.565H8.3Zm2.739,2.435H9.522V22h1.522Zm0-2.435H9.522V19.565h1.522Zm2.739,2.435H12.261V22h1.522Zm0-2.435H12.261V19.565h1.522Zm0-2.435a.3.3,0,0,1-.3.3H7.087a.3.3,0,0,1-.3-.3V16.522a.3.3,0,0,1,.3-.3h6.391a.3.3,0,0,1,.3.3Z" transform="translate(0 -9.739)" fill="#6d1d12"/></g></svg>`;
+const mailSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="14.342" height="10.084" viewBox="0 0 14.342 10.084"><g id="mail" transform="translate(0 -76)"><g id="Grupo_2" data-name="Grupo 2" transform="translate(9.866 76.72)"><g id="Grupo_1" data-name="Grupo 1"><path id="Trazado_1" data-name="Trazado 1" d="M356.56,101.721l-4.349,4.321,4.349,4.321a1.246,1.246,0,0,0,.126-.54v-7.563A1.246,1.246,0,0,0,356.56,101.721Z" transform="translate(-352.211 -101.721)" fill="#6d1d12"/></g></g><g id="Grupo_4" data-name="Grupo 4" transform="translate(0.72 76)"><g id="Grupo_3" data-name="Grupo 3"><path id="Trazado_2" data-name="Trazado 2" d="M38.082,76H26.261a1.246,1.246,0,0,0-.54.126l5.559,5.531a1.262,1.262,0,0,0,1.782,0l5.559-5.531A1.246,1.246,0,0,0,38.082,76Z" transform="translate(-25.721 -76)" fill="#6d1d12"/></g></g><g id="Grupo_6" data-name="Grupo 6" transform="translate(0 76.72)"><g id="Grupo_5" data-name="Grupo 5"><path id="Trazado_3" data-name="Trazado 3" d="M.126,101.721a1.246,1.246,0,0,0-.126.54v7.563a1.246,1.246,0,0,0,.126.54l4.349-4.321Z" transform="translate(0 -101.721)" fill="#6d1d12"/></g></g><g id="Grupo_8" data-name="Grupo 8" transform="translate(0.72 81.636)"><g id="Grupo_7" data-name="Grupo 7"><path id="Trazado_4" data-name="Trazado 4" d="M34.272,277.211l-.615.615a2.1,2.1,0,0,1-2.971,0l-.615-.615-4.349,4.321a1.246,1.246,0,0,0,.54.126H38.082a1.246,1.246,0,0,0,.54-.126Z" transform="translate(-25.721 -277.211)" fill="#6d1d12"/></g></g></g></svg>`;
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/contact/"
+  ogImage={ogImage}
+  ogImageAlt="Contact Phil Reese"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
+>
+  <!-- 1. title-bar -->
+  <section class="section title-bar">
+    <div class="section-wrap">
+      <h1 class="maintitle h1-style">Contact Phil for Your Free Confidential Valuation</h1>
+    </div>
+  </section>
+
+  <!-- 2. ctc-sctn — contact info + CF7 form -->
+  <section class="section ctc-sctn">
+    <div class="section-wrap">
+      <div class="contact-inn">
+        <h2 class="h4-style subtitle">Hours of Operation</h2>
+        <p><b>Monday- Friday</b> | 8:00 AM &#8211; 6:00 PM</p>
+        <p><b>Saturday</b> | 8:00 A.M &#8211; 12:00 P.M</p>
+
+        <div class="ctc-info">
+          <h3 class="h4-style subtitle">Contact Information</h3>
+          <a class="ctc-link" href={hrefs.tel}><Fragment set:html={phoneSvg} /> <span>{contact.phoneDashed}</span></a>
+          <a class="ctc-link" href={faxTel}><Fragment set:html={faxSvg} /> <span>{faxDisplay}</span></a>
+          <a class="ctc-link" href={hrefs.mailto}><Fragment set:html={mailSvg} /> <span><span>{contact.email}</span></span></a>
+        </div>
+        <p class="sub-text">Your privacy is always important. Your information will not be shared, sold or exchanged with anyone else.</p>
+      </div>
+
+      <div class="one-col form-col">
+        <div class="wpcf7">
+          <form
+            class="wpcf7-form init"
+            action="/api/contact"
+            method="post"
+            aria-label="Contact form"
+            data-pr-contact-form
+            data-form-id="contact"
+          >
+            <!-- Honeypot — bots fill it, /api/contact silently drops those -->
+            <input
+              type="text"
+              name="_honeypot"
+              value=""
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              class="pr-hp"
+            />
+            <div class="bottom-form">
+              <div class="col-1">
+                <label for="first-name-bt">Name</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="text" name="your-name-bt" id="first-name-bt" class="wpcf7-form-control wpcf7-text" maxlength="400" placeholder="Name*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-2">
+                <label for="your-email-bt">Email</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="email" name="your-email-bt" id="your-email-bt" class="wpcf7-form-control wpcf7-email wpcf7-text" maxlength="400" placeholder="Email*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-3">
+                <label for="your-phone-bt">Phone</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="tel" name="your-phone-bt" id="your-phone-bt" class="wpcf7-form-control wpcf7-tel wpcf7-text" maxlength="400" placeholder="Phone" />
+                </span>
+              </div>
+              <div class="col-4">
+                <label for="your-message-bt">Your Message*</label>
+                <span class="wpcf7-form-control-wrap">
+                  <textarea name="your-message-bt" id="your-message-bt" class="wpcf7-form-control wpcf7-textarea" cols="40" rows="10" maxlength="2000" minlength="20" placeholder="Your Message*" required aria-required="true"></textarea>
+                </span>
+              </div>
+              <div class="col-5">
+                <div class="bst-way">
+                  <label>Best Way to Reply:</label>
+                  <span class="wpcf7-form-control-wrap">
+                    <span class="wpcf7-form-control wpcf7-radio">
+                      {replyMethods.map((method, i) => (
+                        <span class={`wpcf7-list-item${i === 0 ? " first" : ""}${i === replyMethods.length - 1 ? " last" : ""}`}>
+                          <label>
+                            <input type="radio" name="bst-way-bt" value={method} checked={i === 0} />
+                            <span class="wpcf7-list-item-label">{method}</span>
+                          </label>
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </div>
+                <button type="submit" class="wpcf7-form-control wpcf7-submit">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. areas-sctn-2 — maps band (desktop bg img via CSS; mobile-only inline img) -->
+  <section class="section areas-sctn-2">
+    <div class="section-wrap">
+      <div class="maps-inn">
+        <h2 class="maintitle h3-style">Serving All of the Phoenix Metro Area</h2>
+        <h3 class="subtitle h4-style">Multiple Offices to Serve You</h3>
+        <h4 class="subtitle-2 h5-style">Some Of The Areas We Serve</h4>
+        <hr />
+
+        <div class="links-inn">
+          {areaLinks.map((a) => (
+            <a href={a.href}><Fragment set:html={pinSvg} /> {a.label}</a>
+          ))}
+        </div>
+        <div class="only-mob maps-image">
+          <img
+            fetchpriority="high"
+            decoding="async"
+            src="/images/contact/maps-background-mobile.jpg"
+            alt=""
+            width="868"
+            height="638"
+            class="alignnone size-full"
+            srcset="/images/contact/maps-background-mobile.jpg 868w, /images/contact/maps-background-mobile-300x221.jpg 300w, /images/contact/maps-background-mobile-768x564.jpg 768w"
+            sizes="(max-width: 868px) 100vw, 868px"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Section CSS — verbatim from the live per-page used-CSS (reference/_contact-allcss.css).
+     is:global because the SVG icons arrive via set:html (no Astro scope hash). -->
+<style is:global>
+  /* ---------- 1. title-bar ---------- */
+  .section.title-bar {
+    padding-top: 52px;
+    padding-bottom: 52px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.25);
+    z-index: 2;
+  }
+  .title-bar .maintitle { margin: 0; color: var(--red); text-align: center; }
+
+  /* ---------- 2. ctc-sctn ---------- */
+  .ctc-sctn { padding-top: 100px; padding-bottom: 100px; background-color: var(--secondary); }
+  .ctc-sctn .section-wrap { justify-content: space-between; }
+  .ctc-sctn .one-col { background: #ffffffc9; padding: 30px 40px; border-radius: 22px; }
+  .ctc-sctn .one-col .maintitle { margin: 0; color: var(--red); font-size: clamp(30px, 3vw, 50px); max-width: 574px; text-align: center; }
+  .ctc-sctn .one-col .wpcf7 { max-width: none; }
+  .ctc-sctn .one-col form.wpcf7-form { display: flex; flex-wrap: wrap; }
+  .ctc-sctn .one-col hr { width: 100%; height: 4px; background: var(--primary); margin-bottom: 29px; border: 0; }
+  .ctc-sctn .contact-inn { background: rgba(255, 255, 255, .84); padding: 30px; display: flex; flex-direction: column; width: 30%; border-radius: 8px; gap: 5px; }
+  .ctc-sctn .one-col.form-col { width: calc(70% - 40px); border-radius: 8px; background: rgba(255, 255, 255, .84); }
+  .ctc-sctn .contact-inn .subtitle { margin-bottom: 5px; font-size: 21px; color: var(--red); }
+  .ctc-sctn .contact-inn p { margin: 0; }
+  .ctc-info { display: flex; flex-direction: column; margin: 20px 0; gap: 10px; }
+  .ctc-sctn .contact-inn .sub-text { color: var(--red); font-size: 13px; font-family: var(--font-family--h4); font-weight: 700; }
+  .ctc-link { display: flex; gap: 10px; align-items: center; }
+  .ctc-link > svg { width: 16px; }
+  .ctc-link span, .ctc-sctn .contact-inn p { color: var(--secondary); }
+  @media (max-width: 800px) {
+    .ctc-sctn .contact-inn { width: 100%; order: 1; max-width: 473px; text-align: center; margin: 35px auto 0; }
+    .ctc-sctn .one-col.form-col { width: 100%; }
+    .ctc-link { justify-content: center; }
+  }
+  @media (max-width: 500px) {
+    section.section.ctc-sctn { padding-top: 40px; padding-bottom: 40px; }
+    .ctc-sctn .one-col { padding: 30px 20px; }
+    .ctc-sctn .one-col .wpcf7 { max-width: 100%; }
+    .ctc-sctn .one-col .maintitle { font-size: 26px; }
+  }
+
+  /* ---------- 2b. bottom-form (shared CF7 styles, verbatim from live) ---------- */
+  .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+  .bottom-form input:not([type=submit]) { background-color: transparent; border: none; border-bottom: 2px solid var(--primary); max-width: 100%; width: 100%; min-height: 43px; min-width: 13px; }
+  .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; border-bottom: 2px solid var(--primary); min-height: 98px; background-color: var(--white); }
+  .ctc-sctn .bottom-form textarea { background: #3104071c; height: 150px; }
+  .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
+  .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .bottom-form .col-4 { width: 100%; }
+  .bottom-form .col-4 .wpcf7-form-control-wrap, .bottom-form .col-5 .wpcf7-form-control-wrap { width: 100%; }
+  .bottom-form .col-5 { display: flex; justify-content: space-between; position: relative; text-align: left; width: 100%; gap: 4px; align-items: center; }
+  .bottom-form .col-5 .wpcf7-list-item.first { margin-left: 0; }
+  .bottom-form .col-5 .wpcf7-list-item-label { font-size: 14px; }
+  .bottom-form .col-5 .bst-way > label { width: 100%; display: block; }
+  .bottom-form .wpcf7-list-item { margin-left: 4px; }
+  .bottom-form .wpcf7-list-item label { display: flex; align-items: center; }
+  .bottom-form .wpcf7-radio { display: flex; gap: 8px; }
+  .bottom-form .bst-way { color: var(--red); text-transform: uppercase; font-weight: 600; display: flex; gap: 12px; align-items: center; }
+  .bottom-form input::placeholder, .ctc-sctn .bottom-form textarea::placeholder { color: #000; }
+  /* Live styles input[type=submit]; we use a <button> so the shared handler can
+     disable it during submit — same selectors, same look. */
+  .bottom-form input[type=submit], .bottom-form button[type=submit] { border: 0; color: #fff; padding: 10px 20px; border-radius: 8px; width: 100%; max-width: 180px; background-color: var(--primary); font-weight: 700; text-transform: uppercase; min-width: fit-content; cursor: pointer; }
+  .bottom-form input[type=submit]:hover, .bottom-form button[type=submit]:hover { background-color: var(--primary); }
+  @media (max-width: 600px) {
+    .bottom-form .col-5 { flex-direction: column; text-align: center; }
+    .bottom-form .wpcf7-radio { justify-content: center; }
+    .bottom-form input[type=submit], .bottom-form button[type=submit] { width: 100%; }
+    .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: 100%; }
+    .bottom-form .bst-way { gap: 4px; flex-direction: column; align-items: center; }
+  }
+
+  /* ---------- 3. areas-sctn-2 ---------- */
+  .areas-sctn-2 { padding-top: 100px; padding-bottom: 100px; height: 600px; }
+  .areas-sctn-2 .section-wrap { align-items: center; }
+  .maps-inn { width: 54%; margin-right: auto; }
+  .maps-inn .maintitle { margin-bottom: 0; font-size: clamp(30px, 4vw, 55px); color: var(--primary); }
+  .maps-inn .subtitle { font-family: var(--font-family--body); font-weight: 400; margin-bottom: 60px; }
+  .maps-inn .subtitle-2 { margin-bottom: 0; font-family: var(--font-family--body); font-weight: 400; color: var(--primary); }
+  .maps-inn hr { color: var(--primary); height: 2px; background: var(--primary); border: 0; margin-bottom: 24px; }
+  .maps-inn .links-inn { gap: 20px 5px; justify-content: flex-start; }
+  .maps-inn .links-inn a { text-decoration: none; font-size: 13px; width: calc(33.33% - 4px); display: flex; gap: 5px; color: var(--primary); font-weight: 700; }
+  @media (min-width: 801px) {
+    .areas-sctn-2 { background-image: url('/images/contact/maps-background.jpg'); background-size: cover; }
+    .only-mob { display: none; }
+  }
+  @media (max-width: 1440px) { .areas-sctn-2 { background-position: 25%; } }
+  @media (max-width: 1024px) { .areas-sctn-2 { background-position: 62%; } }
+  @media (max-width: 800px) {
+    .areas-sctn-2 { height: auto; padding-top: 50px; padding-bottom: 50px; }
+    .maps-inn { width: 100%; text-align: center; }
+    .maps-inn .maps-image { max-width: 500px; margin: 44px auto 0; }
+  }
+  @media (max-width: 500px) {
+    .maps-inn .links-inn a { text-align: left; width: calc(50% - 4px); }
+  }
+
+  /* links-inn base (shared) */
+  .links-inn { display: flex; flex-wrap: wrap; width: 100%; gap: 20px 5%; justify-content: center; list-style: none; }
+  .links-inn a { color: var(--primary); text-decoration: underline; font-size: 18px; font-weight: 700; }
+  @media (max-width: 800px) { .links-inn { justify-content: center; } }
+
+  /* Honeypot — visually removed, still in the DOM for bots */
+  .pr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+  /* Status banner appended by src/scripts/contact-form.ts */
+  .pr-form-banner { width: 100%; margin-top: 14px; font-weight: 600; font-family: var(--font-family--h4); }
+  .pr-form-banner[data-state="success"] { color: var(--primary); }
+  .pr-form-banner[data-state="error"] { color: var(--red); }
+</style>
