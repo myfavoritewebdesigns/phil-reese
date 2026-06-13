@@ -41,7 +41,6 @@ const canonicalUrl = canonical
 // Global Organization schema — appears on every page.
 // TODO: fill in accurate schema fields for this client.
 const orgSchema = {
-  "@context": "https://schema.org",
   "@type": "LocalBusiness",            // TODO: change to ProfessionalService, Store, etc.
   "@id": `${SITE_URL}/`,
   url: `${SITE_URL}/`,
@@ -60,16 +59,38 @@ const orgSchema = {
 };
 
 const siteSchema = {
-  "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   url: `${SITE_URL}/`,
   name: SITE_NAME,
   publisher: { "@id": `${SITE_URL}/` },
+  // Live (Yoast) emits a SearchAction on every page's WebSite node — kept for
+  // JSON-LD parity (live-diff audit checks @type presence).
+  potentialAction: [
+    {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/?s={search_term_string}`,
+      },
+      "query-input": {
+        "@type": "PropertyValueSpecification",
+        valueRequired: true,
+        valueName: "search_term_string",
+      },
+    },
+  ],
   inLanguage: "en-US",
 };
 
-const allSchemas: Record<string, unknown>[] = [orgSchema, siteSchema];
+// Emit the global schemas Yoast-style — one script with an @graph (matches
+// how the live WP site structures its sitewide schema).
+const globalSchemaGraph: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@graph": [orgSchema, siteSchema],
+};
+
+const allSchemas: Record<string, unknown>[] = [globalSchemaGraph];
 if (structuredData) {
   if (Array.isArray(structuredData)) allSchemas.push(...structuredData);
   else allSchemas.push(structuredData);

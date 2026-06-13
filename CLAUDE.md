@@ -913,7 +913,11 @@ Living record of intentional design choices that deviate from the live site or f
 
 | Date | Page / Area | Decision | Why |
 |---|---|---|---|
-| — | — | (populate as you build) | — |
+| 2026-06 | Fidelity policy (Josh, kickoff) | Nav/main pages = 100% faithful; city/landing pages = "close enough"; blog = relaxed | Josh's direction 2026-06-12. Per-page fidelity bar, not uniform. |
+| 2026-06 | Header | Text/SMS link wired to the real number (480-707-7721) | Live's `sms:+12223334444` is a dev-placeholder bug. Fixed per rule #1. CONFIRM w/ Josh he wants it corrected (not preserved). |
+| 2026-06 | Homepage — video | `lite-youtube` (CDN) instead of the live `wp-youtube-lyte` | Playbook lite-youtube pattern; visually equivalent click-to-load, no heavy iframe. |
+| 2026-06 | Homepage — contact form | Submit is `<button>` not live's `<input type="submit">` | Lets the shared `contact-form.ts` disable it on submit; CSS covers both, identical look. Honeypot + `data-form-id="home"` wired. |
+| 2026-06 | Homepage — schema | Replicated live FinancialService JSON-LD verbatim, INCLUDING the malformed `@id` `https://www.philsellsbiz/#Phoenix` typo | Faithful clone. FLAGGED to Josh as a live-site bug to fix at source (then update ours). |
 
 ### Template-level lessons learned (from earlier projects)
 

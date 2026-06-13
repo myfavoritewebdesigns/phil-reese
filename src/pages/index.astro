@@ -1,19 +1,922 @@
 ---
+/* -----------------------------------------------------------------------
+   Homepage — faithful clone of https://www.philsellsbiz.com/
+   Spec: reference/_home-extract.md (10 sections, DOM order).
+   Markup/copy verbatim from reference/home-raw.html; section CSS verbatim
+   from the live WP-Rocket used-CSS (reference/_css-wpr-usedcss.css).
+   Notes:
+   - No photo hero on this page — the "hero" is the light #f9f9f9 banner-sctn.
+   - Video uses the lite-youtube CDN pattern (replaces live wp-youtube-lyte).
+   - Map iframes replicate live's lazy pattern (src=about:blank +
+     data-lazy-src, swapped in by the IntersectionObserver script below).
+   - CF7 form rebuilt with the live field names (your-name-bt, your-email-bt,
+     your-phone-bt, your-message-bt, bst-way-bt) → /api/contact via the
+     shared contact-form.ts handler.
+   ----------------------------------------------------------------------- */
 import Layout from "../layouts/Layout.astro";
-// TODO: Import and compose your homepage sections here.
-// See CLAUDE.md — "Adding a new page" > Archetype A scaffold.
+import { SITE_URL, contact, offices, replyMethods, socialSameAs } from "../config/site";
+import ibbaBadgeSvg from "../../reference/ibba-badge-html.html?raw";
+import googleGLogoSvg from "../../reference/google-g-logo-svg.html?raw";
+import whyIcon1Svg from "../../reference/why-icon-1-business-owner-svg.html?raw";
+import whyIcon2Svg from "../../reference/why-icon-2-mcbi-svg.html?raw";
+import whyIcon4Svg from "../../reference/why-icon-4-valuations-svg.html?raw";
+import whyIcon5Svg from "../../reference/why-icon-5-bbb-svg.html?raw";
+/* Live page's standalone FinancialService schema (3 office nodes), verbatim —
+   extracted from reference/home-raw.html (second ld+json script). */
+import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+
+/* Live <title> + meta description, verbatim from reference/home-raw.html */
+const pageTitle =
+  "Phil Reese, Arizona Business Broker | Offices In Scottsdale & Phoenix";
+const pageDescription =
+  "Sell your business with AZ Business Broker Phil Reese, a local AZ business broker with Offices In Phoenix & Scottsdale.";
+
+const ogImage = `${SITE_URL}/images/home/og-home.jpg`;
+
+/* ---------- Page JSON-LD (Layout already injects LocalBusiness + WebSite) ---------- */
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/#webpage`,
+  url: `${SITE_URL}/`,
+  name: pageTitle,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  primaryImageOfPage: { "@id": `${SITE_URL}/#primaryimage` },
+  image: { "@id": `${SITE_URL}/#primaryimage` },
+  thumbnailUrl: ogImage,
+  datePublished: "2026-03-02T12:43:27+00:00",
+  dateModified: "2026-06-02T21:36:36+00:00",
+  description: pageDescription,
+  breadcrumb: { "@id": `${SITE_URL}/#breadcrumb` },
+  inLanguage: "en-US",
+  potentialAction: [{ "@type": "ReadAction", target: [`${SITE_URL}/`] }],
+};
+
+const primaryImageSchema = {
+  "@type": "ImageObject",
+  inLanguage: "en-US",
+  "@id": `${SITE_URL}/#primaryimage`,
+  url: ogImage,
+  contentUrl: ogImage,
+  width: 1200,
+  height: 1200,
+  caption: `Phil Reese, Arizona Business Broker, Offices In Scottsdale & Phoenix ${SITE_URL}/`,
+};
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/#breadcrumb`,
+  itemListElement: [{ "@type": "ListItem", position: 1, name: "AZ Business Broker" }],
+};
+
+/* Person schema — Phil + every office as a workLocation Place */
+function officePlace(o: (typeof offices)[number]) {
+  const [locality, regionZip = ""] = o.cityLine.split(/,\s*/);
+  const [region = "AZ", postalCode = ""] = regionZip.trim().split(/\s+/);
+  return {
+    "@type": "Place",
+    name: o.title,
+    telephone: o.phone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: o.street.replace(/,$/, ""),
+      addressLocality: locality,
+      addressRegion: region,
+      postalCode,
+      addressCountry: "US",
+    },
+  };
+}
+
+const personSchema = {
+  "@type": "Person",
+  "@id": `${SITE_URL}/#person`,
+  name: "Phil Reese",
+  jobTitle: "Arizona Business Broker",
+  honorificSuffix: "MCBI",
+  description:
+    "Master Certified Business Intermediary (MCBI) and former Ethics Chairman of the Arizona Business Brokers Association (AZBBA), helping Arizona business owners sell their companies since 2001.",
+  url: `${SITE_URL}/`,
+  image: `${SITE_URL}/images/home/phil-reese-portrait.png`,
+  telephone: contact.telDashed,
+  email: contact.email,
+  worksFor: { "@id": `${SITE_URL}/` },
+  sameAs: [...socialSameAs],
+  workLocation: offices.map(officePlace),
+};
+
+/* Yoast-style @graph wrapper (mirrors how live emits its page schema), plus
+   the live page's standalone FinancialService office schema, verbatim. */
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema, personSchema],
+  },
+  financialServiceSchema,
+];
+
+/* ---------- Sold businesses (sold-sctn), verbatim ---------- */
+const soldCols = [
+  {
+    headline: "$31,500,000",
+    type: "Precision Metal Fabricator",
+    items: [
+      "$3,355,000 Auto Body Shop",
+      "$2,700,000 Telecom Company",
+      "$2,700,000 Third Party MVD Office",
+      "$2,450,000 Packaging & Shipping Co.",
+      "$1,865,000 Commercial Property Maint  Co.",
+      "$1,700,000 Architecture Firm",
+      "$1,500,000 Grief Support Co.",
+      "$1,100,000 Showerhead Manufacturer",
+    ],
+  },
+  {
+    headline: "$7,100,000",
+    type: "Landscape Company",
+    items: [
+      "$1,100,000 Sign Manufacturer",
+      "$1,050,000 Magazine Publisher",
+      "$1,000,000 Auto Glass Products",
+      "$963,000 High-End Wig Boutique",
+      "$950,000 Pharmacy",
+      "$900,000 Fire Equipment Company",
+      "$880,000 Construction Clean Up",
+      "$861,500 Truck Accessories Retailer",
+    ],
+  },
+  {
+    headline: "$3,720,000",
+    type: "Grocery Store",
+    items: [
+      "$850,000 HVAC Company",
+      "$810,000 Electrical Contractor",
+      "$800,000 Party & Event Rental Co.",
+      "$750,000 Niche Wood Product Co.",
+      "$675,000 Landscape Company",
+      "$535,000 Cabinet Manufacturer",
+      "$500,000 Metal Manufacturing Company",
+      "$499,000 Scale Dealer/Calibration Lab",
+    ],
+  },
+];
+
+/* ---------- Mobile steps (infogrhp-sctn ≤500px), verbatim ---------- */
+const sptDividerSvg = `<svg id="spt-dt" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 171.76 41.56"><polygon class="st0" points="2 41.56 0 41.56 0 28.96 169.76 9.06 169.76 0 171.76 0 171.76 10.84 2 30.74 2 41.56"/></svg>`;
+
+/* ---------- Map columns (map-sctn) ----------
+   Office titles/landing-page hrefs come from site.ts; the embed / View Map /
+   Get Directions URLs below are the map-sctn's own (they differ slightly from
+   the footer's — kept verbatim in place per reference/_home-extract.md). */
+const mapCols = [
+  {
+    office: offices[0],
+    embed:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d252854.69177846215!2d-111.91494006759478!3d33.62451456905646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x872b741555a9a769%3A0x777d85f1a062a70!2sPhil%20Reese%2C%20Arizona%20Business%20Broker!5e0!3m2!1sen!2spe!4v1773771645825!5m2!1sen!2spe",
+    viewMap: "https://maps.app.goo.gl/9H9j9Ei951JDmru69",
+    directions:
+      "https://www.google.com/maps/dir//Phil+Reese,+Arizona+Business+Broker,+14350+N+87th+St+%23180,+Scottsdale,+AZ+85260,+United+States/@33.6153927,-111.8973442,17z/data=!3m1!5s0x872b75b01bd95057:0x7a2ef04531ac594d!4m17!1m7!3m6!1s0x872b741555a9a769:0x777d85f1a062a70!2sPhil+Reese,+Arizona+Business+Broker!8m2!3d33.6153883!4d-111.8947693!16s%2Fg%2F11b7qv8nb5!4m8!1m0!1m5!1m1!1s0x872b741555a9a769:0x777d85f1a062a70!2m2!1d-111.8947693!2d33.6153883!3e4?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D",
+  },
+  {
+    office: offices[1],
+    embed:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d179334.6109529341!2d-111.98946367357986!3d33.363724584715875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x872b046f30d349df%3A0xd59527a5c7d15195!2sPhil%20Reese%2C%20Arizona%20Business%20Broker!5e0!3m2!1sen!2spe!4v1773771680939!5m2!1sen!2spe",
+    viewMap: "https://maps.app.goo.gl/K3cK9ofuJs2KTaiV7",
+    directions:
+      "https://www.google.com/maps/dir//Phil+Reese,+Arizona+Business+Broker,+4505+E+Chandler+Blvd+%23170-A,+Phoenix,+AZ+85048,+United+States/@33.3044101,-111.9891255,17z/data=!3m1!5s0x872b046f3a41bcd9:0x60d3951f955fa0dd!4m17!1m7!3m6!1s0x872b046f30d349df:0xd59527a5c7d15195!2sPhil+Reese,+Arizona+Business+Broker!8m2!3d33.3044056!4d-111.9865506!16s%2Fg%2F11c56rbmkz!4m8!1m0!1m5!1m1!1s0x872b046f30d349df:0xd59527a5c7d15195!2m2!1d-111.9865506!2d33.3044056!3e4?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D",
+  },
+  {
+    office: offices[2],
+    embed:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126785.32359175486!2d-111.86428758295082!3d33.379774947667826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x872ba9667a2eb073%3A0x5050683fa73067b5!2sPhil%20Reese%2C%20Arizona%20Business%20Broker!5e0!3m2!1sen!2spe!4v1773771518323!5m2!1sen!2spe",
+    viewMap: "https://maps.app.goo.gl/yQWzAk1gq1yL4qEt6",
+    directions:
+      "https://www.google.com/maps/dir//Phil+Reese,+Arizona+Business+Broker,+1640+S+Stapley+Dr+%23124,+Mesa,+AZ+85204,+United+States/@33.3832129,-111.813173,17z/data=!4m17!1m7!3m6!1s0x872ba9667a2eb073:0x5050683fa73067b5!2sPhil+Reese,+Arizona+Business+Broker!8m2!3d33.3832085!4d-111.8083021!16s%2Fg%2F11n414kh8q!4m8!1m0!1m5!1m1!1s0x872ba9667a2eb073:0x5050683fa73067b5!2m2!1d-111.8083021!2d33.3832085!3e4?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D",
+  },
+  {
+    office: offices[3],
+    /* Live renders this office's heading with a <br> ("Phoenix <br>Business Broker") */
+    titleBreak: true,
+    embed:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d252976.70164133824!2d-112.16530657552893!3d33.5815996356273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x872b6fd570785e0f%3A0xf98213e260568250!2sPhoenix%20Business%20Broker!5e0!3m2!1sen!2spe!4v1774302238563!5m2!1sen!2spe",
+    viewMap: "https://maps.app.goo.gl/ZJnXdtEL4YGrsRMW7",
+    directions:
+      "https://www.google.com/maps/dir//Phoenix+Business+Broker,+2355+E+Utopia+Rd+Ste+%23100,+Phoenix,+AZ+85027,+United+States/@33.6613627,-112.1102261,17z/data=!3m1!5s0x872b6f1088324ec5:0x2e8959271a1be8bf!4m17!1m7!3m6!1s0x872b6fd570785e0f:0xf98213e260568250!2sPhoenix+Business+Broker!8m2!3d33.6613627!4d-112.1102261!16s%2Fg%2F11vs1wf380!4m8!1m0!1m5!1m1!1s0x872b6fd570785e0f:0xf98213e260568250!2m2!1d-112.1102261!2d33.6613627!3e4?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D",
+  },
+];
 ---
 
 <Layout
-  title="TODO Site Name | Homepage Tagline"
-  description="TODO: meta description for the homepage."
+  title={pageTitle}
+  description={pageDescription}
   canonical="/"
+  ogImage={ogImage}
+  ogImageAlt="Phil Reese, Arizona Business Broker"
+  ogImageWidth={1200}
+  ogImageHeight={1200}
+  structuredData={structuredData}
 >
-  <section style="padding: 120px 16px 80px; text-align: center; font-family: sans-serif;">
-    <h1 style="font-size: clamp(28px, 4vw, 52px); margin-bottom: 16px;">WP → Astro Template</h1>
-    <p style="font-size: 18px; color: #555; max-width: 600px; margin: 0 auto 32px;">
-      Edit <code>src/pages/index.astro</code> and build out your homepage sections.<br />
-      See <a href="/CLAUDE.md" style="color: #a03a1e;">CLAUDE.md</a> for the full WP→Astro playbook.
-    </p>
+  <!-- lite-youtube web component (paulirish/lite-youtube-embed) — replaces the
+       live site's wp-youtube-lyte lazy embed. Thumbnail + play button render
+       instantly; the YouTube iframe loads only on click. -->
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.css"
+  />
+  <script
+    slot="head"
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.js"
+    defer></script>
+
+  <!-- 1. banner-sctn — light text banner ("hero": no photo on live) -->
+  <section class="section banner-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h1 class="maintitle h1-style">Thinking About Selling Your AZ Business?</h1>
+        <h2 class="subtitle h5-style">Find Out What It’s Really Worth. Confidentially &amp; At No Cost.</h2>
+        <p>I help Arizona business owners sell their companies quietly, at the right time, and for the best possible price. I have over 20 years of experience working directly with business owners. When you work with me, I can assure you there will be no pressure, no gimmicks, and no surprises</p>
+        <h3 class="sbtext h4-style">I Have Personally Closed Over 97 Million Dollars in Business Sales Across 100+ Transactions</h3>
+        <div class="bnr-inn">
+          <div>
+            <Fragment set:html={googleGLogoSvg} />
+            <span class="strs">★★★★★</span>
+          </div>
+          <img src="/images/bbb-accredited.png" alt="BBB Accredited Business A+" width="187" height="47" class="alignnone size-full" />
+        </div>
+        <div class="badgess-inn">
+          <div class="certified-badges">
+            <div class="wth-svg" set:html={ibbaBadgeSvg} />
+            <div><img src="/images/badge-azbba.png" width="74" height="73" alt="AZBBA logo" /></div>
+            <div><img src="/images/badge-cbi.png" alt="CBI Badge" width="164" height="162" class="alignnone size-full" /></div>
+            <div><img src="/images/badge-top1percent-2025.png" alt="" width="70" height="88" class="alignnone size-full" /></div>
+            <div><img src="/images/badge-multimillion-2025.png" alt="" width="80" height="80" class="alignnone size-full" /></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. phil-sctn — Meet Phil -->
+  <section class="section phil-sctn">
+    <div class="section-wrap">
+      <div class="img-col">
+        <img
+          fetchpriority="high"
+          src="/images/home/phil-reese-portrait.png"
+          alt=""
+          width="417"
+          height="588"
+          class="alignnone size-full"
+          srcset="/images/home/phil-reese-portrait.png 417w, /images/home/phil-reese-portrait-213x300.png 213w"
+          sizes="(max-width: 417px) 100vw, 417px"
+        />
+      </div>
+      <div class="txt-col">
+        <h3 class="maintitle h3-style">Phil Reese</h3>
+        <p>Selling a business is personal. I know because I’ve been in your shoes. In 1995, I co-founded First Impression Security Doors out of my garage in Mesa, growing it to a full manufacturing facility in Gilbert with 13 employees before a successful exit in 2001. That company has since grown into Arizona’s largest ornamental iron firm.</p>
+        <p>Today, I use my over 20 years of Business Brokering expertise to help owners navigate their own exits. I am one of only four business brokers in the state to hold the Master Certified Business Intermediary (MCBI) designation. As the former Ethics Chairman for the Arizona Business Brokers Association (AZBBA), I prioritize confidentiality and integrity throughout the whole sales process, ensuring your legacy is protected.</p>
+        <div class="btns btns-alt">
+          <a href="/about/">Learn More About Phil</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. sold-sctn — Businesses sold -->
+  <section class="section sold-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle h3-style">Some of the Businesses I have sold</h3>
+      </div>
+      {soldCols.map((col) => (
+        <div class="sold-col">
+          <h4 class="subtitle h4-style">{col.headline} <span>{col.type}</span></h4>
+          <ul>
+            {col.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 4. infogrhp-sctn — Selling process infographic -->
+  <section class="section infogrhp-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle h3-style">The Process Of Selling Your Arizona Business <span>Step-By-Step</span> </h3>
+        <div class="spt"></div>
+      </div>
+      <a class="desk-imgcol" href="/contact/">
+        <span class="stpone">Step One</span>
+        <img
+          src="/images/home/selling-process-infographic.svg"
+          alt=""
+          width="834"
+          height="875"
+          class="alignnone size-full"
+          loading="lazy"
+          role="img"
+        />
+      </a>
+      <ul class="mob-steps">
+        <li class="stp-box">
+          <p>Step One <br />Contact Phil</p>
+        </li>
+        <li class="stp-box">
+          <p>He’ll Determine the Value of Your Business</p>
+        </li>
+        <li class="spt2" set:html={sptDividerSvg} />
+        <li class="stp-box">
+          <p>List Your Business</p>
+        </li>
+        <li class="stp-box">
+          <p>Go To Market</p>
+        </li>
+        <li class="spt2" set:html={sptDividerSvg} />
+        <li class="stp-box">
+          <p>Screen Business Buyer Candidates</p>
+        </li>
+        <li class="stp-box">
+          <p>Buyer &amp; Seller Meeting</p>
+        </li>
+        <li class="spt2" set:html={sptDividerSvg} />
+        <li class="stp-box">
+          <p>Buyer Makes An Offer</p>
+        </li>
+        <li class="stp-box">
+          <p>Buyer Does Due Diligence</p>
+        </li>
+        <li class="spt2" set:html={sptDividerSvg} />
+        <li class="stp-box">
+          <p>Close on The Sale</p>
+        </li>
+        <li class="stp-box">
+          <p>Buyer Starts the Training Process</p>
+        </li>
+        <li class="stp-box btns btns-alt">
+          <a href="/contact/">Contact Phil</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. vid-sctn — Valuation video -->
+  <section class="section vid-sctn">
+    <div class="section-wrap">
+      <div class="vid-col">
+        <div class="lyte-wrapper" style="width:853px;max-width:100%;margin:5px;">
+          <lite-youtube
+            videoid="ajTOke4_h9A"
+            title="Watch this Video to See How I Go About Determining the Value of Your Business"
+            style="background-image:url('/images/home/video-poster-ajTOke4_h9A.jpg');"
+          >
+            <a href="https://youtu.be/ajTOke4_h9A" class="lite-yt-fallback" rel="nofollow">Watch this video on YouTube</a>
+          </lite-youtube>
+        </div>
+      </div>
+      <div class="titlecol">
+        <h3 class="maintitle h3-style">Watch this Video to See How I Go About Determining the Value of Your Business</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. test-sctn — Testimonials -->
+  <section class="section test-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="subtitle h3-style">Read What My Past Clients Have Said</h3>
+      </div>
+      <div class="google-col">
+        <Fragment set:html={googleGLogoSvg} />
+        <div>
+          <p>Over 60 reviews</p>
+          <span>5.0 <span class="strs">★★★★★</span></span>
+        </div>
+      </div>
+      <div class="main-rvw">
+        <p>Working with Phil Reese was truly an exceptional experience! From the very first consultation to the final closing, Phil went above and beyond to make selling my business smooth, stress-free, and successful. His expertise in the Arizona market is unmatched — he knew exactly how to position my business to attract the right buyers and negotiated a deal that exceeded my expectations.</p>
+        <p>Phil is incredibly professional, responsive, and genuinely cares about his clients. He took the time to answer all my questions, kept me updated every step of the way, and always made me feel like a top priority. His honesty and integrity gave me complete peace of mind throughout the entire process.</p>
+        <p>If you are considering selling or buying a business in Arizona, I cannot recommend Phil Reese enough. He is hands down the best business broker out there — knowledgeable, dedicated, and a true partner you can trust. Thank you, Phil, for helping me achieve my goals and making this such a positive experience!</p>
+        <p class="name">Rickey Woolfolk <span class="strs">★★★★★</span></p>
+        <p class="biz-main">Empower Academy</p>
+        <p><a class="rvw-link" href="https://maps.app.goo.gl/gQ4DHB1MjVPDqCKB9" target="_blank">Reposted from Google</a></p>
+      </div>
+      <div class="rvw-box">
+        <p>Words alone can not describe how professional and knowledgeable Phil is when it comes to selling a business.  After my husband and I decided to sell our company we interviewed Phil and knew right away that he was our guy!!   Being once a business owner himself he knew all of our concerns and questions.  Phil guided us through the entire process from listing, advertising to closing.<br />  Not only did Phil sell our company quicker than we expected he also got us FULL PRICE!!!   Can’t Thank him enough!!!</p>
+        <a class="rvw-link" href="https://maps.app.goo.gl/PravqkfmGsH2HM3d8" target="_blank">Reposted from Google</a>
+        <div class="rvw-bx">
+          <img src="/images/home/avatar-liz-majerczyk.png" alt="" width="72" height="72" class="alignnone size-full" loading="lazy" />
+          <div>
+            <p class="bss-name">Liz Majerczyk</p>
+            <p class="name">Vent Masters</p>
+            <span class="strs">★★★★★</span>
+          </div>
+        </div>
+      </div>
+      <div class="rvw-box">
+        <p>We had owned our business for over 30 years and it was time to sell our business and retire. We were entrusting our life’s work to someone we didn’t know and we were very nervous, therefore, we did a lot of research on brokers as it was imperative that this person be experienced, knowledgeable and reliable.  It  was a complicated process but Phil was determined to get us the best deal possible, regardless of how much time and work was involved.   He worked tirelessly day and night to get it done, and done right; he definitely earned his commission.  We are grateful to Phil for everything he did for us and strongly recommend him to sell your business.</p>
+        <a class="rvw-link" href="https://maps.app.goo.gl/NWEg4mgR83xtb9rn7" target="_blank">Reposted from Google</a>
+        <div class="rvw-bx">
+          <img src="/images/home/avatar-debbie-thompson.png" alt="" width="72" height="72" class="alignnone size-full" loading="lazy" />
+          <div>
+            <p class="bss-name">Debbie Thompson</p>
+            <p class="name">First Impressions Dental Lab</p>
+            <span class="strs">★★★★★</span>
+          </div>
+        </div>
+      </div>
+      <div class="rvw-box">
+        <p>In shopping around for a broker, Phil was the best fit for us. He is a good and kind man, and thoughtful.  He listens and he gets things done.  He was quick to take care of any needs we had and was not surprised when we got our full asking. All aspects of the sale were answered prayer.  We would use him again but retirement looks pretty good!</p>
+        <a class="rvw-link" href="https://maps.app.goo.gl/gWbt8AKWLFNoT63p8" target="_blank">Reposted from Google</a>
+        <div class="rvw-bx">
+          <img src="/images/home/avatar-vicki-hanna.png" alt="" width="72" height="72" class="alignnone size-full" loading="lazy" />
+          <div>
+            <p class="bss-name">Vicki Hanna</p>
+            <p class="name">Hope Through Healing Publications</p>
+            <span class="strs">★★★★★</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. why-sctn — Five reasons -->
+  <section class="section why-sctn">
+    <div class="section-wrap">
+      <div class="col-title">
+        <h3 class="maintitle h3-style">Five of Many Reasons Why You Should Choose Phil Reese to Sell Your Business!</h3>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon1Svg} />
+        <div>
+          <h4 class="subtitle h5-style">Former <br />Business Owner</h4>
+          <p>There’s a difference between studying business and running one, Phil has done both. He has owned and operated several businesses throughout his career. This first-hand experience allows him to represent sellers with true empathy and insight.</p>
+        </div>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon2Svg} />
+        <div>
+          <h4 class="subtitle h5-style">Master Certified Business Intermediary</h4>
+          <p>Phil is one of only four business brokers in Arizona to hold the prestigious MCBI designation from the International Business Brokers Association (IBBA). This elite credential represents the gold standard in business brokerage, ensuring your sale is handled with the highest level of expertise.</p>
+        </div>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why">
+          <img width="83" height="78" src="/images/home/badge-20-years.png" alt="20 years" loading="lazy" />
+        </div>
+        <div>
+          <h4 class="subtitle h5-style">Over 20 Years Experience, Proven Award Winning Agent </h4>
+          <p>Since 2001, Phil has closed over $97M in business sales across 100+ transaction. As a top 1% producer at West USA Realty and a multi-year IBBA Chairman’s Circle award winner, he combines decades of business brokering knowledge with a consistent, proven track record of results.</p>
+        </div>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon4Svg} />
+        <div>
+          <h4 class="subtitle h5-style">Free No-Obligation Valuations</h4>
+          <p>Understanding your business’s true market value is the first step to a successful exit. Phil provides confidential, real-world valuations at no cost. Get an honest assessment of what your business could sell for based on current buyer demand and industry-specific data.</p>
+        </div>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon5Svg} />
+        <div>
+          <h4 class="subtitle h5-style">BBB Member A+Rated</h4>
+          <p>Anyone can claim integrity—very few can prove it. BBB accreditation and an A+ rating reflect a verified track record of trust, ethical business practices, and accountability. Paired with Phil’s experience as former AZBBA Ethics Chairman, it ensures your transaction is handled with integrity, discretion, and unwavering professionalism.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. cta-sctn — WARNING strip -->
+  <section class="section cta-sctn">
+    <div class="section-wrap">
+      <div class="title">
+        <h3 class="maintitle h3-style">WARNING!</h3>
+      </div>
+      <div class="txtbx">
+        <p>Do Not Make These 9 Mistakes When It Comes Time To Sell Your Arizona Business!</p>
+      </div>
+      <div class="btns">
+        <a href="/business-sellers/">Read The List</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. map-sctn — Offices + maps (iframes lazy-swapped like live) -->
+  <section class="section map-sctn">
+    <div class="section-wrap">
+      <div class="titlecol">
+        <h3 class="maintitle h3-style">Serving All of the Phoenix Metro Area</h3>
+        <h4 class="subtitle h5-style">Multiple Offices to Serve You</h4>
+      </div>
+      {mapCols.map(({ office, embed, viewMap, directions, titleBreak }) => (
+        <div class="mapcol">
+          <h3 class="adr-title">
+            <a href={office.href}>
+              {titleBreak ? <Fragment>Phoenix <br />Business Broker</Fragment> : office.title}
+            </a>
+          </h3>
+          <iframe
+            src="about:blank"
+            data-lazy-src={embed}
+            width="600"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title={`Google Map — ${office.title}, ${office.cityLine}`}
+          ></iframe>
+          <div class="btns btns-alt">
+            <a href={viewMap} target="_blank" rel="noopener">View Map</a>
+            <a href={directions} target="_blank" rel="noopener">Get Directions</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 10. ctc-sctn — Contact form (CF7 field names preserved → /api/contact) -->
+  <section class="section ctc-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h3 class="maintitle h3-style">Contact Phil for Your Free Confidential Valuation</h3>
+        <hr />
+        <div class="wpcf7">
+          <form
+            class="wpcf7-form"
+            action="/api/contact"
+            method="post"
+            aria-label="Contact form"
+            data-pr-contact-form
+            data-form-id="home"
+          >
+            <!-- Honeypot — bots fill it, /api/contact silently drops those -->
+            <input
+              type="text"
+              name="_honeypot"
+              value=""
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              class="pr-hp"
+            />
+            <div class="bottom-form">
+              <div class="col-1">
+                <label for="first-name-bt">Name</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="text" name="your-name-bt" id="first-name-bt" class="wpcf7-form-control wpcf7-text" maxlength="400" placeholder="Name*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-2">
+                <label for="your-email-bt">Email</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="email" name="your-email-bt" id="your-email-bt" class="wpcf7-form-control wpcf7-email wpcf7-text" maxlength="400" placeholder="Email*" required aria-required="true" />
+                </span>
+              </div>
+              <div class="col-3">
+                <label for="your-phone-bt">Phone</label>
+                <span class="wpcf7-form-control-wrap">
+                  <input type="tel" name="your-phone-bt" id="your-phone-bt" class="wpcf7-form-control wpcf7-tel wpcf7-text" maxlength="400" placeholder="Phone" />
+                </span>
+              </div>
+              <div class="col-4">
+                <label for="your-message-bt">Your Message*</label>
+                <span class="wpcf7-form-control-wrap">
+                  <textarea name="your-message-bt" id="your-message-bt" class="wpcf7-form-control wpcf7-textarea" cols="40" rows="10" maxlength="2000" minlength="20" placeholder="Your Message*" required aria-required="true"></textarea>
+                </span>
+              </div>
+              <div class="col-5">
+                <div class="bst-way">
+                  <label>Best Way to Reply:</label>
+                  <span class="wpcf7-form-control-wrap">
+                    <span class="wpcf7-form-control wpcf7-radio">
+                      {replyMethods.map((method, i) => (
+                        <span class={`wpcf7-list-item${i === 0 ? " first" : ""}${i === replyMethods.length - 1 ? " last" : ""}`}>
+                          <label>
+                            <input type="radio" name="bst-way-bt" value={method} checked={i === 0} />
+                            <span class="wpcf7-list-item-label">{method}</span>
+                          </label>
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </div>
+                <button type="submit" class="wpcf7-form-control wpcf7-submit">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </section>
 </Layout>
+
+<!-- Lazy-load the Google Maps embeds the same way live (WP Rocket) does:
+     iframes start at about:blank, swap in data-lazy-src when scrolled near. -->
+<script is:inline>
+  (function () {
+    var frames = document.querySelectorAll("iframe[data-lazy-src]");
+    if (!frames.length) return;
+    function load(frame) {
+      if (frame.dataset.loaded) return;
+      frame.dataset.loaded = "1";
+      frame.src = frame.dataset.lazySrc;
+    }
+    if (!("IntersectionObserver" in window)) {
+      frames.forEach(load);
+      return;
+    }
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            load(entry.target);
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "400px 0px" }
+    );
+    frames.forEach(function (f) { io.observe(f); });
+  })();
+</script>
+
+<!-- Section CSS — copied verbatim from the live used-CSS
+     (reference/_css-wpr-usedcss.css). is:global because the SVG icons and
+     badge markup arrive via set:html (no Astro scope hash on those nodes). -->
+<style is:global>
+  /* ---------- 1. banner-sctn ---------- */
+  .banner-sctn { padding-top: 80px; padding-bottom: 80px; background: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); }
+  .banner-sctn .maintitle { text-transform: uppercase; font-weight: 500; color: var(--primary); font-size: clamp(34px, 4vw, 54px); }
+  .banner-sctn .one-col { text-align: center; }
+  .banner-sctn .subtitle { color: var(--primary); font-weight: 400; font-size: 30px; }
+  .banner-sctn .sbtext { color: var(--primary); font-size: 23px; }
+  .banner-sctn .sbtext span { display: block; }
+  .banner-sctn .one-col > p { max-width: 800px; text-align: justify; }
+  .banner-sctn .bnr-inn { display: flex; gap: 29px; width: 100%; justify-content: center; }
+  .banner-sctn .bnr-inn > div { display: flex; align-items: center; gap: 10px; }
+  .banner-sctn .bnr-inn > div .strs { font-size: 25px; }
+  .banner-sctn .bnr-inn > div svg { width: 114px; height: auto; }
+  .banner-sctn .certified-badges { padding: 0; }
+  @media (min-width: 1025px) {
+    .banner-sctn .certified-badges { display: none; }
+  }
+  @media (max-width: 700px) {
+    .banner-sctn .bnr-inn { flex-wrap: wrap; }
+  }
+  @media (max-width: 500px) {
+    .banner-sctn { padding-bottom: 40px; padding-left: 20px; padding-right: 20px; box-shadow: none; }
+    .banner-sctn .subtitle { font-size: 26px; margin-bottom: 0; }
+    .banner-sctn .bnr-inn { gap: 18px; align-items: center; }
+    .banner-sctn .bnr-inn > div { flex-direction: column; gap: 0; width: 40%; max-width: 79px; }
+    .banner-sctn .bnr-inn > img { width: 40%; height: auto; max-width: 150px; }
+    .banner-sctn .bnr-inn > div svg { max-width: 100%; }
+    .banner-sctn .bnr-inn > div .strs { font-size: 15px; }
+    .badgess-inn { box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); padding: 20px; min-width: 100vw; margin-top: 30px; }
+  }
+  @media (max-width: 400px) {
+    section.section.banner-sctn { padding-top: 45px; }
+  }
+
+  /* ---------- 2. phil-sctn ---------- */
+  .phil-sctn { padding-top: 80px; }
+  .phil-sctn .txt-col { width: 63%; }
+  .phil-sctn .img-col { display: flex; padding-right: 48px; width: 37%; }
+  .phil-sctn .section-wrap { align-items: center; }
+  .phil-sctn .maintitle { margin-bottom: 0; color: var(--red); font-size: clamp(30px, 3vw, 50px); }
+  .phil-sctn .btns.btns-alt { margin-top: 60px; }
+  .phil-sctn .txt-col p { font-size: 18px; }
+  @media (min-width: 1025px) {
+    .phil-sctn .txt-col { text-align: justify; }
+  }
+  @media (max-width: 900px) {
+    .phil-sctn .img-col { width: 100%; padding: 0; justify-content: center; max-width: 306px; border-bottom: 4px solid var(--red); margin-bottom: 30px; }
+    .phil-sctn .txt-col { width: 100%; text-align: center; }
+    .phil-sctn .btns.btns-alt { margin-left: auto; margin-right: auto; margin-bottom: 20px; }
+    .phil-sctn { padding-top: 50px; }
+  }
+
+  /* ---------- 3. sold-sctn ---------- */
+  .sold-sctn { background: var(--secondary); padding-top: 85px; padding-bottom: 85px; color: #fff; }
+  .sold-sctn .title-col { width: 100%; }
+  .sold-sctn .title-col .maintitle { font-size: clamp(28px, 3vw, 45px); }
+  .sold-col { width: 33%; }
+  .sold-col .subtitle { font-size: 45px; }
+  .sold-col .subtitle span { display: block; font-size: 18px; font-weight: 400; }
+  .sold-col ul { list-style: none; margin: 0; padding: 0; }
+  .sold-col ul > li { padding: 7px 0; }
+  @media (max-width: 800px) {
+    .sold-sctn .sold-col { width: 50%; margin-bottom: 20px; }
+    .sold-sctn .section-wrap { justify-content: space-between; }
+    .sold-sctn { padding-left: 30px; padding-right: 30px; padding-top: 50px; }
+    .sold-sctn .title-col .maintitle { font-size: 32px; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .sold-sctn .sold-col { width: 100%; text-align: center; }
+    section.section.sold-sctn { padding-left: 20px; padding-right: 20px; }
+    .sold-sctn .title-col .maintitle { font-size: 28px; }
+  }
+
+  /* ---------- 4. infogrhp-sctn ---------- */
+  .infogrhp-sctn { padding-top: 60px; padding-bottom: 90px; }
+  .infogrhp-sctn .title-col { width: 44%; padding-right: 4%; }
+  .infogrhp-sctn .desk-imgcol { width: 55%; }
+  .infogrhp-sctn .section-wrap { align-items: center; }
+  .infogrhp-sctn .maintitle { color: var(--secondary); font-size: clamp(30px, 3vw, 46px); }
+  .infogrhp-sctn .maintitle span { display: block; font-size: 1.45em; color: var(--red); }
+  .infogrhp-sctn .spt { color: var(--secondary); height: 4px; border: 0; background: var(--secondary); position: relative; margin-left: -67%; }
+  .infogrhp-sctn .spt:after { content: ''; width: 20px; height: 20px; background: var(--secondary); position: absolute; right: 0; top: -7px; border-radius: 100px; }
+  span.stpone { text-align: center; width: 100%; display: flex; justify-content: center; color: var(--red); font-size: var(--font-size--h3); font-weight: var(--font-weight--h3); font-family: var(--font-family--h3); }
+  @media (min-width: 501px) {
+    .infogrhp-sctn .mob-steps { display: none; }
+  }
+  @media (max-width: 900px) {
+    .infogrhp-sctn .title-col { width: 100%; text-align: center; margin-bottom: 40px; padding: 0; }
+    .infogrhp-sctn .desk-imgcol { width: 100%; max-width: 600px; }
+    .infogrhp-sctn { padding-bottom: 120px; }
+  }
+  @media (max-width: 500px) {
+    .desk-imgcol { display: none; }
+    .mob-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 5px; max-width: 320px; }
+    .mob-steps > li { background: var(--secondary); padding: 10px 20px; border: 4px solid #fff; outline: 2px solid var(--secondary); margin-bottom: 24px; border-radius: 100px; text-align: center; }
+    .mob-steps > li > p { margin: 0; color: #fff; font-family: var(--font-family--h3); font-size: 15px; font-weight: 600; line-height: 1.1; }
+    .mob-steps > li:nth-child(2n) { background: var(--primary); outline: 2px solid var(--primary); }
+    .mob-steps .stp-box { width: calc(50% - 4px); margin-bottom: 0; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; }
+    .mob-steps > li.spt2 { background: 0 0; border: 0; outline: 0; padding: 0; width: 200px; margin: -10px auto; }
+    svg#spt-dt { fill: var(--red); }
+    li.stp-box.btns.btns-alt { background: 0 0; border: 0; outline: 0; padding: 0; margin-left: auto; margin-right: auto; aspect-ratio: unset; margin-top: 20px; }
+    section.section.infogrhp-sctn { padding-bottom: 30px; padding-top: 30px; }
+  }
+
+  /* ---------- 5. vid-sctn ---------- */
+  .vid-sctn { background: #d3d3d3; padding-bottom: 50px; border-bottom: 5px solid var(--red); }
+  .vid-sctn .vid-col { width: 43%; margin-top: -61px; filter: drop-shadow(2px 4px 6px black); }
+  .vid-sctn .titlecol { width: 56%; padding-left: 30px; }
+  .vid-sctn .section-wrap { align-items: center; justify-content: space-between; }
+  .vid-sctn .titlecol .maintitle { color: var(--secondary); font-size: clamp(30px, 3vw, 42px); margin: 0; }
+  @media (max-width: 800px) {
+    .vid-sctn .vid-col { width: 100%; order: 1; margin-top: 30px; text-align: center; }
+    .vid-sctn .titlecol { width: 100%; padding: 0; text-align: center; }
+    section.section.vid-sctn { padding-top: 40px; }
+    .vid-sctn .titlecol .maintitle { font-size: 26px; }
+  }
+
+  /* ---------- 6. test-sctn ---------- */
+  .test-sctn { background: linear-gradient(360deg, #e8e8e8 0, #e7e7e7 30%, #e7e7E700 100%) no-repeat padding-box; padding-top: 80px; padding-bottom: 80px; }
+  section.section.test-sctn { overflow: hidden; }
+  .test-sctn .title-col { flex-grow: 1; max-width: 750px; padding-right: 20px; margin-left: auto; }
+  .test-sctn .maintitle { margin: 0; font-family: sans-serif; font-weight: 400; color: var(--red); }
+  .test-sctn .subtitle { margin: 0; color: var(--secondary); font-size: clamp(28px, 3vw, 42px); }
+  .test-sctn .google-col { display: flex; align-items: center; gap: 20px; background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); padding: 20px; margin-right: -40px; width: 44%; border-radius: 7px; }
+  .test-sctn .section-wrap { align-items: center; justify-content: space-between; max-width: none; }
+  .test-sctn .google-col div p { margin-top: 0; text-transform: uppercase; color: var(--primary); margin-bottom: 0; font-weight: 600; font-size: 16px; }
+  .test-sctn .google-col div span { font-weight: 900; color: var(--primary); }
+  .test-sctn .google-col div span span.strs { color: #ffb300; font-size: 20px; }
+  .main-rvw { margin-top: 40px; width: 100%; margin-bottom: 30px; }
+  .main-rvw > p { max-width: 1200px; margin-left: auto; margin-right: auto; }
+  .main-rvw p.name { font-size: 21px; color: var(--red); font-weight: 600; margin-bottom: 6px; }
+  .rvw-box { background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); border-radius: 5px; padding: 30px; width: calc(33.33% - 24px); align-self: stretch; display: flex; flex-direction: column; }
+  .rvw-box p { margin: 0; }
+  .rvw-box > p { margin-bottom: 20px; }
+  .rvw-box .rvw-bx { display: flex; align-items: center; gap: 10px; margin-top: auto; }
+  .rvw-box div .name { color: var(--secondary); font-weight: 700; font-size: 14px; }
+  a.rvw-link { margin-bottom: 10px; }
+  .bss-name { color: var(--red); font-weight: 600; }
+  @media (max-width: 1024px) {
+    .rvw-box { width: calc(50% - 24px); margin-bottom: 20px; }
+    .test-sctn .section-wrap { justify-content: center; column-gap: 20px; }
+  }
+  @media (max-width: 800px) {
+    .test-sctn .title-col { padding: 0; width: 100%; text-align: center; margin-bottom: 30px; }
+    .test-sctn .google-col { width: 100%; margin-right: 0; justify-content: center; max-width: 400px; }
+    section.section.test-sctn { padding-top: 50px; padding-bottom: 50px; }
+    .main-rvw { text-align: center; }
+    .rvw-box { width: 100%; }
+  }
+  @media (max-width: 500px) {
+    .test-sctn .google-col { flex-wrap: wrap; text-align: center; padding: 15px; }
+  }
+
+  /* ---------- 7. why-sctn ---------- */
+  .why-sctn { padding-top: 80px; padding-bottom: 80px; }
+  section.section.why-sctn { overflow: hidden; }
+  .why-sctn .maintitle { color: var(--red); font-size: clamp(28px, 4vw, 41px); max-width: 800px; text-align: center; }
+  .why-sctn .col-title { width: 100%; display: flex; justify-content: center; margin-bottom: 40px; }
+  .why-sctn .icon-box { width: 33.33%; text-align: center; padding: 0 4%; }
+  .why-sctn .icon-box .icons-why { aspect-ratio: 1/1; width: 112px; margin: 0 auto 20px; border: 2px solid var(--primary); border-radius: 1000px; display: flex; align-items: center; justify-content: center; padding: 14px; position: relative; }
+  .why-sctn .icon-box .icons-why svg { fill: #a82211; }
+  .why-sctn .icon-box .icons-why:after { content: ''; width: 150%; position: absolute; background: var(--primary); height: 2px; left: 100%; }
+  .why-sctn .icon-box .icons-why:before { content: ''; width: 150%; position: absolute; background: var(--primary); height: 2px; right: 100%; }
+  .why-sctn .icon-box .subtitle { margin-bottom: 15px; color: var(--primary); font-size: 21px; }
+  .why-sctn .icon-box:nth-child(3) .icons-why img { border-radius: 100px; }
+  @media (min-width: 1025px) {
+    .why-sctn .icon-box { display: flex; flex-direction: column; }
+    .why-sctn .icon-box > div:last-child { display: flex; flex-direction: column; height: -webkit-fill-available; }
+    .why-sctn .icon-box > div:last-child > p { margin-top: 0; }
+  }
+  @media (max-width: 900px) {
+    section.section.why-sctn { padding-top: 50px; padding-bottom: 50px; }
+    .why-sctn .icon-box { width: 50%; }
+  }
+  @media (max-width: 800px) {
+    .why-sctn .icon-box { width: 100%; }
+  }
+  @media (max-width: 600px) {
+    .why-sctn .icon-box .icons-why:after,
+    .why-sctn .icon-box .icons-why:before { width: 100%; }
+  }
+
+  /* ---------- 8. cta-sctn ---------- */
+  .cta-sctn { background: var(--secondary); padding: 24px; }
+  .cta-sctn .maintitle { margin: 0; color: #fff; font-size: clamp(23px, 3vw, 48px); }
+  .cta-sctn .txtbx p { color: #fff; margin: 0; font-size: 22px; }
+  .cta-sctn .section-wrap { align-items: center; justify-content: space-evenly; }
+  .cta-sctn .txtbx { max-width: 480px; padding: 0 18px; }
+  @media (max-width: 850px) {
+    .cta-sctn .title { width: 100%; text-align: center; }
+    .cta-sctn .title .maintitle { font-size: 40px; margin-bottom: 15px; }
+  }
+  @media (max-width: 500px) {
+    .cta-sctn { text-align: center; }
+    .cta-sctn .txtbx { max-width: none; padding: 0; margin-bottom: 20px; }
+    .cta-sctn .txtbx p { font-size: 18px; }
+  }
+
+  /* ---------- 9. map-sctn ---------- */
+  .map-sctn { padding-top: 60px; padding-bottom: 100px; background: linear-gradient(360deg, #e8e8e8 0, #e7e7e7 30%, #e7e7E700 100%) no-repeat padding-box; }
+  .map-sctn .titlecol { margin-right: auto; width: 100%; text-align: center; margin-bottom: 50px; }
+  .map-sctn .titlecol .maintitle { margin-bottom: 12px; color: var(--red); font-size: clamp(32px, 3vw, 57px); line-height: 1; }
+  .map-sctn .titlecol .subtitle { font-family: sans-serif; font-weight: 500; font-size: 28px; color: var(--primary); }
+  .map-sctn .section-wrap { justify-content: space-between; }
+  .mapcol { width: calc(25% - 20px); }
+  .mapcol iframe { max-width: 100%; height: auto; aspect-ratio: 16/10; }
+  .mapcol .adr-title { text-align: center; margin-bottom: 20px; }
+  .map-sctn .btns.btns-alt { display: flex; justify-content: center; max-width: none; gap: 10px; margin-top: 16px; }
+  .map-sctn .btns.btns-alt a { font-size: 15px; padding: 5px; background: var(--secondary); color: #fff; border-radius: 5px; }
+  @media (max-width: 1024px) {
+    section.section.map-sctn { padding-top: 50px; padding-bottom: 85px; }
+    .map-sctn .titlecol { width: 100%; text-align: center; margin-bottom: 50px; }
+    .map-sctn .titlecol .btns.btns-alt { margin-left: auto; margin-right: auto; flex-wrap: wrap; }
+    .map-sctn .mapcol { width: calc(50% - 20px); margin-bottom: 40px; }
+  }
+  @media (max-width: 600px) {
+    .map-sctn .mapcol { width: calc(50% - 10px); margin-bottom: 20px; }
+  }
+  @media (max-width: 500px) {
+    .map-sctn .mapcol { width: 100%; max-width: 400px; margin: 0 auto 20px; margin-bottom: 50px; }
+    section.section.map-sctn { padding-bottom: 10px; }
+    .map-sctn .titlecol { margin-bottom: 0; }
+  }
+
+  /* ---------- 10. ctc-sctn + form ---------- */
+  .ctc-sctn { padding-top: 100px; padding-bottom: 100px; background-color: var(--secondary); }
+  .ctc-sctn .one-col { background: #ffffffc9; padding: 30px 40px; }
+  .ctc-sctn .one-col .maintitle { margin: 0; color: var(--red); font-size: clamp(30px, 3vw, 50px); max-width: 574px; text-align: center; }
+  .ctc-sctn .one-col .wpcf7 { max-width: 659px; }
+  .ctc-sctn .one-col form.wpcf7-form { display: flex; flex-wrap: wrap; }
+  .ctc-sctn .one-col hr { width: 100%; height: 4px; background: var(--primary); margin-bottom: 29px; border: 0; }
+  .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+  .bottom-form input:not([type=submit]) { background-color: transparent; border: none; border-bottom: 2px solid var(--primary); max-width: 100%; width: 100%; min-height: 43px; min-width: 13px; }
+  .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; border-bottom: 2px solid var(--primary); min-height: 98px; }
+  .ctc-sctn .bottom-form textarea { background: #3104071c; }
+  .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
+  .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .bottom-form .col-4 { width: 100%; }
+  .bottom-form .col-4 .wpcf7-form-control-wrap, .bottom-form .col-5 .wpcf7-form-control-wrap { width: 100%; }
+  .bottom-form .col-5 { display: flex; justify-content: space-between; position: relative; text-align: left; width: 100%; gap: 4px; align-items: center; }
+  .bottom-form .col-5 .wpcf7-list-item.first { margin-left: 0; }
+  .bottom-form .col-5 .wpcf7-list-item-label { font-size: 14px; }
+  .bottom-form .col-5 .bst-way > label { width: 100%; display: block; }
+  .bottom-form .wpcf7-list-item { margin-left: 4px; }
+  .bottom-form .wpcf7-list-item label { display: flex; align-items: center; }
+  .bottom-form .wpcf7-radio { display: flex; gap: 8px; }
+  .bottom-form .bst-way { color: var(--red); text-transform: uppercase; font-weight: 600; display: flex; gap: 12px; align-items: center; }
+  .bottom-form input::placeholder, .ctc-sctn .bottom-form textarea::placeholder { color: #000; }
+  /* Live styles input[type=submit]; we use a <button> so the shared handler
+     can disable it during submit — same selectors, same look. */
+  .bottom-form input[type=submit], .bottom-form button[type=submit] { border: 0; color: #fff; padding: 10px 20px; border-radius: 100px; width: 100%; max-width: 180px; background-color: var(--primary); font-weight: 700; text-transform: uppercase; min-width: fit-content; font-size: var(--font-size--body); cursor: pointer; }
+  .bottom-form input[type=submit]:hover, .bottom-form button[type=submit]:hover { background-color: var(--primary); }
+  @media (max-width: 600px) {
+    .bottom-form .col-5 { flex-direction: column; text-align: center; }
+    .bottom-form .wpcf7-radio { justify-content: center; }
+    .bottom-form input[type=submit], .bottom-form button[type=submit] { width: 100%; }
+    .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: 100%; }
+    .bottom-form .bst-way { gap: 4px; flex-direction: column; align-items: center; }
+  }
+  @media (max-width: 500px) {
+    section.section.ctc-sctn { padding-top: 40px; padding-bottom: 40px; }
+    .ctc-sctn .one-col { padding: 30px 20px; }
+    .ctc-sctn .one-col .wpcf7 { max-width: 100%; }
+    .ctc-sctn .one-col .maintitle { font-size: 26px; }
+  }
+
+  /* Honeypot — visually removed, still in the DOM for bots */
+  .pr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+  /* Status banner appended by src/scripts/contact-form.ts */
+  .pr-form-banner { width: 100%; margin-top: 14px; font-weight: 600; font-family: var(--font-family--h4); }
+  .pr-form-banner[data-state="success"] { color: var(--primary); }
+  .pr-form-banner[data-state="error"] { color: var(--red); }
+</style>
