@@ -111,6 +111,15 @@ export const hrefs = {
 /* ---------- Form reply methods (live CF7 "Best Way to Reply" radios) ---------- */
 export const replyMethods = ["Email", "Phone", "Text"] as const;
 
+/* ---------- Spam control ----------
+   hCaptcha PUBLIC site key — safe to ship in client HTML. The matching SECRET
+   lives only in the CF Pages env (HCAPTCHA_SECRET) and is checked server-side by
+   functions/api/contact.ts. This is the shared MFWD key (same as Joe's Vintage
+   Guitars). ⚠️ If hCaptcha hostname verification is enabled for this key, add
+   philsellsbiz.com to its allowed hostnames OR mint a Phil-specific site key +
+   secret and replace both here and in the env. */
+export const hcaptchaSiteKey = "3600d774-af6e-4466-9654-d94ceeacc44c";
+
 /* ---------- Social profiles ---------- */
 interface SvgSocial { label: string; href: string; useImg?: false; path: string; viewBox?: string; }
 interface ImgSocial { label: string; href: string; useImg: true; imgSrc: string; path?: never; viewBox?: never; }

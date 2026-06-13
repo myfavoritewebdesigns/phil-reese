@@ -1,0 +1,89 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { contact, hrefs } from "../config/site";
+
+const title = "Page Not Found | Phil Reese, Arizona Business Broker";
+const description = "Sorry, that page could not be found. Browse Phil Reese's Arizona business broker services or get in touch.";
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "About Phil", href: "/about/" },
+  { label: "For Sellers", href: "/business-sellers/" },
+  { label: "For Buyers", href: "/business-buyers/" },
+  { label: "Listings", href: "/listings/" },
+  { label: "Blog", href: "/blog/" },
+  { label: "Contact", href: "/contact/" },
+];
+---
+
+<Layout title={title} description={description} canonical="/404/">
+  <section class="section title-bar">
+    <div class="section-wrap">
+      <h1 class="maintitle h1-style">Page Not Found</h1>
+    </div>
+  </section>
+
+  <section class="section nf-sctn">
+    <div class="section-wrap">
+      <p class="nf-lede">
+        We couldn't find that page. It may have moved. Here are some places to pick up where you left off,
+        or call Phil directly at <a href={hrefs.tel}>{contact.phone}</a>.
+      </p>
+      <ul class="nf-links">
+        {links.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .section.title-bar {
+    padding-top: 52px;
+    padding-bottom: 52px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.25);
+    position: relative;
+    z-index: 2;
+  }
+  .title-bar .maintitle {
+    margin: 0;
+    color: var(--red);
+    text-align: center;
+  }
+  .nf-sctn {
+    padding-top: 60px;
+    padding-bottom: 90px;
+    text-align: center;
+  }
+  .nf-lede {
+    max-width: 640px;
+    margin: 0 auto 32px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--secondary);
+  }
+  .nf-lede a {
+    color: var(--red);
+    font-weight: 600;
+  }
+  .nf-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    justify-content: center;
+  }
+  .nf-links a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .nf-links a:hover {
+    color: var(--red);
+    text-decoration: underline;
+  }
+</style>

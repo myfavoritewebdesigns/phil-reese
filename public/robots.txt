@@ -1,0 +1,7 @@
+# robots.txt — Phil Reese, Arizona Business Broker
+# Allow all crawlers; point them at the sitemap index.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.philsellsbiz.com/sitemap-index.xml

@@ -1,0 +1,142 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL } from "../config/site";
+
+/* Privacy Policy.
+   Body is the live site's Termly-generated policy, extracted verbatim from
+   reference/privacy-policy-inner.html (the live <div data-custom-class="body">).
+   Cleaned during extraction: Cloudflare email-protection links decoded to a
+   real mailto:phil@philsellsbiz.com, and Termly's duplicate `id="control"`
+   attributes stripped (12 invalid duplicate IDs) while preserving the real
+   per-section anchor IDs the table of contents links to (#infocollect, etc.).
+   Injected via set:html, so its styles use <style is:global> scoped to the
+   .pp-body wrapper class (scoped <style> wouldn't match set:html markup). */
+import policyHtml from "../../reference/privacy-policy-inner.html?raw";
+
+const title = "Privacy Policy - Phil Reese Sells Arizona Businesses";
+const description =
+  "The privacy notice for Phil Reese, Arizona Business Broker: what information we collect, how we use it, who we share it with, and the privacy rights you have.";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Privacy Policy",
+  url: `${SITE_URL}/privacy-policy/`,
+  description,
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonical="/privacy-policy/"
+  structuredData={structuredData}
+>
+  <section class="section title-bar">
+    <div class="section-wrap">
+      <h1 class="maintitle h1-style">Privacy Policy</h1>
+    </div>
+  </section>
+
+  <section class="section pp-sctn">
+    <div class="section-wrap">
+      <div class="pp-body" set:html={policyHtml} />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .section.title-bar {
+    padding-top: 52px;
+    padding-bottom: 52px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.25);
+    position: relative;
+    z-index: 2;
+  }
+  .title-bar .maintitle {
+    margin: 0;
+    color: var(--red);
+    text-align: center;
+  }
+  .pp-sctn {
+    padding-top: 56px;
+    padding-bottom: 84px;
+  }
+</style>
+
+<!-- set:html markup carries no scoped data-attr, so the policy body must be
+     styled globally. Everything is namespaced under .pp-body so it can't bleed
+     onto other pages. -->
+<style is:global>
+  .pp-body {
+    max-width: 820px;
+    margin: 0 auto;
+    line-height: 1.65;
+    color: var(--secondary);
+    font-size: 16px;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+  }
+  /* Termly emits its own inline font-size/color on most spans; these rules set
+     sane defaults and the headings/link treatment the design system wants. */
+  .pp-body [data-custom-class="title"] {
+    display: block;
+    color: var(--primary);
+    font-size: 26px;
+    line-height: 1.3;
+  }
+  .pp-body [data-custom-class="subtitle"] {
+    color: var(--secondary);
+  }
+  .pp-body [data-custom-class="heading_1"] {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 19px;
+    line-height: 1.35;
+    margin-top: 8px;
+  }
+  .pp-body [data-custom-class="heading_2"] {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 17px;
+    line-height: 1.35;
+  }
+  .pp-body [data-custom-class="body_text"],
+  .pp-body [data-custom-class="link"] {
+    font-size: 16px !important;
+  }
+  .pp-body a {
+    color: var(--red);
+    text-decoration: underline;
+    word-break: break-word;
+  }
+  .pp-body a:hover {
+    color: var(--primary);
+  }
+  .pp-body ul {
+    margin: 0 0 14px;
+    padding-left: 24px;
+  }
+  .pp-body li {
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+  /* Termly wraps almost every line in a <div>; give them breathing room. */
+  .pp-body > div {
+    margin-bottom: 2px;
+  }
+  .pp-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+  }
+  .pp-body td,
+  .pp-body th {
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    vertical-align: top;
+    font-size: 15px;
+  }
+</style>
+

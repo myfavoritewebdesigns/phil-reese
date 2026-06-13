@@ -2,13 +2,72 @@
  * Shared submit handler for all contact forms.
  *
  * Tag any <form> with `data-pr-contact-form` and set `data-form-id="<source>"`.
- * POSTs to /api/contact (Cloudflare Pages Function — wire up Mailgun there).
- * Gracefully stubs to a 404 no-op during development.
+ * Each form gets an hCaptcha widget rendered just above its submit button (spam
+ * control mirrors Joe's Vintage Guitars). On submit the payload — including the
+ * solved `h-captcha-response` token — POSTs as JSON to /api/contact (the
+ * Cloudflare Pages Function in functions/api/contact.ts).
+ *
+ * The hCaptcha script only loads on pages that actually have a form. If the
+ * public site key isn't configured, the widget is skipped and the form still
+ * submits (the server enforces the captcha only when HCAPTCHA_SECRET is set).
  */
 
-import { contact } from "../config/site";
+import { contact, hcaptchaSiteKey } from "../config/site";
 
 type FormState = "idle" | "submitting" | "success" | "error";
+
+/** Minimal shape of the hCaptcha API we use (explicit-render mode). */
+interface HCaptcha {
+  render(el: HTMLElement, opts: { sitekey: string }): string;
+  getResponse(widgetId?: string): string;
+  reset(widgetId?: string): void;
+}
+declare global {
+  interface Window {
+    hcaptcha?: HCaptcha;
+    onPrHcaptchaLoad?: () => void;
+  }
+}
+
+const HCAPTCHA_SRC =
+  "https://js.hcaptcha.com/1/api.js?render=explicit&onload=onPrHcaptchaLoad";
+
+/** Render one widget per form, just above its submit button. Idempotent. */
+function renderCaptchas() {
+  const hcaptcha = window.hcaptcha;
+  if (!hcaptcha || !hcaptchaSiteKey) return;
+  document
+    .querySelectorAll<HTMLFormElement>("form[data-pr-contact-form]")
+    .forEach((form) => {
+      if (form.dataset.hcaptchaId) return; // already rendered
+      const mount = document.createElement("div");
+      mount.className = "h-captcha-mount";
+      mount.style.margin = "16px 0";
+      // Use insertBefore (Node), not Element.before() — the latter's DOM type
+      // collides with @cloudflare/workers-types' HTMLRewriter Element.before().
+      const submit = form.querySelector<HTMLElement>('button[type="submit"], input[type="submit"]');
+      if (submit && submit.parentNode) submit.parentNode.insertBefore(mount, submit);
+      else form.appendChild(mount);
+      try {
+        form.dataset.hcaptchaId = hcaptcha.render(mount, { sitekey: hcaptchaSiteKey });
+      } catch (err) {
+        console.error("[contact-form] hcaptcha render failed", err);
+      }
+    });
+}
+
+/** Inject the hCaptcha script once; render widgets when it finishes loading. */
+function loadHcaptcha() {
+  if (!hcaptchaSiteKey) return;
+  if (document.querySelector("script[data-pr-hcaptcha]")) return;
+  window.onPrHcaptchaLoad = renderCaptchas;
+  const s = document.createElement("script");
+  s.src = HCAPTCHA_SRC;
+  s.async = true;
+  s.defer = true;
+  s.dataset.prHcaptcha = "1";
+  document.head.appendChild(s);
+}
 
 function setState(form: HTMLFormElement, state: FormState, message?: string) {
   form.dataset.state = state;
@@ -35,6 +94,14 @@ async function handleSubmit(e: SubmitEvent) {
 
   if (!form.checkValidity()) { form.reportValidity(); return; }
 
+  // Require a solved hCaptcha before bothering the server.
+  const widgetId = form.dataset.hcaptchaId;
+  const token = window.hcaptcha?.getResponse(widgetId) ?? "";
+  if (form.dataset.hcaptchaId && !token) {
+    setState(form, "error", "Please complete the “I'm human” check above.");
+    return;
+  }
+
   const data = new FormData(form);
   const payload: Record<string, unknown> = {
     formId: form.dataset.formId ?? "unknown",
@@ -51,8 +118,9 @@ async function handleSubmit(e: SubmitEvent) {
       body: JSON.stringify(payload),
     });
     if (res.ok) {
-      setState(form, "success", "Thanks — we'll be in touch shortly.");
+      setState(form, "success", "Thanks — Phil will be in touch shortly.");
       form.reset();
+      window.hcaptcha?.reset(widgetId);
       return;
     }
     // 404 = CF Pages Function not wired yet (dev mode stub)
@@ -60,12 +128,15 @@ async function handleSubmit(e: SubmitEvent) {
       console.info("[contact-form] /api/contact not wired yet. Payload:", payload);
       setState(form, "success", "Thanks — we got your details.");
       form.reset();
+      window.hcaptcha?.reset(widgetId);
       return;
     }
     setState(form, "error", `Something went wrong. Please call ${contact.phone}.`);
+    window.hcaptcha?.reset(widgetId);
   } catch (err) {
     console.error("[contact-form]", err);
     setState(form, "error", `Network error. Please call ${contact.phone}.`);
+    window.hcaptcha?.reset(widgetId);
   }
 }
 
@@ -76,6 +147,11 @@ function init() {
     form.dataset.bound = "1";
     form.addEventListener("submit", handleSubmit);
   });
+  // Only pull in hCaptcha on pages that actually have a form.
+  if (forms.length > 0) {
+    loadHcaptcha();
+    if (window.hcaptcha) renderCaptchas();
+  }
 }
 
 if (document.readyState === "loading") {

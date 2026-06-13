@@ -20,3 +20,6 @@
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  # HSTS — 1yr. Safe once the domain is served over HTTPS via Cloudflare (it is,
+  # on Pages). Add `preload` + submit to hstspreload.org only after launch is stable.
+  Strict-Transport-Security: max-age=31536000; includeSubDomains

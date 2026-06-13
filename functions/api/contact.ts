@@ -1,32 +1,32 @@
 /**
  * Cloudflare Pages Function — POST /api/contact
  *
- * Hardened defaults. Required env vars (set in CF Pages dashboard):
- *   MAILGUN_API_KEY    — Mailgun API key
- *   MAILGUN_DOMAIN     — e.g. mg.example.com
- *   NOTIFY_TO_EMAIL    — where submissions are delivered
- *   ALLOWED_ORIGIN     — production origin (e.g. https://www.example.com).
- *                        REQUIRED in production — endpoint fails closed without it.
+ * Relays any site form tagged `data-pr-contact-form` (handled client-side in
+ * src/scripts/contact-form.ts) to Phil's inbox via the Mailgun HTTP API.
+ * Spam control mirrors Joe's Vintage Guitars: a hidden honeypot + hCaptcha
+ * server-side verification, on top of this template's origin lock, payload
+ * caps, field allowlist, and per-formId required-field rule.
  *
+ * Required env vars (CF Pages → Settings → Environment variables, as secrets):
+ *   MAILGUN_API_KEY    Mailgun private API key (the MFWD account key works for any
+ *                      domain on that account — only MAILGUN_DOMAIN changes per site)
+ *   MAILGUN_DOMAIN     Phil's sending domain, e.g. "mg.philsellsbiz.com"
+ *   NOTIFY_TO_EMAIL    where leads land (e.g. phil@philsellsbiz.com)
+ *   ALLOWED_ORIGIN     production origin "https://www.philsellsbiz.com" — REQUIRED
+ *                      in production; the endpoint fails closed without it.
+ *   ENVIRONMENT        "production" (enables fail-closed origin checks)
  * Optional:
- *   TURNSTILE_SECRET_KEY  — enables Cloudflare Turnstile bot challenge
- *   RATE_LIMIT_KV         — KV namespace binding for per-IP throttling (advisory only)
+ *   HCAPTCHA_SECRET    hCaptcha secret key. When set, every submission must carry a
+ *                      valid `h-captcha-response` token. Unset (dev) → captcha skipped.
+ *   MAILGUN_FROM       sender; defaults to "Phil Reese <noreply@<DOMAIN>>"
+ *   MAILGUN_REGION     "us" (default) or "eu" — picks the Mailgun API host
+ *   RATE_LIMIT_KV      KV binding for per-IP throttling (advisory only — see below)
  *
- * ⚠️ KV rate-limiting is advisory, not atomic. Concurrent submissions can race
- * through the get/put. The real rate limit must be a Cloudflare WAF rate-limit
- * rule on /api/contact at the account or zone level. KV here is defense-in-depth.
+ * ⚠️ KV rate-limiting is advisory, not atomic. The real rate limit must be a
+ * Cloudflare WAF rate-limit rule on /api/contact at the zone level.
  *
- * ⚠️ Any field added to ALLOWED_FIELDS will appear verbatim in the outbound
- * email body. Do not add sensitive fields (SSN, card numbers, internal IDs)
- * without also redacting them from the email payload.
- */
-
-/**
- * Note on types: we don't use `PagesFunction<Env>` from `@cloudflare/workers-types`
- * because that generic expects CF-flavored `Response` / `Headers` and conflicts
- * with the DOM types Astro's tsconfig already includes. The CF runtime accepts
- * standard DOM `Response` objects — the type wrapper is editor-help only.
- * Inline `{ request, env }` typing is sufficient and avoids the conflict.
+ * ⚠️ Any field in ALLOWED_FIELDS lands verbatim in the outbound email. Do not add
+ * sensitive fields (SSN, card numbers) without redacting them from the body.
  */
 import type { KVNamespace } from '@cloudflare/workers-types';
 
@@ -34,12 +34,11 @@ interface Env {
   MAILGUN_API_KEY?: string;
   MAILGUN_DOMAIN?: string;
   NOTIFY_TO_EMAIL?: string;
+  MAILGUN_FROM?: string;
+  MAILGUN_REGION?: string;
   ALLOWED_ORIGIN?: string;
-  TURNSTILE_SECRET_KEY?: string;
+  HCAPTCHA_SECRET?: string;
   RATE_LIMIT_KV?: KVNamespace;
-  // ENVIRONMENT — set to "production" or "preview". When "production", missing
-  // ALLOWED_ORIGIN causes the endpoint to fail closed (500). In preview/dev,
-  // a warning is logged but submissions are accepted from any same-origin POST.
   ENVIRONMENT?: string;
 }
 
@@ -51,17 +50,27 @@ const MAX_FIELD_LENGTH = 5000;
 const RATE_LIMIT_WINDOW_SECONDS = 60;
 const RATE_LIMIT_MAX_REQUESTS = 5;
 
+// Allowlist — Phil's live CF7 field names (your-*-bt + bst-way-bt) plus generic
+// fallbacks and the client-added meta fields. Anything else is dropped.
 const ALLOWED_FIELDS = new Set([
-  'name', 'email', 'phone', 'message', 'subject',
-  'replyMethod', 'comments', 'guitarType', 'howCanWeHelp',
+  'your-name-bt', 'your-email-bt', 'your-phone-bt', 'your-message-bt', 'bst-way-bt',
+  'name', 'email', 'phone', 'message', 'subject', 'replyMethod',
   'formId', 'submittedAt',
 ]);
 
-// Per-formId required field rule. At least one of the arrays in each tuple
-// must be fully populated. Default: `name` + (`email` OR `phone`).
-const REQUIRED_FIELDS: Record<string, string[][]> = {
-  default: [['name', 'email'], ['name', 'phone']],
-  // example: 'newsletter': [['email']],
+// Human-readable labels for the email body (raw field name → label).
+const FIELD_LABELS: Record<string, string> = {
+  'your-name-bt': 'Name',
+  'your-email-bt': 'Email',
+  'your-phone-bt': 'Phone',
+  'your-message-bt': 'Message',
+  'bst-way-bt': 'Best way to reply',
+  name: 'Name',
+  email: 'Email',
+  phone: 'Phone',
+  message: 'Message',
+  replyMethod: 'Best way to reply',
+  subject: 'Subject',
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -86,19 +95,7 @@ function isProduction(env: Env): boolean {
   return (env.ENVIRONMENT ?? '').toLowerCase() === 'production';
 }
 
-/**
- * Resolve which Access-Control-Allow-Origin to send back, and whether to accept
- * the request at all. Returns `{ accept, allowOrigin }`.
- *
- * Rules:
- *   - Production + missing ALLOWED_ORIGIN → fail closed (accept=false).
- *   - Origin === ALLOWED_ORIGIN → accept, echo origin.
- *   - Origin === "null" (sandboxed iframe, file:// etc.) → reject explicitly.
- *   - Origin missing → accept only if not production AND endpoint is being
- *     called server-to-server (e.g. uptime monitor). In production this means
- *     a browser that didn't send Origin, which is suspicious.
- *   - Anything else → reject.
- */
+/** Resolve the Access-Control-Allow-Origin to echo, and whether to accept at all. */
 function checkOrigin(env: Env, reqOrigin: string | null): { accept: boolean; allowOrigin: string } {
   const expected = env.ALLOWED_ORIGIN ?? '';
 
@@ -106,40 +103,30 @@ function checkOrigin(env: Env, reqOrigin: string | null): { accept: boolean; all
     console.error('[contact] FAIL CLOSED: ALLOWED_ORIGIN env var is required in production');
     return { accept: false, allowOrigin: 'null' };
   }
-
-  // Browser sent Origin: null explicitly — sandboxed/privacy context. Treat as untrusted.
-  if (reqOrigin === 'null') {
-    return { accept: false, allowOrigin: 'null' };
-  }
-
-  // Origin not sent at all — fine in dev/preview, suspicious in prod
+  if (reqOrigin === 'null') return { accept: false, allowOrigin: 'null' };
   if (reqOrigin === null || reqOrigin === '') {
     if (isProduction(env)) return { accept: false, allowOrigin: 'null' };
     return { accept: true, allowOrigin: expected || '*' };
   }
-
-  // Exact match (no port wildcarding — prod should pin exact origin)
-  if (expected && reqOrigin === expected) {
-    return { accept: true, allowOrigin: reqOrigin };
-  }
-
-  // Origin mismatched
+  if (expected && reqOrigin === expected) return { accept: true, allowOrigin: reqOrigin };
   return { accept: false, allowOrigin: 'null' };
 }
 
-async function verifyTurnstile(token: string, secret: string, ip: string): Promise<boolean> {
+/** Verify an hCaptcha token against hcaptcha siteverify (mirrors JVG). */
+async function verifyHcaptcha(secret: string, token: string, ip: string | null): Promise<boolean> {
   try {
-    const body = new URLSearchParams();
-    body.append('secret', secret);
-    body.append('response', token);
-    body.append('remoteip', ip);
-    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    const body = new URLSearchParams({ secret, response: token });
+    if (ip) body.set('remoteip', ip);
+    const res = await fetch('https://api.hcaptcha.com/siteverify', {
       method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
       body,
     });
-    const data = await res.json() as { success?: boolean };
+    const data = (await res.json()) as { success?: boolean; 'error-codes'?: string[] };
+    if (data.success !== true) console.warn('[contact] hcaptcha rejected:', (data['error-codes'] ?? []).join(', '));
     return data.success === true;
-  } catch {
+  } catch (err) {
+    console.error('[contact] hcaptcha verify failed', err);
     return false;
   }
 }
@@ -151,15 +138,8 @@ async function rateLimit(kv: KVNamespace | undefined, ip: string): Promise<boole
   const current = await kv.get(key);
   const count = current ? parseInt(current, 10) : 0;
   if (count >= RATE_LIMIT_MAX_REQUESTS) return false;
-  // NOTE: get/put is non-atomic. Concurrent requests can race; this is OK for
-  // an advisory layer but not for primary defense.
   await kv.put(key, String(count + 1), { expirationTtl: RATE_LIMIT_WINDOW_SECONDS });
   return true;
-}
-
-function meetsRequiredFields(clean: Record<string, string>, formId: string): boolean {
-  const rules = REQUIRED_FIELDS[formId] ?? REQUIRED_FIELDS.default;
-  return rules.some(group => group.every(field => clean[field] && clean[field].length > 0));
 }
 
 // ---------- Handlers ----------
@@ -167,23 +147,16 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
   const reqOrigin = request.headers.get('Origin');
   const originCheck = checkOrigin(env, reqOrigin);
   const allowOrigin = originCheck.allowOrigin;
+  if (!originCheck.accept) return reject(allowOrigin, 403, 'Origin not allowed');
 
-  if (!originCheck.accept) {
-    return reject(allowOrigin, 403, 'Origin not allowed');
-  }
-
-  // Read body with hard size cap. Don't trust Content-Length — chunked or
-  // missing-header requests bypass that check. Read text first, measure,
-  // then parse.
+  // Read body with a hard size cap (don't trust Content-Length — chunked bodies bypass it).
   let raw: string;
   try {
     raw = await request.text();
   } catch {
     return reject(allowOrigin, 400, 'Could not read body');
   }
-  if (raw.length > MAX_PAYLOAD_BYTES) {
-    return reject(allowOrigin, 413, 'Payload too large');
-  }
+  if (raw.length > MAX_PAYLOAD_BYTES) return reject(allowOrigin, 413, 'Payload too large');
 
   let payload: Record<string, unknown>;
   try {
@@ -192,66 +165,80 @@ export const onRequestPost = async ({ request, env }: Ctx): Promise<Response> =>
     return reject(allowOrigin, 400, 'Invalid JSON');
   }
 
-  // Honeypot — silently accept bot submissions so they don't retry
+  // Honeypot — silently 200 so bots don't retry.
   const honeypot = payload['_honeypot'];
   if (typeof honeypot === 'string' && honeypot.trim() !== '') {
     console.log('[contact] honeypot triggered, silently dropping');
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: corsHeaders(allowOrigin),
-    });
+    return new Response(JSON.stringify({ ok: true }), { status: 200, headers: corsHeaders(allowOrigin) });
   }
 
-  // Turnstile (if configured)
-  if (env.TURNSTILE_SECRET_KEY) {
-    const token = payload['cf-turnstile-response'];
-    if (typeof token !== 'string') return reject(allowOrigin, 400, 'Missing challenge token');
-    const ip = request.headers.get('CF-Connecting-IP') ?? '';
-    const ok = await verifyTurnstile(token, env.TURNSTILE_SECRET_KEY, ip);
-    if (!ok) return reject(allowOrigin, 403, 'Challenge failed');
+  // hCaptcha — enforced whenever HCAPTCHA_SECRET is set; skipped (warn) in dev.
+  if (env.HCAPTCHA_SECRET) {
+    const token = String(payload['h-captcha-response'] ?? '');
+    if (!token) return reject(allowOrigin, 400, 'Captcha is required');
+    const ip = request.headers.get('CF-Connecting-IP');
+    const ok = await verifyHcaptcha(env.HCAPTCHA_SECRET, token, ip);
+    if (!ok) return reject(allowOrigin, 403, 'Captcha verification failed');
+  } else {
+    console.warn('[contact] HCAPTCHA_SECRET not set — skipping captcha verification');
   }
 
   // Advisory rate limit
   const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
-  const allowed = await rateLimit(env.RATE_LIMIT_KV, ip);
-  if (!allowed) return reject(allowOrigin, 429, 'Too many requests');
+  if (!(await rateLimit(env.RATE_LIMIT_KV, ip))) return reject(allowOrigin, 429, 'Too many requests');
 
-  // Field allowlist + sanitization
+  // Field allowlist + sanitization (CRLF stripped → no Mailgun header injection)
   const clean: Record<string, string> = {};
   for (const [k, v] of Object.entries(payload)) {
     if (!ALLOWED_FIELDS.has(k)) continue;
     if (typeof v !== 'string' && typeof v !== 'number') continue;
-    const s = String(v).slice(0, MAX_FIELD_LENGTH);
-    clean[k] = s.replace(/[\r\n]+/g, ' ').trim();
+    const s = String(v).slice(0, MAX_FIELD_LENGTH).replace(/[\r\n]+/g, ' ').trim();
+    if (s) clean[k] = s;
   }
 
-  // Required-field enforcement (per formId)
-  const formId = clean.formId ?? 'default';
-  if (!meetsRequiredFields(clean, formId)) {
-    return reject(allowOrigin, 400, 'Missing required fields');
-  }
+  // Resolve the key fields whether the form used Phil's -bt names or generic ones.
+  const name = clean['your-name-bt'] ?? clean.name ?? '';
+  const email = clean['your-email-bt'] ?? clean.email ?? '';
+  const phone = clean['your-phone-bt'] ?? clean.phone ?? '';
 
-  // Email format check
-  if (clean.email && !EMAIL_RE.test(clean.email)) {
-    return reject(allowOrigin, 400, 'Invalid email format');
-  }
+  // Required: a name plus at least one way to reach them.
+  if (!name || !(email || phone)) return reject(allowOrigin, 400, 'Missing required fields');
+  if (email && !EMAIL_RE.test(email)) return reject(allowOrigin, 400, 'Invalid email format');
 
-  // Mailgun send (only if configured — otherwise stub-success for dev)
+  const formId = clean.formId ?? 'website';
+
+  // Mailgun send (stub-success when unconfigured so dev/preview can test the pipe).
   if (!env.MAILGUN_API_KEY || !env.MAILGUN_DOMAIN) {
     console.log('[contact] Mailgun not configured. Payload:', clean);
     return new Response(JSON.stringify({ ok: true }), { status: 200, headers: corsHeaders(allowOrigin) });
   }
 
-  try {
-    const form = new URLSearchParams();
-    form.append('from', `Website Contact <noreply@${env.MAILGUN_DOMAIN}>`);
-    form.append('to', env.NOTIFY_TO_EMAIL ?? `admin@${env.MAILGUN_DOMAIN}`);
-    form.append('subject', `New contact: ${clean.formId ?? 'website'}`);
-    if (clean.email) form.append('h:Reply-To', clean.email);
-    // ⚠️ Any field in clean lands in the email body. See file header.
-    form.append('text', Object.entries(clean).map(([k, v]) => `${k}: ${v}`).join('\n'));
+  // Build a readable body with friendly labels (skip meta + captcha fields).
+  const skip = new Set(['formId', 'submittedAt']);
+  const lines = Object.entries(clean)
+    .filter(([k]) => !skip.has(k))
+    .map(([k, v]) => `${FIELD_LABELS[k] ?? k}: ${v}`);
+  const text = [
+    `New ${formId} submission from philsellsbiz.com`,
+    '',
+    ...lines,
+    '',
+    `Submitted: ${clean.submittedAt ?? ''}`,
+  ].join('\n');
 
-    const res = await fetch(`https://api.mailgun.net/v3/${env.MAILGUN_DOMAIN}/messages`, {
+  const region = (env.MAILGUN_REGION ?? 'us').toLowerCase();
+  const host = region === 'eu' ? 'api.eu.mailgun.net' : 'api.mailgun.net';
+  const from = env.MAILGUN_FROM ?? `Phil Reese <noreply@${env.MAILGUN_DOMAIN}>`;
+
+  try {
+    const form = new FormData();
+    form.set('from', from);
+    form.set('to', env.NOTIFY_TO_EMAIL ?? `admin@${env.MAILGUN_DOMAIN}`);
+    form.set('subject', `Website lead: ${formId}${name ? ` — ${name}` : ''}`);
+    form.set('text', text);
+    if (email) form.set('h:Reply-To', email);
+
+    const res = await fetch(`https://${host}/v3/${env.MAILGUN_DOMAIN}/messages`, {
       method: 'POST',
       headers: { Authorization: 'Basic ' + btoa(`api:${env.MAILGUN_API_KEY}`) },
       body: form,

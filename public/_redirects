@@ -12,10 +12,13 @@
 # Preserve WordPress feed URL for aggregators / email tools / directories:
 /feed/            /rss.xml          301
 #
-# Preserve legacy sitemap path. @astrojs/sitemap outputs `sitemap-index.xml`,
-# but WP exposed `sitemap.xml`. Crawlers expecting the WP path get a 404
-# unless we redirect:
-/sitemap.xml      /sitemap-index.xml    301
+# Preserve legacy sitemap paths. @astrojs/sitemap outputs `sitemap-index.xml`;
+# the live WP site (Yoast) exposed `sitemap_index.xml` + per-type child sitemaps,
+# and that index URL is in robots.txt (so Google has it). Redirect them all:
+/sitemap.xml         /sitemap-index.xml   301
+/sitemap_index.xml   /sitemap-index.xml   301
+/page-sitemap.xml    /sitemap-index.xml   301
+/post-sitemap.xml    /sitemap-index.xml   301
 #
 # IMPORTANT: `_redirects` strips query parameters during matching + forwarding.
 # For sites with heavy UTM / gclid / ad-tracking traffic, query-bearing URLs
