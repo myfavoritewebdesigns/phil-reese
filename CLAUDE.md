@@ -859,6 +859,7 @@ Run this only at the end of a project, not during page-building. Page-by-page ch
 - [ ] **SEO sweep** — full [Pre-launch SEO verification](#pre-launch-seo-verification) checklist.
 - [ ] **Performance** — Lighthouse on top 5 URLs. Targets per project category in [Pre-launch SEO verification](#pre-launch-seo-verification).
 - [ ] **Cloudflare config** — SSL/TLS = Full (Strict), WAF rate-limit rule on `/api/contact`, Bot Fight Mode on.
+- [ ] **Cloudflare Polish = Lossy + WebP** (Speed → Optimization → Image Optimization). This site serves raw JPG/PNG from `public/images/` (not via Astro `<Image>`), so **edge conversion to WebP/AVIF is the image-optimization path** — zero markup change, no faithful-clone deviation, all modern browsers. This is the correct fix for the "images aren't next-gen format" finding; do NOT rewrite 400+ `<img src>` refs (many live inside verbatim `reference/*.html` injected via `set:html`).
 - [ ] **Forms end-to-end** — every form submits via `/api/contact`, Mailgun delivers, honeypot is in place, Turnstile configured if needed.
 - [ ] **Anchor parity** — every indexed live URL with a fragment still resolves post-migration. Spot-check top inbound-link fragments from the client's Search Console.
 - [ ] **Image local-only** — `audit:live-diff` reports 0 hot-linked external image URLs (or each remaining one is intentional + load-balanced via Worker→R2).
