@@ -38,3 +38,8 @@
 # Docs: https://developers.cloudflare.com/pages/configuration/redirects/
 
 # --- Add WP→Astro redirects below this line ---
+
+# Old WP image/asset URLs -> local copies (preserves backlinked /wp-content/uploads/
+# image equity + keeps og:image / schema logo+image resolving after domain cutover).
+# Referenced images are mirrored under public/images/legacy/ with original paths.
+/wp-content/uploads/*    /images/legacy/:splat    301
