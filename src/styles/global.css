@@ -152,6 +152,20 @@
   img { max-width: 100%; height: auto; }
 }
 
+/* Review-title links (Google review permalinks on /testimonials/ + the homepage
+   reviews). The live theme renders them as plain dark-bold headings with no
+   underline, so visitors can't tell they're clickable. Deliberate departure from
+   the faithful clone (Josh's call, 2026-06-15): give them a persistent underline
+   + red hover so every linked review title reads as a link at a glance. */
+.rvw-link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.rvw-link:hover {
+  color: var(--red);
+}
+
 /* Live theme's shared section scaffolding (used by every page section) */
 .section {
   display: flex;
