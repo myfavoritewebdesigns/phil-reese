@@ -56,4 +56,11 @@
 # Old WP image/asset URLs -> local copies (preserves backlinked /wp-content/uploads/
 # image equity + keeps og:image / schema logo+image resolving after domain cutover).
 # Referenced images are mirrored under public/images/legacy/ with original paths.
+#
+# Two 2015 images were mirrored as `<name>.jpg.webp` (webp bytes). A backlink to the
+# ORIGINAL `.jpg` URL would otherwise hit the catch-all and 404 (no plain `.jpg` on disk).
+# Map the original .jpg URLs to the existing .webp files. (More specific -> must precede
+# the catch-all below.)
+/wp-content/uploads/2015/06/phoenix-buying-selling-business-market-up.jpg          /images/legacy/2015/06/phoenix-buying-selling-business-market-up.jpg.webp          301
+/wp-content/uploads/2015/06/phoenix-buying-selling-business-market-up-300x292.jpg   /images/legacy/2015/06/phoenix-buying-selling-business-market-up-300x292.jpg.webp   301
 /wp-content/uploads/*    /images/legacy/:splat    301
