@@ -7,9 +7,11 @@
  * solved `h-captcha-response` token — POSTs as JSON to /api/contact (the
  * Cloudflare Pages Function in functions/api/contact.ts).
  *
- * The hCaptcha script only loads on pages that actually have a form. If the
- * public site key isn't configured, the widget is skipped and the form still
- * submits (the server enforces the captcha only when HCAPTCHA_SECRET is set).
+ * The hCaptcha script loads lazily — only on pages with a form, AND only once
+ * the visitor first interacts with one (focus or pointer/touch), so it stays off
+ * the initial-load critical path (a Core Web Vitals win). If the public site key
+ * isn't configured, the widget is skipped and the form still submits (the server
+ * enforces the captcha only when HCAPTCHA_SECRET is set).
  */
 
 import { contact, hcaptchaSiteKey } from "../config/site";
@@ -142,16 +144,29 @@ async function handleSubmit(e: SubmitEvent) {
 
 function init() {
   const forms = document.querySelectorAll<HTMLFormElement>("form[data-pr-contact-form]");
+  if (forms.length === 0) return;
+
+  // Defer the hCaptcha third-party script until the visitor first interacts with
+  // a form (focus or pointer/touch). Keeps ~api.js off the initial-load critical
+  // path; it still loads well before they can submit, since filling any field
+  // fires focusin first. loadHcaptcha() is idempotent, so double-arming is safe.
+  let armed = false;
+  const armHcaptcha = () => {
+    if (armed) return;
+    armed = true;
+    loadHcaptcha();
+  };
+
   forms.forEach((form) => {
     if (form.dataset.bound === "1") return;
     form.dataset.bound = "1";
     form.addEventListener("submit", handleSubmit);
+    form.addEventListener("focusin", armHcaptcha, { once: true });
+    form.addEventListener("pointerdown", armHcaptcha, { once: true });
   });
-  // Only pull in hCaptcha on pages that actually have a form.
-  if (forms.length > 0) {
-    loadHcaptcha();
-    if (window.hcaptcha) renderCaptchas();
-  }
+
+  // If hCaptcha is already present (bfcache restore / prior init pass), render now.
+  if (window.hcaptcha) renderCaptchas();
 }
 
 if (document.readyState === "loading") {
