@@ -13,7 +13,16 @@ export default defineConfig({
   site: 'https://www.philsellsbiz.com',
   trailingSlash: 'always',
   devToolbar: { enabled: false },
-  integrations: [mdx(), sitemap()],
+  // Sitemap filter: exclude the paginated blog archives (/blog/page/2/, /3/, ...).
+  // Yoast deliberately omits paginated archives — they're thin list-pages that
+  // compete with /blog/ and dilute crawl budget; they stay crawlable via the
+  // on-page pagination links. Keeps Yoast parity for the migration.
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) => !/\/blog\/page\/\d+\/?$/.test(page),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()]
   }

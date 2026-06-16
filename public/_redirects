@@ -39,6 +39,20 @@
 
 # --- Add WP→Astro redirects below this line ---
 
+# AMP variants: the live WP AMP plugin exposes a /amp/ twin of every page+post
+# (homepage emits <link rel="amphtml" href="…/amp/">; /about/amp/, /listings/amp/,
+# /<post>/amp/ all return 200 and are indexed). The Astro rebuild emits no AMP, so
+# 301 every old AMP URL to its canonical to preserve accumulated signals/links.
+# Greedy single :splat maps /about/amp/ -> /about/ and nested /a/b/amp/ -> /a/b/.
+/amp/        /          301
+/*/amp/      /:splat/    301
+
+# Per-page + comments RSS feeds. The root /feed/ rule above only matches the exact
+# root; WP also serves /about/feed/, /contact/feed/, /listings/feed/, /<post>/feed/,
+# and /comments/feed/ (all 200 live). Fold them all into the canonical feed.
+/comments/feed/   /rss.xml   301
+/*/feed/          /rss.xml   301
+
 # Old WP image/asset URLs -> local copies (preserves backlinked /wp-content/uploads/
 # image equity + keeps og:image / schema logo+image resolving after domain cutover).
 # Referenced images are mirrored under public/images/legacy/ with original paths.
