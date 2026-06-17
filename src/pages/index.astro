@@ -68,25 +68,10 @@ const breadcrumbSchema = {
   itemListElement: [{ "@type": "ListItem", position: 1, name: "AZ Business Broker" }],
 };
 
-/* Person schema — Phil + every office as a workLocation Place */
-function officePlace(o: (typeof offices)[number]) {
-  const [locality, regionZip = ""] = o.cityLine.split(/,\s*/);
-  const [region = "AZ", postalCode = ""] = regionZip.trim().split(/\s+/);
-  return {
-    "@type": "Place",
-    name: o.title,
-    telephone: o.phone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: o.street.replace(/,$/, ""),
-      addressLocality: locality,
-      addressRegion: region,
-      postalCode,
-      addressCountry: "US",
-    },
-  };
-}
-
+/* Person schema — Phil only. The live homepage emits no Person node; this is a
+   rebuild-added E-E-A-T signal. workLocation Places were dropped: Google's Rich
+   Results "Local businesses" report counted each office Place as a separate
+   business listing, duplicating the FinancialService office nodes below. */
 const personSchema = {
   "@type": "Person",
   "@id": `${SITE_URL}/#person`,
@@ -101,7 +86,6 @@ const personSchema = {
   email: contact.email,
   worksFor: { "@id": `${SITE_URL}/` },
   sameAs: [...socialSameAs],
-  workLocation: offices.map(officePlace),
 };
 
 /* Yoast-style @graph wrapper (mirrors how live emits its page schema), plus

@@ -38,10 +38,16 @@ const canonicalUrl = canonical
   ? (canonical.startsWith("http") ? canonical : `${SITE_URL}${canonical}`)
   : `${SITE_URL}${Astro.url.pathname}`;
 
-// Global Organization schema — appears on every page.
-// TODO: fill in accurate schema fields for this client.
+// Global publisher entity — appears on every page as the `@id` that
+// WebSite.publisher and (homepage) Person.worksFor reference.
+// Typed `Organization`, NOT `LocalBusiness`: the live site emits no global
+// business node — its only local-business schema is the standalone
+// FinancialService office graph (per page). Typing this `LocalBusiness` made
+// Google's Rich Results "Local businesses" report count it as a duplicate
+// listing of the FinancialService #SouthPhoenix node. Organization is not a
+// LocalBusiness subtype, so it's a valid publisher without being double-counted.
 const orgSchema = {
-  "@type": "LocalBusiness",            // TODO: change to ProfessionalService, Store, etc.
+  "@type": "Organization",
   "@id": `${SITE_URL}/`,
   url: `${SITE_URL}/`,
   sameAs: [...socialSameAs],
