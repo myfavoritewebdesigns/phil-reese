@@ -40,7 +40,7 @@ const {
   title, description, pubDate, modifiedDate,
   author, category, categoryName, categories, tags, featuredImage,
   seoTitle, seoDescription, canonical, noindex,
-  ogImage, ogImageAlt,
+  ogImage, ogImageAlt, videoId,
 } = post.data;
 
 const relPostUrl = postUrl(post);          // /<category>/<slug>/
@@ -89,6 +89,7 @@ const articleSchema = {
   publishedTime={pubDate.toISOString()}
   modifiedTime={(modifiedDate ?? pubDate).toISOString()}
   structuredData={articleSchema}
+  videoId={videoId}
 >
   <article class="pr-post">
     <header class="pr-post__header">

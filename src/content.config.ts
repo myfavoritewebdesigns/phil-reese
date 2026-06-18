@@ -83,6 +83,10 @@ const blog = defineCollection({
 
     featuredImage: wpFeaturedImage.optional(),
 
+    // YouTube video id embedded in the post body — when set, the post emits a
+    // VideoObject JSON-LD node (real metadata in src/lib/videos.ts).
+    videoId: z.string().optional(),
+
     // SEO ad-hoc overrides — use ONLY when WP had a Yoast/RankMath override
     // that differs from the post title/description.
     seoTitle:       z.string().optional(),
