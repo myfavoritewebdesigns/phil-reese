@@ -66,7 +66,7 @@ const breadcrumbSchema = {
   ],
 };
 
-const structuredData = [
+const structuredData: Record<string, unknown>[] = [
   {
     "@context": "https://schema.org",
     "@graph": [webPageSchema, primaryImageSchema, breadcrumbSchema],
@@ -99,12 +99,12 @@ const dirBadges = [
 
 /* ---------- 6 feature cards (features-grid), verbatim ---------- */
 const features = [
-  { img: "feat-which-broker.png", alt: "Find out which Chandler broker is right for you", title: "Which Chandler Broker is Right For Me?", body: "Phil Reese, designated CBI, can get you the best results on your business sale. He knows the Chandler business market, and can give your business the right amount of exposure that it needs.", w: 66, h: 66 },
-  { img: "feat-sell-business.png", alt: "Get your business in Chandler sold with a business broker", title: "Sell Your Chandler Business With a Business Broker", body: "Experienced broker Phil Reese can help you sell your Chandler business with ease, and can get you the best possible price for your retail business with discreet, but extensive, market exposure.", w: 64, h: 64 },
-  { img: "feat-expert.png", alt: "Get expert advice about your Chandler business from a business broker", title: "Expert Chandler Business Broker Advice", body: "Business broker Phil Reese has just the expert broker sale advice you need. Phil Reese has sold over 50 businesses, and continues to do help business sales with over 10 years of professional experience.", w: 64, h: 64 },
-  { img: "feat-why-sell.png", alt: "Learn more about selling your service business in Chandler", title: "Why Sell a Chandler Business?", body: "If you feel you have a better opportunity, or you have personal reasons, you may want to sell your company. Selling your service business has never been easier, thanks to expert broker Phil Reese.", w: 64, h: 64 },
-  { img: "feat-valuation.png", alt: "Learn more about business valuation by a Chandler business broker", title: "Chandler Business Broker Valuation Services", body: "Don’t try to sell alone; get help with valuating your company from a certified business broker. Phil Reese is an expert in business valuation, and can assure you the best possible price for your business.", w: 64, h: 64 },
-  { img: "feat-local.png", alt: "Learn more about selling your local Chandler business", title: "Help With Selling Your Local Chandler Business", body: "Local businesses are known for being appeciated by the community that they’re in, but can be tough to sell. Luckily, help with selling in your local Chandler area is available, from CBI Phil Reese.", w: 64, h: 64 },
+  { img: "feat-which-broker.png", alt: "Find out which Chandler broker is right for you", title: "Which Chandler Broker<br>is Right For Me?", body: "Phil Reese, designated CBI, can get you the best results on your business sale. He knows the Chandler business market, and can give your business the right amount of exposure that it needs.", w: 64, h: 64 },
+  { img: "feat-sell-business.png", alt: "Get your business in Chandler sold with a business broker", title: "Sell Your Chandler Business<br>With a Business Broker", body: "Experienced broker Phil Reese can help you sell your Chandler business with ease, and can get you the best possible price for your retail business with discreet, but extensive, market exposure.", w: 64, h: 64 },
+  { img: "feat-expert.png", alt: "Get expert advice about your Chandler business from a business broker", title: "Expert Chandler Business<br>Broker Advice", body: "Business broker Phil Reese has the expert sale advice you need. Phil has guided business sales across Arizona since 2001, and he brings that experience to every Chandler deal.", w: 64, h: 64 },
+  { img: "feat-why-sell.png", alt: "Learn more about selling your service business in Chandler", title: "Why Sell a<br>Chandler Business?", body: "If you feel you have a better opportunity, or you have personal reasons, you may want to sell your company. Selling your service business has never been easier, thanks to expert broker Phil Reese.", w: 64, h: 64 },
+  { img: "feat-valuation.png", alt: "Learn more about business valuation by a Chandler business broker", title: "Chandler Business Broker<br>Valuation Services", body: "Don’t try to sell alone; get help with valuating your company from a certified business broker. Phil Reese is an expert in business valuation, and can assure you the best possible price for your business.", w: 64, h: 64 },
+  { img: "feat-local.png", alt: "Learn more about selling your local Chandler business", title: "Help With Selling Your<br>Local Chandler Business", body: "Local businesses are known for being appreciated by the community that they’re in, but can be tough to sell. Luckily, help with selling in your local Chandler area is available, from CBI Phil Reese.", w: 64, h: 64 },
 ];
 
 /* ---------- FAQ accordion (faq-sctn, faq-main-col), verbatim ----------
@@ -117,15 +117,36 @@ const faqs = [
   { qLead: " ", q: "Do you only advertise businesses sales locally?", a: "When you choose a broker like Phil Reese, we do everything we can to facilitate a smooth, efficient business sale without prolonging the process unnecessarily. Not only is your business advertised locally, but we will also advertise it throughout the state and even more broadly if you prefer. Sometimes, depending on the specific industry of your business, it will need to be advertised in more places than just locally in order to generate enough interested buyers." },
   { qLead: " ", q: "Which Taxes Will I Have To Pay In Order To Buy Or Sell A Business?", a: "Ultimately, the taxes you pay when selling or purchasing a business are dependent on a variety of factors. If the asset has been held for longer than 12 months, you will be required to pay long-term capital gains, which is typically 15% for most taxpayers. Any proceeds treated as ordinary income will be taxed at your individual rate. Be sure to report the business sale on your tax return through Form 4797: the sale or exchange of property." },
   { qLead: " ", q: "How Much Time Will I Have To Put Into The Business Selling Process?", a: "During the sale of a business, you can typically expect to spend about one month to negotiate offers with a buyer, a month to complete your due diligence with paperwork, financials, and contracts, and another month to close your transactions. Working with a qualified business broker will allow you to be a little more hands off during the process so you can focus on your exit strategy and continuing to manage your business successfully until the sale has completed." },
+  { qLead: " ", q: "Do You Know The Chandler Business Market?", a: "Yes. I have worked with owners across the East Valley for more than two decades, Chandler included, from the technology and manufacturing companies near the Price Road Corridor to the retail, restaurant, and service businesses around Downtown Chandler, the Airpark, and Uptown Chandler. Knowing what local buyers look for, and what comparable businesses have recently sold for, helps me price your company correctly and reach the right buyers." },
 ];
 
+/* ---------- FAQPage schema ----------
+   The page has a visible FAQ; the live site emitted no FAQPage here. Added in the
+   2026-06-18 Chandler remodel for semantic / AI-citation value (Google withdrew
+   FAQ rich results for ordinary sites, so don't expect SERP accordions). */
+const faqPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${SITE_URL}/chandler-business-broker/#faq`,
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+structuredData.push(faqPageSchema);
+
 /* ---------- Neighborhood cards (lctn-sctn, grid-locations), verbatim ---------- */
+/* Chandler's five designated business districts (City of Chandler Economic
+   Development) — replaces the old residential-subdivision cards, which made no
+   sense for a business broker. Images are still the generic Chandler-area
+   aerials; swap to district-specific photos when sourced. */
 const lctnCards = [
-  { img: "lctn-01.jpg", alt: "Sell Your Company In Sun Lakes", title: "Does Your Business In Sun Lakes Need A New Owner? Contact Our Agency!", body: "Contact Phil Reese and his team for expert help selling your business and finding a new owner. We can help you plan every step of the way and prepare for a successful sale." },
-  { img: "lctn-02.jpg", alt: "Sell Your Company In Provinces", title: "Want To Sell Your Company In Provinces? Give Us A Call!", body: "If you are ready to sell your company in Provinces and need guidance about how to get started or where to advertise, reach out to Phil Reese. He is licensed, experienced, and communicates well." },
-  { img: "lctn-03.jpg", alt: "Sell Your Company In Cantabria", title: "Looking For Confidentiality While Selling Your Business In Cantabria? We’re Here For You!", body: "Sometimes clients want to keep the sale of a business private to ensure the least amount of impact on its success. Phil Reese is equipped to help facilitate your business sale with confidentiality, privacy, and efficiency." },
-  { img: "lctn-04.jpg", alt: "Find A Business Broker For Your Company In Ocotillo Lakes", title: "Ready To Sell Your Company In Ocotillo Lakes? Call Us Today!", body: "Are you ready to sell your business, or simply have questions and don’t know where to start? Phil Reese can help! Give us a call today to discuss your questions, needs, and concerns." },
-  { img: "lctn-05.jpg", alt: "Sell Your Company In Oakwood Hills", title: "Want To Buy A Business In Oakwood Hills? Contact Our Business Broker", body: "If you are ready to invest in a new business in Oakwood Hills but are having trouble gathering the appropriate paperwork or financing, contact Phil Reese and his team. We are licensed, experienced, and dedicated to helping you be successful." },
+  { img: "lctn-01.jpg", alt: "Business broker serving Downtown Chandler", title: "Selling a Business in Downtown Chandler?", body: "From the restaurants and shops along Arizona Avenue to the offices in the historic core, Downtown Chandler is full of owner-run businesses. When you are ready to sell, Phil Reese can value your business and find the right buyer, quietly and professionally." },
+  { img: "lctn-02.jpg", alt: "Business broker serving the Price Corridor in Chandler", title: "Own a Company Along the Price Corridor?", body: "The Price Corridor is Chandler's tech and corporate hub, with office, light-industrial, and campus businesses near Loop 101 and Loop 202. If you own a company here, Phil Reese can guide your sale and reach qualified buyers, including many from outside Arizona." },
+  { img: "lctn-03.jpg", alt: "Business broker serving the Chandler Airpark Area", title: "Buying or Selling Near the Chandler Airpark?", body: "The Airpark Area around Chandler Municipal Airport is one of the Valley's fastest-growing business-park corridors. Whether you are selling a service, light-industrial, or flex-space business, Phil Reese knows how to position it and keep the sale confidential." },
+  { img: "lctn-04.jpg", alt: "Business broker serving Uptown Chandler", title: "Ready to Sell a Business in Uptown Chandler?", body: "Uptown Chandler, anchored by Chandler Fashion Center, is a busy retail and office district. If you are thinking about selling your store, restaurant, or service business, reach out to Phil Reese for a free, no-obligation valuation." },
+  { img: "lctn-05.jpg", alt: "Business broker serving West Chandler", title: "Looking to Buy a Business in West Chandler?", body: "West Chandler pairs established employers with neighborhood commercial centers. If you are ready to invest in a West Chandler business but have questions about valuation, financing, or paperwork, Phil Reese and his team can walk you through it." },
 ];
 
 const IMG = "/images/chandler-business-broker";
@@ -157,8 +178,8 @@ const IMG = "/images/chandler-business-broker";
     <h2 class="text-center">Call Phil Reese When You’re Ready To Sell Your Business In Chandler, AZ</h2>
     <div class="intro-block">
       <img fetchpriority="high" decoding="async" loading="eager" src={`${IMG}/phil-portrait.jpg`} alt="Phil Reese, Chandler Business Broker" width="400" height="250" class="alignleft size-full" />
-      <p>Are you looking to sell your business in Chandler? Selling your business is a big choice to make, and should be done with utmost certainty. A business sale should be done with a Certified Business Intermediary (CBI) designation, like me. You should never sell a business alone, since it’s very risky. The numerous legal concerns need good management when selling your business, and if any of them are neglected, the fees may cost more than it would have taken to hire a business broker. Selling your business with a business broker saves you money, and makes the sale easier and faster.</p>
-      <p class="mb-20">I’m <a href="/about/">Phil Reese</a>, Arizona Business Broker. I have represented business owners around Arizona in selling their businesses. I am a member of the International Business Brokers Association, Past Ethics Chairman of the AZ Business Brokers Association, and one of only a few business brokers in Arizona to be designated as a Certified Business Intermediary (CBI).</p>
+      <p>Chandler has grown into one of the busiest business markets in the East Valley. From the technology and manufacturing employers along the Price Road Corridor to the family-run shops, restaurants, and service companies around Downtown Chandler and Uptown Chandler, owners here have built real, sellable value. When you are ready to move on, that value deserves a broker who knows the local market and guards your confidentiality. I hold the Certified Business Intermediary (CBI) designation, and I handle the legal and financial details that trip up owners who try to sell on their own. Selling with a broker keeps the process private, puts your business in front of the right buyers, and usually nets you more than going it alone.</p>
+      <p class="mb-20">I’m <a href="/about/">Phil Reese</a>, Arizona Business Broker. I have helped business owners across Arizona sell their companies since 2001. I am a member of the International Business Brokers Association, Past Ethics Chairman of the AZ Business Brokers Association, and one of only a few business brokers in Arizona to hold the Certified Business Intermediary (CBI) designation.</p>
     </div>
   </div>
 
@@ -228,7 +249,7 @@ const IMG = "/images/chandler-business-broker";
     <!-- 6. consultant-section -->
     <div class="consultant-section">
       <h3 class="tc mt-3">Top-Rated Consultant To Sell Your Business In Chandler</h3>
-      <p class="mb-10">As a CBI, I’m the way to go when it comes to selling your business. I’ve helped sell over 50 businesses in Arizona, including Chandler. As a licensed real estate broker and a designated CBI, I am an expert in business sale consultations and pricings. I’m also a former business owner, so I understand what it’s like to sell your business. People sell their companies for various reasons, whether it be for family, financial reasons, or because a better opportunity has come up. Whatever the reason may be for your business sale, rest assured that I can help you with a free, professional consultation. I am affiliated with <a href="https://westusa.com/agent-roster/entry/5906/" target="_blank" rel="noopener">West USA Realty</a>, the largest business broker group in the state of Arizona. This gives your business the greatest amount of exposure possible. On top of that, more than half of my business purchasers are from outside of Arizona, and many are from outside the US. I pledge to you to be honest with you in all of our dealings, and to market your business <a href="/business-sellers/">extensively and discreetly</a>. I also pledge to negotiate your Chandler business for the best possible price, and to competently see to all of the details.</p>
+      <p class="mb-10">As a CBI, I’m a strong choice when it comes to selling your business. I have helped owners sell their companies across Arizona since 2001, Chandler included. As a licensed real estate broker and a designated CBI, I am an expert in business sale consultations and pricings. I’m also a former business owner, so I understand what it’s like to sell your business. People sell their companies for various reasons, whether it be for family, financial reasons, or because a better opportunity has come up. Whatever the reason may be for your business sale, rest assured that I can help you with a free, professional consultation. I am affiliated with <a href="https://westusa.com/agent-roster/entry/5906/" target="_blank" rel="noopener">West USA Realty</a>, the largest business broker group in the state of Arizona. This gives your business the greatest amount of exposure possible. On top of that, more than half of my business purchasers are from outside of Arizona, and many are from outside the US. I pledge to you to be honest with you in all of our dealings, and to market your business <a href="/business-sellers/">extensively and discreetly</a>. I also pledge to negotiate your Chandler business for the best possible price, and to competently see to all of the details.</p>
       <div class="grid-2-col align-items-start mt-3">
         <div class="video-container">
           <div class="lyte-wrapper" style="width:853px;max-width:100%;margin:5px;">
@@ -249,7 +270,7 @@ const IMG = "/images/chandler-business-broker";
       {features.map((f) => (
         <div class="feature-card tc">
           <img decoding="async" src={`${IMG}/${f.img}`} alt={f.alt} width={f.w} height={f.h} loading="lazy" />
-          <h3>{f.title}</h3>
+          <h3 set:html={f.title}></h3>
           <p>{f.body}</p>
         </div>
       ))}
@@ -362,7 +383,12 @@ const IMG = "/images/chandler-business-broker";
 
   /* ---------- 5. directory-flex ---------- */
   .directory-flex { display: flex; flex-wrap: wrap; gap: 15px; padding: 20px 0; margin: var(--gap-md) 0; align-items: center; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); justify-content: center; }
-  .directory-flex a, .directory-flex img { transition: transform .2s ease; }
+  .directory-flex a, .directory-flex img { transition: transform .2s ease; flex: 0 0 auto; }
+  /* Pin the badge size. The markup carries width="65" height="67", but the
+     global `img { height:auto }` reset overrides those attrs, so without an
+     explicit rule each badge renders at its natural size (100–300px, and the
+     unwrapped one flex-stretches). Constrain to a uniform 64px box. */
+  .directory-flex img { width: 64px; height: 64px; object-fit: contain; }
   .directory-flex a:hover { transform: translateY(-3px); }
 
   /* ---------- 6. consultant-section ---------- */
