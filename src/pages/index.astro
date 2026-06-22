@@ -14,7 +14,7 @@
      shared contact-form.ts handler.
    ----------------------------------------------------------------------- */
 import Layout from "../layouts/Layout.astro";
-import { SITE_URL, contact, offices, replyMethods, socialSameAs } from "../config/site";
+import { SITE_URL, contact, offices, replyMethods, socialSameAs, bbbProfileUrl } from "../config/site";
 import ibbaBadgeSvg from "../../reference/ibba-badge-html.html?raw";
 import googleGLogoSvg from "../../reference/google-g-logo-svg.html?raw";
 import whyIcon1Svg from "../../reference/why-icon-1-business-owner-svg.html?raw";
@@ -227,7 +227,9 @@ const mapCols = [
             <Fragment set:html={googleGLogoSvg} />
             <span class="strs">★★★★★</span>
           </div>
-          <img src="/images/bbb-accredited.png" alt="BBB Accredited Business A+" width="187" height="47" class="alignnone size-full" />
+          <a href={bbbProfileUrl} target="_blank" rel="noopener" aria-label="BBB Accredited Business A+ — view profile">
+            <img src="/images/bbb-accredited.png" alt="BBB Accredited Business A+" width="187" height="47" class="alignnone size-full" />
+          </a>
         </div>
         <div class="badgess-inn">
           <div class="certified-badges">
@@ -640,7 +642,9 @@ const mapCols = [
   .banner-sctn .sbtext span { display: block; }
   .banner-sctn .one-col > p { max-width: 800px; text-align: justify; }
   .banner-sctn .bnr-inn { display: flex; gap: 29px; width: 100%; justify-content: center; align-items: center; }
-  .banner-sctn .bnr-inn > img { width: 187px; height: 47px; flex: 0 0 auto; object-fit: contain; }
+  .banner-sctn .bnr-inn > img,
+  .banner-sctn .bnr-inn > a > img { width: 187px; height: 47px; flex: 0 0 auto; object-fit: contain; }
+  .banner-sctn .bnr-inn > a { flex: 0 0 auto; display: inline-flex; }
   .banner-sctn .bnr-inn > div { display: flex; align-items: center; gap: 10px; }
   .banner-sctn .bnr-inn > div .strs { font-size: 25px; }
   .banner-sctn .bnr-inn > div svg { width: 114px; height: auto; }
@@ -656,7 +660,9 @@ const mapCols = [
     .banner-sctn .subtitle { font-size: 26px; margin-bottom: 0; }
     .banner-sctn .bnr-inn { gap: 18px; align-items: center; }
     .banner-sctn .bnr-inn > div { flex-direction: column; gap: 0; width: 40%; max-width: 79px; }
-    .banner-sctn .bnr-inn > img { width: 40%; height: auto; max-width: 150px; }
+    .banner-sctn .bnr-inn > img,
+    .banner-sctn .bnr-inn > a { width: 40%; max-width: 150px; }
+    .banner-sctn .bnr-inn > a > img { width: 100%; height: auto; }
     .banner-sctn .bnr-inn > div svg { max-width: 100%; }
     .banner-sctn .bnr-inn > div .strs { font-size: 15px; }
     .badgess-inn { box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); padding: 20px; min-width: 100vw; margin-top: 30px; }

@@ -26,8 +26,14 @@
      5. cbi-info-section  — "WHAT IS A CBI?" copy + button + video (CQp4Vt6o8Js)
    ----------------------------------------------------------------------- */
 import Layout from "../layouts/Layout.astro";
-import { SITE_URL, contact, hrefs, replyMethods } from "../config/site";
+import { SITE_URL, replyMethods, bbbProfileUrl } from "../config/site";
 import financialServiceSchema from "../../reference/home-financialservice-schema.json";
+import googleGLogoSvg from "../../reference/google-g-logo-svg.html?raw";
+/* "Five of Many Reasons" icons — reused verbatim from the homepage why-sctn. */
+import whyIcon1Svg from "../../reference/why-icon-1-business-owner-svg.html?raw";
+import whyIcon2Svg from "../../reference/why-icon-2-mcbi-svg.html?raw";
+import whyIcon4Svg from "../../reference/why-icon-4-valuations-svg.html?raw";
+import whyIcon5Svg from "../../reference/why-icon-5-bbb-svg.html?raw";
 
 /* Live <title> + meta description, verbatim from the snapshot. */
 const pageTitle = "Phoenix Business Broker | Phil Reese Sells Arizona Businesses";
@@ -52,47 +58,6 @@ const webPageSchema = {
 const structuredData = [
   { "@context": "https://schema.org", "@graph": [webPageSchema] },
   financialServiceSchema,
-];
-
-/* ---------- "Why Choose Phil Reese?" reason cards (verbatim copy) ---------- */
-const reasons = [
-  {
-    img: "Former-business-owner.png",
-    w: 81, h: 81,
-    alt: "Former Business Owner",
-    title: "Former Business Owner",
-    body: "As a former business owner himself, who sold one of his businesses through a Business Broker, Phil has unique insights into buying and selling businesses in Arizona that most other Business Brokers don’t have. This makes all the difference in the world when looking for a smooth and profitable business selling transaction. With help from Phil, he can provide the skills and expertise you need in order to negotiate the successful sale of your business.",
-  },
-  {
-    img: "why-chose-us-02.png",
-    w: 76, h: 81,
-    alt: "Certified Business Intermediary",
-    title: "Certified Business Intermediary",
-    body: "Phil is a Certified Business Intermediary (CBI) which means you’ll have chosen a proven professional. Through this prestigious designation, a Certified Business Intermediary has proven their skill, professionalism, and knowledge through continuing education and exemplary practices within the Business Broker industry.",
-    cta: { label: "What is CBI", href: "/what-is-a-cbi/" },
-  },
-  {
-    img: "20-years-2.png",
-    w: 83, h: 78,
-    alt: "Over 20 Years Experience",
-    title: "Over 20 Years Experience",
-    body: "Phil has been helping people sell their businesses for over 20 years. Having an experienced competent Business Broker on your side is the only way to make sure every detail of selling your business is taken care of. Phil will make sure each and every one of your questions or concerns are answered and can make the process of transferring ownership of your business as smooth and painless as possible.",
-  },
-  {
-    img: "why-chose-us-04.png",
-    w: 76, h: 81,
-    alt: "Free No-Obligation Valuations",
-    title: "Free No-Obligation Valuations",
-    body: "Phil can provide a Free No-Obligation valuation of your business to determine its current value. He can help you understand the valuation process and can come up with a realistic price for your business when you are ready to sell. Through a strategic marketing process, he can find the right buyers for you and sell your business for top dollar!",
-  },
-  {
-    img: "why-chose-us-05.png",
-    w: 76, h: 81,
-    alt: "5 Star Reviews & BBB A+ Rated",
-    title: "5 Star Reviews & BBB A+ Rated",
-    body: "With over 20 years of experience as a Business Broker, Phil is an industry leader in business sales and has more testimonials than any other Business Broker in town. He has earned an A+ rating with the Better Business Bureau, has many 5 Star Google reviews and can effectively market your business to potential buyers and provide you with a seamless business transaction.",
-    cta: { label: "More Testimonials", href: "/testimonials/" },
-  },
 ];
 ---
 
@@ -124,17 +89,18 @@ const reasons = [
     <div class="section-wrap">
       <div class="one-col">
         <h1 class="maintitle h3-style">Call Arizona Business Broker Phil Reese<br />When You Are Ready to Sell Your Business!</h1>
-        <img
-          src={`${IMG}/top-banne-bg-3.jpg`}
-          alt="Phil Reese, Certified Business Intermediary"
-          width="1213"
-          height="291"
-          class="banner-img"
-          fetchpriority="high"
-        />
         <h2 class="warn h3-style">WARNING!</h2>
         <p class="warn-sub">Before You Decide To Sell Your Business<br />There Are Many Vital Things you Need To Know.</p>
         <a class="warn-btn" href="/business-sellers/">Click here!</a>
+        <div class="bnr-inn">
+          <div>
+            <Fragment set:html={googleGLogoSvg} />
+            <span class="strs">★★★★★</span>
+          </div>
+          <a href={bbbProfileUrl} target="_blank" rel="noopener" aria-label="BBB Accredited Business A+ — view profile">
+            <img src="/images/bbb-accredited.png" alt="BBB Accredited Business A+" width="187" height="47" class="alignnone size-full" />
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -204,29 +170,48 @@ const reasons = [
     </div>
   </section>
 
-  <!-- 3. why-sctn — "Why Choose Phil Reese?" reason cards + phone CTA -->
+  <!-- 3. why-sctn — "Five of Many Reasons" (replicated from the homepage) -->
   <section class="section why-sctn">
     <div class="section-wrap">
-      <div class="why-title">
-        <h2 class="h3-style">Why Choose <span>Phil Reese?</span></h2>
+      <div class="col-title">
+        <h2 class="maintitle h3-style">Five of Many Reasons Why You Should Choose Phil Reese to Sell Your Business!</h2>
       </div>
-      <div class="why-grid">
-        {reasons.map((r) => (
-          <div class="why-card">
-            <div class="why-icon">
-              <img src={`${IMG}/${r.img}`} alt={r.alt} width={r.w} height={r.h} loading="lazy" />
-            </div>
-            <h3 class="h5-style">{r.title}</h3>
-            <p>{r.body}</p>
-            {r.cta && <a class="why-cta" href={r.cta.href}>{r.cta.label}</a>}
-          </div>
-        ))}
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon1Svg} />
+        <div>
+          <h3 class="subtitle h5-style">Former <br />Business Owner</h3>
+          <p>There’s a difference between studying business and running one, Phil has done both. He has owned and operated several businesses throughout his career. This first-hand experience allows him to represent sellers with true empathy and insight.</p>
+        </div>
       </div>
-      <div class="why-phone">
-        <a href={hrefs.tel} class="phone-cta">
-          <svg aria-hidden="true" viewBox="0 0 512 512"><path d="M497.39 361.8l-112-48a24 24 0 0 0-28 6.9l-49.6 60.6A370.66 370.66 0 0 1 130.6 204.11l60.6-49.6a23.94 23.94 0 0 0 6.9-28l-48-112A24.16 24.16 0 0 0 122.6.61l-104 24A24 24 0 0 0 0 48c0 256.5 207.9 464 464 464a24 24 0 0 0 23.4-18.6l24-104a24.29 24.29 0 0 0-14.01-27.6z"></path></svg>
-          {contact.phoneDashed}
-        </a>
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon2Svg} />
+        <div>
+          <h3 class="subtitle h5-style">Master Certified Business Intermediary</h3>
+          <p>Phil is one of only four business brokers in Arizona to hold the prestigious MCBI designation from the International Business Brokers Association (IBBA). This elite credential represents the gold standard in business brokerage, ensuring your sale is handled with the highest level of expertise.</p>
+        </div>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why">
+          <img width="83" height="78" src="/images/home/badge-20-years.png" alt="20 years" loading="lazy" />
+        </div>
+        <div>
+          <h3 class="subtitle h5-style">Over 20 Years Experience, Proven Award Winning Agent </h3>
+          <p>Since 2001, Phil has closed over $97M in business sales across 100+ transaction. As a top 1% producer at West USA Realty and a multi-year IBBA Chairman’s Circle award winner, he combines decades of business brokering knowledge with a consistent, proven track record of results.</p>
+        </div>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon4Svg} />
+        <div>
+          <h3 class="subtitle h5-style">Free No-Obligation Valuations</h3>
+          <p>Understanding your business’s true market value is the first step to a successful exit. Phil provides confidential, real-world valuations at no cost. Get an honest assessment of what your business could sell for based on current buyer demand and industry-specific data.</p>
+        </div>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon5Svg} />
+        <div>
+          <h3 class="subtitle h5-style">BBB Member A+Rated</h3>
+          <p>Anyone can claim integrity—very few can prove it. BBB accreditation and an A+ rating reflect a verified track record of trust, ethical business practices, and accountability. Paired with Phil’s experience as former AZBBA Ethics Chairman, it ensures your transaction is handled with integrity, discretion, and unwavering professionalism.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -286,37 +271,58 @@ const reasons = [
   /* ---------- 1. banner-sctn ---------- */
   .banner-sctn { padding-top: 70px; padding-bottom: 70px; background: #f9f9f9; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); z-index: 1; text-align: center; }
   .banner-sctn .maintitle { font-weight: 500; color: #000; font-size: clamp(22px, 3.4vw, 40px); line-height: 1.1; }
-  .banner-sctn .banner-img { max-width: 100%; height: auto; margin: 26px auto; display: block; }
-  .banner-sctn .warn { color: var(--red); margin: 0 0 6px; font-weight: 700; }
+  .banner-sctn .warn { color: var(--red); margin: 30px 0 6px; font-weight: 700; }
   .banner-sctn .warn-sub { color: var(--primary); font-size: clamp(18px, 2.4vw, 24px); line-height: 1.1; margin: 0 0 24px; }
   .banner-sctn .warn-btn { display: inline-block; background: var(--primary); color: #fff; padding: 11px 30px; border-radius: 4px; font-weight: 700; text-decoration: none; }
   .banner-sctn .warn-btn:hover { background: var(--red); }
-  @media (max-width: 500px) { section.section.banner-sctn { padding-top: 45px; padding-bottom: 45px; } }
+  .banner-sctn .bnr-inn { display: flex; gap: 29px; width: 100%; justify-content: center; align-items: center; margin-top: 34px; }
+  .banner-sctn .bnr-inn > a { flex: 0 0 auto; display: inline-flex; }
+  .banner-sctn .bnr-inn > a > img { width: 187px; height: 47px; flex: 0 0 auto; object-fit: contain; }
+  .banner-sctn .bnr-inn > div { display: flex; align-items: center; gap: 10px; }
+  .banner-sctn .bnr-inn > div .strs { font-size: 25px; color: #ffb300; }
+  .banner-sctn .bnr-inn > div svg { width: 114px; height: auto; }
+  @media (max-width: 700px) { .banner-sctn .bnr-inn { flex-wrap: wrap; } }
+  @media (max-width: 500px) {
+    section.section.banner-sctn { padding-top: 45px; padding-bottom: 45px; }
+    .banner-sctn .bnr-inn { gap: 18px; }
+    .banner-sctn .bnr-inn > div { flex-direction: column; gap: 0; width: 40%; max-width: 79px; }
+    .banner-sctn .bnr-inn > div svg { max-width: 100%; }
+    .banner-sctn .bnr-inn > div .strs { font-size: 15px; }
+    .banner-sctn .bnr-inn > a { width: 40%; max-width: 150px; }
+    .banner-sctn .bnr-inn > a > img { width: 100%; height: auto; }
+  }
 
   /* ---------- 2. valuation-sctn (heading + contact form) ---------- */
   .valuation-sctn { background: var(--secondary); padding-top: 50px; padding-bottom: 50px; border-bottom: 5px solid var(--red); }
   .valuation-sctn .maintitle { color: #fff; text-align: center; margin-bottom: 24px; }
   .valuation-sctn .wpcf7 { width: 100%; max-width: 920px; }
 
-  /* ---------- 3. why-sctn (reason cards) ---------- */
-  .why-sctn { padding-top: 80px; padding-bottom: 70px; background: #fff; }
-  .why-sctn .why-title { width: 100%; text-align: center; margin-bottom: 40px; }
-  .why-sctn .why-title h2 { color: var(--primary); }
-  .why-sctn .why-title span { color: var(--red); }
-  .why-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; width: 100%; }
-  .why-card { width: calc(33.333% - 30px); display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .why-card .why-icon { min-height: 84px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
-  .why-card .why-icon img { width: auto; height: auto; }
-  .why-card h3 { color: var(--secondary); margin-bottom: 10px; }
-  .why-card p { line-height: 1.5; font-size: 16px; color: #4d4d4d; }
-  .why-card .why-cta { display: inline-block; margin-top: 14px; background: var(--primary); color: #fff; padding: 7px 18px; border-radius: 4px; font-size: 14px; font-weight: 600; text-decoration: none; }
-  .why-card .why-cta:hover { background: var(--red); }
-  .why-phone { width: 100%; text-align: center; margin-top: 44px; }
-  .phone-cta { display: inline-flex; align-items: center; gap: 10px; background: var(--red); color: #fff; padding: 11px 26px; border-radius: 4px; font-weight: 700; font-size: 18px; text-decoration: none; }
-  .phone-cta:hover { background: var(--primary); }
-  .phone-cta svg { width: 18px; height: 18px; fill: currentColor; }
-  @media (max-width: 900px) { .why-card { width: calc(50% - 30px); } }
-  @media (max-width: 600px) { .why-card { width: 100%; } .why-sctn { padding-top: 45px; } }
+  /* ---------- 3. why-sctn — "Five of Many Reasons" (verbatim from homepage) ---------- */
+  .why-sctn { padding-top: 80px; padding-bottom: 80px; background: #fff; }
+  section.section.why-sctn { overflow: hidden; }
+  .why-sctn .maintitle { color: var(--red); font-size: clamp(28px, 4vw, 41px); max-width: 800px; text-align: center; }
+  .why-sctn .col-title { width: 100%; display: flex; justify-content: center; margin-bottom: 40px; }
+  .why-sctn .icon-box { width: 33.33%; text-align: center; padding: 0 4%; }
+  .why-sctn .icon-box .icons-why { aspect-ratio: 1/1; width: 112px; margin: 0 auto 20px; border: 2px solid var(--primary); border-radius: 1000px; display: flex; align-items: center; justify-content: center; padding: 14px; position: relative; }
+  .why-sctn .icon-box .icons-why svg { fill: #a82211; }
+  .why-sctn .icon-box .icons-why:after { content: ''; width: 150%; position: absolute; background: var(--primary); height: 2px; left: 100%; }
+  .why-sctn .icon-box .icons-why:before { content: ''; width: 150%; position: absolute; background: var(--primary); height: 2px; right: 100%; }
+  .why-sctn .icon-box .subtitle { margin-bottom: 15px; color: var(--primary); font-size: 21px; }
+  .why-sctn .icon-box:nth-child(3) .icons-why img { border-radius: 100px; }
+  @media (min-width: 1025px) {
+    .why-sctn .icon-box { display: flex; flex-direction: column; }
+    .why-sctn .icon-box > div:last-child { display: flex; flex-direction: column; height: -webkit-fill-available; }
+    .why-sctn .icon-box > div:last-child > p { margin-top: 0; }
+  }
+  @media (max-width: 900px) {
+    section.section.why-sctn { padding-top: 50px; padding-bottom: 50px; }
+    .why-sctn .icon-box { width: 50%; }
+  }
+  @media (max-width: 800px) { .why-sctn .icon-box { width: 100%; } }
+  @media (max-width: 600px) {
+    .why-sctn .icon-box .icons-why:after,
+    .why-sctn .icon-box .icons-why:before { width: 100%; }
+  }
 
   /* ---------- 4. video-aalt-sctn ---------- */
   .video-aalt-sctn { padding-top: 70px; padding-bottom: 70px; background: var(--secondary); background-image: linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)); }
@@ -351,7 +357,7 @@ const reasons = [
   .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; background: var(--primary); padding: 36px 30px; color: #fff; border-radius: 6px; }
   .bottom-form input:not([type=submit]) { background: #fff; border: none; border-bottom: 2px solid var(--red); max-width: 100%; width: 100%; min-height: 31px; padding: 10px 13px; }
   .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
-  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; min-height: 98px; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; min-height: 98px; background: #fff; color: #000; }
   .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
   .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
   .bottom-form .col-4 { width: 100%; }
