@@ -28,18 +28,19 @@ import bodyHtml from "../../reference/_phoenix-business-broker-content.html?raw"
 import jsonldGraph from "../../reference/phoenix-business-broker-jsonld-graph.json";
 import financialServiceSchema from "../../reference/phoenix-business-broker-jsonld-financialservice.json";
 import reviewGraph from "../../reference/phoenix-business-broker-jsonld-extra.json";
+import faqSchema from "../../reference/phoenix-business-broker-jsonld-faq.json";
 
 /* Live <title> + meta description, verbatim from reference/phoenix-business-broker-raw.html */
-const pageTitle = "Phoenix Business Broker | Phil Reese Sells Businesses";
+const pageTitle = "Phoenix Business Broker | Phil Reese, Master CBI";
 const pageDescription =
-  "Top Phoenix Business Broker Phil Reese ensures you get compensated fairly. Representing local buyers and sellers in the Phoenix Area.";
+  "Selling a Phoenix business? Phil Reese is a Master Certified Business Intermediary with 100+ businesses sold and over $97M closed. Get a free, confidential valuation.";
 
 const ogImage = `${SITE_URL}/images/phoenix-business-broker/og-phoenix-business-broker.jpg`;
 
 /* Live page emits: Yoast @graph (WebPage/ImageObject/BreadcrumbList) +
    standalone FinancialService + a Review @graph. Replicated verbatim
    (Layout already injects the global LocalBusiness + WebSite nodes). */
-const structuredData = [jsonldGraph, financialServiceSchema, reviewGraph];
+const structuredData = [jsonldGraph, financialServiceSchema, reviewGraph, faqSchema];
 ---
 
 <Layout
@@ -235,6 +236,17 @@ const structuredData = [jsonldGraph, financialServiceSchema, reviewGraph];
   .links-inn { display: flex; flex-wrap: wrap; width: 100%; gap: 20px 5%; justify-content: center; list-style: none; padding: 0; margin: 0; }
   .links-inn a { color: var(--primary); text-decoration: underline; font-size: 18px; font-weight: 700; }
   @media (max-width: 800px) { .areas-sctn { padding-top: 32px; padding-bottom: 32px; } }
+
+  /* ---------- faq-sctn (added in the 2026-06 remodel) ---------- */
+  .faq-sctn { --gray: #cecece; padding-top: 80px; padding-bottom: 32px; }
+  .faq-sctn .one-col { max-width: 1000px; margin: 0 auto; }
+  .faq-sctn .h3-style { text-align: center; }
+  .faq-sctn .faq-title { margin: 0; font-size: 21px; font-weight: 700; color: var(--primary); }
+  .faq-sctn details { border-bottom: 2px solid var(--gray); margin-bottom: 10px; padding-bottom: 6px; width: 100%; }
+  .faq-sctn summary { border-bottom: 2px solid var(--red); padding-bottom: 13px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; gap: 4px; cursor: pointer; }
+  .faq-sctn summary::-webkit-details-marker { display: none; }
+  .faq-sctn p { line-height: 1.55; }
+  @media (max-width: 500px) { .faq-sctn { padding-top: 40px; } }
 
   /* ---------- shared contact-form (.bottom-form) — city --primary bg variant ---------- */
   .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; background: var(--primary); padding: 36px 30px; color: #fff; border-radius: 6px; }

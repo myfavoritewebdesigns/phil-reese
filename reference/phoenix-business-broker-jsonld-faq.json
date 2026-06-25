@@ -1,0 +1,55 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://www.philsellsbiz.com/phoenix-business-broker/#faq",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How long does it take to sell a business in Phoenix?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most Phoenix businesses sell in about six to twelve months, though it depends on the size of the company, your asking price, and how clean your financials are. A well-prepared business with organized records and a fair valuation moves faster, and Phil keeps the process on track from the first listing to the closing table."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you keep the sale of my business confidential?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Confidentiality protects your employees, your customers, and your vendors while your business is on the market. Phil markets your company without naming it, screens every prospect, and requires a signed nondisclosure agreement before sharing any sensitive details, so your staff and your competitors do not have to know until you are ready."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find the right buyer for my Phoenix business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The right buyer is qualified, serious, and a good fit for what you built. Phil screens out tire-kickers and competitors who are only fishing for information, and he has every prospect complete a buyer questionnaire before moving forward. His buyer network and his connections with banks and escrow help the right deal come together."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much is my Phoenix business worth?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your value comes from a mix of your cash flow, your assets, your industry, and what comparable Phoenix businesses have actually sold for. Phil runs a thorough valuation so you set a fair, realistic price instead of leaving money on the table or scaring off good buyers. Ask Phil for a no-obligation valuation of your Phoenix business."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is now a good time to sell my Phoenix business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on your numbers, your reason for selling, and the local market. A profitable business with clean books and steady demand can sell well in most conditions, and waiting is not always the better move. The honest answer comes from looking at your specific situation, and Phil will tell you straight."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why work with a Master Certified Business Intermediary?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Selling a business is complicated, and most owners only do it once. As a Master Certified Business Intermediary, Phil holds one of the top credentials in the profession, and he has sold more than 100 businesses and closed over $97 million in deals across Arizona. That experience protects your value and keeps the deal moving when it gets tricky."
+      }
+    }
+  ]
+}
