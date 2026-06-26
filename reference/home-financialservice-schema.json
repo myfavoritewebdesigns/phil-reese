@@ -47,13 +47,6 @@
     "latitude": "33.31588233209545",
     "longitude": "-111.98929719095416"
   },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "bestRating": "5",
-    "worstRating": "1",
-    "ratingCount": "21",
-    "ratingValue": "5"
-  },
   "makesOffer": [
     {
       "@type": "Offer",
@@ -121,13 +114,6 @@
         "@type": "GeoCoordinates",
         "latitude": "33.61613881316952",
         "longitude": "-111.89485513144321"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "bestRating": "5",
-        "worstRating": "1",
-        "ratingCount": "25",
-        "ratingValue": "5"
       },
       "areaServed": {
         "@type": "AdministrativeArea",
@@ -200,13 +186,6 @@
         "@type": "GeoCoordinates",
         "latitude": "33.66204137327958",
         "longitude": "-112.11014026865283"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "bestRating": "5",
-        "worstRating": "1",
-        "ratingCount": "1",
-        "ratingValue": "5"
       },
       "makesOffer": [
         {

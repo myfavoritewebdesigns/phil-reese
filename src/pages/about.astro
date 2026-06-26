@@ -21,7 +21,7 @@
    - Form reuses the homepage's field names + shared contact-form.ts handler.
    ----------------------------------------------------------------------- */
 import Layout from "../layouts/Layout.astro";
-import { SITE_URL, contact, offices, replyMethods, socialSameAs } from "../config/site";
+import { SITE_URL, contact, replyMethods, socialSameAs, bbbProfileUrl } from "../config/site";
 
 /* Live <title> + meta description, verbatim from reference/about-raw.html */
 const pageTitle = "All about Phoenix Arizona Business Broker Phil Reese";
@@ -34,10 +34,11 @@ const ogImage = `${SITE_URL}/images/about/og-about.jpg`;
 /* ---------- Page JSON-LD ---------- */
 /* Yoast WebPage @graph — verbatim values from the live about page. */
 const webPageSchema = {
-  "@type": "WebPage",
+  "@type": "AboutPage",
   "@id": `${SITE_URL}/about/`,
   url: `${SITE_URL}/about/`,
   name: pageTitle,
+  mainEntity: { "@id": `${SITE_URL}/#person` },
   isPartOf: { "@id": `${SITE_URL}/#website` },
   primaryImageOfPage: { "@id": `${SITE_URL}/about/#primaryimage` },
   image: { "@id": `${SITE_URL}/about/#primaryimage` },
@@ -71,25 +72,14 @@ const breadcrumbSchema = {
   ],
 };
 
-/* Person schema — Phil + every office as a workLocation Place */
-function officePlace(o: (typeof offices)[number]) {
-  const [locality, regionZip = ""] = o.cityLine.split(/,\s*/);
-  const [region = "AZ", postalCode = ""] = regionZip.trim().split(/\s+/);
-  return {
-    "@type": "Place",
-    name: o.title,
-    telephone: o.phone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: o.street.replace(/,$/, ""),
-      addressLocality: locality,
-      addressRegion: region,
-      postalCode,
-      addressCountry: "US",
-    },
-  };
-}
-
+/* Person schema — the CANONICAL full entity for Phil. Defined once here (this
+   is the /about/ bio page, set as the page's mainEntity); every other page just
+   references {"@id": SITE_URL + "/#person"} so Google unions them into one
+   entity. No workLocation: Google's Rich Results "Local businesses" report
+   counted each office Place as a separate listing (duplicating the
+   FinancialService office nodes). hasCredential / memberOf / award / knowsAbout
+   mirror what the page already displays (real, verifiable) — no disputed
+   numeric claims (deal counts, years) are asserted in schema. */
 const personSchema = {
   "@type": "Person",
   "@id": `${SITE_URL}/#person`,
@@ -103,12 +93,54 @@ const personSchema = {
   telephone: contact.telDashed,
   email: contact.email,
   worksFor: { "@id": `${SITE_URL}/` },
-  sameAs: [...socialSameAs],
   alumniOf: [
     { "@type": "CollegeOrUniversity", name: "University of Phoenix" },
     { "@type": "CollegeOrUniversity", name: "Mesa Community College" },
   ],
-  workLocation: offices.map(officePlace),
+  knowsAbout: [
+    "Business valuation",
+    "Selling a business",
+    "Business brokerage",
+    "Mergers and acquisitions",
+    "Business acquisitions",
+  ],
+  memberOf: [
+    { "@type": "Organization", name: "International Business Brokers Association", url: "https://www.ibba.org/" },
+    { "@type": "Organization", name: "Arizona Business Brokers Association", url: "https://www.azbba.org/" },
+  ],
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "certification",
+      name: "Master Certified Business Intermediary (MCBI)",
+      recognizedBy: { "@type": "Organization", name: "International Business Brokers Association", url: "https://www.ibba.org/" },
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "certification",
+      name: "Certified Business Intermediary (CBI)",
+      recognizedBy: { "@type": "Organization", name: "International Business Brokers Association", url: "https://www.ibba.org/" },
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "certification",
+      name: "Certified Business Broker",
+      recognizedBy: { "@type": "Organization", name: "Arizona Business Brokers Association", url: "https://www.azbba.org/" },
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "license",
+      name: "Licensed Real Estate Broker",
+      recognizedBy: { "@type": "GovernmentOrganization", name: "Arizona Department of Real Estate", url: "https://azre.gov/" },
+    },
+  ],
+  award: [
+    "IBBA Chairman's Circle Award",
+    "AZBBA Platinum Chairman's Circle Award",
+    "West USA Realty Multi-Million Dollar Producer",
+    "West USA Realty Top 1% Overall Company",
+  ],
+  sameAs: [...socialSameAs, bbbProfileUrl],
 };
 
 /* Live page's standalone FinancialService office schema, verbatim (reused from home). */
@@ -398,7 +430,7 @@ const awardColumnB = [
         <img
           fetchpriority="high"
           src="/images/about/MrPhil-1.png"
-          alt=""
+          alt="Phil Reese, Arizona Business Broker"
           width="417"
           height="588"
           class="alignnone size-full"
@@ -450,11 +482,11 @@ const awardColumnB = [
       <div class="medals-col">
         <div>
           <div class="medal-bx">
-            <div><img src="/images/about/AZBBA.jpg" alt="" width="142" height="162" class="alignnone size-full" loading="lazy" /></div>
+            <div><img src="/images/about/AZBBA.jpg" alt="Arizona Business Brokers Association member badge" width="142" height="162" class="alignnone size-full" loading="lazy" /></div>
             <p>I am an active member of the Arizona Business Brokers Association, and I previously served as their Ethics Chairman. I took that role seriously because this industry only works when business owners can trust the business broker sitting across the table from them. That trust is something I’ve worked to earn with every client and every transaction for over twenty years.</p>
           </div>
           <div class="medal-bx">
-            <div><img src="/images/about/IBBA-01-Vertical-2.png" alt="" width="180" height="164" class="alignnone size-full" loading="lazy" /></div>
+            <div><img src="/images/about/IBBA-01-Vertical-2.png" alt="International Business Brokers Association member badge" width="180" height="164" class="alignnone size-full" loading="lazy" /></div>
             <p>I am an active member of the International Business Brokers Association. The IBBA is the organization behind the Master CBI designation, which I’m one of only four brokers in Arizona to hold. Earning it took years of closed transactions, advanced coursework, and a real commitment to the standards the IBBA sets for its members.</p>
           </div>
         </div>
@@ -630,17 +662,17 @@ const awardColumnB = [
         <h3 class="section-title">Publications</h3>
         <ul class="publications-list">
           <li class="publication-card">
-            <a href="#">
+            <a>
               <p>Buying and Selling a Construction or Home Service Business</p>
             </a>
           </li>
           <li class="publication-card">
-            <a href="#">
+            <a href="/buying-or-selling/negotiate-the-price-gap-between-business-buyers-and-sellers/">
               <p>How To Successfully Negotiate The Price Gap Between Business Buyers &amp; Sellers</p>
             </a>
           </li>
           <li class="publication-card">
-            <a href="#">
+            <a href="/buying-or-selling/optimizing-your-receivables-for-a-successful-business-sale/">
               <p>Optimizing Your Receivables For A Successful Business Sale</p>
             </a>
           </li>

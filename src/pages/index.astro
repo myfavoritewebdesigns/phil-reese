@@ -68,24 +68,18 @@ const breadcrumbSchema = {
   itemListElement: [{ "@type": "ListItem", position: 1, name: "AZ Business Broker" }],
 };
 
-/* Person schema — Phil only. The live homepage emits no Person node; this is a
-   rebuild-added E-E-A-T signal. workLocation Places were dropped: Google's Rich
-   Results "Local businesses" report counted each office Place as a separate
-   business listing, duplicating the FinancialService office nodes below. */
+/* Person schema — a LEAN REFERENCE to the canonical Person entity. The full
+   Person (credentials, memberships, awards, expertise) is defined once on the
+   /about/ page as its mainEntity; every other page references the same @id so
+   Google unions them into one entity without duplicating the description. No
+   workLocation here: Google's Rich Results "Local businesses" report counted
+   each office Place as a separate listing, duplicating the FinancialService
+   nodes below. */
 const personSchema = {
   "@type": "Person",
   "@id": `${SITE_URL}/#person`,
   name: "Phil Reese",
-  jobTitle: "Arizona Business Broker",
-  honorificSuffix: "MCBI",
-  description:
-    "Master Certified Business Intermediary (MCBI) and former Ethics Chairman of the Arizona Business Brokers Association (AZBBA), helping Arizona business owners sell their companies since 2001.",
-  url: `${SITE_URL}/`,
-  image: `${SITE_URL}/images/home/phil-reese-portrait.png`,
-  telephone: contact.telDashed,
-  email: contact.email,
-  worksFor: { "@id": `${SITE_URL}/` },
-  sameAs: [...socialSameAs],
+  url: `${SITE_URL}/about/`,
 };
 
 /* Yoast-style @graph wrapper (mirrors how live emits its page schema), plus
