@@ -95,6 +95,21 @@ export const offices: readonly Office[] = [
 export const bbbProfileUrl =
   "https://www.bbb.org/us/az/scottsdale/profile/business-brokers/phil-reese-arizona-business-broker-1126-1000041576";
 
+/* Authority / credential profile URLs — feed the Person.sameAs entity graph on
+   /about/ so Google and AI answer engines tie this entity to its off-site proof.
+   VERIFIED 2026-06-26: IBBA (the CBI/MCBI credential body's member directory —
+   live page confirmed Phil's name + Scottsdale NAP + 480-707-7721 + philsellsbiz)
+   and Alignable (live page confirmed his name + the 4505 E Chandler Blvd office).
+   BizBuySell (broker profile) is confirmed by the 2026-06-24 extended-presence
+   audit + Google's live index; it bot-blocks direct fetches. NOT included: the
+   ADRE real-estate license (broker BR528604000) has no stable public URL — its
+   services.azre.gov detail page needs an owner-browser capture; do not guess it. */
+export const authorityProfiles: readonly string[] = [
+  "https://www.ibba.org/broker-profile/arizona/scottsdale/phil-reese/",
+  "https://www.bizbuysell.com/business-broker/phil-reese/west-usa-realty/7737/",
+  "https://www.alignable.com/ahwatukee-foothills-phoenix-az/phil-reese-arizona-business-broker-2/certified-business-broker",
+];
+
 /* ---------- Inline-SVG icon paths (24×24 viewBox) ---------- */
 export const phoneIconPath = "M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.36 2.32.55 3.57.55a1 1 0 011 1v3.5a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.19 2.45.55 3.57a1 1 0 01-.24 1.02l-2.19 2.2z";
 export const mailIconPath  = "M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z";

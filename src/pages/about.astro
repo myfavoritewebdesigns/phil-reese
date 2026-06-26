@@ -21,7 +21,7 @@
    - Form reuses the homepage's field names + shared contact-form.ts handler.
    ----------------------------------------------------------------------- */
 import Layout from "../layouts/Layout.astro";
-import { SITE_URL, contact, replyMethods, socialSameAs, bbbProfileUrl } from "../config/site";
+import { SITE_URL, contact, replyMethods, socialSameAs, bbbProfileUrl, authorityProfiles } from "../config/site";
 
 /* Live <title> + meta description, verbatim from reference/about-raw.html */
 const pageTitle = "All about Phoenix Arizona Business Broker Phil Reese";
@@ -140,7 +140,7 @@ const personSchema = {
     "West USA Realty Multi-Million Dollar Producer",
     "West USA Realty Top 1% Overall Company",
   ],
-  sameAs: [...socialSameAs, bbbProfileUrl],
+  sameAs: [...socialSameAs, bbbProfileUrl, ...authorityProfiles],
 };
 
 /* Live page's standalone FinancialService office schema, verbatim (reused from home). */
