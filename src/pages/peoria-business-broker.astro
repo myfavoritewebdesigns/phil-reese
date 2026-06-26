@@ -23,8 +23,8 @@
    - Live copy quirks (cloned from other city pages) CORRECTED to Peoria per
      Josh's approval 2026-06-13: FAQ heading "Fountain Hills" → "Peoria";
      garbled "Servicing: Serving: Tempe, ArizonaTempe, Arizona" → "Serving:
-     Peoria, Arizona". FLAGGED, left as-is: the map iframe `mapEmbed` is still
-     centered on Fountain Hills, AZ (no trivially-correct Peoria embed URL).
+     Peoria, Arizona". Map iframe `mapEmbed` re-centered on Peoria, AZ
+     (2026-06-25 fact-fix; was erroneously centered on Fountain Hills).
    - JSON-LD @types match live: WebPage/ImageObject/BreadcrumbList +
      FinancialService + FAQPage + Review graph (verbatim from live).
    ----------------------------------------------------------------------- */
@@ -76,7 +76,7 @@ const faqs = [
   { q: "Q: What Are The Tax Implications Of Selling A Business?", a: `Selling a business involves tax considerations like capital gains taxes, depreciation recapture, and potential state or local taxes. A business broker collaborates with tax professionals to ensure you understand these implications and plan accordingly. Strategies like structuring the sale properly or taking advantage of tax deferrals can help minimize your tax burden. Phil Reese ensures you navigate these complexities effectively while maximizing the financial benefits of your sale.<br>` },
 ];
 
-const mapEmbed = "https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d150406.56611047644!2d-111.90293826870737!3d33.59111011098913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x872b989061a57cd1%3A0xbeacef3478713137!2sFountain%20Hills%2C%20AZ%2C%20USA!3m2!1d33.6042079!2d-111.7256936!4m5!1s0x872b741555a9a769%3A0x777d85f1a062a70!2sPhil%20Reese%2C%20Arizona%20Business%20Broker%2C%207077%20E%20Marilyn%20Rd%20%23200%2C%20Scottsdale%2C%20AZ%2085254%2C%20United%20States!3m2!1d33.6204098!2d-111.9286278!5e0!3m2!1sen!2sec!4v1709935994370!5m2!1sen!2sec";
+const mapEmbed = "https://maps.google.com/maps?q=Peoria,+AZ&z=11&output=embed";
 ---
 
 <Layout

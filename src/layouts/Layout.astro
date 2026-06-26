@@ -100,17 +100,61 @@ const globalSchemaGraph: Record<string, unknown> = {
   "@graph": [orgSchema, siteSchema],
 };
 
-const allSchemas: Record<string, unknown>[] = [globalSchemaGraph];
-if (structuredData) {
-  if (Array.isArray(structuredData)) allSchemas.push(...structuredData);
-  else allSchemas.push(structuredData);
+// The page's primary dated entity (WebPage / Article / BlogPosting). A nested
+// VideoObject hangs off this node so Google reads ITS dateModified, not the
+// video's uploadDate.
+const PRIMARY_NODE_TYPES = new Set([
+  "WebPage", "Article", "BlogPosting", "NewsArticle",
+  "CollectionPage", "AboutPage", "ContactPage", "ItemPage",
+]);
+function findPrimaryPageNode(
+  schemas: Record<string, unknown>[],
+): Record<string, unknown> | null {
+  for (const schema of schemas) {
+    const graph = schema["@graph"];
+    const nodes = Array.isArray(graph) ? graph : [schema];
+    for (const node of nodes) {
+      if (!node || typeof node !== "object") continue;
+      const t = (node as Record<string, unknown>)["@type"];
+      const types = Array.isArray(t) ? t : [t];
+      if (types.some((x) => typeof x === "string" && PRIMARY_NODE_TYPES.has(x))) {
+        return node as Record<string, unknown>;
+      }
+    }
+  }
+  return null;
 }
 
+// Page-specific schemas. Deep-clone (plain JSON, so a JSON round-trip is a safe
+// clone) so nesting the VideoObject below does NOT mutate the cached JSON module
+// imports.
+const pageSchemas: Record<string, unknown>[] = structuredData
+  ? (Array.isArray(structuredData) ? structuredData : [structuredData]).map(
+      (s) => JSON.parse(JSON.stringify(s)) as Record<string, unknown>,
+    )
+  : [];
+
 // VideoObject for an embedded YouTube clip (real metadata in src/lib/videos.ts).
+// Nest it inside the page's primary node (WebPage / Article / BlogPosting) as
+// `video` instead of emitting a co-equal top-level node. A standalone
+// VideoObject that claims the page makes Google treat the clip as the page
+// subject and print the video's real-but-old uploadDate as the SERP date — the
+// "Apr 1, 2015" defect across the city pages. Nesting keeps the clip eligible
+// for video rich results while the WebPage's modern dateModified stays the page
+// date.
 const videoSchema = videoObject(videoId, { pageUrl: canonicalUrl });
 if (videoSchema) {
-  allSchemas.push({ "@context": "https://schema.org", ...videoSchema });
+  const primaryNode = findPrimaryPageNode(pageSchemas);
+  if (primaryNode) {
+    primaryNode.video = videoSchema;
+  } else {
+    // No primary node found to host it — emit standalone so the clip is still
+    // indexable. Without mainEntityOfPage it no longer claims to be the page.
+    pageSchemas.push({ "@context": "https://schema.org", ...videoSchema });
+  }
 }
+
+const allSchemas: Record<string, unknown>[] = [globalSchemaGraph, ...pageSchemas];
 ---
 
 <!doctype html>

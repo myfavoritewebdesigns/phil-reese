@@ -26,3 +26,10 @@ pnpm-debug.log*
 # local dev logs + playwright scratch
 reports/*.log
 .playwright-mcp/
+
+# session scratch — AI side-check dirs, Cloudflare wrangler state, generated
+# audit dumps, and underscore-prefixed throwaway scripts (never commit these)
+.peoria-ai/
+.wrangler/
+reports/
+scripts/_*

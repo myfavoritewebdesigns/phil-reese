@@ -1,0 +1,807 @@
+---
+/* -----------------------------------------------------------------------
+   Peoria Business Broker — TEST PAGE (noindex)  /peoria-business-broker-test/
+   Built by REUSING the real homepage sections VERBATIM (markup + CSS + data):
+     phil-sctn (Meet Phil), sold-sctn (businesses sold), infogrhp-sctn (the
+     full step-by-step selling process), why-sctn (5 reasons), test-sctn
+     (testimonials), ctc-sctn (contact form). Those are lifted exactly from
+     src/pages/index.astro — NOT reinvented.
+   The only bespoke sections are the genuinely Peoria-specific ones the
+   homepage has no equivalent for: a Peoria hero, a local intro, a market
+   snapshot, the named districts, an industries grid, a confidentiality block,
+   a buyer block, Peoria FAQs, and the office map (swapped to Phil's nearest
+   office, the Phoenix Business Broker GBP, with proximity copy). noindex.
+   ----------------------------------------------------------------------- */
+import Layout from "../layouts/Layout.astro";
+import { SITE_URL, contact, replyMethods, socialSameAs, bbbProfileUrl } from "../config/site";
+import googleGLogoSvg from "../../reference/google-g-logo-svg.html?raw";
+import whyIcon1Svg from "../../reference/why-icon-1-business-owner-svg.html?raw";
+import whyIcon2Svg from "../../reference/why-icon-2-mcbi-svg.html?raw";
+import whyIcon4Svg from "../../reference/why-icon-4-valuations-svg.html?raw";
+import whyIcon5Svg from "../../reference/why-icon-5-bbb-svg.html?raw";
+import financialServiceSchema from "../../reference/schema-peoria-business-broker-financialservice.json";
+
+const pageTitle = "Peoria Business Broker | Buy Or Sell A Business | Phil Reese";
+const pageDescription =
+  "Sell or buy a business in Peoria, AZ with Phil Reese, a Certified Business Intermediary who knows the West Valley. Free, confidential valuation. Five-star rated, serving Arizona since 2001.";
+const ogImage = `${SITE_URL}/images/peoria-business-broker-test/hero.jpg`;
+
+/* ---------- Sold businesses (sold-sctn) — verbatim from the homepage ---------- */
+const soldCols = [
+  { headline: "$31,500,000", type: "Precision Metal Fabricator", items: ["$3,355,000 Auto Body Shop", "$2,700,000 Telecom Company", "$2,700,000 Third Party MVD Office", "$2,450,000 Packaging & Shipping Co.", "$1,865,000 Commercial Property Maint  Co.", "$1,700,000 Architecture Firm", "$1,500,000 Grief Support Co.", "$1,100,000 Showerhead Manufacturer"] },
+  { headline: "$7,100,000", type: "Landscape Company", items: ["$1,100,000 Sign Manufacturer", "$1,050,000 Magazine Publisher", "$1,000,000 Auto Glass Products", "$963,000 High-End Wig Boutique", "$950,000 Pharmacy", "$900,000 Fire Equipment Company", "$880,000 Construction Clean Up", "$861,500 Truck Accessories Retailer"] },
+  { headline: "$3,720,000", type: "Grocery Store", items: ["$850,000 HVAC Company", "$810,000 Electrical Contractor", "$800,000 Party & Event Rental Co.", "$750,000 Niche Wood Product Co.", "$675,000 Landscape Company", "$535,000 Cabinet Manufacturer", "$500,000 Metal Manufacturing Company", "$499,000 Scale Dealer/Calibration Lab"] },
+];
+
+/* ---------- Mobile steps divider (infogrhp-sctn) — verbatim from the homepage ---------- */
+const sptDividerSvg = `<svg id="spt-dt" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 171.76 41.56"><polygon class="st0" points="2 41.56 0 41.56 0 28.96 169.76 9.06 169.76 0 171.76 0 171.76 10.84 2 30.74 2 41.56"/></svg>`;
+
+/* ---------- Peoria-specific data ---------- */
+const stats = [
+  { big: "200,000+", label: "Residents and growing", sub: "One of Arizona's fastest-growing cities" },
+  { big: "~$96,000", label: "Median household income", sub: "Among the highest of Arizona's large cities" },
+  { big: "Healthcare", label: "Largest local sector", sub: "Retail and finance follow close behind" },
+  { big: "$7B", label: "Amkor semiconductor campus", sub: "Reshaping North Peoria along Loop 303" },
+  { big: "Feb–Mar", label: "Cactus League season", sub: "The Mariners and Padres fill P83 every spring" },
+];
+const districts = [
+  { name: "P83 Entertainment District", body: "Peoria's dining and nightlife core along 83rd Avenue, next to the Sports Complex. Where restaurants, bars, and hospitality businesses trade hands." },
+  { name: "Park West", body: "The open-air lifestyle center off Loop 101 at Northern. Sit-down restaurants, franchises, and specialty retail." },
+  { name: "Arrowhead and Bell Road", body: "The busiest commercial corridor in the West Valley, packed with retail shops, medical practices, and professional firms." },
+  { name: "Old Town Peoria", body: "The historic Grand Avenue heart at 83rd and Washington, now under active revitalization. Boutiques and local restaurants." },
+  { name: "Lake Pleasant Parkway and Vistancia", body: "North Peoria's growth frontier along Loop 303, where rapid housing development is driving demand for home services and contractors." },
+];
+const industries = [
+  { title: "Restaurants and Bars", body: "From P83 sit-down concepts to neighborhood favorites. We handle the lease, the seasonality, and the books." },
+  { title: "Medical and Dental Practices", body: "Healthcare is Peoria's largest sector. Practice sales have their own buyer pool and licensing nuances." },
+  { title: "Assisted Living and Senior Care", body: "Residential care homes near Sun City and across the West Valley, valued on census and licensing." },
+  { title: "Salons and Med-Spas", body: "Personal-care businesses serving an affluent, growing community. Strong recurring revenue when run right." },
+  { title: "Retail and Franchises", body: "Storefronts and franchise units around Park West, Arrowhead, and the Bell Road corridor." },
+  { title: "Home Services and Contractors", body: "HVAC, landscaping, pool, and trades feeding North Peoria's construction and rooftop growth." },
+  { title: "Auto Services", body: "Repair, detailing, and specialty shops along Peoria's busy arterials." },
+  { title: "Light Manufacturing", body: "Production and distribution companies in a city building a real advanced-manufacturing base." },
+];
+const processSteps = [
+  { name: "Confidential Consultation and Valuation", body: "We start with a private conversation and a real valuation, so you know what your Peoria business would actually sell for in today's market." },
+  { name: "Preparation and Packaging", body: "We organize your financials and build a confidential business profile that answers the questions serious buyers ask first." },
+  { name: "Confidential Marketing", body: "Your business is marketed discreetly to a vetted buyer pool, so employees, customers, and competitors do not find out." },
+  { name: "Buyer Screening", body: "Every prospective buyer is qualified for financial capacity and fit before they ever see your numbers or your name." },
+  { name: "Offers and Negotiation", body: "Phil negotiates price and terms on your behalf, with the experience of more than two decades of Arizona deals behind every move." },
+  { name: "Due Diligence", body: "We manage the document requests, the lender, and the timeline so the deal keeps moving and nothing stalls." },
+  { name: "Closing and Transition", body: "We coordinate escrow, the attorneys, and the handoff so ownership changes cleanly and you walk away whole." },
+];
+const faqs = [
+  { q: "How much is my Peoria business worth?", a: "Most Main Street businesses in Peoria are valued on a multiple of seller's discretionary earnings, adjusted for your lease, your books, and how dependent the business is on you. As a Certified Business Intermediary, Phil builds a real valuation from your numbers and from what comparable West Valley businesses have actually sold for. Start with a free, confidential valuation and you will know where you stand." },
+  { q: "Does spring training affect what my P83-area restaurant or bar is worth?", a: "It can. The Mariners and Padres draw large crowds to the Peoria Sports Complex every February and March, which lifts revenue for nearby restaurants and bars. Buyers know this, so a smart broker shows them the full-year picture and explains the seasonality rather than letting it raise questions during due diligence." },
+  { q: "I own a medical or dental practice in North Peoria. Is selling a practice different?", a: "Yes. Healthcare is Peoria's largest sector, and practice sales have their own buyer pool, their own valuation approach, and licensing and credentialing steps a retail sale never touches. Phil has the experience to package a practice the way qualified buyers and their lenders expect to see it." },
+  { q: "Who buys businesses in Peoria, and where do buyers come from?", a: "Buyers come from across the West Valley, including Glendale, Surprise, and Sun City, plus a steady stream of people relocating to the area for the growth along Loop 303. Phil markets to a vetted pool of local and out-of-state buyers, which is how you create competition for your business." },
+  { q: "Will the Loop 303 and Amkor growth make my business more valuable?", a: "It can help. Amkor's multibillion-dollar semiconductor campus and the broader North Peoria buildout mean more rooftops, more workers, and more demand, which is a real tailwind for service businesses positioned in the right part of town. Phil can tell you whether that growth strengthens your specific story to buyers." },
+  { q: "How do you keep my sale confidential?", a: "Confidentiality is the whole point of using a broker. Phil markets your business without naming it, requires signed confidentiality agreements before any buyer sees your financials, and screens for serious, qualified buyers only. Your employees, customers, and competitors do not find out until you are ready." },
+  { q: "What kinds of Peoria businesses are selling right now?", a: "Across the West Valley, restaurants, salons and med-spas, medical and dental practices, assisted-living homes, franchises, auto and home-service companies, and light manufacturers all change hands regularly. If you own a Peoria business and are wondering whether buyers want it, the answer is usually yes, at the right price." },
+  { q: "Should I sell my building too, or just the business?", a: "It depends on your goals. Many Peoria businesses, especially in Old Town and along the Bell Road corridor, are owner-occupied, so the real estate can be sold with the business, kept and leased back to the buyer, or sold separately. Phil walks you through how each path changes your taxes and your total payout before you decide." },
+];
+
+/* ---------- Page schema ---------- */
+const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${SITE_URL}/peoria-business-broker-test/#breadcrumb`, itemListElement: [{ "@type": "ListItem", position: 1, name: "AZ Business Broker", item: `${SITE_URL}/` }, { "@type": "ListItem", position: 2, name: "Peoria Business Broker" }] };
+const personSchema = { "@type": "Person", "@id": `${SITE_URL}/#phil-reese`, name: "Phil Reese", jobTitle: "Certified Business Intermediary (CBI, MCBI)", worksFor: { "@type": "Organization", name: "West USA Realty" }, areaServed: "Peoria, Arizona", url: `${SITE_URL}/`, image: `${SITE_URL}/images/home/phil-reese-portrait.png`, sameAs: [...socialSameAs] };
+const serviceSchema = { "@type": "Service", "@id": `${SITE_URL}/peoria-business-broker-test/#service`, name: "Business Brokerage in Peoria, AZ", serviceType: "Business Broker", description: "Confidential business sales, acquisitions, and valuations for owners and buyers in Peoria and across the West Valley.", areaServed: { "@type": "City", name: "Peoria, Arizona" }, provider: { "@type": "ProfessionalService", name: "Phil Reese, Arizona Business Broker", "@id": `${SITE_URL}/`, url: `${SITE_URL}/` } };
+const howToSchema = { "@type": "HowTo", "@id": `${SITE_URL}/peoria-business-broker-test/#howto`, name: "How To Sell A Business In Peoria, AZ", description: "The step-by-step process Phil Reese uses to sell a Peoria business confidentially and for the best price.", step: processSteps.map((s, i) => ({ "@type": "HowToStep", position: i + 1, name: s.name, text: s.body })) };
+const faqPageSchema = { "@type": "FAQPage", "@id": `${SITE_URL}/peoria-business-broker-test/#faq`, mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) };
+const structuredData = [{ "@context": "https://schema.org", "@graph": [breadcrumbSchema, personSchema, serviceSchema, howToSchema, faqPageSchema] }, financialServiceSchema];
+
+/* Real "Phoenix Business Broker" GBP embed (Phil's nearest office to Peoria). */
+const mapEmbed = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d252976.70164133824!2d-112.16530657552893!3d33.5815996356273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x872b6fd570785e0f%3A0xf98213e260568250!2sPhoenix%20Business%20Broker!5e0!3m2!1sen!2spe!4v1774302238563!5m2!1sen!2spe";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/peoria-business-broker-test/"
+  ogImage={ogImage}
+  ogImageAlt="Peoria Business Broker Phil Reese"
+  ogImageWidth={1200}
+  ogImageHeight={630}
+  structuredData={structuredData}
+  noIndex={true}
+>
+  <!-- 1. PEORIA HERO (bespoke) -->
+  <section class="section pt-hero">
+    <div class="section-wrap">
+      <div class="pt-hero-inner">
+        <p class="pt-eyebrow">Peoria, Arizona Certified Business Intermediary</p>
+        <h1 class="pt-h1">Peoria Business Broker</h1>
+        <p class="pt-sub">Sell your Peoria business quietly, or buy your next one, with Phil Reese, a Certified Business Intermediary who has helped Arizona owners since 2001. Start with a free, confidential valuation and know exactly where you stand.</p>
+        <div class="pt-trust">
+          <span>CBI and Master CBI</span>
+          <span>Five-Star Rated on Google</span>
+          <span>IBBA Chairman's Circle</span>
+          <span>West USA Realty</span>
+        </div>
+        <div class="pt-cta-row">
+          <a class="pt-btn pt-btn--primary" href="tel:+14807077721">Call Phil Direct: 480-707-7721</a>
+          <a class="pt-btn pt-btn--ghost" href="#pt-contact">Get My Confidential Valuation</a>
+        </div>
+        <p class="pt-microcopy">Confidential from the first call. No obligation. Your employees, customers, and competitors are never contacted.</p>
+        <p class="pt-buy-link"><a href="#pt-buy">Looking to buy a business in Peoria instead?</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. PEORIA INTRO (bespoke) -->
+  <section class="section philo-sctn">
+    <div class="section-wrap">
+      <div class="txt-col">
+        <p>To buy or sell a business in Peoria, you need a broker who actually knows the neighborhoods and the local economy. From the restaurants and bars along the <strong>P83 Entertainment District</strong> to the medical and dental practices off <strong>Bell Road</strong>, the franchises at <strong>Park West</strong>, and the fast-growing service companies out toward <strong>Lake Pleasant Parkway and Vistancia</strong>, Peoria runs on owner-operated businesses. <a href="/about/">Phil Reese</a> has spent more than two decades helping Arizona owners sell those companies for strong terms while protecting their confidentiality.</p>
+        <p>Whether you are planning your exit, preparing for retirement, or ready to buy your first business, Phil gives you the clarity and the discretion the moment calls for. This is what a Peoria business sale should feel like: handled, quiet, and worth it.</p>
+      </div>
+      <div class="img-col">
+        <img fetchpriority="high" decoding="async" src="/images/peoria-business-broker-test/hero.jpg" alt="A Peoria, Arizona commercial district where local businesses are bought and sold" width="480" height="360" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. phil-sctn — Meet Phil (VERBATIM from homepage) -->
+  <section class="section phil-sctn">
+    <div class="section-wrap">
+      <div class="img-col">
+        <img
+          fetchpriority="high"
+          src="/images/home/phil-reese-portrait.png"
+          alt=""
+          width="417"
+          height="588"
+          class="alignnone size-full"
+          srcset="/images/home/phil-reese-portrait.png 417w, /images/home/phil-reese-portrait-213x300.png 213w"
+          sizes="(max-width: 417px) 100vw, 417px"
+        />
+      </div>
+      <div class="txt-col">
+        <h3 class="maintitle h3-style">Phil Reese</h3>
+        <p>Selling a business is personal. I know because I’ve been in your shoes. In 1995, I co-founded First Impression Security Doors out of my garage in Mesa, growing it to a full manufacturing facility in Gilbert with 13 employees before a successful exit in 2001. That company has since grown into Arizona’s largest ornamental iron firm.</p>
+        <p>Today, I use my over 20 years of Business Brokering expertise to help owners navigate their own exits. I am one of only four business brokers in the state to hold the Master Certified Business Intermediary (MCBI) designation. As the former Ethics Chairman for the Arizona Business Brokers Association (AZBBA), I prioritize confidentiality and integrity throughout the whole sales process, ensuring your legacy is protected.</p>
+        <div class="btns btns-alt">
+          <a href="/about/">Learn More About Phil</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. sold-sctn — Businesses sold (VERBATIM from homepage) -->
+  <section class="section sold-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle h3-style">Some of the Businesses I have sold</h3>
+      </div>
+      {soldCols.map((col) => (
+        <div class="sold-col">
+          <h4 class="subtitle h4-style">{col.headline} <span>{col.type}</span></h4>
+          <ul>
+            {col.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 5. MARKET SNAPSHOT (bespoke) -->
+  <section class="section pt-stats">
+    <div class="section-wrap">
+      <h2 class="pt-h2">The Peoria Market At A Glance</h2>
+      <p class="pt-lede">Peoria's rapid growth and rising incomes make it a magnet for motivated buyers coming out of Glendale, Surprise, and Sun City. That demand is exactly what you want behind you when it is time to sell.</p>
+      <div class="pt-stat-grid">
+        {stats.map((s) => (
+          <div class="pt-stat">
+            <div class="pt-stat-big">{s.big}</div>
+            <div class="pt-stat-label">{s.label}</div>
+            <div class="pt-stat-sub">{s.sub}</div>
+          </div>
+        ))}
+      </div>
+      <p class="pt-sources">Sources: U.S. Census Bureau, City of Peoria Economic Development, Arizona Commerce Authority.</p>
+    </div>
+  </section>
+
+  <!-- 6. DISTRICTS (bespoke) -->
+  <section class="section pt-districts">
+    <div class="section-wrap">
+      <h2 class="pt-h2">We Know Where Peoria Does Business</h2>
+      <p class="pt-lede">Most broker pages say "Peoria has a growing population" and stop there. Here is where your buyers actually are.</p>
+      <div class="pt-district-grid">
+        {districts.map((d) => (
+          <div class="pt-district">
+            <h3 class="pt-district-name">{d.name}</h3>
+            <p>{d.body}</p>
+          </div>
+        ))}
+      </div>
+      <img class="pt-banner-img" decoding="async" loading="lazy" src="/images/peoria-business-broker-test/districts.jpg" alt="A revitalizing main-street commercial district in the Arizona West Valley" width="1100" height="412" />
+    </div>
+  </section>
+
+  <!-- 7. INDUSTRIES (bespoke) -->
+  <section class="section pt-industries">
+    <div class="section-wrap">
+      <h2 class="pt-h2">Businesses We Help Buy And Sell In Peoria</h2>
+      <p class="pt-lede">These are the businesses that change hands across the West Valley. Each one sells differently, and Phil knows how.</p>
+      <div class="pt-ind-grid">
+        {industries.map((it) => (
+          <div class="pt-ind">
+            <h3 class="pt-ind-title">{it.title}</h3>
+            <p>{it.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. infogrhp-sctn — Selling process (VERBATIM from homepage) -->
+  <section class="section infogrhp-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="maintitle h3-style">The Process Of Selling Your Arizona Business <span>Step-By-Step</span> </h3>
+        <div class="spt"></div>
+      </div>
+      <a class="desk-imgcol" href="#pt-contact">
+        <span class="stpone">Step One</span>
+        <img src="/images/home/selling-process-infographic.svg" alt="" width="834" height="875" class="alignnone size-full" loading="lazy" role="img" />
+      </a>
+      <ul class="mob-steps">
+        <li class="stp-box"><p>Step One <br />Contact Phil</p></li>
+        <li class="stp-box"><p>He’ll Determine the Value of Your Business</p></li>
+        <li class="spt2" set:html={sptDividerSvg} />
+        <li class="stp-box"><p>List Your Business</p></li>
+        <li class="stp-box"><p>Go To Market</p></li>
+        <li class="spt2" set:html={sptDividerSvg} />
+        <li class="stp-box"><p>Screen Business Buyer Candidates</p></li>
+        <li class="stp-box"><p>Buyer &amp; Seller Meeting</p></li>
+        <li class="spt2" set:html={sptDividerSvg} />
+        <li class="stp-box"><p>Buyer Makes An Offer</p></li>
+        <li class="stp-box"><p>Buyer Does Due Diligence</p></li>
+        <li class="spt2" set:html={sptDividerSvg} />
+        <li class="stp-box"><p>Close on The Sale</p></li>
+        <li class="stp-box"><p>Buyer Starts the Training Process</p></li>
+        <li class="stp-box btns btns-alt"><a href="#pt-contact">Contact Phil</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9. CONFIDENTIALITY (bespoke) -->
+  <section class="section pt-quiet">
+    <div class="section-wrap">
+      <div class="pt-quiet-text">
+        <h2 class="pt-h2">Your Sale Stays Quiet</h2>
+        <p class="pt-lede">For most owners the biggest worry is not the price. It is that employees, customers, landlords, or competitors find out before the time is right. Here is how Phil keeps your sale confidential.</p>
+        <ul class="pt-quiet-list">
+          <li>Your business is never publicly listed with its name attached.</li>
+          <li>Every buyer signs a confidentiality agreement before seeing your financials.</li>
+          <li>Buyers are screened for funding and fit before they ever learn who you are.</li>
+          <li>You control the timing, the message, and who finds out and when.</li>
+        </ul>
+        <a class="pt-btn pt-btn--primary" href="#pt-contact">Start A Private Conversation</a>
+      </div>
+      <div class="pt-quiet-img">
+        <img decoding="async" loading="lazy" src="/images/peoria-business-broker-test/process.jpg" alt="A confidential handshake closing a Peoria business sale" width="520" height="390" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. why-sctn — Five reasons (VERBATIM from homepage) -->
+  <section class="section why-sctn">
+    <div class="section-wrap">
+      <div class="col-title">
+        <h3 class="maintitle h3-style">Five of Many Reasons Why You Should Choose Phil Reese to Sell Your Business!</h3>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon1Svg} />
+        <div>
+          <h4 class="subtitle h5-style">Former <br />Business Owner</h4>
+          <p>There’s a difference between studying business and running one, Phil has done both. He has owned and operated several businesses throughout his career. This first-hand experience allows him to represent sellers with true empathy and insight.</p>
+        </div>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon2Svg} />
+        <div>
+          <h4 class="subtitle h5-style">Master Certified Business Intermediary</h4>
+          <p>Phil is one of only four business brokers in Arizona to hold the prestigious MCBI designation from the International Business Brokers Association (IBBA). This elite credential represents the gold standard in business brokerage, ensuring your sale is handled with the highest level of expertise.</p>
+        </div>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why">
+          <img width="83" height="78" src="/images/home/badge-20-years.png" alt="20 years" loading="lazy" />
+        </div>
+        <div>
+          <h4 class="subtitle h5-style">Over 20 Years Experience, Proven Award Winning Agent </h4>
+          <p>Since 2001, Phil has closed over $97M in business sales across 100+ transaction. As a top 1% producer at West USA Realty and a multi-year IBBA Chairman’s Circle award winner, he combines decades of business brokering knowledge with a consistent, proven track record of results.</p>
+        </div>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon4Svg} />
+        <div>
+          <h4 class="subtitle h5-style">Free No-Obligation Valuations</h4>
+          <p>Understanding your business’s true market value is the first step to a successful exit. Phil provides confidential, real-world valuations at no cost. Get an honest assessment of what your business could sell for based on current buyer demand and industry-specific data.</p>
+        </div>
+      </div>
+      <div class="icon-box">
+        <div class="icons-why" set:html={whyIcon5Svg} />
+        <div>
+          <h4 class="subtitle h5-style">BBB Accredited, A+ Rated</h4>
+          <p>Anyone can claim integrity—very few can prove it. BBB accreditation and an A+ rating reflect a verified track record of trust, ethical business practices, and accountability. Paired with Phil’s experience as former AZBBA Ethics Chairman, it ensures your transaction is handled with integrity, discretion, and unwavering professionalism.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. VALUATION CTA (bespoke) -->
+  <section class="section pt-valuation">
+    <div class="section-wrap">
+      <div class="pt-val-card">
+        <div class="pt-val-text">
+          <h2 class="pt-h2">What Is Your Peoria Business Worth?</h2>
+          <p>Most owners are surprised, in both directions. Phil's confidential, no-obligation valuation tells you what your business would actually sell for in today's West Valley market, and what you can do to move that number up before you list.</p>
+          <div class="pt-val-cta">
+            <a class="pt-btn pt-btn--primary" href="#pt-contact">Request My Free Valuation</a>
+            <a class="pt-btn pt-btn--ghost-dark" href="tel:+14807077721">Or Call 480-707-7721</a>
+          </div>
+        </div>
+        <div class="pt-val-img">
+          <img decoding="async" loading="lazy" src="/images/peoria-business-broker-test/valuation.jpg" alt="Reviewing financial statements to value a Peoria business" width="440" height="330" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. BUYER INTENT (bespoke) -->
+  <section class="section pt-buy" id="pt-buy">
+    <div class="section-wrap">
+      <h2 class="pt-h2">Looking To Buy A Business In Peoria?</h2>
+      <p class="pt-lede">Many of the best businesses for sale in Peoria are never advertised publicly. Owners sell quietly to protect their staff and customers, so the strongest opportunities reach buyers through a broker, not a listing site.</p>
+      <div class="pt-buy-grid">
+        <div class="pt-buy-col">
+          <h3 class="pt-ind-title">How Confidential Buying Works</h3>
+          <p>Tell Phil what you are looking for and your budget. He matches you to businesses that fit, including off-market opportunities, then walks you through the financials, the financing, and due diligence once you sign a confidentiality agreement.</p>
+        </div>
+        <div class="pt-buy-col">
+          <h3 class="pt-ind-title">What Buyers Want In Peoria</h3>
+          <p>Steady cash flow, clean books, and a business that does not depend entirely on the owner. Restaurants near P83, medical and dental practices, home-service companies, and franchises around Park West and Arrowhead all draw active interest.</p>
+        </div>
+      </div>
+      <div class="pt-cta-row pt-cta-center">
+        <a class="pt-btn pt-btn--primary" href="#pt-contact">Tell Phil What You Want To Buy</a>
+        <a class="pt-btn pt-btn--ghost" href="/business-buyers/">Buyer Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. test-sctn — Testimonials (VERBATIM from homepage) -->
+  <section class="section test-sctn">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h3 class="subtitle h3-style">Read What My Past Clients Have Said</h3>
+      </div>
+      <div class="google-col">
+        <Fragment set:html={googleGLogoSvg} />
+        <div>
+          <p>Over 60 reviews</p>
+          <span>5.0 <span class="strs">★★★★★</span></span>
+        </div>
+      </div>
+      <div class="main-rvw">
+        <p>Working with Phil Reese was truly an exceptional experience! From the very first consultation to the final closing, Phil went above and beyond to make selling my business smooth, stress-free, and successful. His expertise in the Arizona market is unmatched — he knew exactly how to position my business to attract the right buyers and negotiated a deal that exceeded my expectations.</p>
+        <p>Phil is incredibly professional, responsive, and genuinely cares about his clients. He took the time to answer all my questions, kept me updated every step of the way, and always made me feel like a top priority. His honesty and integrity gave me complete peace of mind throughout the entire process.</p>
+        <p>If you are considering selling or buying a business in Arizona, I cannot recommend Phil Reese enough. He is hands down the best business broker out there — knowledgeable, dedicated, and a true partner you can trust. Thank you, Phil, for helping me achieve my goals and making this such a positive experience!</p>
+        <p class="name">Rickey Woolfolk <span class="strs">★★★★★</span></p>
+        <p class="biz-main">Empower Academy</p>
+        <p><a class="rvw-link" href="https://maps.app.goo.gl/gQ4DHB1MjVPDqCKB9" target="_blank">Reposted from Google</a></p>
+      </div>
+      <div class="rvw-box">
+        <p>Words alone can not describe how professional and knowledgeable Phil is when it comes to selling a business.  After my husband and I decided to sell our company we interviewed Phil and knew right away that he was our guy!!   Being once a business owner himself he knew all of our concerns and questions.  Phil guided us through the entire process from listing, advertising to closing.<br />  Not only did Phil sell our company quicker than we expected he also got us FULL PRICE!!!   Can’t Thank him enough!!!</p>
+        <a class="rvw-link" href="https://maps.app.goo.gl/PravqkfmGsH2HM3d8" target="_blank">Reposted from Google</a>
+        <div class="rvw-bx">
+          <img src="/images/home/avatar-liz-majerczyk.png" alt="" width="72" height="72" class="alignnone size-full" loading="lazy" />
+          <div>
+            <p class="bss-name">Liz Majerczyk</p>
+            <p class="name">Vent Masters</p>
+            <span class="strs">★★★★★</span>
+          </div>
+        </div>
+      </div>
+      <div class="rvw-box">
+        <p>We had owned our business for over 30 years and it was time to sell our business and retire. We were entrusting our life’s work to someone we didn’t know and we were very nervous, therefore, we did a lot of research on brokers as it was imperative that this person be experienced, knowledgeable and reliable.  It  was a complicated process but Phil was determined to get us the best deal possible, regardless of how much time and work was involved.   He worked tirelessly day and night to get it done, and done right; he definitely earned his commission.  We are grateful to Phil for everything he did for us and strongly recommend him to sell your business.</p>
+        <a class="rvw-link" href="https://maps.app.goo.gl/NWEg4mgR83xtb9rn7" target="_blank">Reposted from Google</a>
+        <div class="rvw-bx">
+          <img src="/images/home/avatar-debbie-thompson.png" alt="" width="72" height="72" class="alignnone size-full" loading="lazy" />
+          <div>
+            <p class="bss-name">Debbie Thompson</p>
+            <p class="name">First Impressions Dental Lab</p>
+            <span class="strs">★★★★★</span>
+          </div>
+        </div>
+      </div>
+      <div class="rvw-box">
+        <p>In shopping around for a broker, Phil was the best fit for us. He is a good and kind man, and thoughtful.  He listens and he gets things done.  He was quick to take care of any needs we had and was not surprised when we got our full asking. All aspects of the sale were answered prayer.  We would use him again but retirement looks pretty good!</p>
+        <a class="rvw-link" href="https://maps.app.goo.gl/gWbt8AKWLFNoT63p8" target="_blank">Reposted from Google</a>
+        <div class="rvw-bx">
+          <img src="/images/home/avatar-vicki-hanna.png" alt="" width="72" height="72" class="alignnone size-full" loading="lazy" />
+          <div>
+            <p class="bss-name">Vicki Hanna</p>
+            <p class="name">Hope Through Healing Publications</p>
+            <span class="strs">★★★★★</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. ctc-sctn — Contact form (VERBATIM from homepage; form-id = peoria-test) -->
+  <section class="section ctc-sctn" id="pt-contact">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h3 class="maintitle h3-style">Contact Phil for Your Free Confidential Valuation</h3>
+        <hr />
+        <div class="wpcf7">
+          <form class="wpcf7-form" action="/api/contact" method="post" aria-label="Contact form" data-pr-contact-form data-form-id="peoria-test">
+            <input type="text" name="_honeypot" value="" tabindex="-1" autocomplete="off" aria-hidden="true" class="pr-hp" />
+            <div class="bottom-form">
+              <div class="col-1">
+                <label for="first-name-bt">Name</label>
+                <span class="wpcf7-form-control-wrap"><input type="text" name="your-name-bt" id="first-name-bt" class="wpcf7-form-control wpcf7-text" maxlength="400" placeholder="Name*" required aria-required="true" /></span>
+              </div>
+              <div class="col-2">
+                <label for="your-email-bt">Email</label>
+                <span class="wpcf7-form-control-wrap"><input type="email" name="your-email-bt" id="your-email-bt" class="wpcf7-form-control wpcf7-email wpcf7-text" maxlength="400" placeholder="Email*" required aria-required="true" /></span>
+              </div>
+              <div class="col-3">
+                <label for="your-phone-bt">Phone</label>
+                <span class="wpcf7-form-control-wrap"><input type="tel" name="your-phone-bt" id="your-phone-bt" class="wpcf7-form-control wpcf7-tel wpcf7-text" maxlength="400" placeholder="Phone" /></span>
+              </div>
+              <div class="col-4">
+                <label for="your-message-bt">Your Message*</label>
+                <span class="wpcf7-form-control-wrap"><textarea name="your-message-bt" id="your-message-bt" class="wpcf7-form-control wpcf7-textarea" cols="40" rows="10" maxlength="2000" minlength="20" placeholder="Your Message*" required aria-required="true"></textarea></span>
+              </div>
+              <div class="col-5">
+                <div class="bst-way">
+                  <label>Best Way to Reply:</label>
+                  <span class="wpcf7-form-control-wrap"><span class="wpcf7-form-control wpcf7-radio">
+                    {replyMethods.map((method, i) => (
+                      <span class={`wpcf7-list-item${i === 0 ? " first" : ""}${i === replyMethods.length - 1 ? " last" : ""}`}>
+                        <label><input type="radio" name="bst-way-bt" value={method} checked={i === 0} /><span class="wpcf7-list-item-label">{method}</span></label>
+                      </span>
+                    ))}
+                  </span></span>
+                </div>
+                <button type="submit" class="wpcf7-form-control wpcf7-submit">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15. FAQ (bespoke) -->
+  <section class="section faq-sctn">
+    <div class="section-wrap">
+      <div class="one-col">
+        <h2 class="tc h3-style">Peoria Business Broker FAQs</h2>
+        {faqs.map((f) => (
+          <details>
+            <summary><h3 class="h5-style faq-title">{f.q}</h3></summary>
+            <p><b>A: </b>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 16. AREAS (bespoke) -->
+  <section class="section areas-sctn">
+    <div class="section-wrap">
+      <h2 class="maintitle">Serving Peoria And The Greater Phoenix Area</h2>
+      <ul class="links-inn">
+        <li><a href="/phoenix-business-broker/">Phoenix Business Broker</a></li>
+        <li><a href="/scottsdale-business-broker/">Scottsdale Business Broker</a></li>
+        <li><a href="/glendale-business-broker/">Glendale Business Broker</a></li>
+        <li><a href="/mesa-business-broker/">Mesa Business Broker</a></li>
+        <li><a href="/business-sellers/">For Sellers</a></li>
+        <li><a href="/business-buyers/">For Buyers</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 17. MAP — Phil's nearest office (Phoenix Business Broker GBP) -->
+  <section class="section map-sctn-single">
+    <div class="section-wrap">
+      <div class="title-col">
+        <h2 class="h3-style">Phil's Closest Office Is Just Minutes From Peoria</h2>
+        <h3 class="h4-style">Find Phil at the Phoenix Business Broker office in northwest Phoenix, a short drive down Loop 101 from anywhere in Peoria. He meets clients across the whole West Valley.</h3>
+      </div>
+      <iframe src="about:blank" data-lazy-src={mapEmbed} width="900" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Phoenix Business Broker office location near Peoria, Arizona"></iframe>
+    </div>
+  </section>
+
+  <!-- sticky mobile call bar -->
+  <div class="pt-mobile-bar">
+    <a class="pt-mb-call" href="tel:+14807077721">Call Phil</a>
+    <a class="pt-mb-val" href="#pt-contact">Free Valuation</a>
+  </div>
+</Layout>
+
+<script is:inline>
+  (function () {
+    var frames = document.querySelectorAll("iframe[data-lazy-src]");
+    if (!frames.length) return;
+    function load(frame) { if (frame.dataset.loaded) return; frame.dataset.loaded = "1"; frame.src = frame.dataset.lazySrc; }
+    if (!("IntersectionObserver" in window)) { frames.forEach(load); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) { if (entry.isIntersecting) { load(entry.target); io.unobserve(entry.target); } });
+    }, { rootMargin: "400px 0px" });
+    frames.forEach(function (f) { io.observe(f); });
+  })();
+</script>
+
+<style is:global>
+  /* ===== bespoke Peoria sections ===== */
+  .pt-eyebrow { text-transform: uppercase; letter-spacing: .12em; font-weight: 700; color: var(--red); font-size: 14px; margin: 0 0 14px; }
+  .pt-h1 { color: var(--primary); font-size: clamp(30px, 4.6vw, 54px); line-height: 1.08; margin: 0 0 18px; }
+  .pt-h2 { color: var(--primary); font-size: clamp(26px, 3.4vw, 40px); margin: 0 0 14px; }
+  .pt-sub { color: var(--secondary); font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; max-width: 60ch; margin: 0 0 22px; }
+  .pt-lede { color: var(--secondary); font-size: 18px; line-height: 1.55; max-width: 70ch; margin: 0 0 30px; }
+  .pt-btn { display: inline-block; border-radius: 100px; padding: 14px 28px; font-weight: 700; text-transform: uppercase; font-size: 15px; letter-spacing: .02em; text-decoration: none; transition: transform .15s ease; }
+  .pt-btn:hover { transform: translateY(-2px); }
+  .pt-btn--primary { background: var(--red); color: #fff; box-shadow: 0 8px 20px rgba(0,0,0,.18); }
+  .pt-btn--ghost { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+  .pt-btn--ghost-dark { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.7); }
+  .pt-hero { background: linear-gradient(180deg, #f4f6fb 0%, #e9edf5 100%); padding: clamp(56px, 8vw, 104px) 20px; box-shadow: inset 0 -4px 0 var(--red); }
+  .pt-hero-inner { max-width: 1000px; }
+  .pt-trust { display: flex; flex-wrap: wrap; gap: 10px 14px; margin: 0 0 28px; }
+  .pt-trust span { background: #fff; border: 1px solid var(--light-gray); color: var(--primary); font-weight: 600; font-size: 13px; padding: 7px 14px; border-radius: 100px; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+  .pt-cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
+  .pt-cta-center { justify-content: center; margin-top: 10px; }
+  .pt-microcopy { color: var(--secondary); font-size: 14px; margin: 14px 0 0; opacity: .9; }
+  .pt-buy-link { margin: 16px 0 0; font-size: 15px; }
+  .pt-buy-link a { color: var(--red); font-weight: 600; }
+  .philo-sctn { padding-top: 80px; padding-bottom: 80px; }
+  .philo-sctn .txt-col { width: 55%; margin-bottom: 0; padding-right: 5%; }
+  .philo-sctn .img-col { display: flex; width: 45%; }
+  .philo-sctn .img-col img { width: 100%; height: auto; border-radius: 14px; box-shadow: 0 18px 40px rgba(0,0,0,.12); object-fit: cover; }
+  .philo-sctn .section-wrap { align-items: center; }
+  .philo-sctn .txt-col p { line-height: 1.55; font-size: 18px; color: var(--secondary); }
+  .philo-sctn .txt-col p strong { color: var(--primary); }
+  @media (max-width: 1024px) { .philo-sctn .img-col { max-width: 420px; width: 100%; } .philo-sctn .txt-col { width: 100%; padding: 0 0 24px; } }
+  .pt-stats { padding: clamp(56px, 7vw, 88px) 20px; }
+  .pt-stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+  .pt-stat { background: var(--white); border: 1px solid var(--light-gray); border-top: 4px solid var(--red); border-radius: 12px; padding: 26px 20px; box-shadow: 0 10px 30px rgba(0,0,0,.05); }
+  .pt-stat-big { color: var(--primary); font-size: clamp(26px, 2.4vw, 34px); font-weight: 800; line-height: 1; margin-bottom: 8px; }
+  .pt-stat-label { color: var(--secondary); font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .pt-stat-sub { color: var(--secondary); font-size: 13px; opacity: .85; line-height: 1.4; }
+  .pt-sources { color: var(--secondary); font-size: 13px; opacity: .7; margin: 18px 0 0; }
+  @media (max-width: 1024px) { .pt-stat-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .pt-stat-grid { grid-template-columns: 1fr; } }
+  .pt-districts { padding: clamp(56px, 7vw, 88px) 20px; background: #f4f6fb; }
+  .pt-district-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .pt-district { background: var(--white); border-radius: 12px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.05); border-left: 4px solid var(--primary); }
+  .pt-district-name { color: var(--primary); font-size: 20px; margin: 0 0 10px; }
+  .pt-district p { color: var(--secondary); line-height: 1.5; margin: 0; }
+  .pt-banner-img { width: 100%; height: auto; border-radius: 14px; margin-top: 34px; box-shadow: 0 14px 36px rgba(0,0,0,.1); object-fit: cover; max-height: 380px; }
+  @media (max-width: 1024px) { .pt-district-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .pt-district-grid { grid-template-columns: 1fr; } }
+  .pt-industries { padding: clamp(56px, 7vw, 88px) 20px; }
+  .pt-ind-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .pt-ind { padding: 24px; border: 1px solid var(--light-gray); border-radius: 12px; background: var(--white); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .pt-ind:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(16,33,77,.1); border-color: var(--primary); }
+  .pt-ind-title { color: var(--primary); font-size: 18px; margin: 0 0 8px; }
+  .pt-ind p { color: var(--secondary); font-size: 15px; line-height: 1.5; margin: 0; }
+  @media (max-width: 1024px) { .pt-ind-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .pt-ind-grid { grid-template-columns: 1fr; } }
+  .pt-quiet { padding: clamp(56px,7vw,88px) 20px; background: #f4f6fb; }
+  .pt-quiet .section-wrap { display: flex; gap: 44px; align-items: center; flex-wrap: wrap; }
+  .pt-quiet-text { flex: 1 1 480px; }
+  .pt-quiet-img { flex: 1 1 360px; }
+  .pt-quiet-img img { width: 100%; height: auto; border-radius: 14px; box-shadow: 0 18px 40px rgba(0,0,0,.12); object-fit: cover; }
+  .pt-quiet-list { list-style: none; margin: 0 0 26px; padding: 0; }
+  .pt-quiet-list li { position: relative; padding-left: 30px; margin-bottom: 12px; color: var(--secondary); font-size: 17px; line-height: 1.5; }
+  .pt-quiet-list li:before { content: "\2713"; position: absolute; left: 0; top: 0; color: var(--red); font-weight: 800; }
+  .pt-valuation { padding: clamp(48px, 6vw, 80px) 20px; }
+  .pt-val-card { background: linear-gradient(120deg, var(--primary) 0%, #16307a 100%); border-radius: 18px; padding: clamp(32px, 5vw, 56px); display: flex; gap: 40px; align-items: center; justify-content: space-between; flex-wrap: wrap; box-shadow: 0 20px 50px rgba(16,33,77,.2); }
+  .pt-val-text { flex: 1 1 460px; }
+  .pt-val-text .pt-h2 { color: #fff; }
+  .pt-val-text p { color: rgba(255,255,255,.85); font-size: 18px; line-height: 1.55; margin: 0; max-width: 60ch; }
+  .pt-val-text .pt-val-cta { display: flex; flex-direction: row; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+  .pt-val-img { flex: 0 1 380px; }
+  .pt-val-img img { width: 100%; height: auto; border-radius: 14px; box-shadow: 0 16px 38px rgba(0,0,0,.25); object-fit: cover; }
+  .pt-buy { padding: clamp(56px,7vw,88px) 20px; background: #f4f6fb; }
+  .pt-buy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 30px; }
+  .pt-buy-col { background: var(--white); border-radius: 12px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.05); }
+  .pt-buy-col p { color: var(--secondary); line-height: 1.55; margin: 0; }
+  @media (max-width: 720px) { .pt-buy-grid { grid-template-columns: 1fr; } }
+  .faq-sctn { --gray: #cecece; padding-top: 80px; padding-bottom: 32px; }
+  .faq-sctn .h3-style { text-align: center; }
+  .faq-sctn .faq-title { margin: 0; font-size: 19px; font-weight: 700; color: var(--primary); }
+  .faq-sctn details { border-bottom: 2px solid var(--gray); margin-bottom: 10px; padding-bottom: 6px; width: 100%; }
+  .faq-sctn summary { border-bottom: 2px solid var(--red); padding-bottom: 13px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; gap: 4px; cursor: pointer; list-style: none; }
+  .faq-sctn summary::-webkit-details-marker { display: none; }
+  .faq-sctn summary:after { content: "+"; color: var(--red); font-size: 26px; font-weight: 700; line-height: 1; }
+  .faq-sctn details[open] > summary:after { content: "\2013"; }
+  .faq-sctn details > p { line-height: 1.55; color: var(--secondary); }
+  .areas-sctn { color: var(--primary); padding: 80px 20px; box-shadow: 0 0 15px 0 rgba(0,0,0,.25); }
+  .areas-sctn .maintitle { font-size: clamp(28px, 4vw, 40px); display: flex; width: 100%; align-items: center; gap: 20px; font-weight: 400; }
+  .areas-sctn .maintitle:after { content: ''; flex-grow: 1; background: var(--primary); height: 2px; }
+  .links-inn { display: flex; flex-wrap: wrap; width: 100%; gap: 20px 5%; justify-content: center; list-style: none; padding: 0; margin: 0; }
+  .links-inn a { color: var(--primary); text-decoration: underline; font-size: 18px; font-weight: 700; }
+  @media (max-width: 800px) { .areas-sctn .maintitle:before { content: ''; flex-grow: 1; background: var(--primary); height: 2px; } .areas-sctn .maintitle { text-align: center; } }
+  .map-sctn-single { padding-bottom: calc(3% + 32px); padding-top: 40px; }
+  .map-sctn-single .section-wrap { justify-content: center; flex-direction: column; align-items: center; }
+  .map-sctn-single .title-col { background-color: var(--primary); text-align: center; color: var(--white); width: 100%; max-width: 900px; padding: 28px 20px; }
+  .map-sctn-single .title-col .h3-style { margin: 0 0 8px; }
+  .map-sctn-single iframe { width: 900px; max-width: 100%; height: auto; aspect-ratio: 2/1; }
+  .pt-mobile-bar { display: none; }
+  @media (max-width: 768px) {
+    .pt-mobile-bar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 999; box-shadow: 0 -4px 16px rgba(0,0,0,.18); }
+    .pt-mobile-bar a { flex: 1; text-align: center; padding: 15px 8px; font-weight: 800; text-transform: uppercase; font-size: 14px; text-decoration: none; }
+    .pt-mb-call { background: var(--red); color: #fff; }
+    .pt-mb-val { background: var(--primary); color: #fff; }
+    body { padding-bottom: 56px; }
+  }
+
+  /* ===== homepage section CSS — copied VERBATIM from index.astro ===== */
+  /* phil-sctn */
+  .phil-sctn { padding-top: 80px; }
+  .phil-sctn .txt-col { width: 63%; }
+  .phil-sctn .img-col { display: flex; padding-right: 48px; width: 37%; }
+  .phil-sctn .section-wrap { align-items: center; }
+  .phil-sctn .maintitle { margin-bottom: 0; color: var(--red); font-size: clamp(30px, 3vw, 50px); }
+  .phil-sctn .btns.btns-alt { margin-top: 60px; }
+  .phil-sctn .txt-col p { font-size: 18px; }
+  @media (min-width: 1025px) { .phil-sctn .txt-col { text-align: justify; } }
+  @media (max-width: 900px) {
+    .phil-sctn .img-col { width: 100%; padding: 0; justify-content: center; max-width: 306px; border-bottom: 4px solid var(--red); margin-bottom: 30px; }
+    .phil-sctn .txt-col { width: 100%; text-align: center; }
+    .phil-sctn .btns.btns-alt { margin-left: auto; margin-right: auto; margin-bottom: 20px; }
+    .phil-sctn { padding-top: 50px; }
+  }
+  /* sold-sctn */
+  .sold-sctn { background: var(--secondary); padding-top: 85px; padding-bottom: 85px; color: #fff; }
+  .sold-sctn .title-col { width: 100%; }
+  .sold-sctn .title-col .maintitle { font-size: clamp(28px, 3vw, 45px); }
+  .sold-col { width: 33%; }
+  .sold-col .subtitle { font-size: 45px; }
+  .sold-col .subtitle span { display: block; font-size: 18px; font-weight: 400; }
+  .sold-col ul { list-style: none; margin: 0; padding: 0; }
+  .sold-col ul > li { padding: 7px 0; }
+  @media (max-width: 800px) {
+    .sold-sctn .sold-col { width: 50%; margin-bottom: 20px; }
+    .sold-sctn .section-wrap { justify-content: space-between; }
+    .sold-sctn { padding-left: 30px; padding-right: 30px; padding-top: 50px; }
+    .sold-sctn .title-col .maintitle { font-size: 32px; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .sold-sctn .sold-col { width: 100%; text-align: center; }
+    section.section.sold-sctn { padding-left: 20px; padding-right: 20px; }
+    .sold-sctn .title-col .maintitle { font-size: 28px; }
+  }
+  /* infogrhp-sctn */
+  .infogrhp-sctn { padding-top: 60px; padding-bottom: 90px; }
+  .infogrhp-sctn .title-col { width: 44%; padding-right: 4%; }
+  .infogrhp-sctn .desk-imgcol { width: 55%; }
+  .infogrhp-sctn .section-wrap { align-items: center; }
+  .infogrhp-sctn .maintitle { color: var(--secondary); font-size: clamp(30px, 3vw, 46px); }
+  .infogrhp-sctn .maintitle span { display: block; font-size: 1.45em; color: var(--red); }
+  .infogrhp-sctn .spt { color: var(--secondary); height: 4px; border: 0; background: var(--secondary); position: relative; margin-left: -67%; }
+  .infogrhp-sctn .spt:after { content: ''; width: 20px; height: 20px; background: var(--secondary); position: absolute; right: 0; top: -7px; border-radius: 100px; }
+  span.stpone { text-align: center; width: 100%; display: flex; justify-content: center; color: var(--red); font-size: var(--font-size--h3); font-weight: var(--font-weight--h3); font-family: var(--font-family--h3); }
+  @media (min-width: 501px) { .infogrhp-sctn .mob-steps { display: none; } }
+  @media (max-width: 900px) {
+    .infogrhp-sctn .title-col { width: 100%; text-align: center; margin-bottom: 40px; padding: 0; }
+    .infogrhp-sctn .desk-imgcol { width: 100%; max-width: 600px; }
+    .infogrhp-sctn { padding-bottom: 120px; }
+  }
+  @media (max-width: 500px) {
+    .desk-imgcol { display: none; }
+    .mob-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 5px; max-width: 320px; }
+    .mob-steps > li { background: var(--secondary); padding: 10px 20px; border: 4px solid #fff; outline: 2px solid var(--secondary); margin-bottom: 24px; border-radius: 100px; text-align: center; }
+    .mob-steps > li > p { margin: 0; color: #fff; font-family: var(--font-family--h3); font-size: 15px; font-weight: 600; line-height: 1.1; }
+    .mob-steps > li:nth-child(2n) { background: var(--primary); outline: 2px solid var(--primary); }
+    .mob-steps .stp-box { width: calc(50% - 4px); margin-bottom: 0; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; }
+    .mob-steps > li.spt2 { background: 0 0; border: 0; outline: 0; padding: 0; width: 200px; margin: -10px auto; }
+    svg#spt-dt { fill: var(--red); }
+    li.stp-box.btns.btns-alt { background: 0 0; border: 0; outline: 0; padding: 0; margin-left: auto; margin-right: auto; aspect-ratio: unset; margin-top: 20px; }
+    section.section.infogrhp-sctn { padding-bottom: 30px; padding-top: 30px; }
+  }
+  /* test-sctn */
+  .test-sctn { background: linear-gradient(360deg, #e8e8e8 0, #e7e7e7 30%, #e7e7E700 100%) no-repeat padding-box; padding-top: 80px; padding-bottom: 80px; }
+  section.section.test-sctn { overflow: hidden; }
+  .test-sctn .title-col { flex-grow: 1; max-width: 750px; padding-right: 20px; margin-left: auto; }
+  .test-sctn .maintitle { margin: 0; font-family: sans-serif; font-weight: 400; color: var(--red); }
+  .test-sctn .subtitle { margin: 0; color: var(--secondary); font-size: clamp(28px, 3vw, 42px); }
+  .test-sctn .google-col { display: flex; align-items: center; gap: 20px; background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); padding: 20px; margin-right: -40px; width: 44%; border-radius: 7px; }
+  .test-sctn .section-wrap { align-items: center; justify-content: space-between; max-width: none; }
+  .test-sctn .google-col div p { margin-top: 0; text-transform: uppercase; color: var(--primary); margin-bottom: 0; font-weight: 600; font-size: 16px; }
+  .test-sctn .google-col div span { font-weight: 900; color: var(--primary); }
+  .test-sctn .google-col div span span.strs { color: #ffb300; font-size: 20px; }
+  .main-rvw { margin-top: 40px; width: 100%; margin-bottom: 30px; }
+  .main-rvw > p { max-width: 1200px; margin-left: auto; margin-right: auto; }
+  .main-rvw p.name { font-size: 21px; color: var(--red); font-weight: 600; margin-bottom: 6px; }
+  .test-sctn .rvw-box { background: #fff; box-shadow: 0 0 15px 0 rgba(0, 0, 0, .25); border-radius: 5px; padding: 30px; width: calc(33.33% - 24px); align-self: stretch; display: flex; flex-direction: column; }
+  .test-sctn .rvw-box p { margin: 0; }
+  .test-sctn .rvw-box > p { margin-bottom: 20px; }
+  .test-sctn .rvw-box .rvw-bx { display: flex; align-items: center; gap: 10px; margin-top: auto; }
+  .test-sctn .rvw-box .rvw-bx > img { width: 72px; height: 72px; flex: 0 0 72px; object-fit: cover; }
+  .test-sctn .rvw-box div .name { color: var(--secondary); font-weight: 700; font-size: 14px; }
+  a.rvw-link { margin-bottom: 10px; display: inline-block; }
+  .bss-name { color: var(--red); font-weight: 600; }
+  @media (max-width: 1024px) {
+    .test-sctn .rvw-box { width: calc(50% - 24px); margin-bottom: 20px; }
+    .test-sctn .section-wrap { justify-content: center; column-gap: 20px; }
+  }
+  @media (max-width: 800px) {
+    .test-sctn .title-col { padding: 0; width: 100%; text-align: center; margin-bottom: 30px; }
+    .test-sctn .google-col { width: 100%; margin-right: 0; justify-content: center; max-width: 400px; }
+    section.section.test-sctn { padding-top: 50px; padding-bottom: 50px; }
+    .main-rvw { text-align: center; }
+    .test-sctn .rvw-box { width: 100%; }
+  }
+  @media (max-width: 500px) { .test-sctn .google-col { flex-wrap: wrap; text-align: center; padding: 15px; } }
+  /* why-sctn */
+  .why-sctn { padding-top: 80px; padding-bottom: 80px; }
+  section.section.why-sctn { overflow: hidden; }
+  .why-sctn .maintitle { color: var(--red); font-size: clamp(28px, 4vw, 41px); max-width: 800px; text-align: center; }
+  .why-sctn .col-title { width: 100%; display: flex; justify-content: center; margin-bottom: 40px; }
+  .why-sctn .icon-box { width: 33.33%; text-align: center; padding: 0 4%; }
+  .why-sctn .icon-box .icons-why { aspect-ratio: 1/1; width: 112px; margin: 0 auto 20px; border: 2px solid var(--primary); border-radius: 1000px; display: flex; align-items: center; justify-content: center; padding: 14px; position: relative; }
+  .why-sctn .icon-box .icons-why svg { fill: #a82211; }
+  .why-sctn .icon-box .icons-why:after { content: ''; width: 150%; position: absolute; background: var(--primary); height: 2px; left: 100%; }
+  .why-sctn .icon-box .icons-why:before { content: ''; width: 150%; position: absolute; background: var(--primary); height: 2px; right: 100%; }
+  .why-sctn .icon-box .subtitle { margin-bottom: 15px; color: var(--primary); font-size: 21px; }
+  .why-sctn .icon-box:nth-child(3) .icons-why img { border-radius: 100px; }
+  @media (min-width: 1025px) {
+    .why-sctn .icon-box { display: flex; flex-direction: column; }
+    .why-sctn .icon-box > div:last-child { display: flex; flex-direction: column; height: -webkit-fill-available; }
+    .why-sctn .icon-box > div:last-child > p { margin-top: 0; }
+  }
+  @media (max-width: 900px) { section.section.why-sctn { padding-top: 50px; padding-bottom: 50px; } .why-sctn .icon-box { width: 50%; } }
+  @media (max-width: 800px) { .why-sctn .icon-box { width: 100%; } }
+  @media (max-width: 600px) { .why-sctn .icon-box .icons-why:after, .why-sctn .icon-box .icons-why:before { width: 100%; } }
+  /* ctc-sctn + form */
+  .ctc-sctn { padding-top: 100px; padding-bottom: 100px; background-color: var(--secondary); }
+  .ctc-sctn .one-col { background: #ffffffc9; padding: 30px 40px; }
+  .ctc-sctn .one-col .maintitle { margin: 0; color: var(--red); font-size: clamp(30px, 3vw, 50px); max-width: 574px; text-align: center; }
+  .ctc-sctn .one-col .wpcf7 { max-width: 659px; }
+  .ctc-sctn .one-col form.wpcf7-form { display: flex; flex-wrap: wrap; }
+  .ctc-sctn .one-col hr { width: 100%; height: 4px; background: var(--primary); margin-bottom: 29px; border: 0; }
+  .bottom-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+  .bottom-form input:not([type=submit]) { background-color: transparent; border: none; border-bottom: 2px solid var(--primary); max-width: 100%; width: 100%; min-height: 43px; min-width: 13px; }
+  .bottom-form .wpcf7-form-control-wrap { max-width: 100%; width: 100%; display: block; }
+  .bottom-form textarea { width: 100%; padding: 10px; font-family: sans-serif; height: 98px; border: none; border-bottom: 2px solid var(--primary); min-height: 98px; }
+  .ctc-sctn .bottom-form textarea { background: #3104071c; }
+  .bottom-form .col-1 label, .bottom-form .col-2 label, .bottom-form .col-3 label, .bottom-form .col-4 label { display: none; }
+  .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: calc(33% - 8px); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .bottom-form .col-4 { width: 100%; }
+  .bottom-form .col-4 .wpcf7-form-control-wrap, .bottom-form .col-5 .wpcf7-form-control-wrap { width: 100%; }
+  .bottom-form .col-5 { display: flex; justify-content: space-between; position: relative; text-align: left; width: 100%; gap: 4px; align-items: center; }
+  .bottom-form .col-5 .wpcf7-list-item.first { margin-left: 0; }
+  .bottom-form .col-5 .wpcf7-list-item-label { font-size: 14px; }
+  .bottom-form .col-5 .bst-way > label { width: 100%; display: block; }
+  .bottom-form .wpcf7-list-item { margin-left: 4px; }
+  .bottom-form .wpcf7-list-item label { display: flex; align-items: center; }
+  .bottom-form .wpcf7-radio { display: flex; gap: 8px; }
+  .bottom-form .bst-way { color: var(--red); text-transform: uppercase; font-weight: 600; display: flex; gap: 12px; align-items: center; }
+  .bottom-form input::placeholder, .ctc-sctn .bottom-form textarea::placeholder { color: #000; }
+  .bottom-form input[type=submit], .bottom-form button[type=submit] { border: 0; color: #fff; padding: 10px 20px; border-radius: 100px; width: 100%; max-width: 180px; background-color: var(--primary); font-weight: 700; text-transform: uppercase; min-width: fit-content; font-size: var(--font-size--body); cursor: pointer; }
+  @media (max-width: 600px) {
+    .bottom-form .col-5 { flex-direction: column; text-align: center; }
+    .bottom-form .wpcf7-radio { justify-content: center; }
+    .bottom-form input[type=submit], .bottom-form button[type=submit] { width: 100%; }
+    .bottom-form .col-1, .bottom-form .col-2, .bottom-form .col-3 { width: 100%; }
+    .bottom-form .bst-way { gap: 4px; flex-direction: column; align-items: center; }
+  }
+  @media (max-width: 500px) {
+    section.section.ctc-sctn { padding-top: 40px; padding-bottom: 40px; }
+    .ctc-sctn .one-col { padding: 30px 20px; }
+    .ctc-sctn .one-col .wpcf7 { max-width: 100%; }
+    .ctc-sctn .one-col .maintitle { font-size: 26px; }
+  }
+  .pr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+  .pr-form-banner { width: 100%; margin-top: 14px; font-weight: 600; font-family: var(--font-family--h4); }
+  .pr-form-banner[data-state="success"] { color: var(--primary); }
+  .pr-form-banner[data-state="error"] { color: var(--red); }
+</style>

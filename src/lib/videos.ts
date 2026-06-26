@@ -128,7 +128,12 @@ export function videoObject(
     duration: v.duration,
     embedUrl: `https://www.youtube.com/embed/${id}`,
     contentUrl: `https://www.youtube.com/watch?v=${id}`,
-    ...(pageUrl ? { mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl } } : {}),
+    // Deliberately NO `mainEntityOfPage`. Layout nests this VideoObject inside
+    // the page's primary node (WebPage / Article) as `video`, so the clip is a
+    // SUPPORTING resource, not the page's subject. Declaring it as the page's
+    // main entity made Google print the video's (real but old) uploadDate as the
+    // page's SERP date — the "Apr 1, 2015" stale-date defect on the city pages.
+    // The @id above still lets the WebPage reference this node.
     // Reference the global LocalBusiness/Organization node Layout already emits.
     publisher: { "@id": `${SITE_URL}/` },
   };
