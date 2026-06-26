@@ -3,5 +3,8 @@
 
 User-agent: *
 Allow: /
+# Noindex test / preview pages — also carry a noindex,nofollow meta and are unlinked
+# (not in nav or sitemap). Blocked from crawl so they stay off search entirely.
+Disallow: /*-business-broker-test/
 
 Sitemap: https://www.philsellsbiz.com/sitemap-index.xml
